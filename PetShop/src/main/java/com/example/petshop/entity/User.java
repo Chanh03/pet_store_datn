@@ -10,6 +10,7 @@ import org.hibernate.annotations.Nationalized;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -64,7 +65,7 @@ public class User implements UserDetails {
 
     @NotNull
     @Column(name = "DateCreated", nullable = false)
-    private Instant dateCreated;
+    private LocalDateTime  dateCreated;
 
     @OneToMany(mappedBy = "userName")
     private Set<BookingService> bookingServices = new LinkedHashSet<>();
@@ -94,4 +95,7 @@ public class User implements UserDetails {
     public String getFullName() {
         return fullName;
     }
+    
+
+    
 }

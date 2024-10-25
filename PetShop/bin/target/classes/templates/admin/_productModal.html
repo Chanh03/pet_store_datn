@@ -1,0 +1,90 @@
+<style>
+    input[type="file"] {
+        width: 85px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+</style>
+<!-- Modal -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProductLabel">Chỉnh sửa sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form name="editProductForm" novalidate>
+                    <div class="row">
+                        <!-- Cột 1 -->
+                        <input ng-model="selectedProduct.id" type="hidden">
+                        <div class="mb-3">
+                            <label for="productName">Chọn tên sản phẩm:</label>
+                            <input ng-model="selectedProduct.productName" type="text" class="form-control"
+                                   id="productName"
+                                   placeholder="Nhập tên sản phẩm" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="petCategory" class="form-label">Chọn loại sản phẩm:</label>
+                            <select class="form-select" id="petCategory"
+                                    ng-model="selectedProduct.productCategoryID.id"
+                                    placeholder="Chọn loại thú cưng..." required>
+                                <option ng-repeat="pc in productCategoryData" ng-value="pc.id">
+                                    {{pc.productCategoryName}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price">Giá:</label>
+                            <input ng-model="selectedProduct.price" type="number" class="form-control" id="price"
+                                   placeholder="Nhập giá" required>
+                        </div>
+
+                        <!-- Cột 2 -->
+                        <div class="mb-3">
+                            <label for="quantity">Số lượng:</label>
+                            <input ng-model="selectedProduct.quantity" type="text" class="form-control"
+                                   id="quantity"
+                                   placeholder="Nhập số lượng" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Trạng thái</label>
+                            <div class="form-check form-check-inline">
+                                <input ng-checked="selectedProduct.available == true"
+                                       ng-model="selectedProduct.available"
+                                       class="form-check-input" type="radio" id="conHang" value="true">
+                                <label class="form-check-label" for="conHang">Còn hàng</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input ng-checked="selectedProduct.available == false"
+                                       ng-model="selectedProduct.available"
+                                       class="form-check-input" type="radio" id="hetHang" value="false">
+                                <label class="form-check-label" for="hetHang">Hết hàng</label>
+                            </div>
+                        </div>
+                        <div class="mb-3 d-flex align-items-center">
+                            <label for="photo" class="me-2">Chọn ảnh thú cưng:</label>
+                            <input ng-model="selectedProduct.photo" type="text" class="form-control me-2" id="photo"
+                                   placeholder="Hình ảnh">
+                            <input type="file" id="fileInput" accept="image/*"
+                                   onchange="angular.element(this).scope().updatePhotoProductName(this)">
+                        </div>
+                        <div class="mb-3">
+                            <label for="proDes">Thông tin chi tiết:</label>
+                            <textarea ng-model="selectedProduct.productDescription" class="form-control"
+                                      placeholder="Thông tin chi tiết" id="proDes" required></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" ng-click="deleteProduct(selectedProduct.id)"><span>Xóa</span> <i
+                        class="fa-solid fa-trash"></i></button>
+                <button type="button" class="btn btn-primary" ng-click="updateProduct(selectedProduct.id)">
+                    <span>Lưu thay đổi</span> <i class="fa-solid fa-floppy-disk"></i>
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

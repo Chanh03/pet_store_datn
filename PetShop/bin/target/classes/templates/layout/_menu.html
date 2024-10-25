@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Anh Ngô</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/images/logo/logo.png" type="image/x-icon">
+    <style>
+        nav {
+            background-image: url("/images/background/menu-background.png");
+        }
+
+        .menu-item {
+            display: inline-block;
+            color: black;
+            text-align: center;
+            border-radius: 4px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .menu-item::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 5px;
+            border-radius: 4px;
+            background-color: #f04336;
+            transition: width 0.3s ease, left 0.3s ease;
+            transform-origin: center;
+        }
+
+        .menu-item:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .mini-cart-box {
+            position: absolute;
+            top: 90%;
+            width: 500px;
+            right: 0;
+            background: white;
+            z-index: 1000;
+            display: none;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        /*.mini-cart-box::after {*/
+        /*    content: "";*/
+        /*    position: absolute;*/
+        /*    top: -40px;*/
+        /*    right: 2%;*/
+        /*    border-width: 20px 30px;*/
+        /*    border-style: solid;*/
+        /*    border-color: transparent transparent #ff0000 transparent;*/
+        /*    filter: drop-shadow(0 0 0.75rem #ff0000);*/
+        /*}*/
+
+        .mini-cart-box .mini-cart-img {
+            width: 100%;
+            height: 200px;
+        }
+
+
+        .mini-search-box {
+            position: absolute;
+            top: 90%;
+            right: 50%;
+            transform: translateX(50%);
+            background: white;
+            z-index: 1000;
+            display: none;
+        }
+
+        .mini-user-box {
+            position: absolute;
+            top: 90%;
+            right: 0;
+            background: white;
+            display: none;
+            z-index: 1000;
+        }
+
+        .card-button:hover .mini-cart-box {
+            display: block;
+        }
+
+        .user-button:hover .mini-user-box {
+            display: block;
+        }
+
+        .search-button:hover .mini-search-box {
+            display: block;
+        }
+
+        .user-button-decor {
+            transition: 0.5s;
+            border: 2px solid black;
+        }
+
+        .user-button-decor:hover {
+            transform: translate(-5px, -5px);
+            border: 2px solid black;
+            box-shadow: 1px 1px 0px #000,
+            2px 2px 0px #000,
+            3px 3px 0px #000,
+            4px 4px 0px #000,
+            5px 5px 0px #000,
+            6px 6px 0px #000;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-light shadow p-0 bg-white">
+    <div class="container position-relative p-0">
+        <!-- BRAND -->
+        <a class="navbar-brand" href="/">
+            <img loading="lazy" alt="brand" src="/images/logo/logo-2.png" style="width: 225px;">
+        </a>
+        <!--        button toggle-->
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--        offcanvas-->
+        <div aria-labelledby="offcanvasNavbarLabel" class="offcanvas offcanvas-end w-100" data-bs-backdrop="true"
+             data-bs-scroll="true" id="offcanvasNavbar" tabindex="-1" style="background: white">
+            <!--            sidebar-header-->
+            <div class="offcanvas-header border-top font-color">
+                <button aria-label="Close" class=" btn-close shadow-0" data-bs-dismiss="offcanvas" type="button">
+                </button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav me-auto mb-lg-0 gap-3">
+                    <li class="nav-item text-center">
+                        <a class="nav-link active background-color text-white fw-bold button-image-white"
+                           aria-current="page"
+                           href="/">Trang chủ</a>
+                    </li>
+                    <li class="nav-item text-center">
+                        <a class="nav-link menu-item" href="#">Cửa hàng</a>
+                    </li>
+                    <li class="nav-item text-center">
+                        <a class="nav-link menu-item" href="#">Thú cưng</a>
+                    </li>
+                    <li class="nav-item text-center">
+                        <a class="nav-link menu-item" href="#">Dịch vụ</a>
+                    </li>
+                    <li class="nav-item text-center search-button">
+                        <button class="nav-link menu-item" data-bs-toggle="modal" data-bs-target="#searchModal">
+                            <i class="fas fa-search m-0"></i>
+                        </button>
+                        <div class="mini-search-box p-2 rounded-3 shadow">
+                            <form action="/search" method="get" class="d-flex align-items-center shadow">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                                    <i class="fa-solid fa-bars"></i>
+                                </button>
+                                <input id="keyword" type="text" class="form-control border-0" name="keyword"
+                                       placeholder="Tìm kiếm...">
+                                <button type="submit" class="rounded-2 px-3 py-2 background-color button-image-white">
+                                    <i class="fas fa-search m-0 text-white"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mb-lg-0 ms-auto gap-2">
+                    <li sec:authorize="isAnonymous()" class="nav-item text-center">
+                        <a class="nav-link menu-item" href="/login">Login</a>
+                    </li>
+                    <li sec:authorize="isAnonymous()" class="nav-item text-center">
+                        <a class="nav-link menu-item" href="/register">Register</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item text-center user-button">
+                        <a class="nav-link menu-item" href="/thong-tin-ca-nhan">
+                            <i class="fa-solid fa-user-large"></i>
+                            <span sec:authentication="principal.fullName"></span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </a>
+                        <div class="mini-user-box p-4 rounded-3 shadow">
+                            <div class="user-avatar mb-3">
+                                <img loading="lazy" src="/images/user/user-placeholder.png" alt="User Avatar"
+                                     class="img-fluid rounded-circle" width="80">
+                            </div>
+                            <div class="user-info">
+                                <h5 th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? 'Quản trị viên' : 'Khách hàng'}"
+                                    class="user-name mb-1">
+                                    Tên người dùng
+                                </h5>
+                            </div>
+                            <div class="user-actions mt-3">
+                                <a href="#" class="btn btn-primary btn-sm user-button-decor">Xem hồ sơ</a>
+                                <a sec:authorize="hasRole('ROLE_ADMIN')" href="/quan-tri-he-thong"
+                                   class="btn btn-outline-secondary btn-sm user-button-decor">Quản trị</a>
+                                <a href="javascript:void(0)" onclick="logout()"
+                                   class="btn btn-danger btn-sm user-button-decor">Đăng xuất</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item text-center card-button">
+                        <a class="nav-link button-image-white background-color rounded-2 px-4" href="/cart">
+                            <i class="fa-solid fa-cart-shopping p-0 text-white"></i>
+                        </a>
+                        <div class="mini-cart-box p-4 rounded-3 shadow">
+                            <img loading="lazy" class="mini-cart-img" src="/images/background/no-cart.png" alt="">
+                            <p class="m-0">Chưa có sản phẩm</p>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div id="cart-items">
+                                        <!-- Danh sách sản phẩm -->
+                                        <div class="cart-item d-flex align-items-center mb-3">
+                                            <img loading="lazy" src="/images/product/product-placeholder.png"
+                                                 alt="Sản phẩm"
+                                                 class="img-fluid"
+                                                 style="width: 80px; height: 80px; margin-right: 15px;">
+                                            <div class="me-auto">
+                                                <h6 class="mb-0">Party hat</h6>
+                                                <p class="mb-0">QTY: <span class="quantity">1</span></p>
+                                                <p class="mb-0" style="color: red;">$120</p>
+                                            </div>
+                                            <div class="ms-2">
+                                                <button class="btn ms-2">
+                                                    <i class="fa-solid fa-xmark color fs-3"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!-- Thêm nhiều sản phẩm ở đây -->
+                                    </div>
+
+                                    <a href="/cart" class="btn btn-primary">Xem giỏ hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<script>
+    function logout() {
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn đăng xuất?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Đăng xuất',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Đăng xuất thành công!',
+                    icon: 'success',
+                })
+                setTimeout(() => {
+                    window.location.href = '/logout';
+                }, 1000)
+            }
+        })
+    }
+</script>
+</body>
+</html>

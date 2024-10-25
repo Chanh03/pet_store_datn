@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/index.html::admin(~{::body})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+<div class="mt-4">
+    <div class="text-center mt-1 mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
+        <div class="d-flex position-absolute" style="right: 50px;top: 62px">
+            <button ng-click="clearPetFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
+        </div>
+        <table ng-table="petsTable" class="table table-responsive border rounded-3 table-hover table-sm  p-5" show-filter="true">
+            <tr ng-repeat="pet in $data" class="align-middle">
+                <!-- STT tính toán dựa trên trang hiện tại -->
+                <td data-title="'#'" class="p-2 px-3 text-center">
+                    <b>{{ (petsTable.page() - 1) * petsTable.count() + $index + 1 }}</b>
+                </td>
+                <td sortable="'petID'" filter="{ 'petID': 'text' }" data-title="'Pet Id'">{{ pet.petID }}</td>
+                <td sortable="'petCategoryID.petCategoryName'" filter="{ 'petCategoryID.petCategoryName': 'text' }"
+                    data-title="'Loài'" class="text-center">{{ pet.petCategoryID.petCategoryName }}
+                </td>
+                <td sortable="'breed'" filter="{ 'breed': 'text' }" data-title="'Giống'">{{ pet.breed }}</td>
+                <td sortable="'gender'" data-title="'Giới tính'" class="text-center">
+                    <span ng-if="pet.gender" class="badge bg-primary">Đực</span>
+                    <span ng-if="!pet.gender" class="badge bg-warning">Cái</span>
+                </td>
+                <td data-title="'Hình ảnh'" class="text-center">
+                    <img height="100px" width="100px" ng-src="/images/pet/{{ pet.photo }}" alt="{{ pet.photo }}"
+                         class="img-thumbnail pet-image">
+                </td>
+                <td sortable="'available'" data-title="'Trạng thái'" class="text-start">
+                    <div ng-if="pet.available" class="text-success">
+                        <i class="fa-solid fa-circle"></i>
+                        <span>Đã bán</span>
+                    </div>
+                    <div ng-if="!pet.available" class="text-warning">
+                        <i class="fa-solid fa-circle"></i>
+                        <span>Chưa bán</span>
+                    </div>
+                </td>
+                <td data-title="'Tool'" class="text-center">
+                    <button ng-click="petEdit(pet)" class="btn btn-primary">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </button>
+                    <button class="btn btn-danger" ng-click="deletePet(pet.petID)">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

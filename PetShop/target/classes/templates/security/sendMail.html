@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/index.html::home(~{::body})}">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Pet Shop</title>
+</head>
+
+<body>
+<div class="container-lg main-content px-3">
+    <div class="d-flex flex-column align-items-center justify-content-center mt-5 text-center" >
+        <div class="mb-3">
+            <!-- Icon centered above the message -->
+            <i class="fa-regular fa-envelope fa-3x text-danger"></i>
+        </div>
+        <div class="w-75 mb-3">
+            <!-- Activation message with centered text -->
+            <h3 id="activation-message" class="fw-bold font-resp text-danger">
+                Mã xác nhận đã gửi vào email của bạn thành công
+            </h3>
+        </div>
+        <!-- Button to open email -->
+        <div class="d-flex justify-content-center">
+            <a type="button" class="btn btn-outline-primary button-image" href="https://gmail.com/" target="_blank">
+                <i class="fa-solid fa-envelope-open-text"></i> Mở email của bạn
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

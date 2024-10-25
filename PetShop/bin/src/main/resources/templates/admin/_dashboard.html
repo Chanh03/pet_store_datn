@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/index.html::admin(~{::body})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+<div class="row mt-4">
+    <div class="col-6">
+        <div class="row">
+            <div class="card shadow bg-white border-0 p-4">
+                <div>
+                    <h4 class="fw-bold text-center">Thống kê số lượng sản phẩm theo loại</h4>
+                </div>
+                <canvas id="productChart-Bar"></canvas>
+                <code class="text-center">Hiện có {{productLabelsChart.length}} loại sản phẩm khác nhau với tổng số {{productData.length}}
+                    sản phẩm</code>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card shadow bg-white border-0 p-4">
+            <div>
+                <h4 class="fw-bold text-center">Thống kê số lượng thú cưng theo loài</h4>
+            </div>
+            <canvas id="petChart-Bar"></canvas>
+            <code class="text-center">Hiện có {{labels.length}} loài thú cưng khác nhau với tổng số {{petData.length}}
+                thú cưng</code>
+        </div>
+    </div>
+
+</div>
+</body>
+<script>
+
+</script>
+
+</html>

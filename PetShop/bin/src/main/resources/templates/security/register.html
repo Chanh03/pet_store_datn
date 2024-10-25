@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="~{/index.html::home(~{::body})}"
+>
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>REGISTER</title>
+</head>
+
+<body>
+<div class="container-lg main-content px-3">
+    <div class="d-flex align-items-center justify-content-center mt-5">
+        <div class="w-75 gap-2 d-flex justify-content-start align-items-center">
+            <h3 class="fw-bold font-resp text-danger">
+                <i class="fa-regular fa-user"></i> ĐĂNG KÝ THÀNH VIÊN
+            </h3>
+        </div>
+        <div class="line w-25"></div>
+    </div>
+    <div class="row mt-3">
+        <!--        ADVERTISE-->
+        <div class="col-lg-3"></div>
+        <!--        REGISTER FORM-->
+        <div class="col-md-12 col-lg-6">
+            <div
+                    class="card shadow border-0 sticky-element"
+                    style="top: 100px; z-index: 1"
+            >
+                <div class="card-body">
+                    <form id="register_form">
+                        <h5
+                                class="alert font-resp"
+                                th:if="${message}"
+                                th:text="${message}"
+                                th:classappend="${loginStatus == true ? 'alert-success' : 'alert-danger'}"
+                        ></h5>
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="fullname"
+                                    name="fullname"
+                                    placeholder="Ghi họ tên của bạn"
+                                    required
+                                    type="text"
+                            />
+                            <label for="username">Họ tên</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="username"
+                                    name="username"
+                                    placeholder="Tên đăng nhập"
+                                    required
+                                    type="text"
+                            />
+                            <label for="username">Tên đăng nhập</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="userPassword"
+                                    name="userPassword"
+                                    placeholder="Mật khẩu"
+                                    required
+                                    type="password"
+                            />
+                            <label for="password">Mật khẩu</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="reUserPassword"
+                                    name="reUserPassword"
+                                    placeholder="Nhập lại mật khẩu"
+                                    required
+                                    type="password"
+                            />
+                            <label for="reUserPassword">Nhập lại mật khẩu</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="email"
+                                    name="email"
+                                    placeholder="Nhập lại mật khẩu"
+                                    required
+                                    type="email"
+                            />
+                            <label for="email">Nhập email của bạn</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="phoneNumber"
+                                    name="phoneNumber"
+                                    placeholder="Nhập lại mật khẩu"
+                                    required
+                                    type="tel"
+                            />
+                            <label for="phoneNumber">Số diện thoại</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="userAddress"
+                                    name="userAddress"
+                                    placeholder="Nhập lại mật khẩu"
+                                    required
+                                    type="text"
+                            />
+                            <label for="phoneNumber">Địa chỉ của bạn</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div class="form-floating">
+                                        <select
+                                                class="form-select"
+                                                id="provinceSelect"
+                                                name="province"
+                                                required
+                                        >
+                                            <option selected disabled>Chọn tỉnh/thành phố</option>
+                                        </select>
+                                        <label for="provinceSelect">Tỉnh/Thành phố</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating">
+                                        <select
+                                                class="form-select"
+                                                id="districtSelect"
+                                                name="district"
+                                                required
+                                        >
+                                            <option selected disabled>Chọn quận/huyện</option>
+                                        </select>
+                                        <label for="districtSelect">Quận/Huyện</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating">
+                                        <select
+                                                class="form-select"
+                                                id="wardSelect"
+                                                name="ward"
+                                                required
+                                        >
+                                            <option selected disabled>Chọn phường/xã</option>
+                                        </select>
+                                        <label for="wardSelect">Phường/Xã</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 d-flex justify-content-between">
+                            <div>
+                                Đã có tài khoản
+                                <a class="font-resp" href="/login">Đăng nhập ngay!</a>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center gap-3 mt-4">
+                            <a
+                                    id="registerButton"
+                                    class="btn font-resp button-image"
+                                    onclick="dangky()"
+                                    style="background: #aaccff"
+                            >Đăng kí
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div
+            class="modal fade"
+            data-bs-backdrop="static"
+            id="countdownModal"
+            tabindex="-1"
+            aria-labelledby="modalLabel"
+            aria-hidden="true"
+    >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Thông báo</h5>
+                </div>
+                <div class="modal-body">
+                    <p id="modal-message"></p>
+                    <div
+                            class="progress"
+                            role="progressbar"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                    >
+                        <div
+                                id="progressBar"
+                                class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
+                                style="width: 0"
+                        ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Thông Báo -->
+<div
+        class="modal fade"
+        id="notificationModal"
+        tabindex="-1"
+        aria-labelledby="notificationModalLabel"
+        aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLabel">Thông Báo</h5>
+                <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body" id="modalMessage">
+                <!-- Thông báo sẽ hiển thị ở đây -->
+            </div>
+            <div class="modal-footer">
+                <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                >
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://esgoo.net/scripts/jquery.js"></script>
+<script>
+    const provincesApi =
+        "https://api.allorigins.win/get?url=https://vapi.vnappmob.com/api/province";
+    const districtsApi = (provinceCode) =>
+        `https://api.allorigins.win/get?url=https://vapi.vnappmob.com/api/province/district/${provinceCode}`;
+    const wardsApi = (districtCode) =>
+        `https://api.allorigins.win/get?url=https://vapi.vnappmob.com/api/province/ward/${districtCode}`;
+
+    const provinceSelect = document.getElementById("provinceSelect");
+    const districtSelect = document.getElementById("districtSelect");
+    const wardSelect = document.getElementById("wardSelect");
+
+    fetch(provincesApi)
+        .then((response) => response.json())
+        .then((data) => {
+            const provinces = JSON.parse(data.contents);
+            console.log("Parsed provinces data:", provinces);
+
+            // Assume provinces is an object with properties containing arrays
+            if (provinces && provinces.results) {
+                provinces.results.forEach((province) => {
+                    const option = document.createElement("option");
+                    option.value = province.province_id;
+                    option.text = province.province_name;
+                    provinceSelect.add(option);
+                    console.log(provinceSelect);
+                });
+            } else {
+                console.error("Error: Expected an array but got", typeof provinces);
+            }
+        })
+        .catch((error) => console.error("Error:", error));
+
+    // Khi chọn tỉnh, lấy danh sách quận huyện
+    provinceSelect.addEventListener("change", function () {
+        const provinceCode = this.value;
+        districtSelect.innerHTML =
+            "<option selected disabled>Chọn quận/huyện</option>"; // Reset danh sách quận
+        wardSelect.innerHTML =
+            "<option selected disabled>Chọn phường/xã</option>"; // Reset danh sách phường
+
+        fetch(districtsApi(provinceCode))
+            .then((response) => response.json())
+            .then((data) => {
+                const districts = JSON.parse(data.contents);
+                districts.results.forEach((district) => {
+                    const option = document.createElement("option");
+                    option.value = district.district_id;
+                    option.text = district.district_name;
+                    districtSelect.add(option);
+                });
+            })
+            .catch((error) => console.error("Error:", error));
+    });
+
+    // Khi chọn quận, lấy danh sách phường xã
+    districtSelect.addEventListener("change", function () {
+        const districtCode = this.value;
+        wardSelect.innerHTML =
+            "<option selected disabled>Chọn phường/xã</option>"; // Reset danh sách phường
+
+        fetch(wardsApi(districtCode))
+            .then((response) => response.json())
+            .then((data) => {
+                const wards = JSON.parse(data.contents);
+                wards.results.forEach((ward) => {
+                    const option = document.createElement("option");
+                    option.value = ward.ward_id;
+                    option.text = ward.ward_name;
+                    wardSelect.add(option);
+                });
+            })
+            .catch((error) => console.error("Error:", error));
+    });
+
+    // Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ thường, chữ hoa, số và ký tự đặc biệt
+    // Hàm hiển thị modal thông báo
+    function showModal(message, type = "danger") {
+        const modalMessage = document.getElementById("modalMessage");
+        modalMessage.innerHTML = message;
+        const modalElement = new bootstrap.Modal(
+            document.getElementById("notificationModal")
+        );
+
+        // Đổi màu nội dung thông báo theo loại (thành công hoặc lỗi)
+        if (type === "success") {
+            modalMessage.classList.remove("text-danger");
+            modalMessage.classList.add("text-success");
+        } else {
+            modalMessage.classList.remove("text-success");
+            modalMessage.classList.add("text-danger");
+        }
+
+        modalElement.show();
+    }
+
+    // Hàm validate password
+    function validatePassword(password) {
+        const passwordRegex =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+        return passwordRegex.test(password);
+    }
+
+    async function dangky() {
+        const registerButton = document.getElementById("registerButton");
+        registerButton.innerHTML =
+            '<i class="fa fa-spinner fa-spin"></i> Đang xử lý...';
+        registerButton.disabled = true; // Vô hiệu hóa nút trong khi xử lý
+
+        // Lấy dữ liệu từ form
+        const fullname = document.getElementById("fullname").value;
+        const username = document.getElementById("username").value;
+        const userPassword = document.getElementById("userPassword").value;
+        const reUserPassword = document.getElementById("reUserPassword").value;
+        const email = document.getElementById("email").value;
+        const phoneNumber = document.getElementById("phoneNumber").value;
+        const province = document
+            .querySelector("#provinceSelect option:checked")
+            .text.trim();
+        const district = document
+            .querySelector("#districtSelect option:checked")
+            .text.trim();
+        const ward = document
+            .querySelector("#wardSelect option:checked")
+            .text.trim();
+        const userAddress = document.getElementById("userAddress").value;
+        const saveAddress =
+            userAddress + ". " + ward + ". " + district + ". " + province;
+
+        // Kiểm tra dữ liệu
+        if (
+            !fullname ||
+            !username ||
+            !userPassword ||
+            !reUserPassword ||
+            !email ||
+            !phoneNumber ||
+            !userAddress ||
+            !province ||
+            !district ||
+            !ward
+        ) {
+            showModal("Vui lòng điền đầy đủ thông tin.");
+            registerButton.disabled = false;
+            registerButton.innerHTML = "Đăng kí";
+            return;
+        }
+        // Validate province, district, ward
+        if (provinceSelect.selectedIndex === 0) {
+            showModal("Vui lòng điền đầy đủ thông tin.");
+            registerButton.disabled = false;
+            registerButton.innerHTML = "Đăng kí";
+            return;
+        }
+        if (districtSelect.selectedIndex === 0) {
+            showModal("Vui lòng điền đầy đủ thông tin.");
+            registerButton.disabled = false;
+            registerButton.innerHTML = "Đăng kí";
+            return;
+        }
+        if (wardSelect.selectedIndex === 0) {
+            showModal("Vui lòng điền đầy đủ thông tin.");
+            registerButton.disabled = false;
+            registerButton.innerHTML = "Đăng kí";
+            return;
+        }
+        //Kiểm tra username phải có ít nhất 5 ký tự
+        const usernameRegex = /^(?=.*[a-zA-Z])(?!.*[^a-zA-Z0-9]).{5,}$/; // Ít nhất 5 ký tự, phải có chữ, không có ký tự đặc biệt
+        if (!usernameRegex.test(username)) {
+            showModal(
+                "Tên đăng nhập phải có ít nhất 5 ký tự, có ít nhất một chữ và không chứa ký tự đặc biệt."
+            );
+            registerButton.disabled = false;
+            registerButton.innerHTML = "Đăng kí";
+            return;
+        }
+        if (!validatePassword(userPassword)) {
+            showModal(
+                "Mật khẩu phải chứa ít nhất 8 ký tự bao gồm số, chữ thường, chữ hoa, và ký tự đặc biệt."
+            );
+            registerButton.disabled = false;
+            registerButton.innerHTML = "Đăng kí";
+            return;
+        }
+        if (userPassword !== reUserPassword) {
+            showModal("Mật khẩu và xác nhận mật khẩu phải giống nhau.");
+            registerButton.disabled = false;
+            registerButton.innerHTML = "Đăng kí";
+            return;
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showModal("Vui lòng nhập địa chỉ email hợp lệ.");
+            registerButton.innerHTML = "Đăng kí";
+            registerButton.disabled = false;
+            return;
+        }
+        //Kiểm tra độ dài số điện thoại (ít nhất 10 và không quá 11 ký tự)
+        const phoneRegex = /^\d{10,11}$/;
+        if (!phoneRegex.test(phoneNumber)) {
+            showModal("Số điện thoại phải từ 10 đến 11 chữ số.");
+            registerButton.disabled = false;
+            registerButton.innerHTML = "Đăng kí";
+            return;
+        }
+
+        // Dữ liệu hợp lệ
+        const data = {
+            fullName: fullname,
+            userName: username,
+            userPassword: userPassword,
+            userAddress: saveAddress,
+            email: email,
+            phoneNumber: phoneNumber,
+        };
+
+        fetch("api/user/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    // Nếu response không OK, ném ra lỗi
+                    return response.json().then((err) => {
+                        throw new Error(err.message);
+                    });
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log("Success:", data);
+                var countdown = 3;
+                var modalMessage = document.getElementById("modal-message");
+                var progressBar = document.getElementById("progressBar");
+                var redirectUrl = "/sendMail";
+                var myModal = new bootstrap.Modal(
+                    document.getElementById("countdownModal")
+                );
+                myModal.show();
+
+                var progressWidth = 0; // Khởi tạo chiều rộng thanh tiến trình
+                var interval = setInterval(function () {
+                    modalMessage.innerHTML =
+                        "Đăng ký thành công! Chuyển hướng sau " + countdown + " giây.";
+                    // Cập nhật thanh tiến trình
+                    progressWidth += 50;
+                    progressBar.style.width = progressWidth + "%";
+                    countdown--;
+                    if (countdown < 0) {
+                        clearInterval(interval);
+                        myModal.hide(); // Đóng modal
+                        window.location.href = redirectUrl;
+                    }
+                }, 1000);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                showModal("Đã xảy ra lỗi: " + error.message);
+            })
+            .finally(() => {
+                registerButton.innerHTML = "Đăng kí"; // Đưa lại nội dung nút về ban đầu
+                registerButton.disabled = false; // Kích hoạt lại nút
+            });
+    }
+</script>
+</body>
+</html>

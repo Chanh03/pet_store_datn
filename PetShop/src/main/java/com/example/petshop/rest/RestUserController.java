@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.Console;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -32,6 +36,8 @@ import com.example.petshop.service.AuthorityService;
 import com.example.petshop.service.RoleService;
 import com.example.petshop.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 @CrossOrigin("*")
 @RestController
@@ -43,6 +49,7 @@ public class RestUserController {
     RoleService roleService;
     @Autowired
     AuthorityService authorityService;
+
     MailerService mailerService;
 
     //Tìm danh sách người dùng thông qua dto
@@ -58,6 +65,9 @@ public class RestUserController {
             dto.setOldPassword(user.getUserPassword());
             dto.setEmail(user.getEmail());
             dto.setUserAddress(user.getUserAddress());
+            LocalDateTime localDate = user.getDateCreated().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            dto.setDateCreate(localDate.format(formatter));
 //	        dto.setEnable(user.getEnable());
 //	        dto.setDateCreated(user.getDateCreated());
 //
@@ -87,6 +97,23 @@ public class RestUserController {
         dto.setActiveToken(user.getActiveToken());
         return dto;
     }
+  //Hàm tìm người dùng thông qua active token
+    @GetMapping("/information/{username}")
+    public updateUserDTO getByUsername(@PathVariable String username) {
+        // Tìm user theo getUserPrincipal
+        User user = service.findByUsername(username);
+        LocalDateTime localDate = user.getDateCreated().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        // Chuyển đổi đối tượng User sang UserDTO
+        updateUserDTO dto = new updateUserDTO();
+        dto.setUserName(user.getUsername());
+        dto.setEmail(user.getEmail());
+        dto.setPhoneNumber(user.getPhoneNumber());
+        dto.setDateCreate(localDate.format(formatter));
+        dto.setUserAddress(user.getUserAddress());
+        dto.setOldPassword(user.getUserPassword());
+        return dto;
+    }
 
     //Đăng ký
     @PostMapping("/register")
@@ -108,7 +135,7 @@ public class RestUserController {
             String uuidString = uuid.toString();
             user.setActiveToken(uuidString);
             user.setUserPassword(encodedPassword);
-            user.setDateCreated(Instant.now());
+            user.setDateCreated(LocalDateTime.now());
 
             // Gán vai trò cho người dùng
             Role role = roleService.findById("USER");
@@ -203,6 +230,12 @@ public class RestUserController {
         }
         User user = service.findByUsername(username);
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        
+        if(!bCryptPasswordEncoder.matches(dto.getOldPassword(), user.getUserPassword())) {
+        	System.out.println(user.getUserPassword());
+        	return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("{\"success\": false, \"message\": \"Mật khẩu hiện tại của bạn không chính xác\"}");
+        }
         String passwordEncode = bCryptPasswordEncoder.encode(dto.getNewPassword());
         user.setUserPassword(passwordEncode);
         service.update(user);

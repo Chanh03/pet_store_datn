@@ -1,6 +1,7 @@
 package com.example.petshop.entity.DTO;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
@@ -21,7 +22,7 @@ public class UserDTO {
     private String userName;
     private boolean enable;
     private String activeToken;
-    private Instant dateCreated;
+    private LocalDateTime dateCreated;
     private String AuthID; // Trường này cần thiết
 
     public UserDTO(User user) {
