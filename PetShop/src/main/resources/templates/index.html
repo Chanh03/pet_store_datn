@@ -299,6 +299,7 @@
         // Giỏ hàng
         $scope.cart = {
             items: JSON.parse(localStorage.getItem('cart')) || [],
+
             add(id) {
                 const item = this.items.find(item => item.id === id);
                 if (item) {
@@ -319,6 +320,7 @@
                     });
                 }
             },
+
             remove(id) {
                 const index = this.items.findIndex(item => item.id === id);
                 if (index !== -1) {
@@ -326,14 +328,31 @@
                     this.saveToLocalStorage();
                 }
             },
+
+            // Lưu giỏ hàng vào localStorage
             saveToLocalStorage() {
-                localStorage.setItem('cart', JSON.stringify(this.items)); // Lưu giỏ hàng vào localStorage
+                localStorage.setItem('cart', JSON.stringify(this.items));
             },
+
+            // Tải lại giỏ hàng từ localStorage
             loadFromLocalStorage() {
                 const storedItems = JSON.parse(localStorage.getItem('cart'));
                 if (storedItems) {
-                    this.items = storedItems; // Tải lại giỏ hàng từ localStorage
+                    this.items = storedItems;
                 }
+            },
+
+            detailItems: JSON.parse(localStorage.getItem('cart')) || [],
+
+            updateQuantity(item) {
+                if (item.quantity < 1) {
+                    item.quantity = 1; // Đảm bảo số lượng không nhỏ hơn 1
+                }
+                this.saveToLocalStorage();
+            },
+
+            cartTotal() {
+                return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
             },
         };
         // Tải giỏ hàng từ localStorage khi khởi động ứng dụng

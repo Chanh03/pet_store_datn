@@ -137,17 +137,17 @@
                     <th class="text-body-secondary"></th>
                 </tr>
                 </thead>
-                <tbody class="table-group-divider text-body-secondary">
+                <tbody class="table-group-divider text-body-secondary" >
                 <!--ITEMS-->
-                <tr class="text-center align-middle">
-                    <td>1</td>
+                <tr class="text-center align-middle" ng-repeat="detailItem in cart.detailItems track by detailItem.id" >
+                    <td>{{$index + 1}}</td>
                     <td>
-                        <img src="/images/pet/pet-placeholder.png" alt="product" style="width: 100px;">
+                        <img ng-src="/images/product/{{detailItem.photo}}" alt="product" style="width: 100px;">
                     </td>
                     <td class="fw-bold">
-                        Áo khoác thú
+                        {{detailItem.productName}}
                     </td>
-                    <td>100.000đ</td>
+                    <td>{{detailItem.price}}</td>
                     <td>
                         <div class="input-group d-flex justify-content-center">
                             <span class="input-group-text p-0 rounded-0">
@@ -157,17 +157,17 @@
                             </span>
                             <input type="number" class="form-control text-center"
                                    aria-label="Amount (to the nearest dollar)"
-                                   value="1" style="width: 20px;">
+                                   ng-model="detailItem.quantity" ng-change="cart.updateQuantity(detailItem.quantity)" min="1" style="width: 60px;">
                             <span class="input-group-text p-0 rounded-0">
-                                <button class="btn d-flex justify-content-center">
+                                <button class="btn d-flex justify-content-center" >
                                     <i class="text-body-secondary fa-solid fa-plus"></i>
                                 </button>
                             </span>
                         </div>
                     </td>
-                    <td>100.000đ</td>
+                    <td>{{detailItem.price * detailItem.quantity}}</td>
                     <td>
-                        <button class="btn">
+                        <button class="btn" ng-click="cart.remove(detailItem.id)">
                             <i class="fs-2 text-danger fa-solid fa-xmark"></i>
                         </button>
                     </td>
@@ -175,7 +175,7 @@
                 </tbody>
             </table>
             <div class="text-center">
-                <p class="text-body-tertiary fst-italic">Bạn đang có 4 sản phẩm trong giỏ hàng</p>
+                <p class="text-body-tertiary fst-italic">Bạn đang có {{cart.items.length}} sản phẩm trong giỏ hàng</p>
             </div>
             <div class="d-flex justify-content-center gap-3">
                 <button class="btn button-decor background-color py-2 text-white rounded-5" style="width: 200px;">
@@ -204,7 +204,7 @@
                 </div>
             </div>
             <div class="">
-                <h4 class="mb-4">Giá tiền gốc: <span class="float-end">400.000đ</span></h4>
+                <h4 class="mb-4">Giá tiền gốc:  <span class="float-end">{{cart.cartTotal()}}</span></h4>
                 <h4 class="mb-4">Phí vận chuyển: <span class="float-end">30.000đ</span></h4>
                 <h4 class="mb-4">Tiết kiệm được: <span class="float-end text-danger fst-italic">-15.000đ</span></h4>
             </div>
