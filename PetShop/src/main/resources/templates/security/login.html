@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org"> 
 <head>
-    <meta name="google-signin-client_id" content="522493457603-gj4oasdonv877qm4gpqpp4l9509nbhbm.apps.googleusercontent.com">
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>LOGIN</title>
@@ -43,7 +42,11 @@
                         <div class="d-flex justify-content-center gap-3 mt-4">
                             <button class="btn font-resp" type="submit">Đăng nhập</button>
                             <a class="btn font-resp" href="/register" style="background: #AACCFF">Đăng kí</a>
-                            <div class="g-signin2" data-onsuccess="onSignIn">button</div>
+                            <div id="g_id_onload"
+     data-client_id="522493457603-gj4oasdonv877qm4gpqpp4l9509nbhbm.apps.googleusercontent.com"
+     data-callback="handleCredentialResponse">
+</div>
+<div class="g_id_signin" data-type="standard"></div>
                         </div>
                     </form>
                 </div>
@@ -66,20 +69,15 @@
         </div>
     </div>
 </div>
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<script>
-    function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        console.log('ID: ' + profile.getId());
-        console.log('Name: ' + profile.getName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail());
-
-        // Gửi token đến backend nếu cần
-        // var id_token = googleUser.getAuthResponse().id_token;
-        // Thực hiện AJAX để gửi token về backend
-    }
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>function handleCredentialResponse(response) {
+    console.log("Received response:", response);
+    const idToken = response.credential;
+    console.log("ID Token:", idToken);
+    // Process the ID token as needed
+}
 </script>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
