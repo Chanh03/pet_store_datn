@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Anh Ngô</title>
+    <title>PetShop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/images/logo/logo.png" type="image/x-icon">
     <!--    BOOTSTRAP5-->
@@ -191,7 +191,7 @@
         }
     </style>
 </head>
-<body>
+<body ng-app="myApp" ng-controller="myCtrl">
 <header id="menu" class="sticky-top" th:insert="~{/layout/_menu}"></header>
 <main class="container py-3 bg-white rounded-3 border border-2 border-dark" th:insert="${view}"></main>
 <footer th:insert="~{/layout/_footer}" class="bg-white py-4 container "></footer>
@@ -290,5 +290,79 @@
         crossFade: true,
     });
 </script>
+
+<!--    Angular add to cart-->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script>
+    const app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        // Giỏ hàng
+        $scope.cart = {
+            items: JSON.parse(localStorage.getItem('cart')) || [],
+
+            add(id) {
+                const item = this.items.find(item => item.id === id);
+                if (item) {
+                    item.quantity++;
+                    if (item.quantity > 10) {
+                        item.quantity = 10;
+                        alert(`Số lượng sản phẩm: ${item.name} đã đạt giới hạn`);
+                    }
+                    this.saveToLocalStorage(); // Lưu lại giỏ hàng sau khi thay đổi
+                } else {
+                    $http.get(`/api/product/${id}`).then(response => {
+                        response.data.quantity = 1; // Khởi tạo số lượng
+                        this.items.push(response.data); // Thêm sản phẩm mới vào giỏ hàng
+                        this.saveToLocalStorage(); // Lưu lại giỏ hàng sau khi thêm sản phẩm
+                        console.log("them thanh cong",response)
+                    }).catch(error => {
+                        console.error("Lỗi khi lấy sản phẩm:", error);
+                    });
+                }
+            },
+
+            remove(id) {
+                const index = this.items.findIndex(item => item.id === id);
+                if (index !== -1) {
+                    this.items.splice(index, 1);
+                    this.saveToLocalStorage();
+                }
+            },
+
+            // Lưu giỏ hàng vào localStorage
+            saveToLocalStorage() {
+                localStorage.setItem('cart', JSON.stringify(this.items));
+            },
+
+            // Tải lại giỏ hàng từ localStorage
+            loadFromLocalStorage() {
+                const storedItems = JSON.parse(localStorage.getItem('cart'));
+                if (storedItems) {
+                    this.items = storedItems;
+                }
+            },
+
+            detailItems: JSON.parse(localStorage.getItem('cart')) || [],
+
+            updateQuantity(item) {
+                if (item.quantity < 1) {
+                    item.quantity = 1; // Đảm bảo số lượng không nhỏ hơn 1
+                }
+                this.saveToLocalStorage();
+            },
+
+            cartTotal() {
+                return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+            },
+        };
+        // Tải giỏ hàng từ localStorage khi khởi động ứng dụng
+        $scope.cart.loadFromLocalStorage();
+
+
+    });
+
+
+</script>
+
 
 </html>
