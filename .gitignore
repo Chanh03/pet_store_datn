@@ -1,6 +1,7 @@
 /.metadata/
 /.idea/
 .classpath
+.factorypath
 .project
 .settings/
 PetShop/bin/
