@@ -1,4 +1,4 @@
-package com.example.petshop.rest;
+package com.example.petshop.controller;
 
 import com.example.petshop.entity.Product;
 import com.example.petshop.service.ProductService;

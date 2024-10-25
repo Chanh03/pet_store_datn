@@ -36,12 +36,12 @@
 <<<<<<< HEAD
 <div class="container my-5">
     <!-- Pet details -->
-    <div class="row mb-5" th:each="p : ${detailProducts}">
+    <div class="row mb-5">
         <div class="col-md-6">
-            <img th:src="@{/images/product/{photo}(photo=${p.photo})}" class="img-fluid" alt="Thú cưng ABC">
+            <img th:src="@{/images/product/{photo}(photo=${product.photo})}" class="img-fluid" alt="Thú cưng ABC">
         </div>
         <div class="col-md-6">
-            <h1 th:text="${p.productName}">TÊN Sản </h1>
+            <h1 th:text="${product.productName}">TÊN Sản </h1>
             <p class="fs-4">Giá: <span class="text-danger">400.000đ</span></p>
             <label for="quantity" class="form-label">Số lượng</label>
             <div class="input-group">

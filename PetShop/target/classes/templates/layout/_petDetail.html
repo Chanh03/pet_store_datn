@@ -29,7 +29,7 @@
 <body>
 <div class="container my-5" >
     <!-- Pet details -->
-    <div class="row mb-5" th:each="pet : ${petDetail}"  >
+    <div class="row mb-5">
         <div class="col-md-6">
             <img th:src="@{/images/pet/{photo}(photo=${pet.photo})}" class="img-fluid" style="object-fit: cover; width: 100%;height: 400px" alt="Thú cưng ABC">
         </div>

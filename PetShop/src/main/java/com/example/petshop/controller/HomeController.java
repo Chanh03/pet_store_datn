@@ -6,15 +6,9 @@ import com.example.petshop.entity.User;
 import com.example.petshop.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -48,7 +42,7 @@ public class HomeController {
         }
     }
 
-    @RequestMapping({ "/", "/trang-chu", "/home" })
+    @RequestMapping({ "/", "/trang-chu", "/home"})
     public String home(Model model) {
         List<Product> productsList = productService.getAll();
         Product latestProduct = productsList.stream().max(Comparator.comparingInt(Product::getId))
@@ -58,6 +52,7 @@ public class HomeController {
         Pet latestPet = petList.stream().max(Comparator.comparing(Pet::getPetID))
                 .orElseThrow(() -> new NoSuchElementException("No pet found"));
         Collection<Pet> nextSixPet = petList.stream().skip(1).limit(6).toList();
+
         model.addAttribute("firstProduct", latestProduct);
         model.addAttribute("nextSixProducts", nextSixProducts);
         model.addAttribute("firstPet", latestPet);
@@ -65,21 +60,6 @@ public class HomeController {
         model.addAttribute("productCategories", productCategoryService.getAll());
         model.addAttribute("slides", slideBarService.getAll());
         return "/layout/_main";
-    }
-
-    @RequestMapping("/cart-detail")
-    public String cart(Model model) {
-        return "/layout/_cartDetail";
-    }
-
-    @RequestMapping("/pet")
-    public String pet(Model model) {
-        return "/layout/_petDetail";
-    }
-
-    @RequestMapping("/product")
-    public String product(Model model) {
-        return "/layout/_productDetail";
     }
 
     @RequestMapping("/login")
@@ -100,7 +80,6 @@ public class HomeController {
     public String register() {
         return "security/register";
     }
-
 
     @RequestMapping("/confirmation")
     public String confirmation(@RequestParam("confirmation_token") String confirmation_token) {
@@ -125,10 +104,14 @@ public class HomeController {
         return "security/new-password";
     }
 
-
     @RequestMapping("/access-denied")
     public String accessDenied(Model model) {
         return "security/access-denied";
+    }
+
+    @RequestMapping("/cart-detail")
+    public String cart(Model model) {
+        return "/layout/_cartDetail";
     }
 
 }

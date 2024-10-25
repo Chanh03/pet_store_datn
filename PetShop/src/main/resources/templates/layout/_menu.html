@@ -200,37 +200,38 @@
                             </div>
                         </div>
                     </li>
+<!--                cart-->
                     <li class="nav-item text-center card-button">
                         <a class="nav-link button-image-white background-color rounded-2 px-4" href="/cart">
                             <i class="fa-solid fa-cart-shopping p-0 text-white"></i>
                         </a>
                         <div class="mini-cart-box p-4 rounded-3 shadow">
-                            <img loading="lazy" class="mini-cart-img" src="/images/background/no-cart.png" alt="">
-                            <p class="m-0">Chưa có sản phẩm</p>
+                            <div ng-if="!cart.items.length">
+                                <img loading="lazy" class="mini-cart-img" src="/images/background/no-cart.png" alt="">
+                                <p class="m-0">Chưa có sản phẩm</p>
+                            </div>
                             <div class="card">
                                 <div class="card-body">
                                     <div id="cart-items">
                                         <!-- Danh sách sản phẩm -->
-                                        <div class="cart-item d-flex align-items-center mb-3">
-                                            <img loading="lazy" src="/images/product/product-placeholder.png"
+                                        <div class="cart-item d-flex align-items-center mb-3" ng-repeat="item in cart.items">
+                                            <img loading="lazy" ng:src="/images/product/{{item.photo}}"
                                                  alt="Sản phẩm"
                                                  class="img-fluid"
                                                  style="width: 80px; height: 80px; margin-right: 15px;">
                                             <div class="me-auto">
-                                                <h6 class="mb-0">Party hat</h6>
-                                                <p class="mb-0">QTY: <span class="quantity">1</span></p>
-                                                <p class="mb-0" style="color: red;">$120</p>
+                                                <h6 class="mb-0">{{item.productName}}</h6>
+                                                <p class="mb-0">Số lượng: <span class="quantity">{{item.quantity}}</span></p>
+                                                <p class="mb-0" style="color: red;">${{item.price}}</p>
                                             </div>
                                             <div class="ms-2">
-                                                <button class="btn ms-2">
-                                                    <i class="fa-solid fa-xmark color fs-3"></i>
+                                                <button class="btn ms-2" ng-click="cart.remove(item.id)">
+                                                    <i class="fa-solid fa-xmark color fs-3" ></i>
                                                 </button>
                                             </div>
                                         </div>
-                                        <!-- Thêm nhiều sản phẩm ở đây -->
                                     </div>
-
-                                    <a href="/cart" class="btn btn-primary">Xem giỏ hàng</a>
+                                    <a href="/cart-detail" class="btn btn-primary" ng-if="cart.items.length" >Xem giỏ hàng</a>
                                 </div>
                             </div>
                         </div>
