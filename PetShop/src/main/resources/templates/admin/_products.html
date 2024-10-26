@@ -8,7 +8,11 @@
 <body>
 <div class="mt-4">
     <div class="text-center mt-1 mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
-        <div class="d-flex position-absolute" style="right: 85px;top: 62px">
+        <div class="d-flex position-absolute gap-4" style="right: 75px;top: 62px">
+            <button ng-click="productAddModal()" class="insert-btn btn p-2">
+                <i class="fa-solid fa-plus"></i>
+                <span>Thêm mới</span>
+            </button>
             <button ng-click="clearProductFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
         </div>
         <table ng-table="productsTable" class="table table-responsive border rounded-3 table-hover table-sm  p-5"
@@ -18,7 +22,7 @@
                 <td data-title="'#'" class="p-2 px-3 text-center">
                     <b>{{ (productsTable.page() - 1) * productsTable.count() + $index + 1 }}</b>
                 </td>
-<!--                <td sortable="'id'" data-title="'productID'">{{ product.id }}</td>-->
+                <!--                <td sortable="'id'" data-title="'productID'">{{ product.id }}</td>-->
                 <td sortable="'productName'" filter="{ 'productName': 'text' }"
                     data-title="'Sản phẩm'" class="text-center">{{ product.productName }}
                 </td>
@@ -44,7 +48,7 @@
                     <button ng-click="productEdit(product)" class="btn btn-primary">
                         <i class="fa-regular fa-pen-to-square"></i>
                     </button>
-                    <button class="btn btn-danger" ng-click="deleteProduct(pro.id)">
+                    <button class="btn btn-danger" ng-click="deleteProduct(product.id)">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </td>

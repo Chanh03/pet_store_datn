@@ -20,12 +20,14 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
 
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
         }
+
         .sidebar {
             min-height: 100vh;
             width: 300px;
@@ -58,6 +60,16 @@
             color: white !important;
         }
 
+        .insert-btn {
+            background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
+            color: white;
+            border: none;
+        }
+
+        .insert-btn:hover {
+            background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
+            color: white;
+        }
 
         /*NG TABLE*/
         .ng-table-pager {
@@ -151,7 +163,9 @@
 <body ng-controller="myCtrl" ng-cloak>
 <!-- Modal -->
 <div th:insert="~{/admin/_petModal}"></div>
+<div th:insert="~{/admin/_petAddModal}"></div>
 <div th:insert="~{/admin/_productModal}"></div>
+<div th:insert="~{/admin/_productAddModal}"></div>
 <!-- MAIN CONTENT -->
 <main class="container-fluid p-0 d-flex">
     <div id="bdSidebar"
@@ -218,7 +232,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type="text/javascript">
-    var colors = ['#007bff', '#28a745', '#333333', '#c3e6cb', '#dc3545', '#6c757d'];
+    var colors = ['#4CAF50', '#2196F3', '#FF9800', '#9C27B0', '#FF5722', '#3F51B5', '#00BCD4', '#8BC34A', '#FFC107', '#673AB7'];
     /* Bôi màu cho menu hiện tại thoôi nhìn gì?*/
     const currentUrl = window.location.pathname;
     const links = document.querySelectorAll('.nav-link');
@@ -230,224 +244,300 @@
     /* Đây mới là phần chính của AngularJS nè =))*/
     var app = angular.module('myApp', ['ngRoute', 'ngTable']);
     app.controller('myCtrl', function ($scope, $http, NgTableParams) {
-        $scope.selectedPet = {};
-        $scope.petData = [];
-        $scope.petCategoryData = [];
-        $scope.productData = [];
-        var baseUrl = 'http://localhost:8080/api/';
-        /*PET*/
-        $scope.getPets = function () {
-            $http.get(baseUrl + 'pet').then(function (response) {
-                $scope.petData = response.data;
-
-                // PET TABLE
-                $scope.petsTable = new NgTableParams({
-                    page: 1,
-                    count: 5
-                }, {
-                    counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.petData.length],
-                    dataset: $scope.petData
-                });
-                // PET CHART
-                const petCounts = $scope.petData.reduce((petTemp, currentPet) => {
-                    const categoryName = currentPet.petCategoryID.petCategoryName;
-                    petTemp[categoryName] = (petTemp[categoryName] || 0) + 1;
-                    return petTemp;
-                }, {});
-                $scope.petLabelsChart = Object.keys(petCounts);
-                $scope.petDataChart = Object.values(petCounts);
-                // Tạo biểu đồ
-                new Chart(document.getElementById('petChart-Bar').getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                        labels: $scope.petLabelsChart,
-                        datasets: [{
-                            label: 'Số lượng từng loài',
-                            data: $scope.petDataChart,
-                            backgroundColor: colors.slice(0, $scope.petLabelsChart.length),
-                            borderColor: colors.slice(0, $scope.petLabelsChart.length),
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            legend: {
-                                display: true,
-                                labels: {
-                                    generateLabels: function (chart) {
-                                        return chart.data.labels.map((label, index) => {
-                                            return {
-                                                text: label,
-                                                fillStyle: colors[index],
-                                                strokeStyle: colors[index],
-                                                lineWidth: 1,
-                                                index: index
-                                            };
-                                        });
+            $scope.selectedPet = {};
+            $scope.petData = [];
+            $scope.petCategoryData = [];
+            $scope.productData = [];
+            var baseUrl = 'http://localhost:8080/api/';
+            /*PET*/
+            $scope.getPets = function () {
+                $http.get(baseUrl + 'pet').then(function (response) {
+                    $scope.petData = response.data;
+                    // PET TABLE
+                    $scope.petsTable = new NgTableParams({
+                        page: 1,
+                        count: 5
+                    }, {
+                        counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.petData.length],
+                        dataset: $scope.petData
+                    });
+                    const petCounts = $scope.petData.reduce((petTemp, currentPet) => {
+                        const categoryName = currentPet.petCategoryID.petCategoryName;
+                        petTemp[categoryName] = (petTemp[categoryName] || 0) + 1;
+                        return petTemp;
+                    }, {});
+                    $scope.petLabelsChart = Object.keys(petCounts);
+                    $scope.petDataChart = Object.values(petCounts);
+                    // Tạo biểu đồ
+                    new Chart(document.getElementById('petChart-Bar').getContext('2d'), {
+                        type: 'bar',
+                        data: {
+                            labels: $scope.petLabelsChart,
+                            datasets: [{
+                                label: 'Số lượng từng loài',
+                                data: $scope.petDataChart,
+                                backgroundColor: colors.slice(0, $scope.petLabelsChart.length),
+                                borderColor: colors.slice(0, $scope.petLabelsChart.length),
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    labels: {
+                                        generateLabels: function (chart) {
+                                            return chart.data.labels.map((label, index) => {
+                                                return {
+                                                    text: label,
+                                                    fillStyle: colors[index],
+                                                    strokeStyle: colors[index],
+                                                    lineWidth: 1,
+                                                    index: index
+                                                };
+                                            });
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                });
-
-            }).catch(function (error) {
-                console.error('Lỗi khi lấy dữ liệu thú cưng:', error);
-            });
-        };
-        $scope.getPets();
-        $scope.petEdit = function (pet) {
-            $scope.selectedPet = angular.copy(pet);
-            var editPetModal = new bootstrap.Modal(document.getElementById('editPetModal'), {
-                keyboard: true
-            });
-            editPetModal.show();
-        };
-        $scope.updatePet = function (petId) {
-            if (petId == null) {
-                new Notify({
-                    title: 'Thông báo',
-                    text: 'Vui lòng nhập đầy đủ thông tin :',
-                    autoclose: true,
-                    status: 'error',
-                    autotimeout: 3000
-                });
-            } else {
-                $http.put(baseUrl + 'pet/' + petId, $scope.selectedPet).then(function (response) {
-                    new Notify({
-                        title: 'Thông báo',
-                        text: 'Cập nhật thành công :' + petId,
-                        autoclose: true,
-                        status: 'success',
-                        autotimeout: 3000
                     });
-                    $scope.getPets();
                 }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu thú cưng:', error);
+                });
+            };
+            $scope.getPets();
+            $scope.petEdit = function (pet) {
+                $scope.selectedPet = angular.copy(pet);
+                var editPetModal = new bootstrap.Modal(document.getElementById('editPetModal'), {
+                    keyboard: true
+                });
+                editPetModal.show();
+            };
+            $scope.addPetModal = function () {
+                $scope.selectedPet = {
+                    petID: null,
+                    breed: null,
+                    age: null,
+                    hair: null,
+                    famous: null,
+                    petDescription: null,
+                    gender: true,
+                    available: false,
+                    photo: 'pet-placeholder.png',
+                    enable: true,
+                    petCategoryID: {
+                        id: 1
+                    }
+                };
+                var addPetModal = new bootstrap.Modal(document.getElementById('addPetModal'), {
+                    keyboard: true
+                });
+                addPetModal.show();
+            };
+            $scope.addPet = function (petID) {
+                if ($scope.selectedPet.petID == null) {
                     new Notify({
                         title: 'Thông báo',
-                        text: 'Lỗi khi cập nhật :' + petId,
+                        text: 'Vui lòng nhập đầy đủ thông tin :',
                         autoclose: true,
-                        status: 'warning',
+                        status: 'error',
                         autotimeout: 3000
                     });
-                });
-            }
-        };
-        $scope.deletePet = function (petId) {
-            Swal.fire({
-                title: 'Bạn có chắc chắn muôn xóa?' + petId,
-                text: "Bạn sẽ không thể khôi phục hành động này!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Xác nhận!',
-                cancelButtonText: 'Hủy bỏ'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $http.delete(baseUrl + 'pet/' + petId).then(function (response) {
-                        Swal.fire({
-                            title: 'Đã xóa!',
-                            text: 'Pet có ID: ' + petId + ' đã được xóa thành công.',
-                            icon: 'success',
-                            timer: 3000,
-                            showConfirmButton: false
-                        });
-                        $scope.getPets();
+                } else {
+                    $http.get(baseUrl + 'pet/' + petID).then(function (response) {
+                        if (response.data) { // Kiểm tra nếu có dữ liệu trả về
+                            new Notify({
+                                title: 'Thông báo',
+                                text: 'ID pet đã tồn tại!',
+                                autoclose: true,
+                                status: 'error',
+                                autotimeout: 3000
+                            });
+                        } else {
+                            $http.post(baseUrl + 'pet', $scope.selectedPet).then(function (response) {
+                                new Notify({
+                                    title: 'Thông báo',
+                                    text: 'Thêm mới thành công :' + petID,
+                                    autoclose: true,
+                                    status: 'success',
+                                    autotimeout: 3000
+                                });
+                                $scope.getPets();
+                            }).catch(function (error) {
+                                new Notify({
+                                    title: 'Thông báo',
+                                    text: 'Lỗi khi thêm mới :' + petID,
+                                    autoclose: true,
+                                    status: 'warning',
+                                    autotimeout: 3000
+                                });
+                            });
+                        }
                     }).catch(function (error) {
-                        Swal.fire({
-                            title: 'Lỗi!',
-                            text: 'Lỗi khi xóa pet có ID: ' + petId,
-                            icon: 'error',
-                            timer: 3000,
-                            showConfirmButton: false
+                        // Xử lý lỗi nếu có
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Có lỗi xảy ra khi kiểm tra ID pet.',
+                            autoclose: true,
+                            status: 'error',
+                            autotimeout: 3000
                         });
                     });
                 }
-            });
-        };
-        $scope.clearPetFilter = function () {
-            $scope.petsTable.filter({});
-            $scope.petsTable.sorting({});
-        };
-        /*PRODUCT*/
-        $scope.getProducts = function () {
-            $http.get(baseUrl + 'product').then(function (response) {
-                $scope.productData = response.data;
-                // PRODUCT TABLE
-                $scope.productsTable = new NgTableParams({
-                    page: 1,
-                    count: 5
-                }, {
-                    counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.productData.length],
-                    dataset: $scope.productData
+            };
+            $scope.updatePet = function (petId) {
+                if (petId == null) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Vui lòng nhập đầy đủ thông tin :',
+                        autoclose: true,
+                        status: 'error',
+                        autotimeout: 3000
+                    });
+                } else {
+                    $http.put(baseUrl + 'pet/' + petId, $scope.selectedPet).then(function (response) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Cập nhật thành công :' + petId,
+                            autoclose: true,
+                            status: 'success',
+                            autotimeout: 3000
+                        });
+                        $scope.getPets();
+                    }).catch(function (error) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Lỗi khi cập nhật :' + petId,
+                            autoclose: true,
+                            status: 'warning',
+                            autotimeout: 3000
+                        });
+                    });
+                }
+            };
+            $scope.deletePet = function (petId) {
+                Swal.fire({
+                    title: 'Bạn có chắc chắn muôn xóa?' + petId,
+                    text: "Bạn sẽ không thể khôi phục hành động này!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Xác nhận!',
+                    cancelButtonText: 'Hủy bỏ'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $http.delete(baseUrl + 'pet/' + petId).then(function (response) {
+                            Swal.fire({
+                                title: 'Đã xóa!',
+                                text: 'Pet có ID: ' + petId + ' đã được xóa thành công.',
+                                icon: 'success',
+                                timer: 3000,
+                                showConfirmButton: false
+                            });
+                            $scope.getPets();
+                        }).catch(function (error) {
+                            Swal.fire({
+                                title: 'Lỗi!',
+                                text: 'Lỗi khi xóa pet có ID: ' + petId,
+                                icon: 'error',
+                                timer: 3000,
+                                showConfirmButton: false
+                            });
+                        });
+                    }
                 });
-                // PRODUCT CHART
-                const productCounts = $scope.productData.reduce((productTemp, currentProduct) => {
-                    const categoryName = currentProduct.productCategoryID.productCategoryName;
-                    productTemp[categoryName] = (productTemp[categoryName] || 0) + 1;
-                    return productTemp;
-                }, {});
-                $scope.productLabelsChart = Object.keys(productCounts);
-                $scope.productDataChart = Object.values(productCounts);
-                // Tạo biểu đồ
-                new Chart(document.getElementById('productChart-Bar').getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                        labels: $scope.productLabelsChart,
-                        datasets: [{
-                            label: 'Số lượng từng sản phẩm',
-                            data: $scope.productDataChart,
-                            backgroundColor: colors.slice(0, $scope.productLabelsChart.length),
-                            borderColor: colors.slice(0, $scope.productLabelsChart.length),
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            legend: {
-                                display: true,
-                                labels: {
-                                    generateLabels: function (chart) {
-                                        return chart.data.labels.map((label, index) => {
-                                            return {
-                                                text: label,
-                                                fillStyle: colors[index],
-                                                strokeStyle: colors[index],
-                                                lineWidth: 1,
-                                                index: index
-                                            };
-                                        });
+            };
+            $scope.clearPetFilter = function () {
+                $scope.petsTable.filter({});
+                $scope.petsTable.sorting({});
+            };
+            /*PRODUCT*/
+            $scope.getProducts = function () {
+                $http.get(baseUrl + 'product').then(function (response) {
+                    $scope.productData = response.data;
+                    // PRODUCT TABLE
+                    $scope.productsTable = new NgTableParams({
+                        page: 1,
+                        count: 5
+                    }, {
+                        counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.productData.length],
+                        dataset: $scope.productData
+                    });
+                    // PRODUCT CHART
+                    const productCounts = $scope.productData.reduce((productTemp, currentProduct) => {
+                        const categoryName = currentProduct.productCategoryID.productCategoryName;
+                        productTemp[categoryName] = (productTemp[categoryName] || 0) + 1;
+                        return productTemp;
+                    }, {});
+                    $scope.productLabelsChart = Object.keys(productCounts);
+                    $scope.productDataChart = Object.values(productCounts);
+                    // Tạo biểu đồ
+                    new Chart(document.getElementById('productChart-Bar').getContext('2d'), {
+                        type: 'bar',
+                        data: {
+                            labels: $scope.productLabelsChart,
+                            datasets: [{
+                                label: 'Số lượng từng sản phẩm',
+                                data: $scope.productDataChart,
+                                backgroundColor: colors.slice(0, $scope.productLabelsChart.length),
+                                borderColor: colors.slice(0, $scope.productLabelsChart.length),
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    labels: {
+                                        generateLabels: function (chart) {
+                                            return chart.data.labels.map((label, index) => {
+                                                return {
+                                                    text: label,
+                                                    fillStyle: colors[index],
+                                                    strokeStyle: colors[index],
+                                                    lineWidth: 1,
+                                                    index: index
+                                                };
+                                            });
+                                        }
                                     }
                                 }
                             }
                         }
+                    });
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
+                });
+            };
+            $scope.getProducts();
+            $scope.productEdit = function (product) {
+                $scope.selectedProduct = angular.copy(product);
+                var editProductModal = new bootstrap.Modal(document.getElementById('editProductModal'), {
+                    keyboard: true
+                });
+                editProductModal.show();
+            };
+            $scope.productAddModal = function () {
+                $scope.selectedProduct = {
+                    productName: null,
+                    price: null,
+                    quantity: null,
+                    available: true,
+                    photo: 'product-placeholder.png',
+                    productCategoryID: {
+                        id: 1
                     }
+                };
+                var show = new bootstrap.Modal(document.getElementById('modalAddProduct'), {
+                    keyboard: true
                 });
-            }).catch(function (error) {
-                console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
-            });
-        };
-        $scope.getProducts();
-        $scope.productEdit = function (product) {
-            $scope.selectedProduct = angular.copy(product);
-            var editProductModal = new bootstrap.Modal(document.getElementById('editProductModal'), {
-                keyboard: true
-            });
-            editProductModal.show();
-        };
-        $scope.updateProduct = function (productId) {
-            if (productId == null) {
-                new Notify({
-                    title: 'Thông báo',
-                    text: 'Vui lòng nhập đầy đủ thông tin :',
-                    autoclose: true,
-                    status: 'error',
-                    autotimeout: 3000
-                });
-            } else {
-                $http.put(baseUrl + 'product/' + productId, $scope.selectedProduct).then(function (response) {
+                show.show();
+            };
+            $scope.addProduct = function () {
+                $http.post(baseUrl + 'product', $scope.selectedProduct).then(function (response) {
                     new Notify({
                         title: 'Thông báo',
-                        text: 'Cập nhật thành công :' + productId,
+                        text: 'Thêm mới thành công :',
                         autoclose: true,
                         status: 'success',
                         autotimeout: 3000
@@ -456,94 +546,125 @@
                 }).catch(function (error) {
                     new Notify({
                         title: 'Thông báo',
-                        text: 'Lỗi khi cập nhật :' + productId,
+                        text: 'Lỗi khi thêm mới :',
                         autoclose: true,
                         status: 'warning',
                         autotimeout: 3000
                     });
                 });
-            }
-        };
-        $scope.deletePet = function (petId) {
-            Swal.fire({
-                title: 'Bạn có chắc chắn muôn xóa?' + petId,
-                text: "Bạn sẽ không thể khôi phục hành động này!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Xác nhận!',
-                cancelButtonText: 'Hủy bỏ'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $http.delete(baseUrl + 'pet/' + petId).then(function (response) {
-                        Swal.fire({
-                            title: 'Đã xóa!',
-                            text: 'Pet có ID: ' + petId + ' đã được xóa thành công.',
-                            icon: 'success',
-                            timer: 3000,
-                            showConfirmButton: false
+            };
+            $scope.updateProduct = function (productId) {
+                if (productId == null) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Vui lòng nhập đầy đủ thông tin :',
+                        autoclose: true,
+                        status: 'error',
+                        autotimeout: 3000
+                    });
+                } else {
+                    $http.put(baseUrl + 'product/' + productId, $scope.selectedProduct).then(function (response) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Cập nhật thành công :' + productId,
+                            autoclose: true,
+                            status: 'success',
+                            autotimeout: 3000
                         });
-                        $scope.getPets();
+                        $scope.getProducts();
                     }).catch(function (error) {
-                        Swal.fire({
-                            title: 'Lỗi!',
-                            text: 'Lỗi khi xóa pet có ID: ' + petId,
-                            icon: 'error',
-                            timer: 3000,
-                            showConfirmButton: false
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Lỗi khi cập nhật :' + productId,
+                            autoclose: true,
+                            status: 'warning',
+                            autotimeout: 3000
                         });
                     });
                 }
-            });
-        };
-        $scope.clearProductFilter = function () {
-            $scope.productsTable.filter({});
-            $scope.productsTable.sorting({});
-        };
-        /*PET CATEGORY*/
-        $scope.getPetCategories = function () {
-            $http.get(baseUrl + 'pet-category').then(function (response) {
-                $scope.petCategoryData = response.data;
-            }).catch(function (error) {
-                console.error('Lỗi khi lấy dữ liệu loại thú cưng:', error);
-            });
-        };
-        $scope.getPetCategories();
-        /*PRODUCT CATEGORY*/
-        $scope.getProductCategories = function () {
-            $http.get(baseUrl + 'product-category').then(function (response) {
-                $scope.productCategoryData = response.data;
-            }).catch(function (error) {
-                console.error('Lỗi khi lấy dữ liệu loại sản phẩm:', error);
-            });
-        };
-        $scope.getProductCategories();
+            };
+            $scope.deleteProduct = function (productId) {
+                Swal.fire({
+                    title: 'Bạn có chắc chắn muôn xóa?',
+                    text: "Bạn sẽ không thể khôi phục hành động này!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Xác nhận!',
+                    cancelButtonText: 'Hủy bỏ'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $http.delete(baseUrl + 'product/' + productId).then(function (response) {
+                            Swal.fire({
+                                title: 'Đã xóa!',
+                                text: 'Sản phẩm có ID: ' + productId + ' đã được xóa thành công.',
+                                icon: 'success',
+                                timer: 3000,
+                                showConfirmButton: false
+                            });
+                            $scope.getProducts();
+                        }).catch(function (error) {
+                            Swal.fire({
+                                title: 'Lỗi!',
+                                text: 'Lỗi khi xóa sản phẩm có ID: ' + productId,
+                                icon: 'error',
+                                timer: 3000,
+                                showConfirmButton: false
+                            });
+                        });
+                    }
+                });
+            };
+            $scope.clearProductFilter = function () {
+                $scope.productsTable.filter({});
+                $scope.productsTable.sorting({});
+            };
+            /*PET CATEGORY*/
+            $scope.getPetCategories = function () {
+                $http.get(baseUrl + 'pet-category').then(function (response) {
+                    $scope.petCategoryData = response.data;
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu loại thú cưng:', error);
+                });
+            };
+            $scope.getPetCategories();
+            /*PRODUCT CATEGORY*/
+            $scope.getProductCategories = function () {
+                $http.get(baseUrl + 'product-category').then(function (response) {
+                    $scope.productCategoryData = response.data;
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu loại sản phẩm:', error);
+                });
+            };
+            $scope.getProductCategories();
 
 
-        // Lấy ngày giờ hiện tại
-        $scope.date = new Date().toLocaleString();
-        setInterval(function () {
-            $scope.$apply(function () {
-                $scope.date = new Date().toLocaleString();
-            });
-        }, 1000);
+            // Lấy ngày giờ hiện tại
+            $scope.date = new Date().toLocaleString();
+            setInterval(function () {
+                $scope.$apply(function () {
+                    $scope.date = new Date().toLocaleString();
+                });
+            }, 1000);
 
-        // Cập nhật tên ảnh khi chọn file
-        $scope.updatePhotoPetName = function (input) {
-            if (input.files && input.files[0]) {
-                var fileName = input.files[0].name;
-                $scope.selectedPet.photo = fileName;
-                $scope.$apply();
-            }
-        };
-        $scope.updatePhotoProductName = function (input) {
-            if (input.files && input.files[0]) {
-                var fileName = input.files[0].name;
-                $scope.selectedProduct.photo = fileName;
-                $scope.$apply();
-            }
-        };
+            // Cập nhật tên ảnh khi chọn file
+            $scope.updatePhotoPetName = function (input) {
+                if (input.files && input.files[0]) {
+                    var fileName = input.files[0].name;
+                    $scope.selectedPet.photo = fileName;
+                    $scope.$apply();
+                }
+            };
+            $scope.updatePhotoProductName = function (input) {
+                if (input.files && input.files[0]) {
+                    var fileName = input.files[0].name;
+                    $scope.selectedProduct.photo = fileName;
+                    $scope.$apply();
+                }
+            };
 
-    });
+        }
+    )
+    ;
 </script>
 </body>
 

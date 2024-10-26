@@ -32,7 +32,6 @@ public class PetController {
 
     @PostMapping
     public void save(@RequestBody Pet pet) {
-        pet.setPetID(UUID.randomUUID().toString());
         petService.save(pet);
     }
 

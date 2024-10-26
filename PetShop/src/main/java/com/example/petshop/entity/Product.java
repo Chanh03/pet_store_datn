@@ -1,5 +1,6 @@
 package com.example.petshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -54,12 +55,15 @@ public class Product {
     @JoinColumn(name = "ProductCategoryID", nullable = false)
     private ProductCategory productCategoryID;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "productID")
     private Set<OrderProductDetail> orderProductDetails = new LinkedHashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "productID")
     private Set<Rating> ratings = new LinkedHashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "productID")
     private Set<Review> reviews = new LinkedHashSet<>();
 
