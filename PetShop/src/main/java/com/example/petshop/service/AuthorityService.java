@@ -8,4 +8,5 @@ import java.util.List;
 @Service
 public interface AuthorityService {
     List<Authority> findAll();
+    Authority create(Authority authority);
 }

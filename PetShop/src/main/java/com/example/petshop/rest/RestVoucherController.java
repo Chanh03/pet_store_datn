@@ -1,4 +1,4 @@
-package com.example.petshop.controller;
+package com.example.petshop.rest;
 
 import com.example.petshop.entity.Voucher;
 import com.example.petshop.service.VoucherService;
@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/voucher")
-public class VoucherController {
+public class RestVoucherController {
     @Autowired
     private VoucherService voucherService;
 

@@ -12,4 +12,6 @@ public interface PetService {
     Optional<Pet> findById(String id);
     void save(Pet pet);
     void deleteById(String id);
+
+    boolean existsById(String id);
 }

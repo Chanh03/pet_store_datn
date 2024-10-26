@@ -1,46 +1,156 @@
 <!DOCTYPE html>
 <html lang="en" th:fragment="home(view)" xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
     <meta charset="UTF-8">
-    <title>CỬA HÀNG THÚ CƯNG NINJA PETS</title>
+    <title>PetShop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/images/logo/logo.png" type="image/x-icon">
-    <!-- BOOTSTRAP5-->
+    <!-- BOOTSTRAP5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- FONT-GOOGLE-->
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- FONT-GOOGLE -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
-        rel="stylesheet">
-    <!-- FONTAWESOME-->
+    <link href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+          rel="stylesheet">
+    <!-- FONTAWESOME -->
     <script src="https://kit.fontawesome.com/246169b37f.js" crossorigin="anonymous"></script>
-    <!-- ANIMATE.CSS-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- ANIMATE.CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <!-- Add File Css -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+    <style>
+        body {
+            background: url("/images/background/bg.png") no-repeat center center fixed;
+            font-family: 'Grandstander', cursive;
+            background-size: cover;
+        }
 
-<body>
-    <header id="menu" class="sticky-top" th:insert="~{/layout/_menu}"></header>
-    <main class="container py-3 bg-white rounded-3" th:insert="${view}"></main>
-    <footer th:insert="~{/layout/_footer}" class="bg-white py-4 container "></footer>
-    <!--MODULE-->
-    <div th:insert=" ~{/module/_backToTop}"></div>
-    <div th:insert=" ~{/module/_loadingSpinner}"></div>
-</body>
-<!-- BOOTSTRAP5-->
+        .color {
+            color: #f04336;
+        }
+
+        .background-color {
+            background-color: #f04336;
+        }
+
+        .container {
+            max-width: 1366px;
+            border: none; /* Xóa viền */
+        }
+
+        #menu {
+            transition: 0.5s;
+        }
+
+        .button-image {
+            background-color: white;
+            border: 2px solid black;
+            background-image: url("/images/background/button-2.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            cursor: pointer;
+            transition: 0.5s;
+            padding: 10px; /* Thêm padding để nút đẹp hơn */
+        }
+
+        .button-image:hover {
+            border: 2px solid black;
+            transform: translate(-5px, -5px);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-image {
+            transition: 0.5s;
+            border-radius: 15px; /* Làm tròn các góc của thẻ */
+            overflow: hidden; /* Đảm bảo hình ảnh không bị tràn ra ngoài */
+        }
+
+        .card-image:hover {
+            transform: scale(1.05); /* Hiệu ứng phóng to nhẹ */
+        }
+
+        h1, h2, h3, h4, h5, p {
+            margin: 0; /* Xóa margin để tạo khoảng cách đều */
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center; /* Căn giữa tiêu đề */
+        }
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+        }
+
+        h5 {
+            font-size: 1rem;
+        }
+
+        p {
+            font-size: 0.9rem;
+            line-height: 1.5; /* Tăng chiều cao dòng để dễ đọc */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.75rem; }
+            h3 { font-size: 1.25rem; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.75rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1rem; }
+        }
+
+        .add-to-cart {
+            opacity: 0;
+            transition: all 0.5s;
+        }
+
+        .add-to-cart-container:hover .add-to-cart {
+            opacity: 1;
+        }
+
+        .add-to-cart:hover {
+            background-color: #cc382e !important;
+        }
+
+        .sticky-element {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+<header id="menu" class="sticky-top" th:insert="~{/layout/_menu}"></header>
+<main class="container py-3 bg-white rounded-3" th:insert="${view}"></main>
+<footer th:insert="~{/layout/_footer}" class="bg-white py-4 container"></footer>
+<!-- MODULE -->
+<div th:insert=" ~{/module/_backToTop}"></div>
+<div th:insert=" ~{/module/_loadingSpinner}"></div>
+
+<!-- BOOTSTRAP5 JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
-<!-- Swiper JS -->
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<!-- JS-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- JS -->
 <script>
     var prevScrollpos = window.scrollY;
     let goToTop = document.getElementById('goToTop');
@@ -75,22 +185,10 @@
         spaceBetween: 20,
         // Phản hồi (responsive)
         breakpoints: {
-            576: {
-                slidesPerView: 3,
-                spaceBetween: 30,
-            },
-            768: {
-                slidesPerView: 4,
-                spaceBetween: 40,
-            },
-            992: {
-                slidesPerView: 5,
-                spaceBetween: 50,
-            },
-            1200: {
-                slidesPerView: 6,
-                spaceBetween: 60,
-            },
+            576: { slidesPerView: 3, spaceBetween: 30 },
+            768: { slidesPerView: 4, spaceBetween: 40 },
+            992: { slidesPerView: 5, spaceBetween: 50 },
+            1200: { slidesPerView: 6, spaceBetween: 60 },
         },
         autoplay: {
             delay: 3000, // 3 giây
@@ -106,6 +204,7 @@
             clickable: true,
         }
     });
+
     const swiper_banner = new Swiper('.swiper-container-banner', {
         slidesPerView: 1,
         loop: true,
@@ -116,12 +215,76 @@
         navigation: {
             nextEl: '.swiper-button-next-banner',
             prevEl: '.swiper-button-prev-banner',
-        },
-        pagination: {
-            el: '.swiper-pagination-banner',
-            clickable: true,
-        },
-        crossFade: true,
+        }
+    });
+</script>
+
+<!-- Angular add to cart -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script>
+    const app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        // Giỏ hàng
+        $scope.cart = {
+            items: JSON.parse(localStorage.getItem('cart')) || [],
+
+            add(id) {
+                const item = this.items.find(item => item.id === id);
+                if (item) {
+                    item.quantity++;
+                    if (item.quantity > 10) {
+                        item.quantity = 10;
+                        alert(`Số lượng sản phẩm: ${item.name} đã đạt giới hạn`);
+                    }
+                    this.saveToLocalStorage(); // Lưu lại giỏ hàng sau khi thay đổi
+                } else {
+                    $http.get(`/api/product/${id}`).then(response => {
+                        response.data.quantity = 1; // Khởi tạo số lượng
+                        this.items.push(response.data); // Thêm sản phẩm mới vào giỏ hàng
+                        this.saveToLocalStorage(); // Lưu lại giỏ hàng sau khi thêm sản phẩm
+                        console.log("Thêm thành công", response);
+                    }).catch(error => {
+                        console.error("Lỗi khi lấy sản phẩm:", error);
+                    });
+                }
+            },
+
+            remove(id) {
+                const index = this.items.findIndex(item => item.id === id);
+                if (index !== -1) {
+                    this.items.splice(index, 1);
+                    this.saveToLocalStorage();
+                }
+            },
+
+            // Lưu giỏ hàng vào localStorage
+            saveToLocalStorage() {
+                localStorage.setItem('cart', JSON.stringify(this.items));
+            },
+
+            // Tải lại giỏ hàng từ localStorage
+            loadFromLocalStorage() {
+                const storedItems = JSON.parse(localStorage.getItem('cart'));
+                if (storedItems) {
+                    this.items = storedItems;
+                }
+            },
+
+            detailItems: JSON.parse(localStorage.getItem('cart')) || [],
+
+            updateQuantity(item) {
+                if (item.quantity < 1) {
+                    item.quantity = 1; // Đảm bảo số lượng không nhỏ hơn 1
+                }
+                this.saveToLocalStorage();
+            },
+
+            cartTotal() {
+                return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+            },
+        };
+        // Tải giỏ hàng từ localStorage khi khởi động ứng dụng
+        $scope.cart.loadFromLocalStorage();
     });
 </script>
 

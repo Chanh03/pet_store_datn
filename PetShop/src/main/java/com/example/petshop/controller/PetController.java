@@ -1,49 +1,47 @@
 package com.example.petshop.controller;
 
 import com.example.petshop.entity.Pet;
-import com.example.petshop.entity.PetCategory;
-import com.example.petshop.service.PetCategoryService;
 import com.example.petshop.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-@CrossOrigin("*")
-@RequestMapping("/api/pet")
-@RestController
+@Controller
 public class PetController {
     @Autowired
     private PetService petService;
-    @Autowired
-    private PetCategoryService petCategoryService;
-
-    @GetMapping
-    public List<Pet> getPet() {
-        return petService.getAll();
+    
+    @RequestMapping("/allPet")
+    public String register() {
+        return "layout/_allPet";
     }
 
-    @GetMapping("/{id}")
-    public Optional<Pet> getPetId(@PathVariable("id") String id) {
-        return petService.findById(id);
-    }
+    @RequestMapping("/pet/detail/{id}")
+    public String petDetail(Model model, @PathVariable String id) {
+        Optional<Pet> optionalPet = petService.findById(id);
 
-    @PostMapping
-    public void save(@RequestBody Pet pet) {
-        PetCategory category = petCategoryService.findById(pet.getPetCategoryID().getId());
-        pet.setPetCategoryID(category);
-        petService.save(pet);
-    }
+        // Kiểm tra xem thú cưng có tồn tại hay không
+        if (optionalPet.isPresent()) {
+            Pet pet = optionalPet.get();
+            model.addAttribute("pet", pet);
 
-    @PutMapping("/{id}")
-    public void updatePet(@PathVariable("id") String id, @RequestBody Pet pet) {
-        pet.setPetID(id);
-        petService.save(pet);
-    }
+            List<Pet> otherPets = petService.getAll()
+                    .stream()
+                    .filter(p -> !p.getPetID().equals(pet.getPetID())) // Lọc bỏ thú cưng hiện tại
+                    .limit(6) // Giới hạn số lượng thú cưng khác hiển thị
+                    .collect(Collectors.toList());
+            model.addAttribute("pets", otherPets);
+        } else {
+            model.addAttribute("errorMessage", "Thú cưng không tồn tại");
+            return "error"; // Giả sử bạn có một trang lỗi
+        }
 
-    @DeleteMapping("/{id}")
-    public void deletePet(@PathVariable("id") String id) {
-        petService.deleteById(id);
+        return "/layout/_petDetail";
     }
 }

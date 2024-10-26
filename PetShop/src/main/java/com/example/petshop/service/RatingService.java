@@ -1,7 +1,8 @@
 package com.example.petshop.service;
 
-import org.springframework.stereotype.Service;
+import com.example.petshop.entity.Rating;
+import java.util.List;
 
-@Service
 public interface RatingService {
+    List<Rating> getRatingsByProductId(int productId);
 }

@@ -1,5 +1,6 @@
 package com.example.petshop.service;
 
+import com.example.petshop.config.CustomUserDetails;
 import com.example.petshop.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,10 @@ public class UserServiceDetails implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userService.findById(username);
+        User user = (User) userService.findById(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return new CustomUserDetails(user);
     }
 }

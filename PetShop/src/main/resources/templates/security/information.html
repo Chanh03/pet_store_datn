@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="~{/index.html::home(~{::body})}"
+>
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Pet Shop</title>
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 15px;
+        }
+        .btn-custom {
+            background: #aaccff;
+            color: white;
+        }
+        .btn-custom:hover {
+            background: #8cb3e6;
+        }
+        .password-form {
+            display: none;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container-lg main-content px-3">
+    <div class="d-flex align-items-center justify-content-center mt-5 mb-4">
+        <h3 class="fw-bold font-resp text-danger">
+            <i class="fa-regular fa-user"></i> Thông tin người dùng
+        </h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-lg-8 offset-lg-2">
+            <div class="card shadow">
+                <div class="card-body">
+                    <form id="form-information">
+                        <h5
+                                class="alert font-resp"
+                                th:if="${message}"
+                                th:text="${message}"
+                                th:classappend="${loginStatus == true ? 'alert-success' : 'alert-danger'}"
+                        ></h5>
+
+                        <div class="d-flex justify-content-end gap-3 mb-4">
+                            <button
+                                    type="button"
+                                    id="editButton"
+                                    class="button-image"
+                                    onclick="enableEditing()"
+                            >
+                                Chỉnh sửa
+                            </button>
+                            <button type="button" onclick="save()" class="button-image">
+                                Lưu
+                            </button>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="username"
+                                    name="username"
+                                    placeholder="Tên đăng nhập"
+                                    required
+                                    type="text"
+                                    value="tam3215"
+                                    readonly
+                            />
+                            <label for="username">Tên đăng nhập</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="email"
+                                    name="email"
+                                    placeholder="Email"
+                                    required
+                                    type="email"
+                                    readonly
+                            />
+                            <label for="email">Email</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="phoneNumber"
+                                    name="phoneNumber"
+                                    placeholder="Số điện thoại"
+                                    required
+                                    type="text"
+                                    readonly
+                            />
+                            <label for="phoneNumber">Số điện thoại</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="userAddress"
+                                    name="userAddress"
+                                    placeholder="Địa chỉ"
+                                    required
+                                    type="text"
+                                    readonly
+                            />
+                            <label for="userAddress">Địa chỉ</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="accountCreationDate"
+                                    name="accountCreationDate"
+                                    placeholder="Ngày tạo tài khoản"
+                                    required
+                                    type="text"
+                                    readonly
+                            />
+                            <label for="accountCreationDate">Ngày tạo tài khoản</label>
+                        </div>
+
+                        <div class="d-flex justify-content-center mb-4"></div>
+                    </form>
+
+                    <div class="text-center my-4">
+                        <button class="button-image" onclick="togglePasswordForm()">
+                            Đổi mật khẩu
+                        </button>
+                    </div>
+
+                    <!-- Form đổi mật khẩu -->
+                    <div
+                            id="passwordForm"
+                            class="password-form"
+                            style="display: none"
+                    >
+                        <form id="form-newPass">
+                            <div class="form-floating mb-3">
+                                <input
+                                        class="form-control"
+                                        id="currentPassword"
+                                        name="currentPassword"
+                                        placeholder="Mật khẩu hiện tại"
+                                        required
+                                        type="password"
+                                />
+                                <label for="currentPassword">Mật khẩu hiện tại</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input
+                                        class="form-control"
+                                        id="newPassword"
+                                        name="newPassword"
+                                        placeholder="Mật khẩu mới"
+                                        required
+                                        type="password"
+                                />
+                                <label for="newPassword">Mật khẩu mới</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input
+                                        class="form-control"
+                                        id="confirmPassword"
+                                        name="confirmPassword"
+                                        placeholder="Xác nhận mật khẩu mới"
+                                        required
+                                        type="password"
+                                />
+                                <label for="confirmPassword">Xác nhận mật khẩu mới</label>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button
+                                        type="button"
+                                        onclick="saveNewPass()"
+                                        class="button-image"
+                                >
+                                    Lưu mật khẩu mới
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //Cho phép chỉnh sửa thông tin người dùng
+        function enableEditing() {
+            const fields = document.querySelectorAll(
+                "input:not(#username):not(#accountCreationDate)"
+            );
+            fields.forEach((field) => field.removeAttribute("readonly"));
+        }
+        //Hiển thị form đổi mật khẩu
+        function togglePasswordForm() {
+            const passwordForm = document.getElementById("passwordForm");
+            passwordForm.style.display =
+                passwordForm.style.display === "none" ? "block" : "none";
+        }
+
+        function save() {
+            const username = document.getElementById("username").value;
+            const fullName = "Nguyễn Văn Tâm";
+            const email = document.getElementById("email").value;
+            const phoneNumber = document.getElementById("phoneNumber").value;
+            const userAddress = document.getElementById("userAddress").value;
+            fetch(`/api/user/update/${username}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    fullName,
+                    email,
+                    phoneNumber,
+                    userAddress,
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        // Sửa điều kiện kiểm tra
+                        alert("Cập nhật thông tin thành công");
+                    } else {
+                        alert("Cập nhật thông tin thất bại: " + data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Có lỗi xảy ra:", error);
+                    alert("Có lỗi xảy ra trong quá trình cập nhật.");
+                });
+        }
+        function saveNewPass() {
+            const username = document.getElementById("username").value;
+            const currentPassword =
+                document.getElementById("currentPassword").value;
+            const newPassword = document.getElementById("newPassword").value;
+            const confirmPassword =
+                document.getElementById("confirmPassword").value;
+            if (newPassword !== confirmPassword) {
+                alert("Mật khẩu mới và xác nhận mật khẩu không khớp");
+                return;
+            }
+            fetch(`/api/user/change-password/${username}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    currentPassword,
+                    newPassword,
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        alert("Đổi mật khẩu thành công");
+                    } else {
+                        alert("Đổi mật khẩu thất bại: " + data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Có lỗi xảy ra:", error);
+                    alert("Có lỗi xảy ra trong quá trình đổi mật khẩu.");
+                });
+        }
+    </script>
+</div>
+</body>
+</html>

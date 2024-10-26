@@ -12,7 +12,7 @@
 <body>
     <!--SLIDE-->
     <div class="row g-0">
-        <div class="col-lg-12">
+        <div class="col-lg-8">
             <!-- Shaders slider -->
             <div class="swiper swiper-container-banner">
                 <div class="swiper-wrapper">
@@ -26,6 +26,11 @@
                 <div class="swiper-button-next swiper-button-next-banner"></div>
                 <div class="swiper-pagination swiper-pagination-banner"></div>
             </div>
+        </div>
+
+        <div class="col-lg-4 d-flex flex-column">
+            <img src="/images/slide/cn1.jpg" alt="Image 1" class="img-fluid mb-3" style="height: 50%;">
+            <img src="/images/slide/cn2.jpg" alt="Image 2" class="img-fluid" style="height: 50%;">
         </div>
     </div>
     <!--SLIDE END-->
@@ -92,12 +97,13 @@
             <div class="row g-3">
                 <!--ITEMS-->
                 <div th:each="pet : ${nextSixPet}" class="col-lg-4 col-md-6 col-sm-6 col-6">
-                    <a class=" nav-link" href="/chi-tiet">
-                        <div class="card card-hover  border-0 position-relative">
-                            <div class="overflow-hidden rounded-5 p-3 p-0 button-image"
-                                style="background-color: #f7f7f5">
+                    <a class="nav-link" th:href="@{/pet/detail/{id}(id=${pet.petID})}">
+                        <div class="card card-hover border-0 position-relative">
+                            <div class="overflow-hidden rounded-5 p-3 button-image"
+                                style="background-color: #f7f7f5; height: 250px; display: flex; align-items: center; justify-content: center;">
                                 <img loading="lazy" th:src="@{/images/pet/{photo}(photo=${pet.photo})}"
-                                    class="card-img-top card-image" alt="pet">
+                                    class="card-img-top card-image" alt="pet"
+                                    style="max-width: 100%; max-height: 100%; object-fit: cover;">
                             </div>
                             <div class="badge bg-warning position-absolute" style="top: 0; right: 0; z-index: 1000;">
                                 <h5 class="m-0">New</h5>
@@ -110,6 +116,7 @@
                         </div>
                     </a>
                 </div>
+
             </div>
             <div class="d-flex justify-content-center mb-3">
                 <button class="btn color py-2 px-4 rounded-5 button-image">
@@ -150,20 +157,20 @@
         <div class="col-lg-7 col-md-7">
             <div class="row g-3">
                 <!--ITEMS-->
-                <div th:each="p : ${nextSixProducts}" class="col-lg-4 col-md-6 col-sm-6 col-6">
+                <div th:each="product : ${nextSixProducts}" class="col-lg-4 col-md-6 col-sm-6 col-6">
                     <div class="card card-hover border-0 ">
-                        <div class="p-3 position-relative  button-image add-to-cart-container"
+                        <div class="p-3 position-relative button-image add-to-cart-container"
                             style="background-color: #f7f7f5">
-                            <div class="overflow-hidden p-0 position-relative  ">
-                                <a href="/chi-tiet" class="nav-link">
-                                    <img loading="lazy" th:src="@{/images/product/{photo}(photo=${p.photo})}"
+                            <div class="overflow-hidden p-0 position-relative">
+                                <a class="nav-link" th:href="@{/product/detail/{id}(id=${product.id})}">
+                                    <img loading="lazy" th:src="@{/images/product/{photo}(photo=${product.photo})}"
                                         class="card-img-top card-image" alt="product">
                                 </a>
                             </div>
                             <div class="badge position-absolute" style="top: 0; right: 0; z-index: 1000;">
                                 <img src="/images/logo/hot-badge.png" alt="hot-badge" style="width: 50px;">
                             </div>
-                            <a href="/them-gio-hang"
+                            <a th:attr="ng-click=${'cart.add(' + product.id + ')'}"
                                 class="btn background-color button-image-white add-to-cart w-100 py-3 rounded-0 position-absolute"
                                 style="bottom: 0; left: 0; z-index: 1001;">
                                 <h5 class="text-white m-0">
@@ -171,6 +178,7 @@
                                 </h5>
                             </a>
                         </div>
+
                         <div class="card-body text-center">
                             <div class="d-flex justify-content-center gap-2 my-2">
                                 <i class="fa-solid fa-star text-warning"></i>
@@ -179,12 +187,15 @@
                                 <i class="fa-solid fa-star text-warning"></i>
                                 <i class="fa-solid fa-star"></i>
                             </div>
-                            <h5 class="" th:text="${p.productName}">ten sp</h5>
+                            <h5 class="" th:text="${product.productName}">ten sp</h5>
                             <h4 class="color fw-bold"
-                                th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">100.000đ</h4>
+                                th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">
+                                100.000đ</h4>
                         </div>
                     </div>
                 </div>
+
+
             </div>
             <div class="d-flex justify-content-center mb-3">
                 <a class="btn color py-2 px-4 rounded-5 button-image">
@@ -515,7 +526,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card border-0 shadow p-3">
                 <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
