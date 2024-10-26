@@ -34,7 +34,7 @@ public class PetController {
             List<Pet> otherPets = petService.getAll()
                     .stream()
                     .filter(p -> !p.getPetID().equals(pet.getPetID())) // Lọc bỏ thú cưng hiện tại
-                    .limit(6) // Giới hạn số lượng thú cưng khác hiển thị
+                    .limit(12) // Giới hạn số lượng thú cưng khác hiển thị
                     .collect(Collectors.toList());
             model.addAttribute("pets", otherPets);
         } else {

@@ -38,7 +38,6 @@
 
         .container {
             max-width: 1366px;
-            border: none; /* Xóa viền */
         }
 
         #menu {
@@ -53,7 +52,7 @@
             background-size: cover;
             cursor: pointer;
             transition: 0.5s;
-            padding: 10px; /* Thêm padding để nút đẹp hơn */
+            padding: 10px;
         }
 
         .button-image:hover {
@@ -64,21 +63,21 @@
 
         .card-image {
             transition: 0.5s;
-            border-radius: 15px; /* Làm tròn các góc của thẻ */
-            overflow: hidden; /* Đảm bảo hình ảnh không bị tràn ra ngoài */
+            border-radius: 15px;
+            overflow: hidden;
         }
 
         .card-image:hover {
-            transform: scale(1.05); /* Hiệu ứng phóng to nhẹ */
+            transform: scale(1.05);
         }
 
         h1, h2, h3, h4, h5, p {
-            margin: 0; /* Xóa margin để tạo khoảng cách đều */
+            margin: 0; 
         }
 
         h1 {
             font-size: 2.5rem;
-            text-align: center; /* Căn giữa tiêu đề */
+            text-align: center;
         }
 
         h2 {
@@ -99,7 +98,7 @@
 
         p {
             font-size: 0.9rem;
-            line-height: 1.5; /* Tăng chiều cao dòng để dễ đọc */
+            line-height: 1.5;
         }
 
         /* Responsive Design */
@@ -236,12 +235,12 @@
                         item.quantity = 10;
                         alert(`Số lượng sản phẩm: ${item.name} đã đạt giới hạn`);
                     }
-                    this.saveToLocalStorage(); // Lưu lại giỏ hàng sau khi thay đổi
+                    this.saveToLocalStorage();
                 } else {
                     $http.get(`/api/product/${id}`).then(response => {
-                        response.data.quantity = 1; // Khởi tạo số lượng
-                        this.items.push(response.data); // Thêm sản phẩm mới vào giỏ hàng
-                        this.saveToLocalStorage(); // Lưu lại giỏ hàng sau khi thêm sản phẩm
+                        response.data.quantity = 1; 
+                        this.items.push(response.data);
+                        this.saveToLocalStorage();
                         console.log("Thêm thành công", response);
                     }).catch(error => {
                         console.error("Lỗi khi lấy sản phẩm:", error);
@@ -274,7 +273,7 @@
 
             updateQuantity(item) {
                 if (item.quantity < 1) {
-                    item.quantity = 1; // Đảm bảo số lượng không nhỏ hơn 1
+                    item.quantity = 1;
                 }
                 this.saveToLocalStorage();
             },

@@ -127,7 +127,6 @@
                     </form>
                 </div> -->
             </div>
-
         </div>
 
         <!-- Sản phẩm khác -->
@@ -135,14 +134,14 @@
             <h2 class="text-center mb-4">Sản phẩm khác</h2>
             <hr>
             <div class="row g-4">
-                <div class="col-sm-6 col-md-4" th:each="p, iterStat : ${products}">
-                    <div class="card product-card h-100" th:if="${iterStat.index < 6}">
+                <div class="col-2" th:each="p, iterStat : ${products}">
+                    <div class="card product-card h-100" th:if="${iterStat.index < 12}">
                         <img th:src="@{/images/product/{photo}(photo=${p.photo})}"
                             class="card-img-top rounded-image mx-auto mt-3" alt="Sản phẩm ${p.productName}">
                         <div class="card-body text-center">
                             <p class="card-text fw-bold" th:text="${p.productName}">Tên sản phẩm 1</p>
                             <p class="text-danger fw-bold" th:text="${p.price}">400.000đ</p>
-                            <button class="btn btn-primary mt-2" ng-click="cart.add(p.id)">Thêm vào giỏ hàng</button>
+                            <a th:href="@{/product/detail/{id}(id=${p.id})}" class="btn btn-primary mt-3">Xem chi tiết</a>
                         </div>
                     </div>
                 </div>

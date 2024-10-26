@@ -56,7 +56,6 @@
             height: 2px;
             border: none;
         }
-
     </style>
 </head>
 
@@ -65,31 +64,46 @@
         <!-- Chi tiết thú cưng -->
         <div class="row mb-5">
             <div class="col-md-6">
-                <img th:src="@{/images/pet/{photo}(photo=${pet.photo})}" class="img-fluid main-image" alt="Thú cưng ABC">
+                <img th:src="@{/images/pet/{photo}(photo=${pet.photo})}" class="img-fluid main-image"
+                    alt="Thú cưng ABC">
             </div>
             <div class="col-md-6">
                 <h1 class="display-5 fw-bold mb-3" th:text="${pet.petID}">Tên Sản phẩm</h1>
                 <p class="fs-4">Giá: <span class="text-danger fw-bold" th:text="${pet.price}">400.000đ</span></p>
-                <table class="table table-bordered mt-3">
-                    <tbody>
-                        <tr>
-                            <td>Tuổi:</td>
-                            <td th:text="${pet.age}">10</td>
-                        </tr>
-                        <tr>
-                            <td>Giới tính:</td>
-                            <td th:text="${pet.gender ? 'Đực' : 'Cái'}">Đực</td>
-                        </tr>
-                        <tr>
-                            <td>Giống:</td>
-                            <td th:text="${pet.breed}">Kết hợp</td>
-                        </tr>
-                        <tr>
-                            <td>Kiểu lông:</td>
-                            <td th:text="${pet.hair}">Lông dài</td>
-                        </tr>
-                    </tbody>
-                </table>
+
+                <!-- Thông tin thú cưng và mô tả -->
+                <div class="row">
+                    <h3 class="mb-3">Chi tiết thú cưng</h3>
+                    <div class="col-md-6">
+                        <table class="table table-bordered mt-3">
+                            <tbody>
+                                <tr>
+                                    <td>Tuổi:</td>
+                                    <td th:text="${pet.age}">10</td>
+                                </tr>
+                                <tr>
+                                    <td>Giới tính:</td>
+                                    <td th:text="${pet.gender ? 'Đực' : 'Cái'}">Đực</td>
+                                </tr>
+                                <tr>
+                                    <td>Giống:</td>
+                                    <td th:text="${pet.breed}">Kết hợp</td>
+                                </tr>
+                                <tr>
+                                    <td>Kiểu lông:</td>
+                                    <td th:text="${pet.hair}">Lông dài</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h3>
+                            Mô tả
+                        </h3>
+                        <p th:text="${pet.petDescription}"></p>
+                    </div>
+                </div>
+
                 <p class="mt-4 text-muted">
                     Lưu ý: Giá trên chỉ để tham khảo. Hãy liên hệ qua Zalo hoặc gửi tin nhắn để biết thêm chi tiết.
                 </p>
@@ -101,25 +115,19 @@
             </div>
         </div>
 
-        <!-- Mô tả thú cưng -->
-        <div class="col-md-12 mb-5">
-            <h3 class="mb-3">Chi tiết thú cưng</h3>
-            <hr>
-            <p th:text="${pet.petDescription}">
-            </p>
-        </div>
-
         <!-- Thú cưng khác -->
         <div>
             <h2 class="text-center mb-4">Thú cưng khác</h2>
             <hr>
             <div class="row g-4">
-                <div class="col-sm-6 col-md-4" th:each="p : ${pets}">
+                <div class="col-2" th:each="p : ${pets}">
                     <div class="card pet-card h-100">
-                        <img th:src="@{/images/pet/{photo}(photo=${p.photo})}" class="card-img-top rounded-image mx-auto mt-3" alt="Ảnh thú cưng">
+                        <img th:src="@{/images/pet/{photo}(photo=${p.photo})}"
+                            class="card-img-top rounded-image mx-auto mt-3" alt="Ảnh thú cưng">
                         <div class="card-body text-center">
                             <p class="card-text fw-bold" th:text="${p.breed}">Tên thú cưng 1</p>
                             <p class="text-danger fw-bold" th:text="${p.price}">400.000đ</p>
+                            <a th:href="@{/pet/detail/{id}(id=${p.petID})}" class="btn btn-primary mt-3">Xem chi tiết</a>
                         </div>
                     </div>
                 </div>
