@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface RatingRepo extends JpaRepository<Rating, Integer> {
-    List<Rating> findByProductID(Product product);
+	List<Rating> findByProductID(Product product);
 }

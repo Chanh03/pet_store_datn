@@ -1,8 +1,12 @@
 package com.example.petshop.service;
 
 import com.example.petshop.entity.Rating;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public interface RatingService {
     List<Rating> getRatingsByProductId(int productId);
+    double getAverageRatingByProductId(int productId);
 }

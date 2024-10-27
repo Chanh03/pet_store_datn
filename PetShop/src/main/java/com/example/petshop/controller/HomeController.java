@@ -113,5 +113,10 @@ public class HomeController {
     public String cart(Model model) {
         return "/layout/_cartDetail";
     }
+    
+    @RequestMapping("/check-out")
+    public String test(Model model) {
+        return "/layout/_checkOutPayment";
+    }
 
 }

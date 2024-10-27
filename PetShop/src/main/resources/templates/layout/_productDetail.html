@@ -89,6 +89,39 @@
 
             <!-- Đánh giá sản phẩm -->
             <div class="col-md-6">
+                <!-- Đánh giá sao -->
+                <div th:if="${!ratings.isEmpty()}">
+                    <div class="star-rating" style="font-size: 2rem; text-align: center;">
+                        <!-- Hiển thị số sao đầy -->
+                        <span th:if="${averageRating >= 1}" style="color: #FFD700;">&#9733;</span>
+                        <span th:if="${averageRating >= 2}" style="color: #FFD700;">&#9733;</span>
+                        <span th:if="${averageRating >= 3}" style="color: #FFD700;">&#9733;</span>
+                        <span th:if="${averageRating >= 4}" style="color: #FFD700;">&#9733;</span>
+                        <span th:if="${averageRating >= 5}" style="color: #FFD700;">&#9733;</span>
+
+                        <!-- Hiển thị số sao lẻ (0.5) -->
+                        <span th:if="${averageRating % 1 >= 0.5}" style="color: #FFD700;">&#9734;</span>
+
+                        <!-- Hiển thị số sao trống -->
+                        <span th:if="${averageRating < 0.5}" style="color: #ddd;">&#9733;</span>
+                        <span th:if="${averageRating < 1.5}" style="color: #ddd;">&#9733;</span>
+                        <span th:if="${averageRating < 2.5}" style="color: #ddd;">&#9733;</span>
+                        <span th:if="${averageRating < 3.5}" style="color: #ddd;">&#9733;</span>
+                        <span th:if="${averageRating < 4.5}" style="color: #ddd;">&#9733;</span>
+                    </div>
+
+                    <!-- Hiển thị điểm đánh giá trung bình -->
+                    <div class="text-center mt-2">
+                        <span class="fs-5"><span th:text="${averageRating}">0</span> /
+                            5</span>
+                    </div>
+                </div>
+
+                <div th:if="${ratings.isEmpty()}" class="text-center mt-2">
+                    <p>Chưa có đánh giá sao nào cho sản phẩm này.</p>
+                </div>
+
+                <!-- Bình luận sản phẩm -->
                 <h3 class="mb-3">Đánh giá sản phẩm</h3>
                 <hr>
                 <div th:if="${reviews.isEmpty()}">
@@ -100,32 +133,6 @@
                         <p class="text-muted mb-1" th:text="${review.comment}">Bình luận của người dùng</p>
                     </div>
                 </div>
-
-                <div th:if="${ratings.isEmpty()}">
-                    <p>Chưa có đánh giá sao nào cho sản phẩm này.</p>
-                </div>
-                <div th:each="rating : ${ratings}">
-                    <p th:text="'Điểm đánh giá: ' + ${rating.number}">Điểm đánh giá</p>
-                </div>
-
-                <!-- Phần nhập đánh giá sao -->
-                <!-- <div class="mt-4">
-                    <h4>Đánh giá sao:</h4>
-                    <form th:action="@{/product/rate(id=${product.id})}" method="post">
-                        <div class="mb-3">
-                            <label for="rating" class="form-label">Chọn số sao:</label>
-                            <select id="rating" name="number" class="form-select" required>
-                                <option value="" disabled selected>Chọn số sao</option>
-                                <option value="1">1 sao</option>
-                                <option value="2">2 sao</option>
-                                <option value="3">3 sao</option>
-                                <option value="4">4 sao</option>
-                                <option value="5">5 sao</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
-                    </form>
-                </div> -->
             </div>
         </div>
 
@@ -141,7 +148,8 @@
                         <div class="card-body text-center">
                             <p class="card-text fw-bold" th:text="${p.productName}">Tên sản phẩm 1</p>
                             <p class="text-danger fw-bold" th:text="${p.price}">400.000đ</p>
-                            <a th:href="@{/product/detail/{id}(id=${p.id})}" class="btn btn-primary mt-3">Xem chi tiết</a>
+                            <a th:href="@{/product/detail/{id}(id=${p.id})}" class="btn btn-primary mt-3">Xem chi
+                                tiết</a>
                         </div>
                     </div>
                 </div>

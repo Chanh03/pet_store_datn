@@ -146,8 +146,10 @@ CREATE TABLE Voucher (
 	[Enable]		BIT				NOT NULL
 );
 
-INSERT INTO Voucher (Code, Discount, ExpiryDate, Enable)
-VALUES
-('VOUCHER10', 10, '2024-12-31', 1),
-('VOUCHER20', 20, '2024-11-30', 0),
-('VOUCHER15', 15, '2024-10-31', 0);
+-- Tạo bảng Subscription
+CREATE TABLE Subscription (
+    Id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(255) NOT NULL,
+    Email NVARCHAR(255) NOT NULL,
+    PhoneNumber NVARCHAR(50) NULL
+);

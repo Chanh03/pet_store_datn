@@ -45,8 +45,12 @@ public class ProductController {
             model.addAttribute("reviews", reviews);
 
             // Lấy danh sách đánh giá sao cho sản phẩm
-            List<Rating> ratings = ratingService.getRatingsByProductId(id); 
+            List<Rating> ratings = ratingService.getRatingsByProductId(id);
             model.addAttribute("ratings", ratings);
+
+            // Tính điểm trung bình
+            double averageRating = ratingService.getAverageRatingByProductId(id);
+            model.addAttribute("averageRating", averageRating);
         } else {
             model.addAttribute("errorMessage", "Sản phẩm không tồn tại");
             return "error"; // Giả sử bạn có một trang lỗi
@@ -54,4 +58,5 @@ public class ProductController {
 
         return "/layout/_productDetail";
     }
+
 }
