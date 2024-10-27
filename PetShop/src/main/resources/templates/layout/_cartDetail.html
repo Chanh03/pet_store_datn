@@ -185,20 +185,18 @@
                 <div class="line background-color" style="height: 5px;"></div>
             </div>
             <div class="container mt-2">
-                <div class="row">
-                    <div class="col-md-4" ng-repeat="voucher in vouchers">
-                        <div class="card p-3" style="border: 1px solid #ddd; border-radius: 8px;">
+                    <div class="table table-md" ng-repeat="voucher in vouchers">
+                        <div class="card p-3" style="border: 5px solid indianred; border-radius: 8px;">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h6 class="text-uppercase text-muted">{{ voucher.voucherID }}</h6>
-                                    <h2 class="font-weight-bold">{{ voucher.discount }} K</h2>
+                                    <h6 class="text-uppercase text-muted">Token: {{ voucher.voucherID }}</h6>
+                                    <h2 class="font-weight-bold">Tiền giảm: {{ voucher.discount }}K</h2>
                                     <p class="text-muted">HSD: {{ voucher.expiryDate }}</p>
                                 </div>
                             </div>
                             <p class="text-muted" style="font-size: 0.85em; color: darkred !important">*Voucher có hạn sử dụng</p>
                         </div>
                     </div>
-                </div>
             </div>
             <div class="mb-3">
                 <form ng-submit="applyVoucher(voucherCode)">
@@ -218,10 +216,9 @@
                 <div ng-if="errorMessage">
                     <p ng-bind="errorMessage" class="text-danger"></p>
                 </div>
-                <h4 class="mb-4" ng-if="discountAmount">Voucher giảm được: <span class="float-end"
-                                                                                 ng-bind="discountAmount + 'đ'">30.000đ</span></h4>
+                <h4 class="mb-4" ng-if="discountAmount">Voucher giảm được:<span style="color: red" class="float-end"
+                                                                                 ng-bind="'-'+discountAmount + 'đ'">30.000đ</span></h4>
                 <h4 class="mb-4">Giá tiền gốc: <span class="float-end">{{cart.cartTotal()}}</span></h4>
-                <h4 class="mb-4">Phí vận chuyển: <span class="float-end">30.000đ</span></h4>
             </div>
 
             <hr>
