@@ -19,7 +19,7 @@ public class VoucherServiceImpl implements VoucherService {
     }
 
     @Override
-    public Voucher getVoucherById(int id) {
+    public Voucher getVoucherById(String id) {
         return voucherRepo.findById(id).orElse(null);
     }
 
@@ -34,7 +34,7 @@ public class VoucherServiceImpl implements VoucherService {
     }
 
     @Override
-    public void deleteVoucher(int id) {
+    public void deleteVoucher(String id) {
         voucherRepo.deleteById(id);
     }
 }

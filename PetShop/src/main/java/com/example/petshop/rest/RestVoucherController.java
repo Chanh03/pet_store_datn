@@ -20,7 +20,7 @@ public class RestVoucherController {
     }
 
     @GetMapping("/{id}")
-    public Voucher getVoucherById(@PathVariable("id") int id) {
+    public Voucher getVoucherById(@PathVariable("id") String id) {
         return voucherService.getVoucherById(id);
     }
 
@@ -29,14 +29,14 @@ public class RestVoucherController {
         return voucherService.addVoucher(voucher);
     }
 
-    @PutMapping("/{id}")
-    public Voucher updateVoucher(@PathVariable("id") int id, @RequestBody Voucher voucher) {
-        voucher.setId(id);
-        return voucherService.updateVoucher(voucher);
-    }
+//    @PutMapping("/{id}")
+//    public Voucher updateVoucher(@PathVariable("id") String id, @RequestBody Voucher voucher) {
+//        voucher.setId(id);
+//        return voucherService.updateVoucher(voucher);
+//    }
 
     @DeleteMapping("/{id}")
-    public void deleteVoucher(@PathVariable("id") int id) {
+    public void deleteVoucher(@PathVariable("id") String id) {
         voucherService.deleteVoucher(id);
     }
 }

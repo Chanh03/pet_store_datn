@@ -189,6 +189,7 @@
             top: 0;
             z-index: 999;
         }
+
     </style>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
@@ -306,15 +307,14 @@
                     item.quantity++;
                     if (item.quantity > 10) {
                         item.quantity = 10;
-                        alert(`Số lượng sản phẩm: ${item.name} đã đạt giới hạn`);
+                        alert(`Số lượng sản phẩm: ${item.productName} đã đạt giới hạn`);
                     }
-                    this.saveToLocalStorage(); // Lưu lại giỏ hàng sau khi thay đổi
+                    this.saveToLocalStorage();
                 } else {
                     $http.get(`/api/product/${id}`).then(response => {
-                        response.data.quantity = 1; // Khởi tạo số lượng
-                        this.items.push(response.data); // Thêm sản phẩm mới vào giỏ hàng
-                        this.saveToLocalStorage(); // Lưu lại giỏ hàng sau khi thêm sản phẩm
-                        console.log("them thanh cong",response)
+                        response.data.quantity = 1;
+                        this.items.push(response.data);
+                        this.saveToLocalStorage();
                     }).catch(error => {
                         console.error("Lỗi khi lấy sản phẩm:", error);
                     });
@@ -329,39 +329,82 @@
                 }
             },
 
-            // Lưu giỏ hàng vào localStorage
-            saveToLocalStorage() {
-                localStorage.setItem('cart', JSON.stringify(this.items));
-            },
-
-            // Tải lại giỏ hàng từ localStorage
-            loadFromLocalStorage() {
-                const storedItems = JSON.parse(localStorage.getItem('cart'));
-                if (storedItems) {
-                    this.items = storedItems;
-                }
-            },
-
-            detailItems: JSON.parse(localStorage.getItem('cart')) || [],
-
             updateQuantity(item) {
                 if (item.quantity < 1) {
-                    item.quantity = 1; // Đảm bảo số lượng không nhỏ hơn 1
+                    item.quantity = 1;
                 }
+                this.updateTotal();
                 this.saveToLocalStorage();
             },
 
             cartTotal() {
                 return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
             },
+
+            cartTotalAll(){
+                return $scope.cart.total - ($scope.discountAmount || 0);
+            },
+
+            updateTotal() {
+                this.total = this.cartTotal();
+                localStorage.setItem('cartTotal', this.total);
+            },
+
+            saveToLocalStorage() {
+                localStorage.setItem('cart', JSON.stringify(this.items));
+                this.updateTotal(); // Cập nhật tổng khi lưu
+            },
+
+            loadFromLocalStorage() {
+                const storedItems = JSON.parse(localStorage.getItem('cart'));
+                if (storedItems) {
+                    this.items = storedItems;
+                }
+                this.updateTotal();
+            },
+
+            // Hàm để lấy detailItems từ items
+            getDetailItems() {
+                return this.items;
+            }
         };
+
+
         // Tải giỏ hàng từ localStorage khi khởi động ứng dụng
         $scope.cart.loadFromLocalStorage();
 
+        // Voucher
+        $scope.vouchers = []
+        $scope.voucherCode = '';
+        $scope.discountAmount = 0;
+        $scope.successMessage = '';
+        $scope.errorMessage = '';
 
+        $http.get("/api/voucher").then(function(response) {
+            $scope.vouchers = response.data;
+        }).catch(function(error) {
+            console.error("Error fetching vouchers", error);
+        });
+
+        $scope.applyVoucher = function(voucherCode) {
+            $http.get("/api/voucher/" + voucherCode)
+                .then(function(response) {
+                    if (response.data.discount) {
+                        $scope.successMessage = "Voucher đã được áp dụng thành công!";
+                        $scope.discountAmount = response.data.discount;
+                        $scope.errorMessage = '';
+                    } else {
+                        $scope.errorMessage = "Voucher không hợp lệ!";
+                        $scope.discountAmount = "";
+                        $scope.successMessage = '';
+                    }
+                })
+                .catch(function(error) {
+                    $scope.errorMessage = "Có lỗi xảy ra khi áp dụng mã giảm giá!";
+                    console.error("Lỗi áp dụng voucher", error);
+                });
+        };
     });
-
-
 </script>
 
 
