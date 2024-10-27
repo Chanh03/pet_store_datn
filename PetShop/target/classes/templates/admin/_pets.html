@@ -116,11 +116,13 @@
                     </div>
                 </td>
                 <td data-title="'Tool'" class="text-center">
-                    <button ng-click="petEdit(pet)" class="btn btn-primary">
-                        <i class="fa-regular fa-pen-to-square"></i>
+                    <button ng-click="petEdit(pet)" class="btn btn-outline-secondary">
+                        <i class="fa-solid fa-pen"></i>
+                        <span>Sửa</span>
                     </button>
-                    <button class="btn btn-danger" ng-click="deletePet(pet.petID)">
+                    <button class="btn btn-outline-danger" ng-click="deletePet(pet.petID)">
                         <i class="fa-solid fa-xmark"></i>
+                        <span>Xóa</span>
                     </button>
                 </td>
             </tr>
