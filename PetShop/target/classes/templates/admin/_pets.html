@@ -7,15 +7,94 @@
 </head>
 <body>
 <div class="mt-4">
-    <div class="text-center mt-1 mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
-        <div class="d-flex position-absolute" style="right: 50px;top: 62px">
+    <div class="mt-1 mb-3 rounded-3 overflow-hidden shadow p-4 bg-white">
+        <!--BREADCRUMB-->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/quan-tri-he-thong">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Thú cưng
+                </li>
+            </ol>
+        </nav>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>
+                Thú cưng
+            </h1>
+            <button ng-click="addPetModal()" class="insert-btn btn px-4 py-3">
+                <i class="fa-solid fa-plus"></i>
+                <span>Thêm thú cưng mới</span>
+            </button>
+        </div>
+        <hr>
+        <div class="row g-5">
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">ĐÃ BÁN</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h2>{{petAvailableTrueLength}}</h2>
+                        <h5 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{petData.length}}</span>
+                            <span class="fs-6 badge" style="background: #e8f6f6; color: #5cbec4">{{ (petAvailableTrueLength / petData.length * 100) | number:2 }}%</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">CHƯA BÁN</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h2>{{petAvailableFalseLength}}</h2>
+                        <h5 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{petData.length}}</span>
+                            <span class="fs-6 badge" style="background: #fdecf2; color: #f37fa1">{{ (petAvailableFalseLength / petData.length * 100) | number:2 }}%</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">ĐANG BÁN</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h2>{{petEnableTrueLength}}</h2>
+                        <h5 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{petData.length}}</span>
+                            <span class="fs-6 badge" style="background: #e8f6f6; color: #5cbec4">{{ (petEnableTrueLength / petData.length * 100) | number:2 }}%</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">ĐANG ẨN</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h2>{{petEnableFalseLength}}</h2>
+                        <h5 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{petData.length}}</span>
+                            <span class="fs-6 badge" style="background: #fdf8ec; color: #e0c366">{{ (petEnableFalseLength / petData.length * 100) | number:2 }}%</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
+        <div class="d-flex position-absolute gap-4" style="right: 40px;top: 80px">
             <button ng-click="clearPetFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
         </div>
-        <table ng-table="petsTable" class="table table-responsive border rounded-3 table-hover table-sm  p-5" show-filter="true">
+        <table ng-table="petsTable" class="table table-responsive rounded-3 table-hover table-sm  p-5"
+               show-filter="true">
             <tr ng-repeat="pet in $data" class="align-middle">
                 <!-- STT tính toán dựa trên trang hiện tại -->
                 <td data-title="'#'" class="p-2 px-3 text-center">
                     <b>{{ (petsTable.page() - 1) * petsTable.count() + $index + 1 }}</b>
+                </td>
+                <td data-title="'Hình ảnh'" class="text-center">
+                    <img height="100px" width="100px" ng-src="/images/pet/{{ pet.photo }}" alt="{{ pet.photo }}"
+                         class="img-thumbnail pet-image">
                 </td>
                 <td sortable="'petID'" filter="{ 'petID': 'text' }" data-title="'Pet Id'">{{ pet.petID }}</td>
                 <td sortable="'petCategoryID.petCategoryName'" filter="{ 'petCategoryID.petCategoryName': 'text' }"
@@ -26,11 +105,7 @@
                     <span ng-if="pet.gender" class="badge bg-primary">Đực</span>
                     <span ng-if="!pet.gender" class="badge bg-warning">Cái</span>
                 </td>
-                <td data-title="'Hình ảnh'" class="text-center">
-                    <img height="100px" width="100px" ng-src="/images/pet/{{ pet.photo }}" alt="{{ pet.photo }}"
-                         class="img-thumbnail pet-image">
-                </td>
-                <td sortable="'available'" data-title="'Trạng thái'" class="text-start">
+                <td sortable="'available'" data-title="'Trạng thái'" class="text-center">
                     <div ng-if="pet.available" class="text-success">
                         <i class="fa-solid fa-circle"></i>
                         <span>Đã bán</span>

@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .failureUrl("/login?error=true")
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/trang-chu")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                 )

@@ -7,30 +7,94 @@
 </head>
 <body>
 <div class="mt-4">
+    <div class="mt-1 mb-3 rounded-3 overflow-hidden shadow p-4 bg-white">
+        <!--BREADCRUMB-->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/quan-tri-he-thong">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Sản phẩm
+                </li>
+            </ol>
+        </nav>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>
+                Sản phẩm
+            </h1>
+            <button ng-click="productAddModal()" class="insert-btn btn px-4 py-3">
+                <i class="fa-solid fa-plus"></i>
+                <span>Thêm sản phẩm mới</span>
+            </button>
+        </div>
+        <hr>
+        <div class="row g-5">
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">HÀNG TỒN KHO</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h2>{{productAvailableTrueLength}}</h2>
+                        <h5 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{productData.length}}</span>
+                            <span class="fs-6 badge" style="background: #e8f6f6; color: #5cbec4">{{ (productAvailableTrueLength / productData.length * 100) | number:2 }}%</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">HẾT HÀNG</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h2>{{productAvailableFalseLength}}</h2>
+                        <h5 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{productData.length}}</span>
+                            <span class="fs-6 badge" style="background: #fdecf2; color: #f37fa1">{{ (productAvailableFalseLength / productData.length * 100) | number:2 }}%</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">TỔNG HÀNG HÓA</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h2>{{productTotalQuantity | number:0}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">TỔNG GIÁ TRỊ</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h2>{{productTotalPrice | number:0}} đ</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="text-center mt-1 mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
-        <div class="d-flex position-absolute" style="right: 85px;top: 62px">
+        <div class="d-flex position-absolute gap-4" style="right: 75px;top: 80px">
             <button ng-click="clearProductFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
         </div>
-        <table ng-table="productsTable" class="table table-responsive border rounded-3 table-hover table-sm  p-5"
+        <table ng-table="productsTable" class="table table-responsive rounded-3 table-hover table-sm  p-5"
                show-filter="true">
             <tr ng-repeat="product in $data" class="align-middle">
                 <!-- STT tính toán dựa trên trang hiện tại -->
                 <td data-title="'#'" class="p-2 px-3 text-center">
                     <b>{{ (productsTable.page() - 1) * productsTable.count() + $index + 1 }}</b>
                 </td>
-<!--                <td sortable="'id'" data-title="'productID'">{{ product.id }}</td>-->
+                <td data-title="'Hình ảnh'" class="text-center">
+                    <img height="100px" width="100px" ng-src="/images/product/{{ product.photo }}"
+                         alt="{{ product.photo }}"
+                         class="img-thumbnail pet-image">
+                </td>
+                <!--                <td sortable="'id'" data-title="'productID'">{{ product.id }}</td>-->
                 <td sortable="'productName'" filter="{ 'productName': 'text' }"
                     data-title="'Sản phẩm'" class="text-center">{{ product.productName }}
                 </td>
                 <td sortable="'price'" data-title="'Giá'">{{ product.price }}</td>
                 <td sortable="'quantity'" data-title="'Số lượng'">{{ product.quantity }}
                 </td>
-                <td data-title="'Hình ảnh'" class="text-center">
-                    <img height="100px" width="100px" ng-src="/images/product/{{ product.photo }}"
-                         alt="{{ product.photo }}"
-                         class="img-thumbnail pet-image">
-                </td>
-                <td sortable="'available'" data-title="'Trạng thái'" class="text-start">
+                <td sortable="'available'" data-title="'Trạng thái'" class="text-center">
                     <div ng-if="product.available" class="text-success">
                         <i class="fa-solid fa-circle"></i>
                         <span>Còn hàng</span>
@@ -44,7 +108,7 @@
                     <button ng-click="productEdit(product)" class="btn btn-primary">
                         <i class="fa-regular fa-pen-to-square"></i>
                     </button>
-                    <button class="btn btn-danger" ng-click="deleteProduct(pro.id)">
+                    <button class="btn btn-danger" ng-click="deleteProduct(product.id)">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </td>
