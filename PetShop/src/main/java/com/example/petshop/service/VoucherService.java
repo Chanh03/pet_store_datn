@@ -9,11 +9,11 @@ import java.util.List;
 public interface VoucherService {
     List<Voucher> getAllVoucher();
 
-    Voucher getVoucherById(int id);
+    Voucher getVoucherById(String id);
 
     Voucher addVoucher(Voucher voucher);
 
     Voucher updateVoucher(Voucher voucher);
 
-    void deleteVoucher(int id);
+    void deleteVoucher(String id);
 }

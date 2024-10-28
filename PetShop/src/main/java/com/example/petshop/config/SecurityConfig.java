@@ -70,7 +70,6 @@ public class SecurityConfig {
                 .userDetailsService(userServiceDetails)
             )
             .httpBasic(Customizer.withDefaults());
-
         return http.build();
     }
     

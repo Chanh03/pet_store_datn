@@ -56,6 +56,4 @@ public class Order {
     @OneToMany(mappedBy = "orderID")
     private Set<OrderProductDetail> orderProductDetails = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "orderID")
-    private Set<Voucher> vouchers = new LinkedHashSet<>();
 }

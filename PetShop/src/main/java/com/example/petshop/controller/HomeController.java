@@ -70,6 +70,7 @@ public class HomeController {
         model.addAttribute("nextSixPet", nextSixPet);
         model.addAttribute("productCategories", productCategoryService.getAll());
         model.addAttribute("slides", slideBarService.getAll());
+
         return "/layout/_main";
     }
 
@@ -138,8 +139,12 @@ public class HomeController {
     }
 
     @RequestMapping("/cart-detail")
-    public String cart(Model model) {
+    public String cartDetail(Model model) {
         return "/layout/_cartDetail";
     }
 
+    @RequestMapping("/cart-payMent")
+    public String cartPayMent(Model model) {
+        return "layout/_payMent";
+    }
 }
