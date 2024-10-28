@@ -17,4 +17,5 @@ public interface UserService {
     void updateUser(User user);
 
     User getUserById(String id);
+
 }

@@ -83,6 +83,7 @@
             border-radius: 10px;
             color: white;
         }
+
         /*.ng-table th.sortable {*/
         /*    background: #1781ff;*/
         /*    border-radius: 10px;*/
@@ -196,6 +197,7 @@
 <div th:insert="~{/admin/_petAddModal}"></div>
 <div th:insert="~{/admin/_productModal}"></div>
 <div th:insert="~{/admin/_productAddModal}"></div>
+<div th:insert="~{/admin/_userModal}"></div>
 <!-- MAIN CONTENT -->
 <main class="container-fluid p-0 d-flex">
     <div id="bdSidebar"
@@ -233,6 +235,12 @@
                     <span>Người dùng</span>
                 </a>
             </li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item mb-1">
+                <a th:href="@{/quan-tri-he-thong/authorization}" class="nav-link text-dark">
+                    <i class="fa-solid fa-user-shield"></i>
+                    <span>Phân quyền</span>
+                </a>
+            </li>
         </ul>
         <div class="d-flex justify-content-center align-items-center p-4">
             <button class="btn d-md-none rounded-pill bg-light p-3 btn-close" type="button"
@@ -248,7 +256,7 @@
         <div class="" th:insert="~{/admin/_menu}"></div>
         <!-- MAIN CONTENT -->
         <!--SPA-->
-        <div class="container animate__animated animate__fadeInUp" th:insert="${view}"></div>
+        <div class="container animate__animated animate__fadeIn" th:insert="${view}"></div>
     </div>
 </main>
 <div th:insert=" ~{/module/_backToTop}"></div>
@@ -675,6 +683,47 @@
                 });
             };
             $scope.getUsers();
+            $scope.userEdit = function (user) {
+                $scope.selectedUser = angular.copy(user);
+                var editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'), {
+                    keyboard: true
+                });
+                editUserModal.show();
+            };
+            $scope.updateUser = function (username) {
+                if (username == null) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Vui lòng nhập đầy đủ thông tin',
+                        autoclose: true,
+                        status: 'error',
+                        autotimeout: 3000
+                    });
+                } else {
+                    $http.put(baseUrl + 'user/' + username, $scope.selectedUser).then(function (response) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Cập nhật thành công :' + $scope.selectedUser.fullName,
+                            autoclose: true,
+                            status: 'success',
+                            autotimeout: 3000
+                        });
+                        $scope.getUsers();
+                    }).catch(function (error) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Lỗi khi cập nhật :' + $scope.selectedUser.fullName,
+                            autoclose: true,
+                            status: 'warning',
+                            autotimeout: 3000
+                        });
+                    });
+                }
+            };
+            $scope.clearUserFilter = function () {
+                $scope.usersTable.filter({});
+                $scope.usersTable.sorting({});
+            };
             /*PET CATEGORY*/
             $scope.getPetCategories = function () {
                 $http.get(baseUrl + 'pet-category').then(function (response) {
@@ -693,7 +742,60 @@
                 });
             };
             $scope.getProductCategories();
-
+            /*ROLE*/
+            $scope.getRoles = function () {
+                $http.get(baseUrl + 'role').then(function (response) {
+                    $scope.roleData = response.data;
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu role:', error);
+                });
+            };
+            $scope.getRoles();
+            /*AUTHORITY*/
+            $scope.getAuthorities = function () {
+                $http.get(baseUrl + 'authority').then(function (response) {
+                    $scope.authorityData = response.data;
+                    $scope.authorityTables = new NgTableParams({
+                        page: 1,
+                        count: 5
+                    }, {
+                        counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.authorityData.length],
+                        dataset: $scope.authorityData
+                    });
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu authority:', error);
+                });
+            };
+            $scope.getAuthorities();
+            $scope.changeRole = function (authorityId, role) {
+                Swal.fire({
+                    title: 'Bạn có chắc chắn muốn thay đổi?',
+                    text: 'Thay đổi vai trò sẽ ảnh hưởng đến quyền hạn của người dùng',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Xác nhận!',
+                    cancelButtonText: 'Hủy bỏ'
+                }).then((result) => {
+                    $http.put(baseUrl + 'authority/' + authorityId + '/' + role).then(function (response) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Thay đổi vai trò thành công',
+                            autoclose: true,
+                            status: 'success',
+                            autotimeout: 3000
+                        });
+                        $scope.getAuthorities();
+                    }).catch(function (error) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Lỗi khi thay đổi role',
+                            autoclose: true,
+                            status: 'warning',
+                            autotimeout: 3000
+                        });
+                    });
+                });
+            };
 
             // Lấy ngày giờ hiện tại
             $scope.date = new Date().toLocaleString();
@@ -718,10 +820,8 @@
                     $scope.$apply();
                 }
             };
-
         }
-    )
-    ;
+    );
 </script>
 </body>
 

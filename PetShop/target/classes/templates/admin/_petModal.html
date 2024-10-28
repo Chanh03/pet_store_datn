@@ -133,10 +133,10 @@
                             <div class="mb-3">
                                 <label for="price">Giá:</label>
                                 <input ng-model="selectedPet.price" type="number" class="form-control" id="price"
-                                       placeholder="Giá" name="price" required>
+                                       placeholder="Giá" name="price" required min="10000" max="99999999">
                                 <span ng-show="editPetForm.price.$touched && editPetForm.price.$invalid"
                                       class="text-danger fst-italic">
-                                    Vui lòng nhập giá.
+                                    Vui lòng nhập giá (từ 10,000 đến 99,999,999).
                                 </span>
                             </div>
                             <div class="mb-3>">

@@ -23,4 +23,14 @@ public class AuthorityServiceImpl implements AuthorityService {
         return authorityRepo.findAll();
     }
 
+    @Override
+    public Authority findById(int id) {
+        return authorityRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public Authority save(Authority authority) {
+        return authorityRepo.save(authority);
+    }
+
 }

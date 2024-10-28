@@ -751,7 +751,51 @@
                 });
             };
             $scope.getRoles();
-
+            /*AUTHORITY*/
+            $scope.getAuthorities = function () {
+                $http.get(baseUrl + 'authority').then(function (response) {
+                    $scope.authorityData = response.data;
+                    $scope.authorityTables = new NgTableParams({
+                        page: 1,
+                        count: 5
+                    }, {
+                        counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.authorityData.length],
+                        dataset: $scope.authorityData
+                    });
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu authority:', error);
+                });
+            };
+            $scope.getAuthorities();
+            $scope.changeRole = function (authorityId, role) {
+                Swal.fire({
+                    title: 'Bạn có chắc chắn muốn thay đổi?',
+                    text: 'Thay đổi vai trò sẽ ảnh hưởng đến quyền hạn của người dùng',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Xác nhận!',
+                    cancelButtonText: 'Hủy bỏ'
+                }).then((result) => {
+                    $http.put(baseUrl + 'authority/' + authorityId + '/' + role).then(function (response) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Thay đổi vai trò thành công',
+                            autoclose: true,
+                            status: 'success',
+                            autotimeout: 3000
+                        });
+                        $scope.getAuthorities();
+                    }).catch(function (error) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Lỗi khi thay đổi role',
+                            autoclose: true,
+                            status: 'warning',
+                            autotimeout: 3000
+                        });
+                    });
+                });
+            };
 
             // Lấy ngày giờ hiện tại
             $scope.date = new Date().toLocaleString();
@@ -776,10 +820,8 @@
                     $scope.$apply();
                 }
             };
-
         }
-    )
-    ;
+    );
 </script>
 </body>
 
