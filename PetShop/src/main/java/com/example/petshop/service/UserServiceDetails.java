@@ -49,40 +49,39 @@ public class UserServiceDetails implements UserDetailsService {
             return true;
             
         }
-        if(userService.existedByEmail(email) || userService.existedByUsername(id)) {
-        	return false;
-        }
-       
+        if(!userService.existedByUsername(id)) {
+	
         	User user = new User();
-            user.setUserName(id); // hoặc có thể sử dụng email
-            user.setEmail(email);
-            
-            // Mã hóa mật khẩu
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-            String encodedPassword = bCryptPasswordEncoder.encode(id + name);
-            user.setFullName(name); // Đặt tên đầy đủ từ thông tin
+        	user.setUserName(id); // hoặc có thể sử dụng email
+        	user.setEmail(email);
+    
+        	// Mã hóa mật khẩu
+        	BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        	String encodedPassword = bCryptPasswordEncoder.encode(id + name);
+        	user.setFullName(name); // Đặt tên đầy đủ từ thông tin
+    
+        	// Tạo quyền và gán cho người dùng
+        	Authority authority = new Authority();
+        	Role role = roleService.findById("USER");
+        	authority.setRole(role);
+    	authority.setUserName(user); // Thiết lập người dùng cho quyền
+    
+    	user.setUserPassword(encodedPassword);
+    	user.getAuthorities().add(authority);
+    	user.setUserAddress("None");
+    	user.setPhoneNumber("None"); // Hoặc có thể để trống nếu không cần
+    user.setEnable(true);
+    user.setDateCreated(LocalDateTime.now());
 
-            // Tạo quyền và gán cho người dùng
-            Authority authority = new Authority();
-            Role role = roleService.findById("USER");
-            authority.setRole(role);
-            authority.setUserName(user); // Thiết lập người dùng cho quyền
-            
-            user.setUserPassword(encodedPassword);
-            user.getAuthorities().add(authority);
-            user.setUserAddress("None");
-            user.setPhoneNumber("None"); // Hoặc có thể để trống nếu không cần
-            user.setEnable(true);
-            user.setDateCreated(LocalDateTime.now());
+    // Tạo token duy nhất cho người dùng
+    user.setActiveToken(UUID.randomUUID().toString());
 
-            // Tạo token duy nhất cho người dùng
-            user.setActiveToken(UUID.randomUUID().toString());
-
-            // Lưu người dùng và quyền vào cơ sở dữ liệu
-            userService.create(user);
-            authorityService.create(authority); // Lưu quyền
-            return true;
-        
+    // Lưu người dùng và quyền vào cơ sở dữ liệu
+    userService.create(user);
+    authorityService.create(authority); // Lưu quyền
+    return true;
+        }
+        return true;
     }
 
 }
