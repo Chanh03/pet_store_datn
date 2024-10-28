@@ -53,11 +53,8 @@ public class HomeController {
     }
 
     @RequestMapping({ "/", "/trang-chu", "/home"})
-<<<<<<< HEAD
-    public String home(Model model) {
-=======
+
     public String home(Model model, Authentication authentication) {
->>>>>>> 3521ee3 (update login by fb)
         List<Product> productsList = productService.getAll();
         Product latestProduct = productsList.stream().max(Comparator.comparingInt(Product::getId))
                 .orElseThrow(() -> new NoSuchElementException("No product found"));
@@ -112,9 +109,6 @@ public class HomeController {
         return "security/forgot-password";
     }
     @RequestMapping("/information")
-<<<<<<< HEAD
-    public String information() {
-=======
     public String information(Authentication authentication, Model model ) {
     	//Hàm dưới đây kiểm tra username của người dùng trong trang information cho đăng nhập bằng gg và cách thường
     	String username = null;
@@ -131,7 +125,6 @@ public class HomeController {
             }
         }
         model.addAttribute("usernameInfomation", username);
->>>>>>> 3521ee3 (update login by fb)
         return "security/information";
     }
     @RequestMapping("/new-password/{username}")
