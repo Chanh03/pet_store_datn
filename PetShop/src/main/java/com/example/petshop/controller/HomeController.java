@@ -11,7 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+<<<<<<< HEAD
+=======
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+>>>>>>> 3521ee3 (update login by fb)
 
+import java.io.Console;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -36,6 +44,7 @@ public class HomeController {
         try {
             User user = userService.findByUsername(request.getUserPrincipal().getName());
             if (user != null) {
+            	
                 model.addAttribute("user", user);
             }
         } catch (Exception e) {
@@ -44,7 +53,11 @@ public class HomeController {
     }
 
     @RequestMapping({ "/", "/trang-chu", "/home"})
+<<<<<<< HEAD
     public String home(Model model) {
+=======
+    public String home(Model model, Authentication authentication) {
+>>>>>>> 3521ee3 (update login by fb)
         List<Product> productsList = productService.getAll();
         Product latestProduct = productsList.stream().max(Comparator.comparingInt(Product::getId))
                 .orElseThrow(() -> new NoSuchElementException("No product found"));
@@ -64,7 +77,7 @@ public class HomeController {
     }
 
     @RequestMapping("/login")
-    public String login(Model model, @RequestParam(value = "error", required = false) boolean error,
+    public String login(@AuthenticationPrincipal OidcUser principal,Model model, @RequestParam(value = "error", required = false) boolean error,
                         @RequestParam(value = "success", required = false) boolean success) {
         if (error) {
             model.addAttribute("message", "Đăng nhập thất bại!");
@@ -73,6 +86,8 @@ public class HomeController {
         if (success) {
             model.addAttribute("message", "Đăng nhập thành công!");
             model.addAttribute("loginStatus", true);
+            
+            
         }
         return "security/login";
     }
@@ -97,7 +112,26 @@ public class HomeController {
         return "security/forgot-password";
     }
     @RequestMapping("/information")
+<<<<<<< HEAD
     public String information() {
+=======
+    public String information(Authentication authentication, Model model ) {
+    	//Hàm dưới đây kiểm tra username của người dùng trong trang information cho đăng nhập bằng gg và cách thường
+    	String username = null;
+        if (authentication != null && authentication.isAuthenticated()) {
+            if (authentication.getPrincipal() instanceof OAuth2User) {
+            	OAuth2User user = (OAuth2User) authentication.getPrincipal();
+                if (user.getAttributes().containsKey("sub")) {
+                    username = user.getAttributes().get("sub").toString();
+                } else {
+                    username = user.getName();
+                }
+            } else {
+                username = authentication.getName();
+            }
+        }
+        model.addAttribute("usernameInfomation", username);
+>>>>>>> 3521ee3 (update login by fb)
         return "security/information";
     }
     @RequestMapping("/new-password/{username}")

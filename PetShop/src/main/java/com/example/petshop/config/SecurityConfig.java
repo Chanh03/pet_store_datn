@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -71,5 +70,23 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
+    }
+
+
+    @Bean
+    public AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler() {
+        return (request, response, authentication) -> {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            // Gọi hàm saveUser, nếu trả về false thì ngắt quá trình đăng nhập
+            if (!userServiceDetails.saveUser(oAuth2User)) {
+                request.getSession().invalidate(); // Xóa session
+                response.sendRedirect("/login?error=true"); // Chuyển hướng sang trang lỗi
+                return;
+            }
+
+            // Nếu saveUser trả về true, tiếp tục chuyển hướng thành công
+            response.sendRedirect("/login?success=true");
+            
+        };
     }
 }

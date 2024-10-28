@@ -33,7 +33,7 @@
                         <div class="mb-3 d-flex justify-content-between">
                             <div>
                                 <input class="form-check-input" id="remember-me" name="remember-me" type="checkbox">
-                                <label class="form-check-label font-resp" for="remember-me">Lưu</label>
+                                <label class="form-check-label font-resp" for="remember-me">Lưu tài khoản 1 ngày</label>
                             </div>
                             <div>
                                 <a class="font-resp" href="/forgot-password">Quên mật khẩu?</a>
@@ -69,15 +69,6 @@
         </div>
     </div>
 </div>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-<script>function handleCredentialResponse(response) {
-    console.log("Received response:", response);
-    const idToken = response.credential;
-    console.log("ID Token:", idToken);
-    // Process the ID token as needed
-}
-</script>
-
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
