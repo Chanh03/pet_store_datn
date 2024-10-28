@@ -4,6 +4,8 @@ import com.example.petshop.entity.Product;
 import com.example.petshop.repo.ProductRepo;
 import com.example.petshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,4 +34,14 @@ public class ProductServiceImpl implements ProductService {
     public void deleteById(int id) {
         productRepo.deleteById(id);
     }
+
+	@Override
+	public Page<Product> getPaginatedProduct(Pageable pageable) {
+		return productRepo.findAll(pageable);
+	}
+
+	@Override
+	public Page<Product> searchProduct(String keyword, Pageable pageable) {
+		return productRepo.findByProductDescriptionContainingIgnoreCase(keyword, pageable);
+	}
 }

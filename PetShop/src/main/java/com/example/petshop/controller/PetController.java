@@ -11,37 +11,62 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PetController {
-    @Autowired
-    private PetService petService;
-    
-    @RequestMapping("/allPet")
-    public String register() {
-        return "layout/_allPet";
-    }
+	@Autowired
+	private PetService petService;
 
-    @RequestMapping("/pet/detail/{id}")
-    public String petDetail(Model model, @PathVariable String id) {
-        Optional<Pet> optionalPet = petService.findById(id);
+	@RequestMapping("/allPet")
+	public String viewPets(Model model, 
+	                       @RequestParam(defaultValue = "0") int page,
+	                       @RequestParam(required = false) String keyword,
+	                       @RequestParam(required = false) String priceOrder) {
 
-        // Kiểm tra xem thú cưng có tồn tại hay không
-        if (optionalPet.isPresent()) {
-            Pet pet = optionalPet.get();
-            model.addAttribute("pet", pet);
+	    int pageSize = 20;
+	    Page<Pet> petPage;
 
-            List<Pet> otherPets = petService.getAll()
-                    .stream()
-                    .filter(p -> !p.getPetID().equals(pet.getPetID())) // Lọc bỏ thú cưng hiện tại
-                    .limit(12) // Giới hạn số lượng thú cưng khác hiển thị
-                    .collect(Collectors.toList());
-            model.addAttribute("pets", otherPets);
-        } else {
-            model.addAttribute("errorMessage", "Thú cưng không tồn tại");
-            return "error"; // Giả sử bạn có một trang lỗi
-        }
+	    // Xử lý tìm kiếm
+	    if (keyword != null && !keyword.isEmpty()) {
+	        petPage = petService.searchPets(keyword, 
+	            PageRequest.of(page, pageSize, 
+	                Sort.by(priceOrder != null && priceOrder.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, "price")));
+	    } else {
+	        petPage = petService.getPaginatedPets(
+	            PageRequest.of(page, pageSize, 
+	                Sort.by(priceOrder != null && priceOrder.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, "price")));
+	    }
 
-        return "/layout/_petDetail";
-    }
+	    model.addAttribute("pets", petPage.getContent());
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", petPage.getTotalPages());
+	    model.addAttribute("keyword", keyword);
+	    model.addAttribute("sort", priceOrder);
+
+	    return "layout/_allPet";
+	}
+
+
+	@RequestMapping("/pet/detail/{id}")
+	public String petDetail(Model model, @PathVariable String id) {
+		Optional<Pet> optionalPet = petService.findById(id);
+
+		if (optionalPet.isPresent()) {
+			Pet pet = optionalPet.get();
+			model.addAttribute("pet", pet);
+
+			List<Pet> otherPets = petService.getAll().stream().filter(p -> !p.getPetID().equals(pet.getPetID()))
+					.limit(12).collect(Collectors.toList());
+			model.addAttribute("pets", otherPets);
+		} else {
+			model.addAttribute("errorMessage", "Thú cưng không tồn tại");
+			return "error";
+		}
+
+		return "/layout/_petDetail";
+	}
 }
