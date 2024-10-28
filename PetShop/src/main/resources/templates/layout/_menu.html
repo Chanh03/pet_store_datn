@@ -193,7 +193,7 @@
                             </div>
                             <div class="user-actions mt-3">
                                 <a href="#" class="btn btn-primary btn-sm user-button-decor">Xem hồ sơ</a>
-                                <a sec:authorize="hasRole('ROLE_ADMIN')" href="/quan-tri-he-thong"
+                                <a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_STAFF')" href="/quan-tri-he-thong"
                                    class="btn btn-outline-secondary btn-sm user-button-decor">Quản trị</a>
                                 <a href="javascript:void(0)" onclick="logout()"
                                    class="btn btn-danger btn-sm user-button-decor">Đăng xuất</a>

@@ -1,5 +1,6 @@
 package com.example.petshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -66,18 +67,23 @@ public class User implements UserDetails {
     @Column(name = "DateCreated", nullable = false)
     private Instant dateCreated;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userName")
     private Set<BookingService> bookingServices = new LinkedHashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userName")
     private Set<Order> orders = new LinkedHashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userName")
     private Set<Review> reviews = new LinkedHashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userName")
     private Set<Voucher> vouchers = new LinkedHashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userName", fetch = FetchType.EAGER)
     private Set<Authority> authorities = new LinkedHashSet<>();
 

@@ -44,6 +44,7 @@
         .body-bg-color {
             background-color: #f1f6fc !important;
         }
+
         .bg-color {
             background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
             color: white;
@@ -78,10 +79,15 @@
 
         /*NG TABLE*/
         .ng-table th.sortable.sort-desc, .ng-table th.sortable.sort-asc {
-            background: #087592;
+            background: #c1d3ff;
+            border-radius: 10px;
             color: white;
         }
-
+        /*.ng-table th.sortable {*/
+        /*    background: #1781ff;*/
+        /*    border-radius: 10px;*/
+        /*    color: #3259ff;*/
+        /*}*/
         .ng-table-pager {
             display: flex;
             justify-content: space-between;
@@ -103,8 +109,6 @@
         }
 
         .header {
-            border-radius: 25px;
-            cursor: pointer;
             padding: 0;
         }
 
@@ -113,7 +117,7 @@
             font-weight: bold;
             background-color: #f1f6fc;
             border: 1px solid #6057cd;
-            border-radius: 25px;
+            border-radius: 10px;
             padding: 10px;
             margin: 0;
         }
@@ -204,7 +208,7 @@
         </div>
         <hr class="m-0">
         <!-- Navigation -->
-        <ul class="nav nav-pills flex-column mb-auto p-4">
+        <ul class="nav nav-pills flex-column mb-auto p-4" style="position: sticky;  top: 0;">
             <li class="nav-item mb-2">
                 <a th:href="@{/quan-tri-he-thong}" class="nav-link text-dark">
                     <i class="fa-regular fa-user me-2"></i> Dashboard
@@ -652,6 +656,25 @@
                 $scope.productsTable.filter({});
                 $scope.productsTable.sorting({});
             };
+            /*USER*/
+            $scope.getUsers = function () {
+                $http.get(baseUrl + 'user').then(function (response) {
+                    $scope.userData = response.data;
+                    $scope.userEnableTrueLength = $scope.userData.filter(user => user.enable === true).length;
+                    $scope.userEnableFalseLength = $scope.userData.filter(user => user.enable === false).length;
+                    // PRODUCT TABLE
+                    $scope.usersTable = new NgTableParams({
+                        page: 1,
+                        count: 5
+                    }, {
+                        counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.userData.length],
+                        dataset: $scope.userData
+                    });
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu người dùng:', error);
+                });
+            };
+            $scope.getUsers();
             /*PET CATEGORY*/
             $scope.getPetCategories = function () {
                 $http.get(baseUrl + 'pet-category').then(function (response) {
