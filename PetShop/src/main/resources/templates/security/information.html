@@ -76,17 +76,17 @@
                         </div>
 
                         <div class="form-floating mb-3" style="display: none">
-                            <input
-                                    class="form-control"
-                                    id="username"
-                                    name="username"
-                                    placeholder="Tên đăng nhập"
-                                    required
-                                    type="text"
-                                    th:value ="${#authentication.principal.username}"
-                                    readonly disabled
-                            />
-                            <label for="username">Tên đăng nhập</label>
+                            <!-- Kiểm tra giá trị sub -->
+							<input
+    							class="form-control"
+    							id="username"
+    							name="username"
+    							placeholder="Tên đăng nhập"
+    							required
+    							type="text"
+    							th:value="${usernameInfomation}"
+    							readonly disabled
+							/>
                         </div>
                         <div class="form-floating mb-3">
                             <input
@@ -96,7 +96,6 @@
                                     placeholder="Tên của bạn"
                                     required
                                     type="text"
-                                    th:value ="${#authentication.principal.fullName}"
                                     readonly
                             />
                             <label for="fullName">Tên của bạn</label>
@@ -110,7 +109,6 @@
                                     placeholder="Email"
                                     required
                                     type="email"
-                                    th:value ="${#authentication.principal.email}"
                                     readonly
                             />
                             <label for="email">Email</label>
@@ -235,6 +233,8 @@
 				.then(data => {
 					console.log(data)
 					userData = data;
+					document.getElementById("fullName").value = data.fullName || '';
+					document.getElementById("email").value = data.email || '';
 					document.getElementById("phoneNumber").value = data.phoneNumber || '';
 	                document.getElementById("userAddress").value = data.userAddress || '';
 	                document.getElementById("dateCreate").value = data.dateCreate || '';

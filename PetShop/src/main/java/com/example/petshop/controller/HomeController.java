@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -51,8 +53,8 @@ public class HomeController {
     }
 
     @RequestMapping({ "/", "/trang-chu", "/home"})
-
     public String home(Model model, Authentication authentication) {
+
         List<Product> productsList = productService.getAll();
         Product latestProduct = productsList.stream().max(Comparator.comparingInt(Product::getId))
                 .orElseThrow(() -> new NoSuchElementException("No product found"));

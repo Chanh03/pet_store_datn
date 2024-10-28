@@ -107,6 +107,7 @@ public class RestUserController {
         // Chuyển đổi đối tượng User sang UserDTO
         updateUserDTO dto = new updateUserDTO();
         dto.setUserName(user.getUsername());
+        dto.setFullName(user.getFullName());
         dto.setEmail(user.getEmail());
         dto.setPhoneNumber(user.getPhoneNumber());
         dto.setDateCreate(localDate.format(formatter));
@@ -123,6 +124,10 @@ public class RestUserController {
             if (service.existedByUsername(user.getUsername())) {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body("{\"success\": false, \"message\": \"Tên đăng nhập đã tồn tại\"}");
+            }
+            if (service.existedByEmail(user.getUsername())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body("{\"success\": false, \"message\": \"Email đã được sử dụng cho một tài khoản khác\"}");
             }
 
             // Mã hóa mật khẩu người dùng

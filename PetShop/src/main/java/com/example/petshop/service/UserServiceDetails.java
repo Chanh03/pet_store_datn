@@ -1,11 +1,18 @@
 package com.example.petshop.service;
 
 import com.example.petshop.config.CustomUserDetails;
+import com.example.petshop.entity.Authority;
+import com.example.petshop.entity.Role;
 import com.example.petshop.entity.User;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +20,10 @@ import org.springframework.stereotype.Service;
 public class UserServiceDetails implements UserDetailsService {
     @Autowired
     private UserService userService;
+    @Autowired
+    RoleService roleService;
+    @Autowired
+    AuthorityService authorityService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -22,6 +33,56 @@ public class UserServiceDetails implements UserDetailsService {
         }
         return new CustomUserDetails(user);
     }
-    
-    
+ // Phương thức để lưu trữ người dùng
+    public boolean saveUser(OAuth2User oAuth2User) { 
+    	System.out.println(oAuth2User.getAttributes());
+        // Lấy thông tin người dùng từ OAuth2User
+        String email = oAuth2User.getAttribute("email");
+        String id = oAuth2User.getAttribute("sub");
+        String name = oAuth2User.getAttribute("name");
+        if(id == null) {
+        	id = oAuth2User.getAttribute("id");
+        }
+
+        // Kiểm tra sự tồn tại của người dùng theo email
+        if (userService.existedByEmail(email) && userService.existedByUsername(id)) {
+            return true;
+            
+        }
+        if(userService.existedByEmail(email) || userService.existedByUsername(id)) {
+        	return false;
+        }
+       
+        	User user = new User();
+            user.setUserName(id); // hoặc có thể sử dụng email
+            user.setEmail(email);
+            
+            // Mã hóa mật khẩu
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = bCryptPasswordEncoder.encode(id + name);
+            user.setFullName(name); // Đặt tên đầy đủ từ thông tin
+
+            // Tạo quyền và gán cho người dùng
+            Authority authority = new Authority();
+            Role role = roleService.findById("USER");
+            authority.setRole(role);
+            authority.setUserName(user); // Thiết lập người dùng cho quyền
+            
+            user.setUserPassword(encodedPassword);
+            user.getAuthorities().add(authority);
+            user.setUserAddress("None");
+            user.setPhoneNumber("None"); // Hoặc có thể để trống nếu không cần
+            user.setEnable(true);
+            user.setDateCreated(LocalDateTime.now());
+
+            // Tạo token duy nhất cho người dùng
+            user.setActiveToken(UUID.randomUUID().toString());
+
+            // Lưu người dùng và quyền vào cơ sở dữ liệu
+            userService.create(user);
+            authorityService.create(authority); // Lưu quyền
+            return true;
+        
+    }
+
 }
