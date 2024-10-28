@@ -58,14 +58,25 @@
                     <h4 class="text-secondary">TỔNG HÀNG HÓA</h4>
                     <div class="d-flex justify-content-start align-items-end">
                         <h2>{{productTotalQuantity | number:0}}</h2>
+                        <h5 class="text-secondary">
+                            . hàng hóa
+                        </h5>
                     </div>
                 </div>
             </div>
             <div class="col-3">
                 <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
-                    <h4 class="text-secondary">TỔNG GIÁ TRỊ</h4>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="text-secondary">TỔNG GIÁ TRỊ</h4>
+                        <h2 class="fs-5 badge" style="background: #fff6cf; color: #FFD700">
+                            <i class="fa-solid fa-coins" style="color: #FFD700;"></i>
+                        </h2>
+                    </div>
                     <div class="d-flex justify-content-start align-items-end">
-                        <h2>{{productTotalPrice | number:0}} đ</h2>
+                        <h2>{{productTotalPrice | number:0}}</h2>
+                        <h5 class="text-secondary">
+                            <i class="fa-solid fs-3 fa-dong-sign"></i>
+                        </h5>
                     </div>
                 </div>
             </div>

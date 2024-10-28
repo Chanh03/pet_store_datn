@@ -1,7 +1,10 @@
 package com.example.petshop.service_impl;
 
 
+import com.example.petshop.entity.Authority;
 import com.example.petshop.entity.User;
+import com.example.petshop.repo.AuthorityRepo;
+import com.example.petshop.repo.RoleRepo;
 import com.example.petshop.repo.UserRepo;
 import com.example.petshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepo userRepo;
+
 
     @Override
     public UserDetails findById(String username) {
@@ -33,5 +37,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAll() {
         return userRepo.findAll();
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userRepo.save(user);
+    }
+
+    @Override
+    public User getUserById(String id) {
+        return userRepo.findById(id).orElse(null);
     }
 }

@@ -12,7 +12,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/quan-tri-he-thong">Trang chủ</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Sản phẩm
+                <li class="breadcrumb-item active" aria-current="page">Người dùng
                 </li>
             </ol>
         </nav>
@@ -73,7 +73,7 @@
     </div>
     <div class="text-center mt-1 mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
         <div class="d-flex position-absolute gap-4" style="right: 45px;top: 83px">
-            <button ng-click="clearProductFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
+            <button ng-click="clearUserFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
         </div>
         <table ng-table="usersTable" class="table table-responsive rounded-3 table-hover table-sm  p-5"
                show-filter="true">
@@ -86,6 +86,13 @@
                 <td sortable="'fullName'" filter="{ 'fullName': 'text' }"
                     data-title="'Họ và tên'" class="text-center">{{ user.fullName }}
                 </td>
+                <td sortable="'dateCreated'" filter="{ 'dateCreated': 'date' }"
+                    data-title="'Ngày tạo'" class="text-center">{{ user.dateCreated | date: 'dd/MM/yyyy' }}
+                </td>
+                <td data-title="'Địa chỉ'" class="text-center">{{ user.userAddress | date: 'dd/MM/yyyy' }}
+                <td data-title="'Số điện thoại'" class="text-center">{{ user.phoneNumber }}
+                <td data-title="'Email'" class="text-center">{{ user.email }}
+                </td>
                 <td sortable="'enable'" data-title="'Trạng thái'" class="text-center">
                     <div ng-if="user.enable" class="text-success">
                         <i class="fa-solid fa-circle"></i>
@@ -95,13 +102,6 @@
                         <i class="fa-solid fa-circle"></i>
                         <span>Không hoạt động</span>
                     </div>
-                </td>
-                <td sortable="'dateCreated'" filter="{ 'dateCreated': 'date' }"
-                    data-title="'Ngày tạo'" class="text-center">{{ user.dateCreated | date: 'dd/MM/yyyy' }}
-                </td>
-                <td data-title="'Địa chỉ'" class="text-center">{{ user.userAddress | date: 'dd/MM/yyyy' }}
-                <td data-title="'Số điện thoại'" class="text-center">{{ user.phoneNumber }}
-                <td data-title="'Email'" class="text-center">{{ user.email }}
                 </td>
                 <td data-title="'Tool'" class="text-center">
                     <button ng-click="userEdit(user)" class="btn btn-outline-secondary">

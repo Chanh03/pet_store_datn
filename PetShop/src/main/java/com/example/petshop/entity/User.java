@@ -1,6 +1,7 @@
 package com.example.petshop.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -24,12 +25,14 @@ public class User implements UserDetails {
     @Column(name = "UserName", nullable = false, length = 50)
     private String userName;
 
-    @Size(max = 50)
+    @JsonIgnore
+    @Size(max = 100)
     @NotNull
     @Nationalized
-    @Column(name = "UserPassword", nullable = false, length = 50)
+    @Column(name = "UserPassword", nullable = false, length = 100)
     private String userPassword;
 
+    @Getter
     @Size(max = 50)
     @NotNull
     @Nationalized
@@ -58,6 +61,7 @@ public class User implements UserDetails {
     @Column(name = "Enable", nullable = false)
     private Boolean enable = false;
 
+    @JsonIgnore
     @Size(max = 200)
     @NotNull
     @Column(name = "ActiveToken", nullable = false, length = 200)
@@ -87,6 +91,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "userName", fetch = FetchType.EAGER)
     private Set<Authority> authorities = new LinkedHashSet<>();
 
+    @JsonIgnore
     @Override
     public String getPassword() {
         return userPassword;
@@ -97,7 +102,4 @@ public class User implements UserDetails {
         return userName;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
 }

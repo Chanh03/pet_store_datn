@@ -23,7 +23,7 @@
                                    id="productName"
                                    name="productName"
                                    placeholder="Nhập tên sản phẩm" required>
-                            <span ng-show="addProductModal.productName.$touched && editProductForm.productName.$invalid"
+                            <span ng-show="addProductModal.productName.$touched && addProductModal.productName.$invalid"
                                   class="text-danger fst-italic">
                                 Vui lòng nhập tên sản phẩm.
                             </span>
@@ -37,7 +37,7 @@
                                     {{pc.productCategoryName}}
                                 </option>
                             </select>
-                            <span ng-show="addProductModal.productCategory.$touched && editProductForm.productCategory.$invalid"
+                            <span ng-show="addProductModal.productCategory.$touched && addProductModal.productCategory.$invalid"
                                   class="text-danger fst-italic">
                                 Vui lòng chọn loại sản phẩm.
                             </span>
@@ -46,19 +46,18 @@
                             <label for="price">Giá:</label>
                             <input ng-model="selectedProduct.price" type="number" class="form-control" id="price"
                                    name="price"
-                                   placeholder="Nhập giá" required>
-                            <span ng-show="addProductModal.price.$touched && editProductForm.price.$invalid"
+                                   placeholder="Nhập giá" required min="10000" max="99999999">
+                            <span ng-show="addProductModal.price.$touched && addProductModal.price.$invalid"
                                   class="text-danger fst-italic">
-                                Vui lòng nhập giá.
+                                Vui lòng nhập giá (từ 10,000 đến 99,999,999).
                             </span>
                         </div>
-
                         <!-- Cột 2 -->
                         <div class="mb-3">
                             <label for="quantity">Số lượng:</label>
                             <input ng-model="selectedProduct.quantity" type="number" class="form-control" id="quantity"
-                                   placeholder="Nhập số lượng" required name="quantity">
-                            <span ng-show="addProductModal.quantity.$touched && editProductForm.quantity.$invalid"
+                                   placeholder="Nhập số lượng" required min="0" name="quantity">
+                            <span ng-show="addProductModal.quantity.$touched && addProductModal.quantity.$invalid"
                                   class="text-danger fst-italic">
                                     Vui lòng nhập số lượng.
                             </span>
@@ -86,7 +85,7 @@
                                 <input type="file" id="fileInput" accept="image/*"
                                        onchange="angular.element(this).scope().updatePhotoProductName(this)">
                             </div>
-                            <span ng-show="addProductModal.photo.$touched && editProductForm.photo.$invalid"
+                            <span ng-show="addProductModal.photo.$touched && addProductModal.photo.$invalid"
                                   class="text-danger fst-italic">
                                 Vui lòng chọn ảnh thú cưng.
                             </span>
@@ -96,7 +95,7 @@
                             <textarea ng-model="selectedProduct.productDescription" class="form-control"
                                       placeholder="Thông tin chi tiết" id="proDes" required name="proDes">
                             </textarea>
-                            <span ng-show="addProductModal.proDes.$touched && editProductForm.proDes.$invalid"
+                            <span ng-show="addProductModal.proDes.$touched && addProductModal.proDes.$invalid"
                                   class="text-danger fst-italic">
                                 Vui lòng nhập thông tin chi tiết.
                             </span>

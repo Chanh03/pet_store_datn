@@ -252,13 +252,7 @@
             cancelButtonText: 'Hủy'
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire({
-                    title: 'Đăng xuất thành công!',
-                    icon: 'success',
-                })
-                setTimeout(() => {
-                    window.location.href = '/logout';
-                }, 1000)
+                window.location.href = '/logout';
             }
         })
     }

@@ -47,10 +47,10 @@
                             <label for="price">Giá:</label>
                             <input ng-model="selectedProduct.price" type="number" class="form-control" id="price"
                                    name="price"
-                                   placeholder="Nhập giá" required>
+                                   placeholder="Nhập giá" required min="10000" max="99999999">
                             <span ng-show="editProductForm.price.$touched && editProductForm.price.$invalid"
                                   class="text-danger fst-italic">
-                                Vui lòng nhập giá.
+                                Vui lòng nhập giá (từ 10,000 đến 99,999,999).
                             </span>
                         </div>
 
@@ -58,7 +58,7 @@
                         <div class="mb-3">
                             <label for="quantity">Số lượng:</label>
                             <input ng-model="selectedProduct.quantity" type="number" class="form-control" id="quantity"
-                                   placeholder="Nhập số lượng" required name="quantity">
+                                   placeholder="Nhập số lượng" required min="0" name="quantity">
                             <span ng-show="editProductForm.quantity.$touched && editProductForm.quantity.$invalid"
                                   class="text-danger fst-italic">
                                     Vui lòng nhập số lượng.
@@ -110,7 +110,8 @@
                 <button type="button" class="btn btn-danger" ng-click="deleteProduct(selectedProduct.id)">
                     <span>Xóa</span> <i
                         class="fa-solid fa-trash"></i></button>
-                <button ng-disabled="editProductForm.$invalid" type="button" class="btn btn-primary"
+                <button ng-disabled="editProductForm.$invalid || editProductForm.$pristine" type="button"
+                        class="btn btn-primary"
                         ng-click="updateProduct(selectedProduct.id)">
                     <span>Lưu thay đổi</span> <i class="fa-solid fa-floppy-disk"></i>
                 </button>

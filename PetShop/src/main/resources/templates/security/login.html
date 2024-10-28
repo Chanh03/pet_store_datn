@@ -75,29 +75,21 @@
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        var countdown = 2;
         var loginStatus = [[${loginStatus}]];
-        var messageElement = document.getElementById("modal-message");
-        var progressBar = document.getElementById('progressBar');
         var redirectUrl = '/trang-chu';
 
         if (loginStatus) {
-            // Hiển thị modal
-            var myModal = new bootstrap.Modal(document.getElementById('countdownModal'));
-            myModal.show();
-            var progressWidth = 0; // Khởi tạo chiều rộng thanh tiến trình
-            var interval = setInterval(function () {
-                messageElement.innerHTML = "Đăng nhập thành công! Chuyển hướng sau " + countdown + " giây.";
-                // Cập nhật thanh tiến trình
-                progressWidth += 50;
-                progressBar.style.width = progressWidth + '%';
-                countdown--;
-                if (countdown < 0) {
-                    clearInterval(interval);
-                    myModal.hide(); // Đóng modal
+            Swal.fire({
+                title: 'Đăng nhập thành công!',
+                text: 'Chuyển hướng trong 2 giây...',
+                icon: 'success',
+                timer: 2000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                willClose: () => {
                     window.location.href = redirectUrl;
                 }
-            }, 1000);
+            });
         }
     });
 </script>
