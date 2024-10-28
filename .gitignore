@@ -5,4 +5,5 @@
 .project
 .settings/
 PetShop/bin/
-PetShop/target/
+PetShop/target/classes/
+PetShop/src/main/java/META-INF/
