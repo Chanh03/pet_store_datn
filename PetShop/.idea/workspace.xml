@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="addToCart-0.2">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="addToCart-0.3">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_payMent.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_cartDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_cartDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/config/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/controller/HomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/controller/HomeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_cartDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_cartDetail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,8 +22,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="com.intellij.jpb.JpaEntity" />
+        <option value="HTML File" />
         <option value="Class" />
       </list>
     </option>
@@ -107,7 +111,9 @@
       <workItem from="1729859869788" duration="2574000" />
       <workItem from="1729862458067" duration="2585000" />
       <workItem from="1729935053914" duration="319000" />
-      <workItem from="1730012843812" duration="18161000" />
+      <workItem from="1730012843812" duration="18199000" />
+      <workItem from="1730035304762" duration="1146000" />
+      <workItem from="1730110828456" duration="4419000" />
     </task>
     <task id="LOCAL-00001" summary="pushALllllllllllll">
       <option name="closed" value="true" />
@@ -181,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730031095751</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="addToCart-0.3">
+      <option name="closed" value="true" />
+      <created>1730031580689</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1730031580690</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,7 +220,8 @@
     <MESSAGE value="addToCart" />
     <MESSAGE value="addToCart-0.1" />
     <MESSAGE value="addToCart-0.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="addToCart-0.2" />
+    <MESSAGE value="addToCart-0.3" />
+    <option name="LAST_COMMIT_MESSAGE" value="addToCart-0.3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

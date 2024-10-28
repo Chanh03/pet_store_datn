@@ -341,7 +341,7 @@
                 return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
             },
 
-            cartTotalAll(){
+            cartTotalAll() {
                 return $scope.cart.total - ($scope.discountAmount || 0);
             },
 
@@ -366,9 +366,13 @@
             // Hàm để lấy detailItems từ items
             getDetailItems() {
                 return this.items;
+            },
+
+            //
+            getPayMent() {
+                return this.getDetailItems()
             }
         };
-
 
         // Tải giỏ hàng từ localStorage khi khởi động ứng dụng
         $scope.cart.loadFromLocalStorage();
@@ -380,30 +384,39 @@
         $scope.successMessage = '';
         $scope.errorMessage = '';
 
-        $http.get("/api/voucher").then(function(response) {
+        $http.get("/api/voucher").then(function (response) {
             $scope.vouchers = response.data;
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.error("Error fetching vouchers", error);
         });
 
-        $scope.applyVoucher = function(voucherCode) {
+        $scope.applyVoucher = function (voucherCode) {
             $http.get("/api/voucher/" + voucherCode)
-                .then(function(response) {
+                .then(function (response) {
                     if (response.data.discount) {
                         $scope.successMessage = "Voucher đã được áp dụng thành công!";
                         $scope.discountAmount = response.data.discount;
                         $scope.errorMessage = '';
+
+                        localStorage.setItem('voucherCode', voucherCode);
+                        localStorage.setItem('discountAmount', response.data.discount);
                     } else {
                         $scope.errorMessage = "Voucher không hợp lệ!";
                         $scope.discountAmount = "";
                         $scope.successMessage = '';
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     $scope.errorMessage = "Có lỗi xảy ra khi áp dụng mã giảm giá!";
                     console.error("Lỗi áp dụng voucher", error);
                 });
         };
+        $scope.loadVoucherFromLocalStorage = function () {
+            $scope.voucherCode = localStorage.getItem('voucherCode');
+            $scope.discountAmount = parseFloat(localStorage.getItem('discountAmount')) || 0;
+        };
+
+        $scope.loadVoucherFromLocalStorage();
     });
 </script>
 

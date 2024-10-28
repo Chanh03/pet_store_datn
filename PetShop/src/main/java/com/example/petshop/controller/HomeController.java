@@ -114,4 +114,9 @@ public class HomeController {
     public String cartDetail(Model model) {
         return "/layout/_cartDetail";
     }
+
+    @RequestMapping("/cart-payMent")
+    public String cartPayMent(Model model) {
+        return "layout/_payMent";
+    }
 }
