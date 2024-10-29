@@ -63,10 +63,8 @@
                             ng-model="userAuthor.authority"
                             ng-change="changeRole(userAuthor.id, userAuthor.authority)"
                             class="form-select form-select-sm">
-                        <option value="">Chọn vai trò</option>
-                        <option value="ROLE_ADMIN">ADMIN</option>
-                        <option value="ROLE_USER">USER</option>
-                        <option value="ROLE_STAFF">STAFF</option>
+                        <option ng-repeat="role in roleData" value="{{role.name}}">{{role.name.replace('ROLE_', '')}}
+                        </option>
                     </select>
                 </td>
             </tr>
