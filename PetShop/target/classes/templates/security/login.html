@@ -7,24 +7,27 @@
 </head>
 <body>
 <div class="container-lg main-content px-3">
-    <div class="d-flex align-items-center justify-content-center mt-5">
-        <div class="w-75 gap-2 d-flex justify-content-start align-items-center">
-            <h3 class="fw-bold font-resp text-danger"><i class="fa-regular fa-user"></i>
-                ĐĂNG NHẬP THÀNH VIÊN</h3>
-        </div>
-        <div class="line w-25"></div>
-    </div>
-    <div class="row mt-3">
-        <!--        ADVERTISE-->
-        <div class="col-lg-3">
-        </div>
-        <!--        LOGIN FORM-->
-        <div class="col-md-12 col-lg-6">
-            <div class="card shadow border-0 sticky-element" style="top: 100px; z-index: 1">
+    <!-- BREADCRUMB -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white mb-0 p-2 rounded-3">
+            <li class="breadcrumb-item">
+                <a href="/trang-chu" class="text-decoration-none text-danger d-flex align-items-center">
+                    <i class="fas fa-home me-2"></i>
+                    Trang chủ
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Đăng nhập</li>
+        </ol>
+    </nav>
+
+    <div class="row mt-3 position-relative">
+        <img src="/images/background/login-form-bg.png" class="w-100" alt="login-form">
+        <div class="d-flex justify-content-center"
+             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
+            <div class="card shadow border-0" style="width: 650px">
+                <h3 class="text-center mt-3">Đăng nhập</h3>
                 <div class="card-body">
                     <form action="/login" method="post">
-                        <h5 class="alert font-resp" th:if="${message}" th:text="${message}"
-                            th:classappend="${loginStatus == true ? 'alert-success' : 'alert-danger'}"></h5>
                         <div class="form-floating mb-3">
                             <input class="form-control" id="username" name="username" placeholder="Tên đăng nhập"
                                    required
@@ -46,8 +49,10 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center gap-3 mt-4">
-                            <button class="btn font-resp" type="submit">Đăng nhập</button>
-                            <a class="btn font-resp" href="/dang-ki" style="background: #AACCFF">Đăng kí</a>
+                            <button class="btn font-resp w-100 button-image-white bg-danger text-white" type="submit">
+                                Đăng nhập
+                            </button>
+                            <a class="btn font-resp w-100" href="/dang-ki" style="background: #AACCFF">Đăng kí</a>
                         </div>
                     </form>
                 </div>
@@ -89,6 +94,13 @@
                 willClose: () => {
                     window.location.href = redirectUrl;
                 }
+            });
+        } else {
+            Swal.fire({
+                title: 'Đăng nhập thất bại!',
+                text: 'Vui lòng kiểm tra lại thông tin đăng nhập.',
+                icon: 'error',
+                confirmButtonText: 'Thử lại'
             });
         }
     });
