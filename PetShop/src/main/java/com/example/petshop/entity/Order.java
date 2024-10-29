@@ -1,5 +1,6 @@
 package com.example.petshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -35,7 +36,7 @@ public class Order {
     private Integer totalAmount;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "UserName", nullable = false)
     private User userName;
 
@@ -44,18 +45,20 @@ public class Order {
     private Boolean enable = false;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "OrderStatusID", nullable = false)
     private OrderStatus orderStatusID;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "PaymentStatusID", nullable = false)
     private PaymentStatus paymentStatusID;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "orderID")
     private Set<OrderProductDetail> orderProductDetails = new LinkedHashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "orderID")
     private Set<Voucher> vouchers = new LinkedHashSet<>();
 }

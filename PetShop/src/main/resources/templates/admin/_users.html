@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-<div class="mt-4">
+<div class="mt-3">
     <div class="mt-1 mb-3 rounded-3 overflow-hidden shadow p-4 bg-white">
         <!--BREADCRUMB-->
         <nav aria-label="breadcrumb">
@@ -18,7 +18,8 @@
         </nav>
         <div class="d-flex justify-content-between align-items-center">
             <h1>
-                Người dùng
+                <span>Người dùng</span>
+                <i class="fa-solid fa-user"></i>
             </h1>
             <!--            <button ng-click="productAddModal()" class="insert-btn btn px-4 py-3">-->
             <!--                <i class="fa-solid fa-plus"></i>-->
@@ -50,22 +51,6 @@
                             <span class="">{{userData.length}}</span>
                             <span class="fs-6 badge" style="background: #fdecf2; color: #f37fa1">{{ (userEnableFalseLength / userData.length * 100) | number:2 }}%</span>
                         </h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
-                    <h4 class="text-secondary">TỔNG HÀNG HÓA</h4>
-                    <div class="d-flex justify-content-start align-items-end">
-                        <h2>{{productTotalQuantity | number:0}}</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
-                    <h4 class="text-secondary">TỔNG GIÁ TRỊ</h4>
-                    <div class="d-flex justify-content-start align-items-end">
-                        <h2>{{productTotalPrice | number:0}} đ</h2>
                     </div>
                 </div>
             </div>
