@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+    <!--   notify-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css"/>
     <style>
         body {
             background: url("/images/background/bg.png");
@@ -184,7 +186,7 @@
         }
 
         .sticky-element {
-            position: -webkit-sticky;
+            /*position: -webkit-sticky;*/
             position: sticky;
             top: 0;
             z-index: 999;
@@ -291,6 +293,7 @@
         crossFade: true,
     });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 
 <!--    Angular add to cart-->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
@@ -302,12 +305,18 @@
             items: JSON.parse(localStorage.getItem('cart')) || [],
 
             add(id) {
+
                 const item = this.items.find(item => item.id === id);
                 if (item) {
                     item.quantity++;
                     if (item.quantity > 10) {
                         item.quantity = 10;
-                        alert(`Số lượng sản phẩm: ${item.productName} đã đạt giới hạn`);
+                        new Notify ({
+                            title: `Số lượng sản phẩm: ${item.productName} đã đạt giới hạn`,
+                            status: 'warning',
+                            autoclose: true,
+                            autotimeout: 2000
+                        })
                     }
                     this.saveToLocalStorage();
                 } else {
@@ -315,6 +324,12 @@
                         response.data.quantity = 1;
                         this.items.push(response.data);
                         this.saveToLocalStorage();
+                        new Notify ({
+                            title: 'da them san pham vao gio hang',
+                            status: 'success',
+                            autoclose: true,
+                            autotimeout: 2000
+                        })
                     }).catch(error => {
                         console.error("Lỗi khi lấy sản phẩm:", error);
                     });
@@ -326,6 +341,12 @@
                 if (index !== -1) {
                     this.items.splice(index, 1);
                     this.saveToLocalStorage();
+                    new Notify ({
+                        title: `xoa thanh cong`,
+                        status: 'success',
+                        autoclose: true,
+                        autotimeout: 2000
+                    })
                 }
             },
 
@@ -377,6 +398,7 @@
         // Tải giỏ hàng từ localStorage khi khởi động ứng dụng
         $scope.cart.loadFromLocalStorage();
 
+
         // Voucher
         $scope.vouchers = []
         $scope.voucherCode = '';
@@ -417,6 +439,141 @@
         };
 
         $scope.loadVoucherFromLocalStorage();
+
+
+        //checkout
+        $scope.checkout = function () {
+            Swal.fire({
+                title: 'Thanh toán thành cong',
+                icon: 'warning',
+                cancelButtonText: 'Huy',
+                showConfirmButton: true,
+                showCancelButton: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const username = document.getElementById("username_auth").textContent;
+                    const cartTotal = JSON.parse(localStorage.getItem('cartTotal'));
+                    const userAddress = document.getElementById("userAddress").value;
+                    const currentDate = new Date();
+
+                    // Tạo một mảng các Promise
+                    const userPromise = $http.get("/api/user/" + username);
+                    const orderStatusPromise = $http.get("/api/orderStatus/1");
+                    const paymentStatusPromise = $http.get("/api/paymentStatus/1");
+
+                    // Đợi tất cả các Promise hoàn thành
+                    Promise.all([userPromise, orderStatusPromise, paymentStatusPromise])
+                        .then(function (responses) {
+                            const userResponse = responses[0].data;
+                            const orderStatusResponse = responses[1].data;
+                            const paymentStatusResponse = responses[2].data;
+
+                            console.log(cartTotal);
+                            console.log(userAddress);
+                            console.log(currentDate);
+                            console.log(userResponse.username);
+                            console.log(orderStatusResponse);
+                            console.log(paymentStatusResponse);
+
+                            const order = {
+                                totalAmount: cartTotal,
+                                userName: {
+                                    userName: userResponse.username,
+                                },
+                                shippingAddress: userAddress,
+                                enable: true,
+                                orderStatusID: {
+                                    id: orderStatusResponse.id
+                                },
+                                paymentStatusID: {
+                                    id: paymentStatusResponse.id
+                                },
+                                orderDate: currentDate
+                            };
+
+                            return $http.post("/api/order", order); // Trả về Promise cho yêu cầu POST
+                        })
+                        .then(function (response) {
+                            console.log("Order thành công");
+                            localStorage.removeItem('cart');
+                            localStorage.removeItem('voucherCode');
+                            localStorage.removeItem('discountAmount');
+                            Swal.fire({
+                                title: 'Thanh toán thành cong',
+                                icon: 'success',
+                                timer: 2000,
+                                timerProgressBar: true,
+                                willClose: () => {
+                                    window.location.href = "http://localhost:8080/cart-payMent"
+                                }
+                            })
+                        })
+                        .catch(function (error) {
+                            console.log("Lỗi khi order", error);
+                        });
+                }
+            })
+
+
+        }
+        // $scope.checkout = function () {
+        //     const username = document.getElementById("username_auth").textContent;
+        //     $http.get("/api/user/" + username).then(function (response) {
+        //         $scope.usernameData = response.data;  // Sửa ở đây
+        //     }).catch(function (error) {
+        //         console.log("Lỗi lấy thông tin người dùng", error);
+        //     });
+        //
+        //
+        //     $http.get("/api/orderStatus/1").then(function (response) {
+        //         $scope.orderStatusData = response.data;
+        //     }).catch(function (error) {
+        //         console.log("Lỗi lấy trạng thái đơn hàng", error);
+        //     });
+        //
+        //
+        //     $http.get("/api/paymentStatus/1").then(function (response) {
+        //         $scope.paymentStatusData = response.data;
+        //     }).catch(function (error) {
+        //         console.log("Lỗi lấy trạng thái thanh toán", error);
+        //     });
+        //
+        //     const cartTotal = JSON.parse(localStorage.getItem('cartTotal'));
+        //     const userAddress = document.getElementById("userAddress").value;
+        //     const currentDate = new Date();
+        //
+        //     console.log(cartTotal);
+        //     console.log(userAddress);
+        //     console.log(currentDate);
+        //     console.log($scope.usernameData.username);
+        //     console.log($scope.orderStatusData);
+        //     console.log($scope.paymentStatusData);
+        //
+        //     const order = {
+        //         totalAmount: cartTotal,
+        //         userName: {
+        //             userName: $scope.usernameData.username,
+        //         },
+        //         shippingAddress: userAddress,
+        //         enable: true,
+        //         orderStatusID: {
+        //           id : $scope.orderStatusData.id
+        //         },
+        //         paymentStatusID: {
+        //             id :  $scope.paymentStatusData.id
+        //         },
+        //         orderDate: currentDate
+        //     };
+        //
+        //
+        //     $http.post("/api/order", order).then(function (response) {
+        //         console.log("Order thành công");
+        //     }).catch(function (error) {
+        //         console.log("Lỗi khi order", error);
+        //     });
+        // }
+
+
     });
 </script>
 
