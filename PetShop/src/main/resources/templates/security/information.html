@@ -70,7 +70,7 @@
                             >
                                 Chỉnh sửa
                             </button>
-                            <button type="button" onclick="save()" class="button-image">
+                            <button type="button" onclick="save()" class="button-image"><i class="fa-solid fa-check"></i> 
                                 Lưu
                             </button>
                         </div>
@@ -84,7 +84,7 @@
     							placeholder="Tên đăng nhập"
     							required
     							type="text"
-    							th:value="${usernameInfomation}"
+    							th:value="${user.username}"
     							readonly disabled
 							/>
                         </div>
@@ -98,7 +98,7 @@
                                     type="text"
                                     readonly
                             />
-                            <label for="fullName">Tên của bạn</label>
+                            <label for="fullName"><i class="fa-regular fa-user"></i> Tên của bạn</label>
                         </div>
 
                         <div class="form-floating mb-3">
@@ -111,7 +111,7 @@
                                     type="email"
                                     readonly
                             />
-                            <label for="email">Email</label>
+                            <label for="email"><i class="fa-solid fa-at"></i> Email</label>
                         </div>
 
                         <div class="form-floating mb-3">
@@ -124,7 +124,7 @@
                                     type="tel"
                                     readonly
                             />
-                            <label for="phoneNumber">Số điện thoại</label>
+                            <label for="phoneNumber"><i class="fa-solid fa-phone"></i> Số điện thoại</label>
                         </div>
 
                         <div class="form-floating mb-3">
@@ -137,7 +137,7 @@
                                     type="text"
                                     readonly
                             />
-                            <label for="userAddress">Địa chỉ</label>
+                            <label for="userAddress"><i class="fa-solid fa-house"></i> Địa chỉ</label>
                         </div>
 
                         <div class="form-floating mb-3">
@@ -150,7 +150,7 @@
                                     type="text"
                                     readonly disabled
                             />
-                            <label for="dateCreate">Ngày tạo tài khoản</label>
+                            <label for="dateCreate"><i class="fa-regular fa-clock"></i> Ngày tạo tài khoản</label>
                         </div>
 
                         <div class="d-flex justify-content-center mb-4"></div>
@@ -178,7 +178,7 @@
                                         required
                                         type="password"
                                 />
-                                <label for="currentPassword">Mật khẩu hiện tại</label>
+                                <label for="currentPassword"><i class="fa-solid fa-lock"></i> Mật khẩu hiện tại</label>
                             </div>
                             <div class="form-floating mb-3">
                                 <input
@@ -189,7 +189,7 @@
                                         required
                                         type="password"
                                 />
-                                <label for="newPassword">Mật khẩu mới</label>
+                                <label for="newPassword"><i class="fa-solid fa-lock"></i> Mật khẩu mới</label>
                             </div>
                             <div class="form-floating mb-3">
                                 <input
@@ -200,7 +200,7 @@
                                         required
                                         type="password"
                                 />
-                                <label for="confirmPassword">Xác nhận mật khẩu mới</label>
+                                <label for="confirmPassword"><i class="fa-solid fa-repeat"></i> Xác nhận mật khẩu mới</label>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <button

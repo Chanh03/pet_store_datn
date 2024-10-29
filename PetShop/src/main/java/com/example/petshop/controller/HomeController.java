@@ -46,6 +46,7 @@ public class HomeController {
             if (user != null) {
             	
                 model.addAttribute("user", user);
+                
             }
         } catch (Exception e) {
             model.addAttribute("user", null);
@@ -110,22 +111,7 @@ public class HomeController {
         return "security/forgot-password";
     }
     @RequestMapping("/information")
-    public String information(Authentication authentication, Model model ) {
-    	//Hàm dưới đây kiểm tra username của người dùng trong trang information cho đăng nhập bằng gg và cách thường
-    	String username = null;
-        if (authentication != null && authentication.isAuthenticated()) {
-            if (authentication.getPrincipal() instanceof OAuth2User) {
-            	OAuth2User user = (OAuth2User) authentication.getPrincipal();
-                if (user.getAttributes().containsKey("sub")) {
-                    username = user.getAttributes().get("sub").toString();
-                } else {
-                    username = user.getName();
-                }
-            } else {
-                username = authentication.getName();
-            }
-        }
-        model.addAttribute("usernameInfomation", username);
+    public String information( Model model ) {
         return "security/information";
     }
     @RequestMapping("/new-password/{username}")

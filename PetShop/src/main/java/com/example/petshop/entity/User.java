@@ -13,6 +13,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -94,6 +95,11 @@ public class User implements UserDetails {
         return fullName;
     }
     
+    public Set<String> getRoles() {
+        return authorities.stream()
+                .map(authority -> authority.getRole().getName())
+                .collect(Collectors.toSet());
+    }
 
     
 }

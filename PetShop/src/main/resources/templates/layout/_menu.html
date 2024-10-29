@@ -188,15 +188,17 @@
                                      class="img-fluid rounded-circle" width="80">
                             </div>
                             <div class="user-info">
-                                <h5 th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? 'Quản trị viên' : 'Khách hàng'}"
-                                    class="user-name mb-1">
-                                    Tên người dùng
-                                </h5>
-                            </div>
+    <!-- Kiểm tra nếu user có vai trò ADMIN -->
+    <h5 th:if="${user.roles.contains('ROLE_ADMIN')}" class="user-name mb-1">Quản trị viên</h5>
+
+    <!-- Nếu không có vai trò ADMIN, hiển thị Khách hàng -->
+    <h5 th:unless="${user.roles.contains('ROLE_ADMIN')}" class="user-name mb-1">Khách hàng</h5>
+</div>
+
                             <div class="user-actions mt-3">
                                 <a href="/information" class="btn btn-primary btn-sm user-button-decor">Xem hồ sơ</a>
-                                <a sec:authorize="hasRole('ROLE_ADMIN')" href="/quan-tri-he-thong"
-                                   class="btn btn-outline-secondary btn-sm user-button-decor">Quản trị</a>
+                                <a th:if="${user.roles.contains('ROLE_ADMIN')}" href="/quan-tri-he-thong"
+   class="btn btn-outline-secondary btn-sm user-button-decor">Quản trị</a>
                                 <a href="javascript:void(0)" onclick="logout()"
                                    class="btn btn-danger btn-sm user-button-decor">Đăng xuất</a>
                             </div>

@@ -23,12 +23,13 @@
                         <h5 class="alert font-resp" th:if="${message}" th:text="${message}"
                             th:classappend="${loginStatus == true ? 'alert-success' : 'alert-danger'}"></h5>
                         <div class="form-floating mb-3">
+                        
                             <input class="form-control" id="username" name="username" placeholder="Tên đăng nhập" required type="text">
-                            <label for="username">Tên đăng nhập</label>
+                            <label for="username"><i class="fa-solid fa-user"></i> Tên đăng nhập</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input class="form-control" id="password" name="password" placeholder="Mật khẩu" required type="password">
-                            <label for="password">Mật khẩu</label>
+                            <label for="password"><i class="fa-solid fa-lock"></i> Mật khẩu</label>
                         </div>
                         <div class="mb-3 d-flex justify-content-between">
                             <div>
@@ -40,14 +41,14 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center gap-3 mt-4">
-                            <button class="btn font-resp" type="submit">Đăng nhập</button>
-                            <a class="btn font-resp" href="/register" style="background: #AACCFF">Đăng kí</a>
+                            <button class="btn font-resp button-image" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Đăng nhập</button>
+                            <a class="btn font-resp button-image" href="/register" style="background: #AACCFF">Đăng kí</a>
                         </div>
                         <div class="d-flex justify-content-center gap-3 mt-4">
-    <a class="btn btn-primary d-flex align-items-center gap-2" href="/oauth2/authorization/google" style="background-color: #4285F4; border-color: #4285F4;">
+    <a class="btn btn-primary d-flex align-items-center gap-2 button-image" href="/oauth2/authorization/google" style="background-color: #4285F4; border-color: #4285F4;">
         <i class="fa fa-google"></i> Đăng nhập bằng Google
     </a>
-    <a class="btn btn-primary d-flex align-items-center gap-2" href="/oauth2/authorization/facebook" style="background-color: #3b5998; border-color: #3b5998;">
+    <a class="btn btn-primary d-flex align-items-center gap-2 button-image" href="/oauth2/authorization/facebook" style="background-color: #3b5998; border-color: #3b5998;">
         <i class="fa fa-facebook-official"></i> Đăng nhập bằng Facebook
     </a>
 </div>
