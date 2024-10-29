@@ -70,11 +70,9 @@ public class HomeController {
     @RequestMapping("/login")
     public String login(Model model, @RequestParam(value = "error", required = false) boolean error, @RequestParam(value = "success", required = false) boolean success) {
         if (error) {
-            model.addAttribute("message", "Đăng nhập thất bại!");
             model.addAttribute("loginStatus", false);
         }
         if (success) {
-            model.addAttribute("message", "Đăng nhập thành công!");
             model.addAttribute("loginStatus", true);
         }
         return "security/login";
