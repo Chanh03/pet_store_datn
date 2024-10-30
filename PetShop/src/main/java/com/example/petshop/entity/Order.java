@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ public class Order {
 
     @NotNull
     @Column(name = "OrderDate", nullable = false)
-    private LocalDate orderDate;
+    private Date orderDate;
 
     @Size(max = 255)
     @Nationalized

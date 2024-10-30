@@ -502,11 +502,14 @@
                     $scope.productAvailableTrueLength = $scope.productData.filter(product => product.available === true).length;
                     $scope.productAvailableFalseLength = $scope.productData.filter(product => product.available === false).length;
                     $scope.productTotalQuantity = $scope.productData.filter(product => product.quantity).reduce((total, product) => total + product.quantity, 0);
-                    $scope.productTotalPrice = $scope.productData.filter(product => product.price).reduce((total, product) => total + product.price, 0);
+                    $scope.productTotalPrice = $scope.productData.filter(product => product.price).reduce((total, product) => total + product.price * product.quantity, 0);
                     // PRODUCT TABLE
                     $scope.productsTable = new NgTableParams({
                         page: 1,
-                        count: 5
+                        count: 5,
+                        sorting: {
+                            id: 'desc'
+                        }
                     }, {
                         counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.productData.length],
                         dataset: $scope.productData

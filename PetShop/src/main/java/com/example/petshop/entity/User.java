@@ -22,6 +22,7 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @Size(max = 50)
+    @JsonProperty("userName")
     @Column(name = "UserName", nullable = false, length = 50)
     private String userName;
 
@@ -97,9 +98,9 @@ public class User implements UserDetails {
         return userPassword;
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return userName;
     }
-
 }
