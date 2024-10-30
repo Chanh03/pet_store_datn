@@ -64,9 +64,28 @@
             height: 200px;
         }
 
+        .ui-menu {
+            z-index: 8000 !important;
+            border: none !important;
+            max-height: 300px; /* Giới hạn chiều cao */
+            overflow-y: auto; /* Kích hoạt cuộn dọc */
+            overflow-x: hidden; /* Ẩn cuộn ngang */
+        }
+
+        .ui-menu-item-wrapper:hover {
+            background-color: rgba(0, 0, 0, 0.13) !important;
+            color: white !important;
+        }
+
+        .ui-state-active {
+            background-color: rgba(0, 0, 0, 0.13) !important;
+            color: white !important;
+            border: none !important;
+        }
 
         .mini-search-box {
             position: absolute;
+            /*height: 200px;*/
             top: 90%;
             right: 50%;
             transform: translateX(50%);
@@ -150,15 +169,15 @@
                         <a class="nav-link menu-item" href="#">Dịch vụ</a>
                     </li>
                     <li class="nav-item text-center search-button">
-                        <button class="nav-link menu-item" data-bs-toggle="modal" data-bs-target="#searchModal">
-                            <i class="fas fa-search m-0"></i>
-                        </button>
-                        <div class="mini-search-box p-2 rounded-3 shadow">
+                        <div class="bg-white rounded-3 shadow" style="width: 600px;">
                             <form action="/search" method="get" class="d-flex align-items-center shadow">
-                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-                                    <i class="fa-solid fa-bars"></i>
-                                </button>
-                                <input id="keyword" type="text" class="form-control border-0" name="keyword"
+                                <!-- Select box -->
+                                <select id="searchCategory" class="form-select form-select-sm mx-2"
+                                        style="width: 120px;">
+                                    <option value="pet">Thú cưng</option>
+                                    <option value="product">Sản phẩm</option>
+                                </select>
+                                <input id="search-box" type="text" class="form-control border-0" name="search-box"
                                        placeholder="Tìm kiếm...">
                                 <button type="submit" class="rounded-2 px-3 py-2 background-color button-image-white">
                                     <i class="fas fa-search m-0 text-white"></i>
@@ -256,6 +275,30 @@
             }
         })
     }
+
+    $(document).ready(function () {
+        $("#search-box").autocomplete({
+            source: function (request, response) {
+                const category = $("#searchCategory").val();
+                const apiURL = category === "pet" ? 'http://localhost:8080/api/pet' : 'http://localhost:8080/api/product';
+
+                fetch(apiURL)
+                    .then(res => res.json())
+                    .then(data => {
+                        const results = $.map(data, item => {
+                            const itemName = category === "pet" ? item.breed : item.productName;
+                            if (itemName.toLowerCase().includes(request.term.toLowerCase())) {
+                                return {
+                                    label: itemName, value: itemName
+                                };
+                            }
+                        });
+                        response(results);
+                    })
+                    .catch(error => console.error(`Error fetching ${category}:`, error));
+            }
+        });
+    });
 </script>
 </body>
 </html>
