@@ -27,6 +27,7 @@
             font-family: 'Grandstander', cursive;
             background-size: cover;
             background-attachment: fixed;
+
         }
 
         .color {
@@ -189,6 +190,152 @@
             top: 0;
             z-index: 999;
         }
+       .center {
+        position: relative;
+        top: 300px;
+        left: 50%;
+        width: auto;
+        min-height: 600px;
+        border-radius: 3px;
+        transform: translate(-50%, -50%);
+        background-image: linear-gradient(to top right,#f04336, #FF8080);
+      }
+
+.center .face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 180px;
+  height: 150px;
+  margin: 80px auto 10px;
+  --rotate-head: 0deg;
+  transform: rotate(var(--rotate-head));
+  transition: transform 0.2s;
+  transform-origin: center 20px;
+}
+
+.center .eye {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #243946;
+}
+
+.center .eye.eye--left {
+  margin-right: 40px;
+}
+
+.center .eye.eye--right {
+  margin-left: 40px;
+}
+
+.center .eye .glow {
+  position: relative;
+  top: 3px;
+  right: -12px;
+  width: 12px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #fff;
+  transform: rotate(38deg);
+}
+
+.center .nose {
+  position: relative;
+  top: 30px;
+  transform: scale(1.1);
+}
+
+.center .nose .glow {
+  position: absolute;
+  top: 3px;
+  left: 32%;
+  width: 15px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #476375;
+}
+
+.center .mouth {
+  position: relative;
+  margin-top: 45px;
+}
+
+.center svg.smile {
+  position: absolute;
+  left: -28px;
+  top: -19px;
+  transform: scaleX(1.1);
+  stroke: #243946;
+}
+
+.center .mouth-hole {
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 60px;
+  height: 15px;
+  border-radius: 50% / 100% 100% 0% 0;
+  transform: rotate(180deg);
+  background-color: #243946;
+  z-index: -1;
+}
+
+.center .tongue {
+  position: relative;
+  top: 5px;
+  width: 30px;
+  height: 20px;
+  background-color: #ffd7dd;
+  transform-origin: top;
+  transform: rotateX(60deg);
+}
+
+.center .tongue.breath {
+  animation: breath 0.3s infinite linear;
+}
+
+.center .tongue-top {
+  position: absolute;
+  bottom: -15px;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #ffd7dd;
+}
+
+
+
+.center .median {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 25px;
+  border-radius: 5px;
+  background-color: #fcb7bf;
+}
+@-webkit-keyframes breath {
+  0%,
+  100% {
+    transform: rotateX(0deg);
+  }
+  50% {
+    transform: rotateX(60deg);
+  }
+}
+
+@keyframes breath {
+  0%,
+  100% {
+    transform: rotateX(0deg);
+  }
+  50% {
+    transform: rotateX(60deg);
+  }
+}
 
     </style>
 </head>

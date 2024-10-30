@@ -1,79 +1,118 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/index.html::home(~{::body})}">> 
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/index.html::home(~{::body})}">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>LOGIN</title>
 </head>
 <body>
-<div class="container-lg main-content px-3">
-    <div class="d-flex align-items-center justify-content-center mt-5">
-        <div class="w-75 gap-2 d-flex justify-content-start align-items-center">
-            <h3 class="fw-bold font-resp text-danger"><i class="fa-regular fa-user"></i>
-                ĐĂNG NHẬP THÀNH VIÊN</h3>
+        <div class="container-lg main-content px-3">
+            <div class="d-flex align-items-center justify-content-center mt-5">
+                <div class="w-75 gap-2 d-flex justify-content-start align-items-center">
+                    <h3 class="fw-bold font-resp text-danger "><i class="fa-regular fa-user"></i>
+                        ĐĂNG NHẬP THÀNH VIÊN</h3>
+                </div>
+                <div class="line w-25"></div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-3"></div>
+                <div class="col-md-12 col-lg-6">
+                
+                    <div class="card shadow border-0 sticky-element" style="top: 100px; z-index: 1">
+                    <div class="center">
+                        <div class="card-body">
+      <div class="face">
+        <div class="eyes">
+          <div class="eye eye--left">
+            <div class="glow"></div>
+          </div>
+          <div class="eye eye--right">
+            <div class="glow"></div>
+          </div>
         </div>
-        <div class="line w-25"></div>
-    </div>
-    <div class="row mt-3">
-        <div class="col-lg-3"></div>
-        <div class="col-md-12 col-lg-6">
-            <div class="card shadow border-0 sticky-element" style="top: 100px; z-index: 1">
-                <div class="card-body">
-                    <form action="/login" method="post">
-                        <h5 class="alert font-resp" th:if="${message}" th:text="${message}"
-                            th:classappend="${loginStatus == true ? 'alert-success' : 'alert-danger'}"></h5>
-                        <div class="form-floating mb-3">
-                        
-                            <input class="form-control" id="username" name="username" placeholder="Tên đăng nhập" required type="text">
-                            <label for="username"><i class="fa-solid fa-user"></i> Tên đăng nhập</label>
+        <div class="nose">
+          <svg width="38.161" height="22.03">
+            <path
+              d="M2.017 10.987Q-.563 7.513.157 4.754C.877 1.994 2.976.135 6.164.093 16.4-.04 22.293-.022 32.048.093c3.501.042 5.48 2.081 6.02 4.661q.54 2.579-2.051 6.233-8.612 10.979-16.664 11.043-8.053.063-17.336-11.043z"
+              fill="#243946"
+            ></path>
+          </svg>
+          <div class="glow"></div>
+        </div>
+        <div class="mouth">
+          <svg class="smile" viewBox="-2 -2 84 23" width="84" height="23">
+            <path
+              d="M0 0c3.76 9.279 9.69 18.98 26.712 19.238 17.022.258 10.72.258 28 0S75.959 9.182 79.987.161"
+              fill="none"
+              stroke-width="3"
+              stroke-linecap="square"
+              stroke-miterlimit="3"
+            ></path>
+          </svg>
+          <div class="mouth-hole"></div>
+          <div class="tongue breath">
+            <div class="tongue-top"></div>
+            <div class="line"></div>
+            <div class="median"></div>
+          </div>
+        </div>
+      </div>
+                            <form action="/login" method="post">
+                                <h5 class="alert font-resp" th:if="${message}" th:text="${message}"
+                                    th:classappend="${loginStatus == true ? 'alert-success' : 'alert-danger'}"></h5>
+                                <div class="form-floating mb-3">
+                                    <input class="form-control border border-start-0 border-end-0" id="username" name="username" placeholder="Tên đăng nhập" required type="text">
+                                    <label for="username"><i class="fa-solid fa-user"></i> Tên đăng nhập</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="password" name="password" placeholder="Mật khẩu" required type="password">
+                                    <label for="password"><i class="fa-solid fa-lock"></i> Mật khẩu</label>
+                                </div>
+                                <div class="mb-3 d-flex justify-content-between">
+                                    <div>
+                                        <input class="form-check-input" id="remember-me" name="remember-me" type="checkbox">
+                                        <label class="form-check-label font-resp text-white" for="remember-me">Lưu tài khoản</label>
+                                    </div>
+                                    <div>
+                                        <a class="font-resp text-white" href="/forgot-password">Quên mật khẩu?</a>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center gap-3 mt-4">
+                                    <button class="btn font-resp button-image" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Đăng nhập</button>
+                                    <a class="btn font-resp button-image" href="/register" style="background: #AACCFF; ">Đăng kí</a>
+                                </div>
+                                <div class="d-flex justify-content-center gap-3 mt-4">
+                                    <a class="btn btn-light d-flex align-items-center gap-2 button-image" href="/oauth2/authorization/google" style="color: white; background-color: #4285F4; border-color: #4285F4;">
+                                        <i class="fa fa-google"></i> Đăng nhập bằng Google
+                                    </a>
+                                    <a class="btn btn-light d-flex align-items-center gap-2 button-image" href="/oauth2/authorization/facebook" style="color: white; background-color: #3b5998; border-color: #3b5998;">
+                                        <i class="fa fa-facebook-official"></i> Đăng nhập bằng Facebook
+                                    </a>
+                                </div>
+                            </form>
                         </div>
-                        <div class="form-floating mb-3">
-                            <input class="form-control" id="password" name="password" placeholder="Mật khẩu" required type="password">
-                            <label for="password"><i class="fa-solid fa-lock"></i> Mật khẩu</label>
-                        </div>
-                        <div class="mb-3 d-flex justify-content-between">
-                            <div>
-                                <input class="form-check-input" id="remember-me" name="remember-me" type="checkbox">
-                                <label class="form-check-label font-resp" for="remember-me">Lưu tài khoản 1 ngày</label>
-                            </div>
-                            <div>
-                                <a class="font-resp" href="/forgot-password">Quên mật khẩu?</a>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center gap-3 mt-4">
-                            <button class="btn font-resp button-image" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Đăng nhập</button>
-                            <a class="btn font-resp button-image" href="/register" style="background: #AACCFF">Đăng kí</a>
-                        </div>
-                        <div class="d-flex justify-content-center gap-3 mt-4">
-    <a class="btn btn-primary d-flex align-items-center gap-2 button-image" href="/oauth2/authorization/google" style="background-color: #4285F4; border-color: #4285F4;">
-        <i class="fa fa-google"></i> Đăng nhập bằng Google
-    </a>
-    <a class="btn btn-primary d-flex align-items-center gap-2 button-image" href="/oauth2/authorization/facebook" style="background-color: #3b5998; border-color: #3b5998;">
-        <i class="fa fa-facebook-official"></i> Đăng nhập bằng Facebook
-    </a>
-</div>
-
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="modal fade" data-bs-backdrop="static" id="countdownModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Thông báo</h5>
-                </div>
-                <div class="modal-body">
-                    <p id="modal-message"></p>
-                    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                        <div id="progressBar" class="progress-bar bg-danger progress-bar-striped progress-bar-animated" style="width: 0"></div>
+            </div>
+            <div class="modal fade" data-bs-backdrop="static" id="countdownModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalLabel">Thông báo</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p id="modal-message"></p>
+                            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                <div id="progressBar" class="progress-bar bg-danger progress-bar-striped progress-bar-animated" style="width: 0"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+  
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
