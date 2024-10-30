@@ -53,20 +53,24 @@ public class PetController {
 
 	@RequestMapping("/pet/detail/{id}")
 	public String petDetail(Model model, @PathVariable String id) {
-		Optional<Pet> optionalPet = petService.findById(id);
+	    Optional<Pet> optionalPet = petService.findById(id);
 
-		if (optionalPet.isPresent()) {
-			Pet pet = optionalPet.get();
-			model.addAttribute("pet", pet);
+	    if (optionalPet.isPresent()) {
+	        Pet pet = optionalPet.get();
+	        model.addAttribute("pet", pet);
 
-			List<Pet> otherPets = petService.getAll().stream().filter(p -> !p.getPetID().equals(pet.getPetID()))
-					.limit(12).collect(Collectors.toList());
-			model.addAttribute("pets", otherPets);
-		} else {
-			model.addAttribute("errorMessage", "Thú cưng không tồn tại");
-			return "error";
-		}
+	        // Lọc các thú cưng khác theo cùng petCategoryID
+	        List<Pet> otherPets = petService.getAll().stream()
+	            .filter(p -> !p.getPetID().equals(pet.getPetID()) && p.getPetCategoryID().equals(pet.getPetCategoryID()))
+	            .limit(12)
+	            .collect(Collectors.toList());
+	        model.addAttribute("pets", otherPets);
+	    } else {
+	        model.addAttribute("errorMessage", "Thú cưng không tồn tại");
+	        return "error";
+	    }
 
-		return "/layout/_petDetail";
+	    return "/layout/_petDetail";
 	}
+
 }

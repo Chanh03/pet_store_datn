@@ -21,4 +21,6 @@ public interface ProductService {
 	Page<Product> getPaginatedProduct(Pageable pageable);
 
 	Page<Product> searchProduct(String keyword, Pageable pageable);
+
+    List<Product> getProductsByCategory(Integer categoryId, Integer excludeProductId);
 }

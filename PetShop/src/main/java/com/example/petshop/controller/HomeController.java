@@ -114,9 +114,9 @@ public class HomeController {
         return "/layout/_cartDetail";
     }
     
-    @RequestMapping("/check-out")
+    
+    @RequestMapping("/service")
     public String test(Model model) {
-        return "/layout/_checkOutPayment";
+        return "/layout/_service";
     }
-
 }

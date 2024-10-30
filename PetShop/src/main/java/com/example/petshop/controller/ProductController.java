@@ -59,31 +59,30 @@ public class ProductController {
 
 	@RequestMapping("/product/detail/{id}")
 	public String product(Model model, @PathVariable int id) {
-		Product product = productService.getById(id);
+	    Product product = productService.getById(id);
 
-		if (product != null) {
-			model.addAttribute("product", product);
+	    if (product != null) {
+	        model.addAttribute("product", product);
 
-			List<Product> products = productService.getAll();
-			model.addAttribute("products", products);
+	        // Lấy danh sách các sản phẩm cùng loại, bỏ qua sản phẩm hiện tại
+	        List<Product> relatedProducts = productService.getProductsByCategory(product.getProductCategoryID().getId(), id);
+	        model.addAttribute("relatedProducts", relatedProducts);
 
-			// Lấy danh sách đánh giá cho sản phẩm
-			List<Review> reviews = reviewService.getReviewsByProductId(id);
-			model.addAttribute("reviews", reviews);
+	        // Lấy danh sách sản phẩm, đánh giá và tính điểm trung bình
+	        List<Review> reviews = reviewService.getReviewsByProductId(id);
+	        model.addAttribute("reviews", reviews);
+	        List<Rating> ratings = ratingService.getRatingsByProductId(id);
+	        model.addAttribute("ratings", ratings);
+	        double averageRating = ratingService.getAverageRatingByProductId(id);
+	        model.addAttribute("averageRating", averageRating);
+	    } else {
+	        model.addAttribute("errorMessage", "Sản phẩm không tồn tại");
+	        return "error";
+	    }
 
-			// Lấy danh sách đánh giá sao cho sản phẩm
-			List<Rating> ratings = ratingService.getRatingsByProductId(id);
-			model.addAttribute("ratings", ratings);
-
-			// Tính điểm trung bình
-			double averageRating = ratingService.getAverageRatingByProductId(id);
-			model.addAttribute("averageRating", averageRating);
-		} else {
-			model.addAttribute("errorMessage", "Sản phẩm không tồn tại");
-			return "error"; // Giả sử bạn có một trang lỗi
-		}
-
-		return "/layout/_productDetail";
+	    return "/layout/_productDetail";
 	}
+
+
 
 }
