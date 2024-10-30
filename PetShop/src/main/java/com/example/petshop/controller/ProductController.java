@@ -82,7 +82,4 @@ public class ProductController {
 
 	    return "/layout/_productDetail";
 	}
-
-
-
 }

@@ -63,14 +63,17 @@
                 <nav class="d-flex justify-content-center mt-4">
                     <ul class="pagination">
                         <li th:classappend="${currentPage == 1} ? 'disabled'" class="page-item">
-                            <a class="page-link" th:href="@{/allPet(page=${currentPage - 1})}">&laquo;</a>
+                            <a class="page-link"
+                                th:href="@{/allPet(page=${currentPage - 1}, keyword=${keyword}, priceOrder=${sort})}">&laquo;</a>
                         </li>
                         <li th:each="i : ${#numbers.sequence(1, totalPages)}"
                             th:classappend="${i == currentPage} ? 'active'" class="page-item">
-                            <a class="page-link" th:href="@{/allPet(page=${i})}" th:text="${i}">1</a>
+                            <a class="page-link" th:href="@{/allPet(page=${i}, keyword=${keyword}, priceOrder=${sort})}"
+                                th:text="${i}">1</a>
                         </li>
                         <li th:classappend="${currentPage == totalPages} ? 'disabled'" class="page-item">
-                            <a class="page-link" th:href="@{/allPet(page=${currentPage + 1})}">&raquo;</a>
+                            <a class="page-link"
+                                th:href="@{/allPet(page=${currentPage + 1}, keyword=${keyword}, priceOrder=${sort})}">&raquo;</a>
                         </li>
                     </ul>
                 </nav>

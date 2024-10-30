@@ -97,17 +97,21 @@
                             <ul class="pagination justify-content-center">
                                 <li class="page-item" th:classappend="${productPage.hasPrevious() ? '' : 'disabled'}">
                                     <a class="page-link text-white bg-danger"
-                                        th:href="@{/allProduct(page=${productPage.number - 1})}" aria-label="Previous">
+                                        th:href="@{/allProduct(page=${productPage.number - 1}, search=${search}, sort=${sort})}"
+                                        aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
                                 <li class="page-item" th:each="i : ${#numbers.sequence(0, productPage.totalPages - 1)}"
                                     th:classappend="${i == productPage.number ? 'active' : ''}">
-                                    <a class="page-link" th:href="@{/allProduct(page=${i})}" th:text="${i + 1}"></a>
+                                    <a class="page-link"
+                                        th:href="@{/allProduct(page=${i}, search=${search}, sort=${sort})}"
+                                        th:text="${i + 1}"></a>
                                 </li>
                                 <li class="page-item" th:classappend="${productPage.hasNext() ? '' : 'disabled'}">
                                     <a class="page-link text-white bg-danger"
-                                        th:href="@{/allProduct(page=${productPage.number + 1})}" aria-label="Next">
+                                        th:href="@{/allProduct(page=${productPage.number + 1}, search=${search}, sort=${sort})}"
+                                        aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
