@@ -4,205 +4,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    <!-- Add File Css -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-
+    <title>Trang chi tiết Sản phẩm</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
 <body>
+    <div class="container my-5">
+        <div class="row mb-5">
+            <!-- Product Image on the left -->
+            <div class="col-md-6">
+                <img th:src="@{/images/product/{photo}(photo=${product.photo})}" class="img-fluid" alt="Sản phẩm ${product.productName}" style="object-fit: cover; width: 100%; height: 100%; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+            </div>
 
-                        <div class="container my-5">
-                            <!-- Pet details -->
-                            <div class="row mb-5">
-                                <div class="col-md-6">
-                                    <img src="/images/pet/pet-placeholder.png" class="img-fluid" alt="Thú cưng ABC">
-                                </div>
-                                <div class="col-md-6">
-                                    <h1>TÊN Sản </h1>
-                                    <p class="fs-4">Giá: <span class="text-danger">400.000đ</span></p>
-                                    <label for="quantity" class="form-label">Số lượng</label>
-                                    <div class="input-group">
-                                        <button class="btn btn-outline-secondary">-</button>
-                                        <input type="text" id="quantity" class="text-center" style="width: 50px;" value="1">
-                                        <button class="btn btn-outline-secondary">+</button>
-                                    </div>
+            <!-- Product Details on the right -->
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bold mb-3" th:text="${product.productName}">Tên sản phẩm</h1>
+                <p class="fs-4">Giá: <span class="text-danger fw-bold" th:text="${product.price}">400.000đ</span></p>
+                <p class="mt-3 text-muted">Số lượng có sẵn: <span th:text="${product.quantity}">10</span></p>
+                <p class="mt-3 text-muted">Trạng thái: <span th:text="${product.available ? 'Còn hàng' : 'Hết hàng'}">Còn hàng</span></p>
+                <button class="btn btn-primary mt-4" style="width: 100%; font-size: 1.1em; transition: background-color 0.3s ease;" ng-click="cart.add(product.id)">Thêm vào giỏ hàng</button>
 
-                                    <div class="mt-3">
-                                        <button class="btn btn-danger me-3">Mua ngay</button>
-                                        <button class="btn btn-white me-3" style="border-color: red;">Thêm vào giỏ</button>
+                <div class="mt-3">
+                    <i class="bi bi-telephone me-1"></i> <span>Contact</span> <a href="#" class="ms-3"><i class="bi bi-facebook"></i> Message</a>
+                </div>
 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    not thing
-                                </div>
-                                <!-- Pet description -->
+                <!-- Product Description -->
+                <div class="mt-4">
+                    <h3 class="mb-3">Chi tiết sản phẩm</h3>
+                    <hr style="background-color: red; height: 2px; border: none;">
+                    <p th:text="${product.productDescription}">Mô tả sản phẩm</p>
+                </div>
 
-                                <div class="col-md-6 mb-5">
-                                    <div>
-                                        <h3>Chi tiết thú cưng</h3>
-                                        <hr style="color: red;">
-                                        <p>
-                                            Tên: Milo, giống Golden Retriever 2 tuổi, vui tính, thân thiện, đặc biệt là với trẻ em và người
-                                            già.
-                                            <br>Với bản tính hiền lành, Milo là thú cưng lý tưởng cho mọi gia đình.
-                                        </p>
-                                        <ul>
-                                            <li>Nghe lời, thân thiện với trẻ em</li>
-                                            <li>Dễ dạy bảo</li>
-                                            <li>Chơi đùa và bảo vệ</li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <h3>Đánh giá</h3>
-                                        <hr style="color: red;">
-                                        <div class="card text-center mt-2">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-9 d-flex align-items-center">
-                                                        <img src="/images/logo/logo.png" alt="" class="rounded-image">
-                                                        <h5 class="card-title">Special title treatment</h5>
-                                                    </div>
-                                                    <div class="col-md-3 d-flex align-items-center">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="mt-2">
-                                                    <p class="card-text">With supporting text below as a natural lead-in to additional
-                                                        content.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="card-footer text-body-secondary">
-                                                2 days ago
-                                            </div>
-                                        </div>
-                                        <div class="card text-center mt-2">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-9 d-flex align-items-center">
-                                                        <img src="/images/logo/logo.png" alt="" class="rounded-image">
-                                                        <h5 class="card-title">Special title treatment</h5>
-                                                    </div>
-                                                    <div class="col-md-3 d-flex align-items-center">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="mt-2">
-                                                    <p class="card-text">With supporting text below as a natural lead-in to additional
-                                                        content.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="card-footer text-body-secondary">
-                                                2 days ago
-                                            </div>
-                                        </div>
-                                        <div class="card text-center mt-2">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-9 d-flex align-items-center">
-                                                        <img src="/images/logo/logo.png" alt="" class="rounded-image">
-                                                        <h5 class="card-title">Special title treatment</h5>
-                                                    </div>
-                                                    <div class="col-md-3 d-flex align-items-center">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="mt-2">
-                                                    <p class="card-text">With supporting text below as a natural lead-in to additional
-                                                        content.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="card-footer text-body-secondary">
-                                                2 days ago
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Thú cưng khác -->
-                            <div>
-                                <h2 class="text-center">Thú cưng khác</h2>
-                                <hr style="color: red;">
-                                <div class="row">
-                                    <div class="col-sm-6 col-md-4 mb-4">
-                                        <div class="card">
-                                            <div class="card-body text-center">
-                                                <p class="card-text">Tên thú cưng 1</p>
-                                                <p class="text-danger">400.000đ</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 mb-4">
-                                        <div class="card">
-                                            <div class="card-body text-center">
-                                                <p class="card-text">Tên thú cưng 2</p>
-                                                <p class="text-danger">400.000đ</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 mb-4">
-                                        <div class="card">
-                                            <div class="card-body text-center">
-                                                <p class="card-text">Tên thú cưng 2</p>
-                                                <p class="text-danger">400.000đ</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 col-md-4 mb-4">
-                                        <div class="card">
-                                            <div class="card-body text-center">
-                                                <p class="card-text">Tên thú cưng 1</p>
-                                                <p class="text-danger">400.000đ</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 mb-4">
-                                        <div class="card">
-                                            <div class="card-body text-center">
-                                                <p class="card-text">Tên thú cưng 2</p>
-                                                <p class="text-danger">400.000đ</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 mb-4">
-                                        <div class="card">
-                                            <div class="card-body text-center">
-                                                <p class="card-text">Tên thú cưng 2</p>
-                                                <p class="text-danger">400.000đ</p>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
+                <!-- Star Rating -->
+                <div th:if="${!ratings.isEmpty()}">
+                    <div class="star-rating" style="font-size: 2rem; text-align: center;">
+                        <span th:if="${averageRating >= 1}" style="color: #FFD700;">&#9733;</span>
+                        <span th:if="${averageRating >= 2}" style="color: #FFD700;">&#9733;</span>
+                        <span th:if="${averageRating >= 3}" style="color: #FFD700;">&#9733;</span>
+                        <span th:if="${averageRating >= 4}" style="color: #FFD700;">&#9733;</span>
+                        <span th:if="${averageRating >= 5}" style="color: #FFD700;">&#9733;</span>
+                        <span th:if="${averageRating % 1 >= 0.5}" style="color: #FFD700;">&#9734;</span>
+                    </div>
+                    <div class="text-center mt-2">
+                        <span class="fs-5"><span th:text="${averageRating}">0</span> / 5</span>
+                    </div>
+                </div>
 
+                <div th:if="${ratings.isEmpty()}" class="text-center mt-2">
+                    <p>Chưa có đánh giá sao nào cho sản phẩm này.</p>
+                </div>
 
+                <!-- Product Reviews -->
+                <h3 class="mb-3">Đánh giá sản phẩm</h3>
+                <hr style="background-color: red; height: 2px; border: none;">
+                <div th:if="${reviews.isEmpty()}">
+                    <p>Chưa có đánh giá nào cho sản phẩm này.</p>
+                </div>
+                <div th:each="review : ${reviews}">
+                    <div class="border rounded p-3 mb-3">
+                        <h5 class="mb-1" th:text="${review.userName.username}">Người dùng</h5>
+                        <p class="text-muted mb-1" th:text="${review.comment}">Bình luận của người dùng</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      <!-- Sản phẩm khác -->
+<div>
+    <h2 class="text-center mb-4">Sản phẩm khác</h2>
+    <hr style="background-color: red; height: 2px; border: none;">
+    <div class="row g-4">
+        <div class="col-2" th:each="p, iterStat : ${products}">
+            <div class="card h-100" th:if="${iterStat.index < 12}" style="border: none; border-radius: 8px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.2s ease, box-shadow 0.3s ease;">
+                <a th:href="@{/product/detail/{id}(id=${p.id})}">
+                    <img th:src="@{/images/product/{photo}(photo=${p.photo})}" alt="Sản phẩm ${p.productName}" 
+                        style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; border: 2px solid #ddd;" 
+                        class="mx-auto mt-3">
+                </a>
+                <div class="card-body text-center" style="min-height: 120px;">
+                    <p class="card-text fw-bold" th:text="${p.productName}" style="height: 40px; overflow: hidden;">Tên sản phẩm 1</p>
+                    <p class="text-danger fw-bold" th:text="${p.price}">400.000đ</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <hr>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN6jIeHz" crossorigin="anonymous"></script>
+    <script src="service.js"></script>
 </body>
 
 </html>
