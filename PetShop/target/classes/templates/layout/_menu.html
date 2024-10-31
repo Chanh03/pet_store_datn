@@ -64,9 +64,28 @@
             height: 200px;
         }
 
+        .ui-menu {
+            z-index: 8000 !important;
+            border: none !important;
+            max-height: 300px; /* Giới hạn chiều cao */
+            overflow-y: auto; /* Kích hoạt cuộn dọc */
+            overflow-x: hidden; /* Ẩn cuộn ngang */
+        }
+
+        .ui-menu-item-wrapper:hover {
+            background-color: rgba(0, 0, 0, 0.13) !important;
+            color: white !important;
+        }
+
+        .ui-state-active {
+            background-color: rgba(0, 0, 0, 0.13) !important;
+            color: white !important;
+            border: none !important;
+        }
 
         .mini-search-box {
             position: absolute;
+            /*height: 200px;*/
             top: 90%;
             right: 50%;
             transform: translateX(50%);
@@ -114,7 +133,7 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-light shadow p-0 bg-white">
+<nav class="navbar navbar-expand-md navbar-light shadow p-0 bg-white" style="min-height: 80px">
     <div class="container position-relative p-0">
         <!-- BRAND -->
         <a class="navbar-brand" href="/">
@@ -134,7 +153,7 @@
                 </button>
             </div>
             <div class="offcanvas-body">
-                <ul class="navbar-nav me-auto mb-lg-0 gap-3">
+                <ul class="navbar-nav me-auto mb-lg-0 gap-3 d-flex align-items-center">
                     <li class="nav-item text-center">
                         <a class="nav-link active background-color text-white fw-bold button-image-white"
                            aria-current="page"
@@ -150,24 +169,25 @@
                         <a class="nav-link menu-item" href="#">Dịch vụ</a>
                     </li>
                     <li class="nav-item text-center search-button">
-                        <button class="nav-link menu-item" data-bs-toggle="modal" data-bs-target="#searchModal">
-                            <i class="fas fa-search m-0"></i>
-                        </button>
-                        <div class="mini-search-box p-2 rounded-3 shadow">
+                        <div class="bg-white rounded-3 shadow border border-2 border-dark p-1" style="width: 600px;">
                             <form action="/search" method="get" class="d-flex align-items-center shadow">
-                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-                                    <i class="fa-solid fa-bars"></i>
-                                </button>
-                                <input id="keyword" type="text" class="form-control border-0" name="keyword"
+                                <!-- Select box -->
+                                <select id="searchCategory" class="form-select form-select-sm mx-2"
+                                        style="width: 120px;">
+                                    <option value="pet">Thú cưng</option>
+                                    <option value="product">Sản phẩm</option>
+                                </select>
+                                <input id="search-box" type="text" class="form-control border-0" name="search-box"
                                        placeholder="Tìm kiếm...">
-                                <button type="submit" class="rounded-2 px-3 py-2 background-color button-image-white">
+                                <button type="submit"
+                                        class="rounded-2 px-3 py-2 background-color border-0 button-image-white">
                                     <i class="fas fa-search m-0 text-white"></i>
                                 </button>
                             </form>
                         </div>
                     </li>
                 </ul>
-                <ul class="navbar-nav mb-lg-0 ms-auto gap-2">
+                <ul class="navbar-nav mb-lg-0 ms-auto gap-2 d-flex align-items-center">
                     <li sec:authorize="isAnonymous()" class="nav-item text-center">
                         <a class="nav-link menu-item" href="/login">Login</a>
                     </li>
@@ -229,7 +249,6 @@
                                         </div>
                                         <!-- Thêm nhiều sản phẩm ở đây -->
                                     </div>
-
                                     <a href="/cart" class="btn btn-primary">Xem giỏ hàng</a>
                                 </div>
                             </div>
@@ -256,6 +275,41 @@
             }
         })
     }
+
+    $(document).ready(function () {
+        $("#search-box").autocomplete({
+            source: function (request, response) {
+                const category = $("#searchCategory").val();
+                const apiURL = category === "pet" ? 'http://localhost:8080/api/pet' : 'http://localhost:8080/api/product';
+
+                fetch(apiURL)
+                    .then(res => res.json())
+                    .then(data => {
+                        const results = $.map(data, item => {
+                            const itemName = category === "pet" ? item.breed : item.productName;
+                            if (itemName.toLowerCase().includes(request.term.toLowerCase())) {
+                                return {
+                                    label: `<div class="autocomplete-item">
+                                            <strong>${itemName}</strong>
+                                            <p>ID: ${item.price}</p>
+                                        </div>`,
+                                    value: itemName,
+                                    id: item.id
+                                };
+                            }
+                        });
+                        response(results);
+                    })
+                    .catch(error => console.error(`Error fetching ${category}:`, error));
+            },
+        })
+            .data("ui-autocomplete")._renderItem = function (ul, item) {
+            return $("<li>")
+                .data("item.autocomplete", item)
+                .append(item.label)
+                .appendTo(ul);
+        };
+    });
 </script>
 </body>
 </html>
