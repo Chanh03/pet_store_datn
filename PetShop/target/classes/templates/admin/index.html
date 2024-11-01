@@ -271,6 +271,11 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Thư viện XLSX -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+
 <script type="text/javascript">
     var colors = ['#AEC6CF', '#FFB7B2', '#C3B1E1', '#FFDAC1', '#FFB6C1', '#B5EAD7', '#FFDFBA', '#FDFD96', '#B3E5FC', '#FADADD'];
     /* Bôi màu cho menu hiện tại thoôi nhìn gì?*/
@@ -813,6 +818,179 @@
                 });
             };
 
+            /*EXCEL EXPORT*/
+            $scope.exportExcelPet = function () {
+                try {
+                    const data = $scope.petData.map((pet, index) => ({
+                        "STT": index + 1,
+                        "Pet ID": pet.fullName,
+                        "Loài": pet.petCategoryID.petCategoryName,
+                        "Giống": pet.breed,
+                        "Tuổi": pet.age,
+                        "Kiểu lông": pet.hair,
+                        "Màu lông": pet.famous,
+                        "Giá": pet.price.toLocaleString("vi-VN") + " đ",
+                        "Giới tính": pet.gender ? "Đực" : "Cái",
+                        "Tình trạng": pet.available ? "Đã bán" : "Chưa bán",
+                        "Mô tả": pet.petDescription,
+                        "Hình ảnh": pet.photo,
+                    }));
+                    const totalPrice = $scope.petData.reduce((total, pet) => total + pet.price, 0);
+                    const totalPets = data.length;
+                    data.push({
+                        "STT": "Tổng số thú cưng",
+                        "Pet ID": totalPets,
+                        "Loài": "",
+                        "Giống": "",
+                        "Tuổi": "",
+                        "Kiểu lông": "",
+                        "Màu lông": "",
+                        "Giá": "",
+                        "Giới tính": "",
+                        "Tình trạng": "",
+                        "Mô tả": "",
+                        "Hình ảnh": "",
+                    });
+                    data.push({
+                        "STT": "Tổng giá trị",
+                        "Pet ID": totalPrice.toLocaleString("vi-VN") + " đ",
+                        "Loài": "",
+                        "Giống": "",
+                        "Tuổi": "",
+                        "Kiểu lông": "",
+                        "Màu lông": "",
+                        "Giá": "",
+                        "Giới tính": "",
+                        "Tình trạng": "",
+                        "Mô tả": "",
+                        "Hình ảnh": "",
+                    });
+                    const wb = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data));
+                    XLSX.writeFile(wb, "Danh sách thú cưng.xlsx");
+                    Swal.fire({
+                        title: 'Thành công!',
+                        text: 'Đã xuất file Excel',
+                        icon: 'success',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                } catch (error) {
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: 'Có lỗi xảy ra khi xuất file Excel',
+                        icon: 'error',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                }
+            };
+            $scope.exportExcelProduct = function () {
+                try {
+                    const data = $scope.productData.map((user, index) => ({
+                        "STT": index + 1,
+                        "Tên sản phẩm": user.productName,
+                        "Loại": user.productCategoryID.productCategoryName,
+                        "Giá": user.price.toLocaleString("vi-VN") + " đ",
+                        "Số lượng": user.quantity,
+                        "Tình trạng": user.available ? "Còn hàng" : "Hết hàng",
+                        "Hình ảnh": user.photo,
+                        "Mô tả": user.productDescription,
+                    }));
+                    const totalProducts = data.length;
+                    const totalCost = $scope.productData.reduce((total, product) => total + product.price * product.quantity, 0);
+                    const totalProductQuantity = $scope.productData.reduce((total, product) => total + product.quantity, 0);
+                    data.push({
+                        "STT": "Tổng số sản phẩm",
+                        "Tên sản phẩm": totalProducts,
+                        "Loại": "",
+                        "Giá": "",
+                        "Số lượng": "",
+                        "Tình trạng": "",
+                        "Hình ảnh": "",
+                        "Mô tả": "",
+                    });
+                    data.push({
+                        "STT": "Tổng số lượng",
+                        "Tên sản phẩm": totalProductQuantity,
+                        "Loại": "",
+                        "Giá": "",
+                        "Số lượng": "",
+                        "Tình trạng": "",
+                        "Hình ảnh": "",
+                        "Mô tả": "",
+                    });
+                    data.push({
+                        "STT": "Tổng giá trị",
+                        "Tên sản phẩm": totalCost.toLocaleString("vi-VN") + " đ",
+                        "Loại": "",
+                        "Giá": "",
+                        "Số lượng": "",
+                        "Tình trạng": "",
+                        "Hình ảnh": "",
+                        "Mô tả": "",
+                    });
+                    const wb = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data));
+                    XLSX.writeFile(wb, "Danh sách sản phẩm.xlsx");
+                    Swal.fire({
+                        title: 'Thành công!',
+                        text: 'Đã xuất file Excel',
+                        icon: 'success',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                } catch (error) {
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: 'Có lỗi xảy ra khi xuất file Excel',
+                        icon: 'error',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                }
+            }
+            $scope.exportExcelUser = function () {
+                try {
+                    const data = $scope.userData.map((user, index) => ({
+                        "STT": index + 1,
+                        "Họ và tên": user.fullName,
+                        "Ngày tạo": new Date(user.dateCreated).toLocaleDateString("vi-VN"),
+                        "Địa chỉ": user.userAddress,
+                        "Số điện thoại": user.phoneNumber.toString(),
+                        "Email": user.email,
+                        "Trạng thái": user.enable ? "Đang hoạt động" : "Không hoạt động"
+                    }));
+                    const totalUsers = data.length;
+                    data.push({
+                        "STT": "Tổng số người dùng",
+                        "Họ và tên": totalUsers,
+                        "Ngày tạo": "",
+                        "Địa chỉ": "",
+                        "Số điện thoại": "",
+                        "Email": "",
+                        "Trạng thái": "",
+                    });
+                    const wb = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data));
+                    XLSX.writeFile(wb, "Danh sách người dùng.xlsx");
+                    Swal.fire({
+                        title: 'Thành công!',
+                        text: 'Đã xuất file Excel',
+                        icon: 'success',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                } catch (error) {
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: 'Có lỗi xảy ra khi xuất file Excel',
+                        icon: 'error',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                }
+            };
             // Lấy ngày giờ hiện tại
             $scope.date = new Date().toLocaleString();
             setInterval(function () {
