@@ -83,5 +83,8 @@ public class HomeController {
         return "security/access-denied";
     }
 
-
+    @RequestMapping("/upload")
+    public String upload(Model model) {
+        return "upload";
+    }
 }
