@@ -175,9 +175,11 @@
                         <a class="nav-link menu-item" href="/register">Register</a>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item text-center user-button">
-                        <a class="nav-link menu-item" href="/thong-tin-ca-nhan">
+                        <a class="nav-link menu-item" href="/information">
                             <i class="fa-solid fa-user-large"></i>
-                            <span sec:authentication="principal.fullName"></span>
+                            <!-- Tên hiển thị -->
+                            <span th:text="${user.fullName}" ></span>
+
                             <i class="fa-solid fa-chevron-down"></i>
                         </a>
                         <div class="mini-user-box p-4 rounded-3 shadow">
@@ -192,7 +194,7 @@
                                 </h5>
                             </div>
                             <div class="user-actions mt-3">
-                                <a href="#" class="btn btn-primary btn-sm user-button-decor">Xem hồ sơ</a>
+                                <a href="/information" class="btn btn-primary btn-sm user-button-decor">Xem hồ sơ</a>
                                 <a sec:authorize="hasRole('ROLE_ADMIN')" href="/quan-tri-he-thong"
                                    class="btn btn-outline-secondary btn-sm user-button-decor">Quản trị</a>
                                 <a href="javascript:void(0)" onclick="logout()"
