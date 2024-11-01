@@ -17,7 +17,7 @@
                 <form name="editUserForm">
                     <div class="row">
                         <!-- Cột 1 -->
-                        <input ng-model="selectedUser.username" type="hidden">
+                        <input ng-model="selectedUser.userName" hidden="hidden">
                         <div class="mb-3">
                             <label for="fullName">Tên khách hàng:</label>
                             <input ng-model="selectedUser.fullName" type="text" class="form-control"
@@ -31,7 +31,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="email">Email:</label>
-                            <input ng-model="selectedUser.email" type="text" class="form-control"
+                            <input ng-model="selectedUser.email" type="email" class="form-control"
                                    id="email"
                                    name="email"
                                    placeholder="Email" required>
@@ -82,13 +82,13 @@
                 </form>
             </div>
             <div class="modal-footer">
-<!--                <button type="button" class="btn btn-danger" ng-click="deleteUser(selectedUser.id)">-->
-<!--                    <span>Xóa</span> <i-->
-<!--                        class="fa-solid fa-trash"></i>-->
-<!--                </button>-->
+                <!--                <button type="button" class="btn btn-danger" ng-click="deleteUser(selectedUser.id)">-->
+                <!--                    <span>Xóa</span> <i-->
+                <!--                        class="fa-solid fa-trash"></i>-->
+                <!--                </button>-->
                 <button ng-disabled="editUserForm.$invalid || editUserForm.$pristine" type="button"
                         class="btn btn-primary"
-                        ng-click="updateUser(selectedUser.username)">
+                        ng-click="updateUser(selectedUser.userName)">
                     <span>Lưu thay đổi</span> <i class="fa-solid fa-floppy-disk"></i>
                 </button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>

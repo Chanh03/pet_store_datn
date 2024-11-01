@@ -21,10 +21,15 @@
                 <span>Sản phẩm</span>
                 <i class="fa-solid fa-box"></i>
             </h1>
-            <button ng-click="productAddModal()" class="insert-btn btn px-4 py-3">
-                <i class="fa-solid fa-plus"></i>
-                <span>Thêm sản phẩm mới</span>
-            </button>
+            <div>
+                <button ng-click="productAddModal()" class="insert-btn btn px-4 py-3">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Thêm sản phẩm mới</span>
+                </button>
+                <button ng-click="exportExcelProduct()" class="btn btn-success px-4 py-3">
+                    <i class="fa-solid fa-file-excel"></i> Xuất Excel
+                </button>
+            </div>
         </div>
         <hr>
         <div class="row g-5">
