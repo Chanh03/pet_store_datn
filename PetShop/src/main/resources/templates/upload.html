@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="fileUploadApp">
+<head>
+    <meta charset="UTF-8">
+    <title>File Upload Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="UploadController">
+<h2>Upload File</h2>
+<form ng-submit="uploadFile()" enctype="multipart/form-data">
+    <input type="file" file-model="file" required/>
+    <button type="submit">Upload</button>
+</form>
+<script>
+    angular.module('fileUploadApp', [])
+        .controller('UploadController', ['$scope', function ($scope) {
+            $scope.uploadFile = function () {
+                const formData = new FormData();
+                formData.append('file', $scope.file);
+
+                fetch('http://localhost:8080/api/upload/pets', {
+                    method: 'POST',
+                    body: formData,
+                })
+                    .then(response => {
+                        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                        return response.text();
+                    })
+                    .then(data => alert(data))
+                    .catch(error => {
+                        console.error('Upload error:', error);
+                        alert('Error uploading file: ' + error.message);
+                    });
+            };
+        }])
+        .directive('fileModel', ['$parse', function ($parse) {
+            return {
+                restrict: 'A',
+                link: function (scope, element, attrs) {
+                    element.on('change', () => {
+                        $parse(attrs.fileModel).assign(scope, element[0].files[0]);
+                        scope.$apply();
+                    });
+                }
+            };
+        }]);
+</script>
+</body>
+</html>
