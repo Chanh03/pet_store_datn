@@ -22,6 +22,7 @@ import java.util.Set;
 @Table(name = "Users")
 public class User implements UserDetails {
     @Id
+    @JsonProperty("userName")
     @Size(max = 50)
     @Column(name = "UserName", nullable = false, length = 50)
     private String userName;

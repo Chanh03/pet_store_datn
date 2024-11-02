@@ -6,15 +6,15 @@
     }
 </style>
 <!-- Modal -->
-<div class="modal fade" id="editPetModal" tabindex="-1" aria-labelledby="editPetModalLabel" aria-hidden="true">
+<div class="modal fade" id="addPetModal" tabindex="-1" aria-labelledby="editPetModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-color">
-                <h5 class="modal-title" id="editPetModalLabel">Chỉnh sửa thú cưng</h5>
+                <h5 class="modal-title" id="editPetModalLabel">Thêm mới thú cưng</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form name="editPetForm">
+                <form name="addPetForm">
                     <div class="row">
                         <!-- Cột 1 -->
                         <div class="col-md-6">
@@ -23,7 +23,7 @@
                                 <input ng-model="selectedPet.petID" type="text" class="form-control" id="petId"
                                        name="petID" placeholder="Id thú cưng"
                                        required>
-                                <span ng-show="editPetForm.petID.$touched && editPetForm.petID.$invalid"
+                                <span ng-show="addPetForm.petID.$touched && addPetForm.petID.$invalid"
                                       class="text-danger fst-italic">
                                     Vui lòng nhập ID thú cưng.
                                 </span>
@@ -32,7 +32,7 @@
                                 <label for="breed">Chọn giống thú cưng:</label>
                                 <input ng-model="selectedPet.breed" type="text" class="form-control" id="breed"
                                        placeholder="Giống" name="breed" required>
-                                <span ng-show="editPetForm.breed.$touched && editPetForm.breed.$invalid"
+                                <span ng-show="addPetForm.breed.$touched && addPetForm.breed.$invalid"
                                       class="text-danger fst-italic">
                                     Vui lòng nhập giống thú cưng.
                                 </span>
@@ -41,7 +41,7 @@
                                 <label for="age">Độ tuổi:</label>
                                 <input ng-model="selectedPet.age" type="number" class="form-control" id="age"
                                        placeholder="Độ tuổi" name="age" required>
-                                <span ng-show="editPetForm.age.$touched && editPetForm.age.$invalid"
+                                <span ng-show="addPetForm.age.$touched && addPetForm.age.$invalid"
                                       class="text-danger fst-italic">
                                     Vui lòng nhập độ tuổi.
                                 </span>
@@ -50,7 +50,7 @@
                                 <label for="hair">Kiểu lông:</label>
                                 <input ng-model="selectedPet.hair" type="text" class="form-control" id="hair"
                                        placeholder="Kiểu lông" name="hair" required>
-                                <span ng-show="editPetForm.hair.$touched && editPetForm.hair.$invalid"
+                                <span ng-show="addPetForm.hair.$touched && addPetForm.hair.$invalid"
                                       class="text-danger fst-italic">
                                     Vui lòng nhập kiểu lông.
                                 </span>
@@ -58,9 +58,9 @@
                             <div class="mb-3">
                                 <label for="petdes">Thông tin chi tiết:</label>
                                 <textarea ng-model="selectedPet.petDescription" class="form-control"
-                                          placeholder="Thông tin chi tiết" id="petdes" name="petdes"
-                                          required></textarea>
-                                <span ng-show="editPetForm.petdes.$touched && editPetForm.petdes.$invalid"
+                                          placeholder="Thông tin chi tiết" name="petdes" id="petdes" required>
+                                </textarea>
+                                <span ng-show="addPetForm.petdes.$touched && addPetForm.petdes.$invalid"
                                       class="text-danger fst-italic">
                                     Vui lòng nhập thông tin chi tiết.
                                 </span>
@@ -72,24 +72,19 @@
                                 <label for="famous">Màu lông:</label>
                                 <input ng-model="selectedPet.famous" type="text" class="form-control" id="famous"
                                        placeholder="Màu lông" name="famous" required>
-                                <span ng-show="editPetForm.famous.$touched && editPetForm.famous.$invalid"
+                                <span ng-show="addPetForm.famous.$touched && addPetForm.famous.$invalid"
                                       class="text-danger fst-italic">
                                     Vui lòng nhập màu lông.
                                 </span>
                             </div>
                             <div class="mb-3">
                                 <label for="petCategory" class="form-label">Chọn loại thú cưng:</label>
-                                <select name="petCategory" class="form-select" id="petCategory"
-                                        ng-model="selectedPet.petCategoryID.id"
+                                <select class="form-select" id="petCategory" ng-model="selectedPet.petCategoryID.id"
                                         placeholder="Chọn loại thú cưng..." required>
                                     <option ng-repeat="pc in petCategoryData" ng-value="pc.id">
                                         {{pc.petCategoryName}}
                                     </option>
                                 </select>
-                                <span ng-show="editPetForm.petCategory.$touched && editPetForm.petCategory.$invalid"
-                                      class="text-danger fst-italic">
-                                    Vui lòng chọn loại thú cưng.
-                                </span>
                             </div>
                             <div class="mb-3">
                                 <label>Giới tính</label>
@@ -134,21 +129,20 @@
                                 <label for="price">Giá:</label>
                                 <input ng-model="selectedPet.price" type="number" class="form-control" id="price"
                                        placeholder="Giá" name="price" required min="10000" max="99999999">
-                                <span ng-show="editPetForm.price.$touched && editPetForm.price.$invalid"
+                                <span ng-show="addPetForm.price.$touched && addPetForm.price.$invalid"
                                       class="text-danger fst-italic">
                                     Vui lòng nhập giá (từ 10,000 đến 99,999,999).
                                 </span>
                             </div>
-                            <div class="mb-3>">
+                            <div class="mb-3">
                                 <label for="photo" class="me-2">Chọn ảnh thú cưng:</label>
                                 <div class=" d-flex align-items-center">
-                                    <input ng-model="selectedPet.photo" type="text" class="form-control me-2 w-75"
-                                           id="photo"
+                                    <input ng-model="selectedPet.photo" type="text" class="form-control me-2" id="photo"
                                            placeholder="Hình ảnh" name="photo" required>
                                     <input type="file" id="fileInput" accept="image/*"
                                            onchange="angular.element(this).scope().updatePhotoPetName(this)">
                                 </div>
-                                <span ng-show="editPetForm.photo.$touched && editPetForm.photo.$invalid"
+                                <span ng-show="addPetForm.photo.$touched && addPetForm.photo.$invalid"
                                       class="text-danger fst-italic">
                                     Vui lòng chọn ảnh.
                                 </span>
@@ -158,15 +152,10 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button ng-disabled="editPetForm.petID.$invalid" type="button" class="btn btn-danger"
-                        ng-click="deletePet(selectedPet.petID)"><span>Xóa</span> <i
-                        class="fa-solid fa-trash"></i></button>
-                <button type="button" class="btn btn-primary"
-                        ng-click="updatePet(selectedPet.petID)"
-                        ng-disabled="editPetForm.$invalid">
-                    <span>Lưu thay đổi</span> <i class="fa-solid fa-floppy-disk"></i>
+                <button ng-disabled="addPetForm.$invalid" type="button" class="btn btn-primary"
+                        ng-click="addPet(selectedPet.petID)">
+                    <span>Thêm</span> <i class="fa-solid fa-plus"></i>
                 </button>
-
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
             </div>
         </div>

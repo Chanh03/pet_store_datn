@@ -289,4 +289,24 @@ public class RestUserController {
 
         return ResponseEntity.ok("{\"success\": true, \"message\": \"Cập nhật thành công\"}");
     }
+    @PutMapping("/{id}")
+    public void updateUser(@PathVariable String id, @RequestBody User user) {
+        User user1 = service.findByUsername(id);
+        user.setUserName(user1.getUsername());
+        user.setDateCreated(user1.getDateCreated());
+        user.setActiveToken(user1.getActiveToken());
+        user.setUserPassword(user1.getUserPassword());
+        service.updateUser(user);
+    }
+
+    @GetMapping
+    public List<User> getUser(){
+        return service.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public User findById(@PathVariable String id) {
+        return service.findByUsername(id);
+    }
+
 }

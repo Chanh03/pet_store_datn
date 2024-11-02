@@ -6,34 +6,70 @@
     <title>Document</title>
 </head>
 <body>
-<div class="row mt-4">
-    <div class="col-6">
-        <div class="row">
+<div class="mt-3">
+    <div class="row">
+        <div class="col-6">
             <div class="card shadow bg-white border-0 p-4">
                 <div>
-                    <h4 class="fw-bold text-center">Thống kê số lượng sản phẩm theo loại</h4>
+                    <h4 class="fw-bold text-center">Bảng thống kê số lượng sản phẩm theo loại</h4>
                 </div>
-                <canvas id="productChart-Bar"></canvas>
-                <code class="text-center">Hiện có {{productLabelsChart.length}} loại sản phẩm khác nhau với tổng số {{productData.length}}
+                <canvas style="height: 400px" id="productChart-Bar"></canvas>
+                <code class="text-center">Hiện có {{productLabelsChart.length}} loại sản phẩm khác nhau với tổng số
+                    {{productData.length}}
                     sản phẩm</code>
             </div>
         </div>
-    </div>
-    <div class="col-6">
-        <div class="card shadow bg-white border-0 p-4">
-            <div>
-                <h4 class="fw-bold text-center">Thống kê số lượng thú cưng theo loài</h4>
+        <div class="col-6">
+            <div class="card shadow bg-white border-0 p-4">
+                <div>
+                    <h4 class="fw-bold text-center">Bảng thống kê số lượng thú cưng theo loài</h4>
+                </div>
+                <canvas style="height: 400px" id="petChart-Bar"></canvas>
+                <code class="text-center">Hiện có {{labels.length}} loài thú cưng khác nhau với tổng số {{petData.length}}
+                    thú cưng</code>
             </div>
-            <canvas id="petChart-Bar"></canvas>
-            <code class="text-center">Hiện có {{labels.length}} loài thú cưng khác nhau với tổng số {{petData.length}}
-                thú cưng</code>
         </div>
     </div>
-
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="card shadow bg-white border-0 p-4">
+                <div>
+                    <h4 class="fw-bold text-center">DEMO CHART</h4>
+                </div>
+                <canvas style="height: 400px" id="bestSelling-Product"></canvas>
+            </div>
+        </div>
+    </div>
 </div>
-</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-
+    const productTrendData = {
+        labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],
+        datasets: [{
+            label: 'Số lượng sản phẩm',
+            data: [10, 15, 9, 20, 17, 25],
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            tension: 0.4 // Độ cong của đường
+        }]
+    };
+    const bestSelling = new Chart(
+        document.getElementById('bestSelling-Product'),
+        {
+            type: 'line',
+            data: productTrendData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {position: 'top'}
+                },
+                scales: {
+                    x: {title: {display: true, text: 'Thời gian'}},
+                    y: {title: {display: true, text: 'Số lượng'}}
+                }
+            }
+        }
+    );
 </script>
-
+</body>
 </html>
