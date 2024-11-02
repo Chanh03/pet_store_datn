@@ -1,12 +1,12 @@
-<div class="container py-4">
+<div class="container">
     <div class="row">
         <!-- Logo -->
-        <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center flex-column">
+        <div
+                class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center flex-column">
             <img loading="lazy" src="/images/logo/logo-2.png" alt="Pet Ninja Logo" class="img-fluid"
-                style="min-width: 300px;">
+                 style="min-width: 300px;">
             <h1 class="mt-2 color fw-bold">PET NINJA</h1>
         </div>
-
         <!-- Contact Information -->
         <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
             <h5 class="fw-bold">Cửa hàng Thú Cưng <span class="text-danger">PET NINJA</span></h5>
@@ -23,56 +23,23 @@
                 </li>
             </ul>
             <div>
-                <a href="#" class="text-decoration-none"><i class="fab fa-facebook fa-2x me-2"></i></a>
-                <a href="#" class="text-decoration-none"><i class="fab fa-zalo fa-2x me-2"></i></a>
-                <a href="#" class="text-decoration-none"><i class="fab fa-tiktok fa-2x"></i></a>
+                <a href="#"><i class="fab fa-facebook fa-2x me-2"></i></a>
+                <a href="#"><i class="fab fa-zalo fa-2x me-2"></i></a>
+                <a href="#"><i class="fab fa-tiktok fa-2x"></i></a>
             </div>
         </div>
 
         <!-- Google Map -->
         <div class="col-md-4 text-center text-md-end">
-            <div class="card map-container position-relative h-100">
-                <div class="logo-wrapper position-absolute" style="top: 20%; right: 50%; transform: translateX(50%);">
+            <div class="map-container position-relative h-100">
+                <div class="logo-wrapper position-absolute text-center"
+                     style="top: 25%;right: 50%;transform: translateX(50%)">
+                    <img class="w-75" src="/images/logo/map-point.png" alt="">
                 </div>
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1959.2220811256655!2d106.6238682174438!3d10.853782900000011!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752b6c59ba4c97%3A0x535e784068f1558b!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEZQVCBQb2x5dGVjaG5pYw!5e0!3m2!1sen!2s!4v1729940979779!5m2!1sen!2s"
-                    width="100%" height="100%" style="border:0;" allowfullscreen="allowfullscreen" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d618.994705121586!2d106.62500120002034!3d10.853808589735198!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1svi!2sus!4v1729073565668!5m2!1svi!2sus"
+                        width="100%" height="100%" style="border:0;" allowfullscreen="allowfullscreen" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </div>
 </div>
-
-<style>
-    .color {
-        color: #f04336;
-    }
-
-    .map-container iframe {
-        border-radius: 15px;
-    }
-
-    h1 {
-        font-size: 2.5rem;
-        text-align: center;
-        margin-top: 10px;
-    }
-
-    h5 {
-        font-size: 1.5rem;
-    }
-
-    p {
-        font-size: 1rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .fab {
-        color: #f04336;
-        transition: color 0.3s;
-    }
-
-    .fab:hover {
-        color: #cc382e;
-    }
-</style>

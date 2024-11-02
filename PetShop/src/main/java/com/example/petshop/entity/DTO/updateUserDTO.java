@@ -1,6 +1,7 @@
 package com.example.petshop.entity.DTO;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,7 @@ public class updateUserDTO {
     private String activeToken;
     private String email;
     private String fullName;
+    private String dateCreate;
     private String phoneNumber;
     private String userAddress;
     private String oldPassword;

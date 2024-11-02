@@ -11,4 +11,3 @@ import java.util.List;
 public interface ReviewRepo extends JpaRepository<Review, Integer> {
     List<Review> findByProductID(Product product);
 }
-

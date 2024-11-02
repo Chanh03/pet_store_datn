@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping({"/quan-tri-he-thong","/admin"})
+@RequestMapping("/quan-tri-he-thong")
 public class AdminController {
     @RequestMapping()
     public String admin(Model model) {
@@ -26,4 +26,7 @@ public class AdminController {
     public String adminUser(Model model) {
         return "admin/_users";
     }
+
+    @RequestMapping("/authorization")
+    public String adminAuthorization(Model model) { return  "admin/_authority"; }
 }

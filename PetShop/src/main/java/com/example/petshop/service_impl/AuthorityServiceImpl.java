@@ -22,4 +22,14 @@ public class AuthorityServiceImpl implements AuthorityService {
     public Authority create(Authority authority) {
         return authorityRepo.save(authority);
     }
+
+    @Override
+    public Authority findById(int authorityId) {
+        return authorityRepo.findById(authorityId).orElse(null);
+    }
+
+    @Override
+    public Authority save(Authority authority) {
+        return authorityRepo.save(authority);
+    }
 }

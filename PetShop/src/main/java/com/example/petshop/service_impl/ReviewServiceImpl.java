@@ -3,7 +3,7 @@ package com.example.petshop.service_impl;
 import com.example.petshop.entity.Review;
 import com.example.petshop.entity.Product;
 import com.example.petshop.repo.ReviewRepo;
-import com.example.petshop.repo.ProductRepo; // Thêm ProductRepo để lấy đối tượng Product
+import com.example.petshop.repo.ProductRepo;
 import com.example.petshop.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

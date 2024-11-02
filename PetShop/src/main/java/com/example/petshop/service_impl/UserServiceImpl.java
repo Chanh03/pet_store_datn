@@ -65,4 +65,9 @@ public class UserServiceImpl implements UserService {
     public boolean existedByEmail(String emai) {
         return userRepo.existsByEmail(emai);
     }
+
+    @Override
+    public void updateUser(User user) {
+        userRepo.save(user);
+    }
 }

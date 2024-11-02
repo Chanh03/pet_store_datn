@@ -1,5 +1,7 @@
 package com.example.petshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -10,6 +12,7 @@ import org.hibernate.annotations.Nationalized;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -19,10 +22,12 @@ import java.util.Set;
 @Table(name = "Users")
 public class User implements UserDetails {
     @Id
+    @JsonProperty("userName")
     @Size(max = 50)
     @Column(name = "UserName", nullable = false, length = 50)
     private String userName;
 
+    @JsonIgnore
     @Size(max = 100)
     @NotNull
     @Nationalized
@@ -64,23 +69,25 @@ public class User implements UserDetails {
 
     @NotNull
     @Column(name = "DateCreated", nullable = false)
-    private Instant dateCreated;
+    private LocalDateTime dateCreated;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userName")
     private Set<BookingService> bookingServices = new LinkedHashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userName")
     private Set<Order> orders = new LinkedHashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userName")
     private Set<Review> reviews = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "userName")
-    private Set<Voucher> vouchers = new LinkedHashSet<>();
-
+    @JsonIgnore
     @OneToMany(mappedBy = "userName", fetch = FetchType.EAGER)
     private Set<Authority> authorities = new LinkedHashSet<>();
 
+    @JsonIgnore
     @Override
     public String getPassword() {
         return userPassword;
@@ -91,7 +98,4 @@ public class User implements UserDetails {
         return userName;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
 }
