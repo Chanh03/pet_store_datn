@@ -199,7 +199,7 @@
                         <a class="nav-link menu-item" href="/information">
                             <i class="fa-solid fa-user-large"></i>
                             <!-- Tên hiển thị -->
-                            <span th:text="${user.fullName}" ></span>
+                            <span th:text="${user.fullName}"></span>
 
                             <i class="fa-solid fa-chevron-down"></i>
                         </a>
@@ -233,30 +233,35 @@
                                 <img loading="lazy" class="mini-cart-img" src="/images/background/no-cart.png" alt="">
                                 <p class="m-0">Chưa có sản phẩm</p>
                             </div>
-                            <div class="card">
+                            <div ng-if="cart.items.length" class="card">
                                 <div class="card-body">
-                                    <div id="cart-items">
+                                    <div id="cart-items" class="mb-3">
                                         <!-- Danh sách sản phẩm -->
-                                        <div class="cart-item d-flex align-items-center mb-3" ng-repeat="item in cart.items track by item.id">
-                                            <img loading="lazy" ng:src="/images/product/{{item.photo}}"
+                                        <div class="cart-item d-flex align-items-center mb-3"
+                                             ng-repeat="item in cart.items track by item.id">
+                                            <img loading="lazy" ng-src="/images/product/{{item.photo}}"
                                                  alt="Sản phẩm"
-                                                 class="img-fluid"
-                                                 style="width: 80px; height: 80px; margin-right: 15px;">
-                                            <div class="me-auto">
+                                                 class="img-fluid me-3"
+                                                 style="width: 80px; height: 80px;">
+                                            <div class="flex-grow-1 me-2">
                                                 <h6 class="mb-0">{{item.productName}}</h6>
-                                                <p class="mb-0">Số lượng: <span class="quantity">{{item.quantity}}</span></p>
-                                                <p class="mb-0" style="color: red;">${{item.price}}</p>
+                                                <p class="mb-0">Số lượng: <span
+                                                        class="quantity">{{item.quantity}}</span></p>
+                                                <p class="mb-0" style="color: red;">Giá: {{item.price |
+                                                    currency:'':0}}đ</p>
                                             </div>
+                                            <p class="mb-0 ms-3" style="color: green;">Tổng: {{item.price *
+                                                item.quantity | currency:'':0}}đ</p>
                                             <div class="ms-2">
-                                                <button class="btn ms-2" ng-click="cart.remove(item.id)">
-                                                    <i class="fa-solid fa-xmark color fs-3" ></i>
+                                                <button class="btn btn-danger" ng-click="cart.remove(item.id)">
+                                                    <i class="fa-solid fa-xmark"></i>
                                                 </button>
                                             </div>
-                                            <p class="mb-0" style="color: Green;">Tolal: ${{item.price * item.quantity}}</p>
                                         </div>
                                     </div>
-
-                                    <a href="/cart-detail" class="btn btn-primary" ng-if="cart.items.length" >Xem giỏ hàng</a>
+                                    <a href="/cart-detail" class="btn btn-dark background-color button-image-white"
+                                       ng-if="cart.items.length">Xem giỏ
+                                        hàng</a>
                                 </div>
                             </div>
                         </div>

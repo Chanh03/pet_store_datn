@@ -309,7 +309,6 @@
             items: JSON.parse(localStorage.getItem('cart')) || [],
 
             add(id) {
-
                 const item = this.items.find(item => item.id === id);
                 if (item) {
                     item.quantity++;
@@ -329,7 +328,7 @@
                         this.items.push(response.data);
                         this.saveToLocalStorage();
                         new Notify({
-                            title: 'da them san pham vao gio hang',
+                            title: 'Sản phẩm đã được thêm vào giỏ hàng',
                             status: 'success',
                             autoclose: true,
                             autotimeout: 2000
@@ -346,7 +345,7 @@
                     this.items.splice(index, 1);
                     this.saveToLocalStorage();
                     new Notify({
-                        title: `xoa thanh cong`,
+                        title: 'Sản phẩm đã được xóa khỏi giỏ hàng',
                         status: 'success',
                         autoclose: true,
                         autotimeout: 2000
@@ -448,9 +447,9 @@
         //checkout
         $scope.checkout = function () {
             Swal.fire({
-                title: 'Thanh toán thành cong',
-                icon: 'warning',
-                cancelButtonText: 'Huy',
+                title: 'Xác nhận thanh toán',
+                icon: 'info',
+                cancelButtonText: 'Hủy',
                 showConfirmButton: true,
                 showCancelButton: true
             }).then((result) => {

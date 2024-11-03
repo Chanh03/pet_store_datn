@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="remove old login,sendmail,forgotpassword">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="customize send mail">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/config/MailerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/config/MailerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/security/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/security/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +146,7 @@
       <workItem from="1730208375476" duration="1015000" />
       <workItem from="1730216905878" duration="20788000" />
       <workItem from="1730535045167" duration="4238000" />
-      <workItem from="1730619360681" duration="9966000" />
+      <workItem from="1730619360681" duration="12600000" />
     </task>
     <task id="LOCAL-00001" summary="pushALllllllllllll">
       <option name="closed" value="true" />
@@ -266,7 +268,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730628981493</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="customize send mail">
+      <option name="closed" value="true" />
+      <created>1730629508666</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1730629508666</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -309,7 +319,8 @@
     <MESSAGE value="remade search button" />
     <MESSAGE value="update main" />
     <MESSAGE value="remove old login,sendmail,forgotpassword" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove old login,sendmail,forgotpassword" />
+    <MESSAGE value="customize send mail" />
+    <option name="LAST_COMMIT_MESSAGE" value="customize send mail" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -256,7 +256,7 @@
       const districtSelect = document.getElementById("districtSelect");
       const wardSelect = document.getElementById("wardSelect");
 
-	
+
       fetch(provincesApi)
         .then((response) => response.json())
         .then((data) => {
@@ -288,7 +288,7 @@
         fetch(districtsApi(provinceCode))
           .then((response) => response.json())
           .then((data) => {
-            
+
         	  data.results.forEach((district) => {
               const option = document.createElement("option");
               option.value = district.district_id;
@@ -308,7 +308,7 @@
         fetch(wardsApi(districtCode))
           .then((response) => response.json())
           .then((data) => {
-           
+
         	  data.results.forEach((ward) => {
               const option = document.createElement("option");
               option.value = ward.ward_id;
@@ -471,7 +471,7 @@
             if (!response.ok) {
               // Nếu response không OK, ném ra lỗi
               return response.json().then((err) => {
-                throw new Error(err.message);
+                throw new Error("LỖI" + err.message);
               });
             }
             return response.json();
