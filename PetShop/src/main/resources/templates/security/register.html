@@ -8,29 +8,36 @@
     <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <title>REGISTER</title>
+    <style>
+        .register-wrapper {
+
+        }
+    </style>
 </head>
 <body>
 
-<div class="container-lg main-content px-3 "
-     style="background-image: url('/images/background/dog_13.jpg'); background-size: cover; background-position: left; ">
-
-    <div class="d-flex align-items-left justify-content-left mt-5">
-        <div class="d-flex align-items-center justify-content-center mt-5">
-            <h3 class="fw-bold font-resp text-danger">
-                <i class="fa-regular fa-user"></i> ĐĂNG KÝ THÀNH VIÊN
-            </h3>
-        </div>
-        <div class="line w-25"></div>
-    </div>
-    <div class="row mt-3">
+<div class="container-lg main-content px-3">
+    <!-- BREADCRUMB -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white mb-0 p-2 rounded-3">
+            <li class="breadcrumb-item">
+                <a href="/trang-chu" class="text-decoration-none text-danger d-flex align-items-center">
+                    <i class="fas fa-home me-2"></i>
+                    Trang chủ
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Đăng ký</li>
+        </ol>
+    </nav>
+    <div class="row mt-3 d-flex align-items-center justify-content-center">
         <!--        ADVERTISE-->
         <!--        REGISTER FORM-->
         <div class="col-md-12 col-lg-6 mb-5">
-            <div
-                    class="card shadow border-0 sticky-element"
-                    style="backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.7);"
-            >
-                <div class="card-body mb-3">
+            <div class="card shadow-lg border-0 "
+                 style="background: #1373c3 !important;
+            background: linear-gradient(0deg, rgba(236,122,139,0.28) 0%, rgba(195,133,19,0.24) 100%) !important;">
+                <div class="card-body mb-3 register-wrapper">
+                    <h3 class="text-center">Đăng ký</h3>
                     <form id="register_form">
                         <h5
                                 class="alert font-resp"
@@ -256,9 +263,9 @@
     const provinceSelect = document.getElementById("provinceSelect");
     const districtSelect = document.getElementById("districtSelect");
     const wardSelect = document.getElementById("wardSelect");
-    
+
     const ditmeDoi = () => {
-      
+
     }
 
     fetch(provincesApi)

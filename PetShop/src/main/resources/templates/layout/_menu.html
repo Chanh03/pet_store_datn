@@ -190,10 +190,10 @@
                 </ul>
                 <ul class="navbar-nav mb-lg-0 ms-auto gap-2">
                     <li sec:authorize="isAnonymous()" class="nav-item text-center">
-                        <a class="nav-link menu-item" href="/login">Login</a>
+                        <a class="nav-link menu-item" href="/login">Đăng nhập</a>
                     </li>
                     <li sec:authorize="isAnonymous()" class="nav-item text-center">
-                        <a class="nav-link menu-item" href="/register">Register</a>
+                        <a class="nav-link menu-item" href="/register">Đăng ký</a>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item text-center user-button">
                         <a class="nav-link menu-item" href="/information">
@@ -216,7 +216,7 @@
                             </div>
                             <div class="user-actions mt-3">
                                 <a href="/information" class="btn btn-primary btn-sm user-button-decor">Xem hồ sơ</a>
-                                <a sec:authorize="hasRole('ROLE_ADMIN')" href="/quan-tri-he-thong"
+                                    <a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_STAFF')" href="/quan-tri-he-thong"
                                    class="btn btn-outline-secondary btn-sm user-button-decor">Quản trị</a>
                                 <a href="javascript:void(0)" onclick="logout()"
                                    class="btn btn-danger btn-sm user-button-decor">Đăng xuất</a>

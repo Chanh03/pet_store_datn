@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update tieng Viet">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update voucher, user">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/background/register-bg.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/entity/Voucher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/entity/Voucher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/slide/Cn1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/slide/Cn2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/security/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/security/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -152,7 +147,7 @@
       <workItem from="1730535045167" duration="4238000" />
       <workItem from="1730619360681" duration="12701000" />
       <workItem from="1730633139853" duration="1451000" />
-      <workItem from="1730643480978" duration="3409000" />
+      <workItem from="1730643480978" duration="5645000" />
     </task>
     <task id="LOCAL-00001" summary="pushALllllllllllll">
       <option name="closed" value="true" />
@@ -290,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730632164284</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="update voucher, user">
+      <option name="closed" value="true" />
+      <created>1730647179772</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1730647179772</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -335,7 +338,8 @@
     <MESSAGE value="remove old login,sendmail,forgotpassword" />
     <MESSAGE value="customize send mail" />
     <MESSAGE value="update tieng Viet" />
-    <option name="LAST_COMMIT_MESSAGE" value="update tieng Viet" />
+    <MESSAGE value="update voucher, user" />
+    <option name="LAST_COMMIT_MESSAGE" value="update voucher, user" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
