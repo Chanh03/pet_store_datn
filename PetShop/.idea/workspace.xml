@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update voucher, user">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/background/register-bg.png" afterDir="false" />
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update register form">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/security/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/security/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/security/forgot-password.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/security/forgot-password.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +145,7 @@
       <workItem from="1730535045167" duration="4238000" />
       <workItem from="1730619360681" duration="12701000" />
       <workItem from="1730633139853" duration="1451000" />
-      <workItem from="1730643480978" duration="5645000" />
+      <workItem from="1730643480978" duration="5813000" />
     </task>
     <task id="LOCAL-00001" summary="pushALllllllllllll">
       <option name="closed" value="true" />
@@ -293,7 +291,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730647179772</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="update register form">
+      <option name="closed" value="true" />
+      <created>1730649244643</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1730649244643</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -339,7 +345,8 @@
     <MESSAGE value="customize send mail" />
     <MESSAGE value="update tieng Viet" />
     <MESSAGE value="update voucher, user" />
-    <option name="LAST_COMMIT_MESSAGE" value="update voucher, user" />
+    <MESSAGE value="update register form" />
+    <option name="LAST_COMMIT_MESSAGE" value="update register form" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
