@@ -97,7 +97,7 @@ public class RestUserController {
         dto.setActiveToken(user.getActiveToken());
         return dto;
     }
-  //Hàm tìm người dùng thông qua active token
+    //Hàm tìm người dùng thông qua active token
     @GetMapping("/information/{username}")
     public updateUserDTO getByUsername(@PathVariable String username) {
         // Tìm user theo getUserPrincipal
@@ -235,16 +235,17 @@ public class RestUserController {
         }
         User user = service.findByUsername(username);
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        
+
         if(!bCryptPasswordEncoder.matches(dto.getOldPassword(), user.getUserPassword())) {
-        	System.out.println(user.getUserPassword());
-        	return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            System.out.println(user.getUserPassword());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"success\": false, \"message\": \"Mật khẩu hiện tại của bạn không chính xác\"}");
         }
         String passwordEncode = bCryptPasswordEncoder.encode(dto.getNewPassword());
         user.setUserPassword(passwordEncode);
         service.update(user);
         return ResponseEntity.ok("{\"success\": true, \"message\": \"Đổi mật khẩu thành công\"}");
+
     }
 
     //new pass dto
