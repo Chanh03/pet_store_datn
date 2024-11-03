@@ -245,7 +245,6 @@ public class RestUserController {
         user.setUserPassword(passwordEncode);
         service.update(user);
         return ResponseEntity.ok("{\"success\": true, \"message\": \"Đổi mật khẩu thành công\"}");
-
     }
 
     //new pass dto
