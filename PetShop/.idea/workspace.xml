@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="remade search button">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/background/footer-bg-1.png" afterDir="false" />
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update main">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/logo/success-noti.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/logo/success-noty.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_footer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/module/_loadingSpinner.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/module/_loadingSpinner.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/security/forgot-password.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/security/forgot-password.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/security/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/security/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/security/sendMail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/security/sendMail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +72,7 @@
     "Spring Boot.PetShopApplication.executor": "Run",
     "git-widget-placeholder": "AnhNgo1",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Vanh/GitHub/DATN_DEV/PetShop/src/main/resources/static/images/background",
+    "last_opened_file_path": "D:/Vanh/GitHub/DATN_DEV/PetShop/src/main/resources/static/images/logo",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -90,8 +92,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\images\background" />
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\images\logo" />
+      <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\images\background" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.example.petshop.rest" />
@@ -148,7 +150,7 @@
       <workItem from="1730208375476" duration="1015000" />
       <workItem from="1730216905878" duration="20788000" />
       <workItem from="1730535045167" duration="4238000" />
-      <workItem from="1730619360681" duration="6709000" />
+      <workItem from="1730619360681" duration="9431000" />
     </task>
     <task id="LOCAL-00001" summary="pushALllllllllllll">
       <option name="closed" value="true" />
@@ -254,7 +256,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730621048349</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="update main">
+      <option name="closed" value="true" />
+      <created>1730626171460</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1730626171460</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,7 +305,8 @@
     <MESSAGE value="update source" />
     <MESSAGE value="add autocomplete" />
     <MESSAGE value="remade search button" />
-    <option name="LAST_COMMIT_MESSAGE" value="remade search button" />
+    <MESSAGE value="update main" />
+    <option name="LAST_COMMIT_MESSAGE" value="update main" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

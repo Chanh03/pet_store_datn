@@ -12,12 +12,10 @@
 
 <!--SLIDE-->
 <div class="row g-0">
-    <div class="col-lg-8">
-        <!-- Shaders slider -->
+    <div class="col-12">
         <div class="swiper swiper-container-banner">
             <div class="swiper-wrapper">
                 <div th:each="s : ${slides}" class="swiper-slide">
-                    <!-- shaders image must be a direct child of the slide and have additional "swiper-gl-image" class  -->
                     <img loading="lazy" class="swiper-gl-image w-100"
                          th:src="@{/images/slide/{photo}(photo = ${s.sliderImage})}" th:alt="${s.sliderImage}">
                 </div>
@@ -27,11 +25,6 @@
             <div class="swiper-button-next swiper-button-next-banner"></div>
             <div class="swiper-pagination swiper-pagination-banner"></div>
         </div>
-    </div>
-
-    <div class="col-lg-4 d-flex flex-column">
-        <img src="/images/slide/cn1.jpg" alt="Image 1" class="img-fluid mb-3" style="height: 50%;">
-        <img src="/images/slide/cn2.jpg" alt="Image 2" class="img-fluid" style="height: 50%;">
     </div>
 </div>
 <!--SLIDE END-->
