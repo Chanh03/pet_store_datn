@@ -66,16 +66,20 @@
 
         .ui-menu {
             z-index: 8000 !important;
-            border: 1px solid black !important;
+            border-bottom: 10px solid #f04336 !important;
             max-height: 300px;
             overflow-y: auto;
             overflow-x: hidden;
+            scrollbar-width: none;
         }
 
         .ui-menu-item-wrapper:hover {
-            background-color: rgb(255, 17, 0) !important;
-            background: url("/images/background/button-white.png");
+            background: #ff7070;
+            background: -webkit-linear-gradient(90deg, #ff7070 0%, #530f0f 100%);
+            background: linear-gradient(90deg, #ff7070 0%, #530f0f 100%);
+            /*background: url("/images/background/button-white.png");*/
             color: white !important;
+            height: 110% !important;
         }
 
         .ui-state-active {
@@ -188,7 +192,7 @@
                         </div>
                     </li>
                 </ul>
-                <ul class="navbar-nav mb-lg-0 ms-auto gap-2">
+                <ul class="navbar-nav mb-lg-0 ms-auto gap-2 d-flex align-items-center">
                     <li sec:authorize="isAnonymous()" class="nav-item text-center">
                         <a class="nav-link menu-item" href="/login">Đăng nhập</a>
                     </li>
@@ -216,7 +220,7 @@
                             </div>
                             <div class="user-actions mt-3">
                                 <a href="/information" class="btn btn-primary btn-sm user-button-decor">Xem hồ sơ</a>
-                                    <a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_STAFF')" href="/quan-tri-he-thong"
+                                <a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_STAFF')" href="/quan-tri-he-thong"
                                    class="btn btn-outline-secondary btn-sm user-button-decor">Quản trị</a>
                                 <a href="javascript:void(0)" onclick="logout()"
                                    class="btn btn-danger btn-sm user-button-decor">Đăng xuất</a>
@@ -299,12 +303,20 @@
                     .then(data => {
                         const results = $.map(data, item => {
                             const itemName = category === "pet" ? item.breed : item.productName;
+
+                            // Kiểm tra điều kiện tên và lấy đường dẫn hình ảnh tương ứng
                             if (itemName.toLowerCase().includes(request.term.toLowerCase())) {
+                                const imageUrl = category === "pet"
+                                    ? `/images/pet/${item.photo}`
+                                    : `/images/product/${item.photo}`;
+
                                 return {
-                                    label: `<div class="autocomplete-item">
-                                            <strong>${itemName}</strong>
-                                            <p>ID: ${item.price}</p>
-                                        </div>`,
+                                    label: `
+                                    <div class="autocomplete-item" style="display: flex; align-items: center;">
+                                        <strong style="flex: 1;">${itemName}</strong>
+                                        <p style="margin: 0; flex-shrink: 0;">Giá: ${item.price.toLocaleString()}đ</p>
+                                        <img src="${imageUrl}" alt="${itemName}" style="width: 50px; height: 50px; margin-left: 10px; object-fit: cover;">
+                                    </div>`,
                                     value: itemName,
                                     id: item.id
                                 };
