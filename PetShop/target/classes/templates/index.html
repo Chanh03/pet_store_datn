@@ -23,6 +23,11 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <!--   notify-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css"/>
+    <!--    JQUERY-->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
     <style>
         body {
             background: url("/images/background/bg.png");
@@ -311,7 +316,7 @@
                     item.quantity++;
                     if (item.quantity > 10) {
                         item.quantity = 10;
-                        new Notify ({
+                        new Notify({
                             title: `Số lượng sản phẩm: ${item.productName} đã đạt giới hạn`,
                             status: 'warning',
                             autoclose: true,
@@ -324,7 +329,7 @@
                         response.data.quantity = 1;
                         this.items.push(response.data);
                         this.saveToLocalStorage();
-                        new Notify ({
+                        new Notify({
                             title: 'da them san pham vao gio hang',
                             status: 'success',
                             autoclose: true,
@@ -341,7 +346,7 @@
                 if (index !== -1) {
                     this.items.splice(index, 1);
                     this.saveToLocalStorage();
-                    new Notify ({
+                    new Notify({
                         title: `xoa thanh cong`,
                         status: 'success',
                         autoclose: true,
