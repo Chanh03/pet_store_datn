@@ -201,8 +201,8 @@
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
 <header id="menu" class="sticky-top" th:insert="~{/layout/_menu}"></header>
-<main class="container py-3 bg-white rounded-3 border border-2 border-dark" th:insert="${view}"></main>
-<footer th:insert="~{/layout/_footer}" class="bg-white py-4 container "></footer>
+<main class="container p-0 bg-white rounded-3 border border-2 border-dark" th:insert="${view}"></main>
+<footer th:insert="~{/layout/_footer}" class="bg-white rounded-3 container overflow-hidden my-3 p-0 border border-2 border-dark"></footer>
 <!--MODULE-->
 <div th:insert=" ~{/module/_backToTop}"></div>
 <div th:insert=" ~{/module/_loadingSpinner}"></div>
@@ -213,6 +213,7 @@
         crossorigin="anonymous"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 
 <!--    JS-->
 <script>
@@ -298,8 +299,6 @@
         crossFade: true,
     });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
-
 <!--    Angular add to cart-->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script>
@@ -581,6 +580,4 @@
 
     });
 </script>
-
-
 </html>
