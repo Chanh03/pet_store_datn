@@ -51,10 +51,11 @@
         document.getElementById('loading-spinner').style.display = 'block';
     });
     window.addEventListener('load', function () {
-        setTimeout(function () {
+        if (document.readyState === 'complete') {
             document.getElementById('loading-spinner').style.display = 'none';
-        }, 500); // 1000 ms = 1 giây
+        }
     });
+
 </script>
 <script>
     window.embeddedChatbotConfig = {
