@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
-    <!-- Add File Css -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
-
 <!--SLIDE-->
 <div class="row g-0">
     <div class="col-12">
@@ -20,7 +17,6 @@
                          th:src="@{/images/slide/{photo}(photo = ${s.sliderImage})}" th:alt="${s.sliderImage}">
                 </div>
             </div>
-
             <div class="swiper-button-prev swiper-button-prev-banner"></div>
             <div class="swiper-button-next swiper-button-next-banner"></div>
             <div class="swiper-pagination swiper-pagination-banner"></div>
