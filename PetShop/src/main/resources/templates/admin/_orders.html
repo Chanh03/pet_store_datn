@@ -69,11 +69,11 @@
                     </select>
                 </td>
                 <td sortable="'orderStatusID.id'" filter="{ 'orderStatusID.statusName': 'text' }"
-                    data-title="'Email'" class="text-center">{{ order.orderStatusID.statusName }}
+                    data-title="'Email'" class="text-center">{{ order.paymentStatusID.statusPayment }}
                 </td>
                 <td data-title="'Xem'" class="text-center">
                     <a href="/quan-tri-he-thong/don-hang/{{order.id}}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-eye me-2"></i>Xem
+                        <i class="fas fa-eye me-2"></i>Xac nhan don hang
                     </a>
                 </td>
             </tr>

@@ -202,7 +202,8 @@
 <body ng-app="myApp" ng-controller="myCtrl">
 <header id="menu" class="sticky-top" th:insert="~{/layout/_menu}"></header>
 <main class="container p-0 bg-white rounded-3 border border-2 border-dark" th:insert="${view}"></main>
-<footer th:insert="~{/layout/_footer}" class="bg-white rounded-3 container overflow-hidden my-3 p-0 border border-2 border-dark"></footer>
+<footer th:insert="~{/layout/_footer}"
+        class="bg-white rounded-3 container overflow-hidden my-3 p-0 border border-2 border-dark"></footer>
 <!--MODULE-->
 <div th:insert=" ~{/module/_backToTop}"></div>
 <div th:insert=" ~{/module/_loadingSpinner}"></div>
@@ -456,69 +457,73 @@
                 if (result.isConfirmed) {
                     const username = document.getElementById("username_auth").textContent;
                     const cartTotal = JSON.parse(localStorage.getItem('cartTotal'));
+                    const cartItems = JSON.parse(localStorage.getItem('cart'));
                     const userAddress = document.getElementById("userAddress").value;
                     const currentDate = new Date();
 
-                    // Tạo một mảng các Promise
-                    const userPromise = $http.get("/api/user/" + username);
-                    const orderStatusPromise = $http.get("/api/orderStatus/1");
-                    const paymentStatusPromise = $http.get("/api/paymentStatus/1");
-
-                    // Đợi tất cả các Promise hoàn thành
-                    Promise.all([userPromise, orderStatusPromise, paymentStatusPromise])
+                    Promise.all([
+                        $http.get("/api/user/" + username),
+                        $http.get("/api/orderStatus/1"),
+                        $http.get("/api/paymentStatus/1")
+                    ])
                         .then(function (responses) {
                             const userResponse = responses[0].data;
                             const orderStatusResponse = responses[1].data;
                             const paymentStatusResponse = responses[2].data;
-
-                            console.log(cartTotal);
-                            console.log(userAddress);
-                            console.log(currentDate);
-                            console.log(userResponse.username);
-                            console.log(orderStatusResponse);
-                            console.log(paymentStatusResponse);
-
                             const order = {
                                 totalAmount: cartTotal,
-                                userName: {
-                                    userName: userResponse.username,
-                                },
+                                userName: {userName: userResponse.username,},
                                 shippingAddress: userAddress,
                                 enable: true,
-                                orderStatusID: {
-                                    id: orderStatusResponse.id
-                                },
-                                paymentStatusID: {
-                                    id: paymentStatusResponse.id
-                                },
+                                orderStatusID: {id: orderStatusResponse.id},
+                                paymentStatusID: {id: paymentStatusResponse.id},
                                 orderDate: currentDate
                             };
-
-                            return $http.post("/api/order", order); // Trả về Promise cho yêu cầu POST
+                            return $http.post("/api/order", order);
                         })
                         .then(function (response) {
-                            console.log("Order thành công");
+                            const orderID = response.data.id; // Lấy OrderID từ phản hồi
+                            const orderDetailPromises = cartItems.map((item) => {
+                                const orderDetail = {
+                                    orderID: {id: orderID},
+                                    productID: {id: item.id},
+                                    quantity: item.quantity,
+                                    price: item.price
+                                };
+                                return $http.post("/api/orderProductDetail", orderDetail);
+                            });
+
+                            return Promise.all(orderDetailPromises);
+                        })
+                        .then(function () {
+                            console.log("Order và OrderDetail thành công");
+
                             localStorage.removeItem('cart');
                             localStorage.removeItem('voucherCode');
                             localStorage.removeItem('discountAmount');
+
                             Swal.fire({
-                                title: 'Thanh toán thành cong',
+                                title: 'Thanh toán thành công',
                                 icon: 'success',
                                 timer: 2000,
                                 timerProgressBar: true,
                                 willClose: () => {
-                                    window.location.href = "http://localhost:8080/cart-payMent"
+                                    window.location.href = "http://localhost:8080/cart-payMent";
                                 }
-                            })
+                            });
                         })
                         .catch(function (error) {
-                            console.log("Lỗi khi order", error);
+                            console.error("Lỗi khi order", error);
+                            Swal.fire({
+                                title: 'Có lỗi xảy ra!',
+                                text: 'Không thể hoàn tất thanh toán. Vui lòng thử lại.',
+                                icon: 'error'
+                            });
                         });
                 }
-            })
+            });
+        };
 
-
-        }
         // $scope.checkout = function () {
         //     const username = document.getElementById("username_auth").textContent;
         //     $http.get("/api/user/" + username).then(function (response) {
