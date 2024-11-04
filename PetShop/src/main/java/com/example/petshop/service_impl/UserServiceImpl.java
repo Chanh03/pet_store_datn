@@ -4,19 +4,29 @@ package com.example.petshop.service_impl;
 
 import com.example.petshop.entity.User;
 import com.example.petshop.repo.UserRepo;
+import com.example.petshop.service.AuthorityService;
 import com.example.petshop.service.UserService;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private AuthorityService authorityService;
 
     @Override
     public UserDetails findById(String username) {
@@ -65,4 +75,43 @@ public class UserServiceImpl implements UserService {
     public boolean existedByEmail(String emai) {
         return userRepo.existsByEmail(emai);
     }
+
+    @Override
+    @Transactional
+    @Scheduled(fixedRate = 60000)
+    public void cleanupInactiveUsers() {
+        List<User> listUser = userRepo.findUserByEnableFalse();
+        Instant now = Instant.now();
+        LocalDateTime nowLocal = LocalDateTime.now();
+        
+        for (User user : listUser) {
+            LocalDateTime dateCreated = user.getDateCreated();
+            Instant dateCreatedInstant = dateCreated.atZone(ZoneId.systemDefault()).toInstant();
+            LocalDateTime time2Local = dateCreatedInstant.atZone(ZoneId.of("UTC")).toLocalDateTime();
+            if (time2Local.isBefore(nowLocal.minusSeconds(600))) {
+                authorityService.deleteByUserName(user);
+                userRepo.delete(user);
+            }
+        }
+    }
+
+	@Override
+	public List<User> findByEmail(String email) {
+		return userRepo.findByEmail(email);
+	}
+
+	@Override
+	public User findByTempToken(String token) {
+		 User user  = userRepo.findByTempToken(token);
+	        if (user == null) {
+	            throw new UsernameNotFoundException("User not found with temp token: " + token);
+	        }
+	        return user;
+	}
+
+	@Override
+	public boolean existedByTempToken(String temp_token) {
+		return userRepo.existsByTempToken(temp_token);
+	}
+
 }

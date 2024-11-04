@@ -20,6 +20,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
@@ -125,7 +126,7 @@ public class RestUserController {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body("{\"success\": false, \"message\": \"Tên đăng nhập đã tồn tại\"}");
             }
-            if (service.existedByEmail(user.getUsername())) {
+            if (service.existedByEmail(user.getEmail()) && !user.getUsername().matches("\\d+")) {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body("{\"success\": false, \"message\": \"Email đã được sử dụng cho một tài khoản khác\"}");
             }
@@ -140,6 +141,7 @@ public class RestUserController {
             String uuidString = uuid.toString();
             user.setActiveToken(uuidString);
             user.setUserPassword(encodedPassword);
+            
             user.setDateCreated(LocalDateTime.now());
 
             // Gán vai trò cho người dùng
@@ -153,15 +155,7 @@ public class RestUserController {
             authority.setRole(role);
             authority.setUserName(user);
             user.getAuthorities().add(authority);
-
-            // Lưu người dùng và quyền
-            User newUser = service.create(user);
-            Authority newAuthority = authorityService.create(authority);
-
-            // Chuyển đổi người dùng mới thành UserDTO
-            UserDTO newUserDto = new UserDTO(newUser);
-
-            // Gửi email xác nhận
+            boolean isEmailSent =
             mailerService.sendEmail(
                     user.getEmail(),
                     "Pet Shop",
@@ -169,6 +163,20 @@ public class RestUserController {
                     user.getFullName(),
                     user.getActiveToken()
             );
+            if(!isEmailSent) {
+            	return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body("{\"success\": false, \"message\": \"Gửi Mail không thành công vui lòng kiểm tra lại\"}");
+            }
+            
+            
+            User newUser = service.create(user);
+            Authority newAuthority = authorityService.create(authority);
+
+            // Chuyển đổi người dùng mới thành UserDTO
+            UserDTO newUserDto = new UserDTO(newUser);
+
+            // Gửi email xác nhận
+            
 
             // Trả về người dùng mới với mã trạng thái HTTP 201 (Created)
             return new ResponseEntity<>(newUserDto, HttpStatus.CREATED);
@@ -211,20 +219,59 @@ public class RestUserController {
         return ResponseEntity.ok(dto);
     }
 
-    //Gửi mail đường dẫn đổi mật khẩu
-    @GetMapping("/forgot-password/{username}")
-    public ResponseEntity<Object> sendConfirmPassword(@PathVariable String username) {
-        if (!service.existedByUsername(username)) {
+    @PutMapping("/forgot-password/{email}")
+    public ResponseEntity<Object> sendConfirmPassword(@PathVariable String email) {
+        // Kiểm tra xem email có tồn tại không
+        if (!service.existedByEmail(email)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("{\"success\": false, \"message\": \"Tài khoản không tồn tại\"}");
+                                 .body("{\"success\": false, \"message\": \"Email không tồn tại!\"}");
         }
 
-        User user = service.findByUsername(username);
-        System.out.println(user.getActiveToken());
-        mailerService = new MailerService();
-        mailerService.confirmChangePassword(user.getEmail(), "Ninja Pet", "Thư xác nhận đổi mật khẩu", username, user.getActiveToken());
-        return ResponseEntity.ok("{\"success\": true, \"message\": \"Thư xác nhận đã được gửi đến email của bạn.\"}");
+        // Lấy danh sách người dùng theo email
+        List<User> listUser = service.findByEmail(email);
+        mailerService = new MailerService(); // Khởi tạo mailerService một lần
+
+        boolean validUserFound = false; // Biến để theo dõi xem có người dùng hợp lệ hay không
+
+        for (User user : listUser) {
+            // Kiểm tra xem username có chứa ký tự số hay không
+            if (!user.getUsername().matches("\\d+")) { // Kiểm tra nếu username không chỉ chứa ký tự số
+                validUserFound = true; // Đánh dấu là có người dùng hợp lệ
+                
+                // Tạo UUID và thiết lập thời gian hết hạn
+                UUID uuid = UUID.randomUUID();
+                user.setTemporaryGUID(uuid.toString());
+                user.setTempGuidExpir(LocalDateTime.now().plusMinutes(10)); // UUID có hiệu lực trong 10 phút
+
+                // Gửi email
+                boolean isSent = mailerService.confirmChangePassword(
+                    user.getEmail(), 
+                    "Ninja Pet", 
+                    "Thư xác nhận đổi mật khẩu", 
+                    user.getUsername(), 
+                    user.getTemporaryGUID()
+                );
+
+                if (!isSent) {
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                         .body("{\"success\": false, \"message\": \"Gửi mail không thành công.\"}");
+                }
+
+                // Cập nhật thông tin người dùng
+                service.update(user);
+                return ResponseEntity.ok("{\"success\": true, \"message\": \"Thư xác nhận đã được gửi đến email của bạn.\"}");
+            }
+        }
+
+        if (!validUserFound) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .body("{\"success\": false, \"message\": \"Không có người dùng hợp lệ với email này!\"}");
+        }
+
+        return ResponseEntity.ok("{\"success\": false, \"message\": \"Không có người dùng hợp lệ với email này!\"}");
     }
+
+
 
     //Đổi mật khẩu mới
     @PutMapping("/change-password/{username}")
@@ -235,14 +282,17 @@ public class RestUserController {
         }
         User user = service.findByUsername(username);
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        
         if(!bCryptPasswordEncoder.matches(dto.getOldPassword(), user.getUserPassword())) {
-        	System.out.println(user.getUserPassword());
-        	return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("{\"success\": false, \"message\": \"Mật khẩu hiện tại của bạn không chính xác\"}");
+        	if(!dto.getOldPassword().equals(user.getUserPassword()) ) {
+        		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("{\"success\": false, \"message\": \"Mật khẩu hiện tại của bạn không chính xác\"}");
+        	}
         }
         String passwordEncode = bCryptPasswordEncoder.encode(dto.getNewPassword());
         user.setUserPassword(passwordEncode);
+        UUID uuid = UUID.randomUUID();
+        String uuidString = uuid.toString();
+        user.setTemporaryGUID(uuidString);
         service.update(user);
         return ResponseEntity.ok("{\"success\": true, \"message\": \"Đổi mật khẩu thành công\"}");
 
@@ -251,12 +301,21 @@ public class RestUserController {
     //new pass dto
     @GetMapping("/new-password/{userName}")
     public ResponseEntity<Object> forgotPassword(@PathVariable String userName, @RequestParam("token") String token){
-        if(!service.existedByUsername(userName) || service.findByToken(token) == null) {
+        if(!service.existedByUsername(userName) || !service.existedByTempToken(token)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("{\"success\": false, \"message\": \"Tài khoản không tồn tại\"}");
+                    .body("{\"success\": false, \"message\": \"Đường dẫn không còn khả dụng với bạn\"}");
         }
+        Instant now = Instant.now();
         User user  = service.findByUsername(userName);
+        LocalDateTime nowLocal = LocalDateTime.now();
+        LocalDateTime dateCreated = user.getTempGuidExpir();
+        Instant dateCreatedInstant = dateCreated.atZone(ZoneId.systemDefault()).toInstant();
+        LocalDateTime time2Local = dateCreatedInstant.atZone(ZoneId.of("UTC")).toLocalDateTime();
         updateUserDTO dto = new updateUserDTO();
+        if (time2Local.isBefore(nowLocal.minusSeconds(600))) {
+        	return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("{\"success\": false, \"message\": \"Đường dẫn của bạn đã hết hạn!\"}");
+        }
         dto.setUserName(userName);
         dto.setOldPassword(user.getUserPassword());
         dto.setActiveToken(token);

@@ -67,6 +67,12 @@ public class User implements UserDetails {
     @NotNull
     @Column(name = "DateCreated", nullable = false)
     private LocalDateTime  dateCreated;
+    
+    @Column(name ="TemporaryGUID" , nullable = true)
+    private String TemporaryGUID;
+    
+    @Column(name ="TempGuidExpir" , nullable = true)
+    private LocalDateTime TempGuidExpir;
 
     @OneToMany(mappedBy = "userName")
     private Set<BookingService> bookingServices = new LinkedHashSet<>();
@@ -100,6 +106,4 @@ public class User implements UserDetails {
                 .map(authority -> authority.getRole().getName())
                 .collect(Collectors.toSet());
     }
-
-    
 }

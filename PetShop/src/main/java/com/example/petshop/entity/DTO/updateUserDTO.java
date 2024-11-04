@@ -23,4 +23,13 @@ public class updateUserDTO {
     private String oldPassword;
     private String newPassword;
     private String confirmPassword;
+    
+    public String getFindUserOauth2(String username) {
+    	if(username != null && username.matches("[^a-zA-Z]*")) {
+    		return username;
+    	}
+		return null;
+	}
+
+	public String findUserOauth2;
 }
