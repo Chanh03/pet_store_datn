@@ -838,7 +838,10 @@
                     // ORDER TABLE
                     $scope.ordersTable = new NgTableParams({
                         page: 1,
-                        count: 5
+                        count: 5,
+                        sorting: {
+                            orderDate: 'desc'
+                        }
                     }, {
                         counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.orderData.length],
                         dataset: $scope.orderData

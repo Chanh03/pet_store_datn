@@ -56,8 +56,8 @@
                 <td sortable="'orderDate'" filter="{ 'orderDate': 'date' }"
                     data-title="'Ngày đặt hàng'" class="text-start">{{ order.orderDate | date: 'dd/MM/yyyy' }}
                 </td>
-                <td sortable="'userName.fullName'" filter="{ 'userName.email': 'text' }"
-                    data-title="'Email'" class="text-center">{{ userAuthor.userName.email }}
+                <td sortable="'totalAmount'" filter="{ 'userName.email': 'text' }"
+                    data-title="'Tổng tiền'" class="text-center">{{ order.totalAmount | number: 0 }}đ
                 </td>
                 <td data-title="'Vai trò'" class="text-start">
                     <select
