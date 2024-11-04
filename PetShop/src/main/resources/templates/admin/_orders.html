@@ -24,7 +24,7 @@
         </div>
         <hr>
         <div class="row g-5">
-            <div class="col-3">
+            <div class="col">
                 <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
                     <h4 class="text-secondary">CÁC VAI TRÒ HIỆN CÓ</h4>
                     <div class="d-flex justify-content-start align-items-end">
@@ -33,45 +33,6 @@
                                 <span class="badge bg-primary me-2">{{role.name.replace('ROLE_', '')}}</span>
                             </h4>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
-                    <h4 class="text-secondary">ADMIN</h4>
-                    <div class="d-flex justify-content-start align-items-end">
-                        <h2>{{count_ROLE_ADMIN}}</h2>
-                        <h5 class="text-secondary">
-                            . trên tổng số
-                            <span class="">{{authorityData.length}}</span>
-                            <span class="fs-6 badge" style="background: #e8f6f6; color: #5cbec4">{{ (count_ROLE_ADMIN / authorityData.length * 100) | number:2 }}%</span>
-                        </h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
-                    <h4 class="text-secondary">STAFF</h4>
-                    <div class="d-flex justify-content-start align-items-end">
-                        <h2>{{count_ROLE_STAFF}}</h2>
-                        <h5 class="text-secondary">
-                            . trên tổng số
-                            <span class="">{{authorityData.length}}</span>
-                            <span class="fs-6 badge" style="background: #e8f6f6; color: #5cbec4">{{ (count_ROLE_STAFF / authorityData.length * 100) | number:2 }}%</span>
-                        </h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
-                    <h4 class="text-secondary">USER</h4>
-                    <div class="d-flex justify-content-start align-items-end">
-                        <h2>{{count_ROLE_USER}}</h2>
-                        <h5 class="text-secondary">
-                            . trên tổng số
-                            <span class="">{{authorityData.length}}</span>
-                            <span class="fs-6 badge" style="background: #e8f6f6; color: #5cbec4">{{ (count_ROLE_USER / authorityData.length * 100) | number:2 }}%</span>
-                        </h5>
                     </div>
                 </div>
             </div>
@@ -98,7 +59,7 @@
                 <td sortable="'userName.fullName'" filter="{ 'userName.email': 'text' }"
                     data-title="'Email'" class="text-start">{{ userAuthor.userName.email }}
                 </td>
-                <td sortable="'role.name'" filter="{ 'role.name': 'text' }" data-title="'Vai trò'" class="text-start">
+                <td data-title="'Vai trò'" class="text-start">
                     <select
                             ng-model="userAuthor.authority"
                             ng-change="changeRole(userAuthor.id, userAuthor.authority)"

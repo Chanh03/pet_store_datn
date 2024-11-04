@@ -27,6 +27,10 @@ public class AdminController {
         return "admin/_users";
     }
 
+    @RequestMapping("/order")
+    public String adminOrder(Model model) { return  "admin/_orders"; }
+
     @RequestMapping("/authorization")
     public String adminAuthorization(Model model) { return  "admin/_authority"; }
+
 }

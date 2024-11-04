@@ -231,6 +231,12 @@
                     <span>Sản phẩm</span>
                 </a>
             </li>
+            <li class="nav-item mb-1">
+                <a th:href="@{/quan-tri-he-thong/order}" class="nav-link text-dark">
+                    <i class="fa-solid fa-shopping-cart"></i>
+                    <span>Đơn hàng</span>
+                </a>
+            </li>
             <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item mb-1">
                 <a th:href="@{/quan-tri-he-thong/user}" class="nav-link text-dark">
                     <i class="fa-solid fa-user"></i>
@@ -764,6 +770,9 @@
             $scope.getAuthorities = function () {
                 $http.get(baseUrl + 'authority').then(function (response) {
                     $scope.authorityData = response.data;
+                    $scope.count_ROLE_ADMIN = $scope.authorityData.filter(authority => authority.authority === 'ROLE_ADMIN').length;
+                    $scope.count_ROLE_USER = $scope.authorityData.filter(authority => authority.authority === 'ROLE_USER').length;
+                    $scope.count_ROLE_STAFF = $scope.authorityData.filter(authority => authority.authority === 'ROLE_STAFF').length;
                     $scope.authorityTables = new NgTableParams({
                         page: 1,
                         count: 5
