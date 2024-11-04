@@ -215,7 +215,8 @@
         <ul class="nav nav-pills flex-column mb-auto p-4" style="position: sticky;  top: 0;">
             <li class="nav-item mb-2">
                 <a th:href="@{/quan-tri-he-thong}" class="nav-link text-dark">
-                    <i class="fa-regular fa-user me-2"></i> Dashboard
+                    <i class="fa-regular fa-user me-2"></i>
+                    <span>Trang chủ</span>
                 </a>
             </li>
             <!-- Settings Dropdown -->
@@ -825,7 +826,48 @@
                     }
                 });
             };
-
+            /*ORDER*/
+            $scope.getOrders = function () {
+                $http.get(baseUrl + 'order').then(function (response) {
+                    console.table(response.data);
+                    $scope.orderData = response.data;
+                    $scope.orderStatusTrueLength = $scope.orderData.filter(order => order.status === true).length;
+                    $scope.orderStatusFalseLength = $scope.orderData.filter(order => order.status === false).length;
+                    $scope.orderEnableTrueLength = $scope.orderData.filter(order => order.enable === true).length;
+                    $scope.orderEnableFalseLength = $scope.orderData.filter(order => order.enable === false).length;
+                    // ORDER TABLE
+                    $scope.ordersTable = new NgTableParams({
+                        page: 1,
+                        count: 5
+                    }, {
+                        counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.orderData.length],
+                        dataset: $scope.orderData
+                    });
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng:', error);
+                });
+            };
+            $scope.getOrders();
+            /*ORDER STATUS*/
+            $scope.getOrderStatus = function () {
+                $http.get(baseUrl + 'orderStatus').then(function (response) {
+                    $scope.orderStatusData = response.data;
+                    console.table($scope.orderStatusData);
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu orderStatusData:', error);
+                });
+            };
+            $scope.getOrderStatus();
+            /*ORDER PAYMENT STATUS*/
+            $scope.getOrderPaymentStatus = function () {
+                $http.get(baseUrl + 'paymentStatus').then(function (response) {
+                    $scope.orderPaymentStatus = response.data;
+                    console.table($scope.orderPaymentStatus);
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu orderPaymentStatus:', error);
+                });
+            };
+            $scope.getOrderPaymentStatus();
             /*EXCEL EXPORT*/
             $scope.exportExcelPet = function () {
                 try {

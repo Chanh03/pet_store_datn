@@ -72,7 +72,10 @@
                 </td>
                 <!--                <td sortable="'id'" data-title="'productID'">{{ product.id }}</td>-->
                 <td sortable="'fullName'" filter="{ 'fullName': 'text' }"
-                    data-title="'Họ và tên'" class="text-center">{{ user.fullName }}
+                    data-title="'Họ và tên'" class="text-start">
+                    <span class="text-primary fw-bold">
+                        {{ user.fullName }}
+                    </span>
                 </td>
                 <td sortable="'dateCreated'" filter="{ 'dateCreated': 'date' }"
                     data-title="'Ngày tạo'" class="text-center">{{ user.dateCreated | date: 'dd/MM/yyyy' }}

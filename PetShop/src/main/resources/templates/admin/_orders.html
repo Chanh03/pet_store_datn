@@ -12,14 +12,14 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/quan-tri-he-thong">Trang chủ</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Phân quyền
+                <li class="breadcrumb-item active" aria-current="page">Đơn hàng
                 </li>
             </ol>
         </nav>
         <div class="d-flex justify-content-between align-items-center">
             <h1>
-                <span>Phân quyền</span>
-                <i class="fa-solid fa-user-shield"></i>
+                <span>Đơn hàng</span>
+                <i class="fas fa-box-open"></i>
             </h1>
         </div>
         <hr>
@@ -40,33 +40,41 @@
     </div>
     <div class="text-center mt-1 mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
         <div class="d-flex position-absolute gap-4" style="right: 45px;top: 83px">
-            <button ng-click="clearUserFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
+            <button ng-click="clearOrderFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
         </div>
-        <table ng-table="authorityTables" class="table table-responsive rounded-3 table-hover table-sm  p-5"
+        <table ng-table="ordersTable" class="table table-responsive rounded-3 table-hover table-sm  p-5"
                show-filter="true">
-            <tr ng-repeat="userAuthor in $data" class="align-middle">
+            <tr ng-repeat="order in $data" class="align-middle">
                 <!-- STT tính toán dựa trên trang hiện tại -->
                 <td data-title="'#'" class="p-2 px-3 text-center">
-                    <b>{{ (authorityTables.page() - 1) * authorityTables.count() + $index + 1 }}</b>
+                    <b>{{ (ordersTable.page() - 1) * ordersTable.count() + $index + 1 }}</b>
                 </td>
                 <!--                <td sortable="'id'" data-title="'productID'">{{ product.id }}</td>-->
                 <td sortable="'userName.fullName'" filter="{ 'userName.fullName': 'text' }"
-                    data-title="'Họ và tên'" class="text-start">{{ userAuthor.userName.fullName }}
+                    data-title="'Họ và tên'" class="text-start">{{ order.userName.fullName }}
                 </td>
-                <td sortable="'userName.fullName'" filter="{ 'userName.phoneNumber': 'text' }"
-                    data-title="'Số điện thoại'" class="text-start">{{ userAuthor.userName.phoneNumber }}
+                <td sortable="'orderDate'" filter="{ 'orderDate': 'date' }"
+                    data-title="'Ngày đặt hàng'" class="text-start">{{ order.orderDate | date: 'dd/MM/yyyy' }}
                 </td>
                 <td sortable="'userName.fullName'" filter="{ 'userName.email': 'text' }"
-                    data-title="'Email'" class="text-start">{{ userAuthor.userName.email }}
+                    data-title="'Email'" class="text-center">{{ userAuthor.userName.email }}
                 </td>
                 <td data-title="'Vai trò'" class="text-start">
                     <select
-                            ng-model="userAuthor.authority"
-                            ng-change="changeRole(userAuthor.id, userAuthor.authority)"
+                            ng-model="order.orderStatusID.id"
                             class="form-select form-select-sm">
-                        <option ng-repeat="role in roleData" value="{{role.name}}">{{role.name.replace('ROLE_', '')}}
+                        <option ng-repeat="orderStatus in orderStatusData" ng-value="orderStatus.id">
+                            {{orderStatus.statusName}}
                         </option>
                     </select>
+                </td>
+                <td sortable="'orderStatusID.id'" filter="{ 'orderStatusID.statusName': 'text' }"
+                    data-title="'Email'" class="text-center">{{ order.orderStatusID.statusName }}
+                </td>
+                <td data-title="'Xem'" class="text-center">
+                    <a href="/quan-tri-he-thong/don-hang/{{order.id}}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-eye me-2"></i>Xem
+                    </a>
                 </td>
             </tr>
         </table>
