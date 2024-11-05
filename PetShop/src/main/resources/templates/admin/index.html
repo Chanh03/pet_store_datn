@@ -107,7 +107,9 @@
             background-position-x: center;
         }
 
-        .ng-table-filters input:focus {
+        .ng-table-filters input:focus,
+        .ng-table-filters input:active,
+        .ng-table-filters input:not(:placeholder-shown) {
             background-image: none;
         }
 
@@ -200,6 +202,7 @@
 <div th:insert="~{/admin/_productModal}"></div>
 <div th:insert="~{/admin/_productAddModal}"></div>
 <div th:insert="~{/admin/_userModal}"></div>
+<div th:insert="~{/admin/_order-detail}"></div>
 <!-- MAIN CONTENT -->
 <main class="container-fluid p-0 d-flex">
     <div id="bdSidebar"
@@ -829,7 +832,6 @@
             /*ORDER*/
             $scope.getOrders = function () {
                 $http.get(baseUrl + 'order').then(function (response) {
-                    console.table(response.data);
                     $scope.orderData = response.data;
                     $scope.orderStatusTrueLength = $scope.orderData.filter(order => order.status === true).length;
                     $scope.orderStatusFalseLength = $scope.orderData.filter(order => order.status === false).length;
@@ -851,11 +853,79 @@
                 });
             };
             $scope.getOrders();
+            $scope.changeOrderStatus = function (orderId, status) {
+                Swal.fire({
+                    title: 'Bạn có chắc chắn muôn thay đổi?',
+                    text: 'Thay đổi trạng thái',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Xác nhận!',
+                    cancelButtonText: 'Hủy bỏ'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $http.put(baseUrl + 'order/' + orderId + '/' + status).then(function (response) {
+                            Swal.fire({
+                                title: 'Thành công!',
+                                text: 'Cập nhật trạng thái đơn hàng thành công',
+                                icon: 'success',
+                                timer: 3000,
+                                showConfirmButton: false
+                            });
+                            $scope.getOrders();
+                        }).catch(function (error) {
+                            new Notify({
+                                title: 'Thông báo',
+                                text: 'Lỗi khi cập nhật trạng thái đơn hàng',
+                                autoclose: true,
+                                status: 'warning',
+                                autotimeout: 3000
+                            });
+                        });
+                    } else {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Đã hủy',
+                            autoclose: true,
+                            status: 'info',
+                            autotimeout: 3000
+                        });
+                        $scope.getOrders();
+                    }
+                });
+            }
+            $scope.clearOrderFilter = function () {
+                $scope.ordersTable.filter({});
+                $scope.ordersTable.sorting({});
+            };
+            $scope.openOrderDetailModal = function (orderId) {
+                $http.get(baseUrl + 'order-detail/' + orderId).then(function (response) {
+                    $scope.orderDetail = response.data;
+                    $scope.totalOrderProductPrice = $scope.orderDetail.reduce((total, order) => {
+                        return total + order.price;
+                    }, 0);
+                    $scope.totalOrderProductQuantity = $scope.orderDetail.reduce((total, order) => {
+                        return total + order.quantity;
+                    }, 0);
+                    $scope.totalOrderPrice = $scope.orderDetail.reduce((total, order) => {
+                        return total + order.price * order.quantity;
+                    }, 0);
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu order:', error);
+                });
+                $http.get(baseUrl + 'order/' + orderId).then(function (response) {
+                    $scope.orderDetailAll = response.data;
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu order:', error);
+                });
+                var orderDetailModal = new bootstrap.Modal(document.getElementById('orderDetailModal'), {
+                    keyboard: true
+                });
+                orderDetailModal.show();
+            };
             /*ORDER STATUS*/
             $scope.getOrderStatus = function () {
                 $http.get(baseUrl + 'orderStatus').then(function (response) {
                     $scope.orderStatusData = response.data;
-                    console.table($scope.orderStatusData);
                 }).catch(function (error) {
                     console.error('Lỗi khi lấy dữ liệu orderStatusData:', error);
                 });
@@ -865,7 +935,6 @@
             $scope.getOrderPaymentStatus = function () {
                 $http.get(baseUrl + 'paymentStatus').then(function (response) {
                     $scope.orderPaymentStatus = response.data;
-                    console.table($scope.orderPaymentStatus);
                 }).catch(function (error) {
                     console.error('Lỗi khi lấy dữ liệu orderPaymentStatus:', error);
                 });

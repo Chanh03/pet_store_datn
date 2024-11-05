@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.relational.core.sql.In;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -43,9 +44,7 @@ public class RestOrderController {
 
     @PostMapping
     public Order save(@RequestBody Order order) {
-//        User user = userService.findByUsername(order.getUserName().getUsername());
-//        order.setUserName(user);
-        return   orderService.save(order);
+        return orderService.save(order);
     }
 
     @PutMapping("/{id}")
@@ -54,8 +53,22 @@ public class RestOrderController {
         return orderService.save(order);
     }
 
+    @PutMapping("/{order-id}/{order-status}")
+    public Order updateStatus(@PathVariable("order-id") Integer id, @PathVariable("order-status") Integer orderStatus) {
+        Order order = orderService.getById(id);
+        OrderStatus status = orderStatusService.getByStatus(orderStatus);
+        order.setOrderStatusID(status);
+        return orderService.save(order);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(Order order) {
         orderService.deleteById(order.getId());
+    }
+
+    @GetMapping("/history")
+    public List<Order> getHistory(Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        return orderService.getHistory(user.getUsername());
     }
 }

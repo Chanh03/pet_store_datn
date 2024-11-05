@@ -4,11 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update payment">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update cart payment">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderProductDetailController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/OrderProductDetailService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/OrderProductDetailServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_order-detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_cartDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_cartDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/entity/OrderProductDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/entity/OrderProductDetail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/OrderProductDetailRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/OrderProductDetailRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/OrderRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/OrderRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/OrderStatusService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/OrderStatusService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/OrderStatusServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/OrderStatusServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_orders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/module/_loadingSpinner.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/module/_loadingSpinner.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/service/OrderService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/service_impl/OrderServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/service_impl/OrderServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +37,8 @@
       <list>
         <option value="Interface" />
         <option value="com.intellij.jpb.JpaEntity" />
-        <option value="Class" />
         <option value="HTML File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -46,6 +63,9 @@
     &quot;accountId&quot;: &quot;43305499-c850-47d1-ac0f-3195ee506840&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/layout/_cartDetail.html" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -67,7 +87,7 @@
     &quot;Spring Boot.PetShopApplication.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;AnhNgo1&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Vanh/GitHub/DATN_DEV/PetShop/src/main/resources/static/gifs&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Vanh/GitHub/DATN_DEV/PetShop/src/main/resources/templates/admin&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -87,8 +107,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\gifs" />
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\templates\admin" />
+      <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\gifs" />
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\images\logo" />
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\images\background" />
     </key>
@@ -157,7 +177,9 @@
       <workItem from="1730659211781" duration="398000" />
       <workItem from="1730659907579" duration="1792000" />
       <workItem from="1730713591744" duration="4612000" />
-      <workItem from="1730805697194" duration="3345000" />
+      <workItem from="1730805697194" duration="3602000" />
+      <workItem from="1730819928905" duration="10228000" />
+      <workItem from="1730831539222" duration="1082000" />
     </task>
     <task id="LOCAL-00001" summary="pushALllllllllllll">
       <option name="closed" value="true" />
@@ -375,7 +397,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730808867188</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="update cart payment">
+      <option name="closed" value="true" />
+      <created>1730809417309</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1730809417309</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -405,7 +435,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="pushALllllllllllll" />
     <MESSAGE value="layout fix" />
     <MESSAGE value="merge" />
     <MESSAGE value="gitignore" />
@@ -430,6 +459,7 @@
     <MESSAGE value="update authority" />
     <MESSAGE value="update order" />
     <MESSAGE value="update payment" />
-    <option name="LAST_COMMIT_MESSAGE" value="update payment" />
+    <MESSAGE value="update cart payment" />
+    <option name="LAST_COMMIT_MESSAGE" value="update cart payment" />
   </component>
 </project>

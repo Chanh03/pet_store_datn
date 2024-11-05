@@ -1,0 +1,98 @@
+<style>
+    input[type="file"] {
+        width: 90px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+</style>
+<!-- Modal -->
+<div class="modal fade" id="orderDetailModal" tabindex="-1" aria-labelledby="editProductLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-color">
+                <h5 class="modal-title" id="editProductLabel">Đơn hàng đặt</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div ng-if="orderDetail.length">
+                    <div class="card rounded-0">
+                        <table class="table table-bordered m-0 table-hover">
+                            <tr>
+                                <th class="text-center">STT</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                            <tr ng-repeat="od in orderDetail">
+                                <td class="text-center">
+                                    {{$index + 1}}
+                                </td>
+                                <td>
+                                    {{od.productID.productName}}
+                                    <span>
+                                        <a href="/san-pham/{{od.productID.id}}"
+                                           target="_blank">(Xem)</a>
+                                    </span>
+                                </td>
+                                <td>
+                                    {{od.price}}
+                                </td>
+                                <td>
+                                    {{od.quantity}}
+                                </td>
+                                <td>
+                                    {{od.price * od.quantity | number: '0'}}đ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold text-center" colspan="2">
+                                    Tổng <span class="text-muted fw-light">(tổng giá sản phẩm * tổng số lượng)</span>
+                                </td>
+                                <td class="fw-bold">{{totalOrderProductPrice}}</td>
+                                <td class="fw-bold">{{totalOrderProductQuantity}}</td>
+                                <td class="fw-bold">{{totalOrderPrice | number: '0'}}đ
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <h6 class="text-muted mt-1 fst-italic">
+                            Đơn hàng đã được đặt vào {{orderDetailAll.orderDate | date: 'dd/MM/yyyy'}}
+                        </h6>
+                    </div>
+                    <div class="row d-flex justify-content-end">
+                        <div class="mt-3 col-4">
+                            <table class="table table-bordered m-0 table-hover">
+                                <tr>
+                                    <td>
+                                        <h5 class="text-start m-0 ms-3">Tổng tiền:</h5>
+                                    </td>
+                                    <td>
+                                        <h5 class="text-center text-danger m-0">{{orderDetailAll.totalAmount | number:
+                                            '0'}}đ</h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5 class="text-start m-0 ms-3">Tổng tiền:</h5>
+                                    </td>
+                                    <td>
+                                        <h5 class="text-center text-danger m-0">{{orderDetail[0].orderID.totalAmount |
+                                            number: '0'}}đ</h5>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="!orderDetail.length" class="text-center">
+                    <h4>Không có sản phẩm nào trong đơn hàng này</h4>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

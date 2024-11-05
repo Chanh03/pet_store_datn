@@ -64,6 +64,7 @@ public class User implements UserDetails {
 
     @Size(max = 200)
     @NotNull
+    @JsonIgnore
     @Column(name = "ActiveToken", nullable = false, length = 200)
     private String activeToken;
 

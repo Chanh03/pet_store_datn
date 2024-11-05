@@ -20,7 +20,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getById(Integer id) {
-        return orderRepo.findById(id).get();
+        return orderRepo.findById(id).orElse(null);
     }
 
     @Override
@@ -31,5 +31,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void deleteById(Integer id) {
         orderRepo.deleteById(id);
+    }
+
+    @Override
+    public List<Order> getHistory(String username) {
+        return orderRepo.findByUserName(username);
     }
 }
