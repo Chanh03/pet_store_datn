@@ -34,11 +34,12 @@
 <body>
 <div class="container bg-white p-4 rounded shadow">
     <div class="row">
-        <!-- Cart Section -->
-        <div class="col-md-12">
-            <h2 class="text-red font-weight-bold mb-4">GIỎ HÀNG CỦA BẠN:</h2>
-            <
-            <div style="max-height: 300px; overflow-y: auto;">
+        <div class="col-md-7">
+            <div class="">
+                <h1 class="m-0 color fw-bold">GIỎ HÀNG</h1>
+                <div class="line background-color" style="height: 5px;"></div>
+            </div>
+            <div style="max-height: 400px; overflow-y: auto;">
                 <table class="table">
                     <thead>
                     <tr class="text-center align-middle">
@@ -57,88 +58,86 @@
                             <img ng-src="/images/product/{{item.photo}}" alt="product" style="width: 100px;">
                         </td>
                         <td class="fw-bold">{{item.productName}}</td>
-                        <td>{{item.price | currency}}</td>
+                        <td>{{item.price | number}}₫</td>
                         <td>{{item.quantity}}</td>
-                        <td>{{item.price * item.quantity | currency}}</td>
+                        <td>{{item.price * item.quantity | number}}₫</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-
-
-            <div class="bordered p-4 mb-4">
-                <div class="d-flex justify-content-between mb-2">
-                    <span>Tạm tính:</span>
-                    <span>{{cart.cartTotal() | currency:'':0}}₫</span>
+            <div class="row">
+                <div class="mb-3">
+                    <h1 class="m-0 color fw-bold">Tổng</h1>
+                    <div class="line background-color" style="height: 5px;"></div>
                 </div>
-                <div class="d-flex justify-content-between mb-2">
-                    <span>Phí vận chuyển:</span>
-                    <span style="color: red">-50.000đ</span>
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <img class="" src="/gifs/shopping-cart.gif" alt="shopping-cart" style="width: 150px;">
+                    </div>
                 </div>
-                <div class="d-flex justify-content-between mb-2">
-                    <span>Mã giảm giá đã áp dụng:</span>
-                    <span style="color: red" class="text-green" ng-bind="'-' + (discountAmount | number) + 'đ'"></span>
-                </div>
-                <div class="d-flex justify-content-between font-weight-bold">
-                    <span>Tổng tiền:</span>
-                    <span>{{cart.cartTotalAll() | currency:'':0}}₫</span>
+                <div class="col-md-6">
+                    <div class="bordered p-4 mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Tạm tính:</span>
+                            <span>{{cart.cartTotal() | currency:'':0}}₫</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Phí vận chuyển:</span>
+                            <span>+ 50.000đ</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Mã giảm giá đã áp dụng:</span>
+                            <span style="color: red" class="text-green"
+                                  ng-bind="'-' + (discountAmount | number) + 'đ'"></span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Tổng tiền:</span>
+                            <h2 class="fw-bold border">
+                                <span>{{cart.cartTotalAll() | currency:'':0}}₫</span>
+                            </h2>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Payment Section -->
-        <div class="row">
-            <div class="col-md-7">
-                <h2 class="text-red font-weight-bold mb-4">THÔNG TIN GIAO HÀNG:</h2>
-                <div class="bordered p-4 mb-4">
-                    <!-- Address Selection -->
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="radio" name="address-option" id="existing-address"
-                               checked onclick="toggleAddressFields()">
-                        <label class="form-check-label" for="existing-address">Thông tin người dùng</label>
-                    </div>
-
-                    <!-- Existing Address Fields -->
-                    <div id="existing-address-fields" class="mb-4">
-                        <div class="form-row mb-2">
-                            <div class="col">
-                                <input type="text"  class="form-control" placeholder="Họ tên" th:value="${user.fullName}"
-                                       readonly>
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Số điện thoại"
-                                       th:value="${user.phoneNumber}" readonly>
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Số điện thoại"
-                                       th:value="${user.email}" readonly>
-                            </div>
-                            <div class="col">
-                                <input type="text" id="userAddress" class="form-control" placeholder="Dia chi"
-                                       th:value="${user.userAddress}" readonly>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" id="agree">
-                        <label class="form-check-label" for="agree">Tôi đã đọc và đồng ý với điều kiện giao dịch
-                            chung
-                            của website *</label>
-                    </div>
-                    <button class="btn btn-danger btn-block" ng-click="checkout()">Xac nhan mua hang</button>
-
-                    <div sec:authorize="isAuthenticated()">
-                        <span id="username_auth" hidden="hidden" th:text="${#authentication.getName()}"></span>
-                    </div>
-
+        <div class="col-md-5">
+            <div class="card shadow p-4 mb-4">
+                <div class="mb-3 text-center">
+                    <h1 class="m-0 color fw-bold">THANH TOÁN</h1>
                 </div>
-            </div>
-
-            <div class="col-md-5">
-                <h2 class="text-red font-weight-bold mb-4">HÌNH THỨC THANH TOÁN:</h2>
-                <div class="bordered p-4 mb-4">
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="address-option" id="existing-address"
+                           checked onclick="toggleAddressFields()">
+                    <label class="form-check-label" for="existing-address">Thông tin người dùng</label>
+                </div>
+                <div id="existing-address-fields" class="mb-4">
+                    <div class="form-group">
+                        <label for="fullName">Họ tên</label>
+                        <input type="text" id="fullName" class="form-control" placeholder="Họ tên"
+                               th:value="${user.fullName}"
+                               readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">Số điện thoại</label>
+                        <input type="text" id="phoneNumber" class="form-control" placeholder="Số điện thoại"
+                               th:value="${user.phoneNumber}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" id="email" class="form-control" placeholder="Số điện thoại"
+                               th:value="${user.email}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="userAddress">Địa chỉ</label>
+                        <textarea type="text" id="userAddress" class="form-control" placeholder="Dia chi"
+                                  th:text="${user.userAddress}" th:value="${user.userAddress}" readonly>
+                                </textarea>
+                    </div>
+                </div>
+                <h6>
+                    Hình thức thanh toán
+                </h6>
+                <div class="bordered px-4">
                     <div class="form-check mb-2">
                         <input class="form-check-input" checked type="radio" name="payment" id="cod">
                         <label class="form-check-label" for="cod">Tiền mặt (COD)</label>
@@ -152,23 +151,41 @@
                         <label class="form-check-label" for="online">Thanh toán Momo (Online)</label>
                     </div>
                 </div>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" id="agree">
+                    <a class="form-check-label text-primary" href="/access-denied">Tôi đã đọc và đồng ý với điều kiện
+                        giao dịch
+                        chung
+                        của website *</a>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-danger background-color button-image-white text-white w-100 py-3"
+                            ng-click="checkout()">Đặt hàng
+                    </button>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <span id="username_auth" hidden="hidden" th:text="${#authentication.getName()}"></span>
+                </div>
             </div>
-
-            <script>
-                function toggleAddressFields() {
-                    const existingFields = document.getElementById('existing-address-fields');
-                    const newFields = document.getElementById('new-address-fields');
-                    if (document.getElementById('existing-address').checked) {
-                        existingFields.style.display = 'block';
-                        newFields.style.display = 'none';
-                    } else {
-                        existingFields.style.display = 'none';
-                        newFields.style.display = 'block';
-                    }
-                }
-            </script>
         </div>
     </div>
+
+    <script>
+        function toggleAddressFields() {
+            const existingFields = document.getElementById('existing-address-fields');
+            const newFields = document.getElementById('new-address-fields');
+            if (document.getElementById('existing-address').checked) {
+                existingFields.style.display = 'block';
+                newFields.style.display = 'none';
+            } else {
+                existingFields.style.display = 'none';
+                newFields.style.display = 'block';
+            }
+        }
+    </script>
+</div>
+</div>
+</div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

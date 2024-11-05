@@ -34,6 +34,7 @@
             font-family: 'Grandstander', cursive;
             background-size: cover;
             background-attachment: fixed;
+            scroll-behavior: smooth;
         }
 
         .color {
@@ -202,7 +203,8 @@
 <body ng-app="myApp" ng-controller="myCtrl">
 <header id="menu" class="sticky-top" th:insert="~{/layout/_menu}"></header>
 <main class="container p-0 bg-white rounded-3 border border-2 border-dark" th:insert="${view}"></main>
-<footer th:insert="~{/layout/_footer}" class="bg-white rounded-3 container overflow-hidden my-3 p-0 border border-2 border-dark"></footer>
+<footer th:insert="~{/layout/_footer}"
+        class="bg-white rounded-3 container overflow-hidden my-3 p-0 border border-2 border-dark"></footer>
 <!--MODULE-->
 <div th:insert=" ~{/module/_backToTop}"></div>
 <div th:insert=" ~{/module/_loadingSpinner}"></div>
@@ -502,7 +504,7 @@
                             localStorage.removeItem('voucherCode');
                             localStorage.removeItem('discountAmount');
                             Swal.fire({
-                                title: 'Thanh toán thành cong',
+                                title: 'Đặt hàng thành công',
                                 icon: 'success',
                                 timer: 2000,
                                 timerProgressBar: true,
