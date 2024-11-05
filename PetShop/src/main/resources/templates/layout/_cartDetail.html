@@ -136,6 +136,7 @@
                 <!--ITEMS-->
                 <tr class="text-center align-middle" ng-repeat="item in cart.items track by item.id">
                     <td>{{$index + 1}}</td>
+                    <td>{{$index + 1}}</td>
                     <td>
                         <img ng-src="/images/product/{{item.photo}}" alt="product" style="width: 100px;">
                     </td>
@@ -160,7 +161,7 @@
                     </td>
                     <td>{{item.price * item.quantity | currency:'':0}}₫</td>
                     <td>
-                        <button class="btn" ng-click="cart.remove(detailItem.id)">
+                        <button class="btn" ng-click="cart.remove(item.id)">
                             <i class="fs-2 text-danger fa-solid fa-xmark"></i>
                         </button>
                     </td>

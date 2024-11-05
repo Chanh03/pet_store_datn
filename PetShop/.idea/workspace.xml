@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update order">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/gifs/shopping-cart.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/gifs/shopping-cart.mp4" afterDir="false" />
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update payment">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_cartDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_cartDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_payMent.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_payMent.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/module/_backToTop.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/module/_backToTop.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/module/_loadingSpinner.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/module/_loadingSpinner.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_cartDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_cartDetail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +157,7 @@
       <workItem from="1730659211781" duration="398000" />
       <workItem from="1730659907579" duration="1792000" />
       <workItem from="1730713591744" duration="4612000" />
-      <workItem from="1730805697194" duration="2924000" />
+      <workItem from="1730805697194" duration="3345000" />
     </task>
     <task id="LOCAL-00001" summary="pushALllllllllllll">
       <option name="closed" value="true" />
@@ -373,7 +367,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730718065286</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="update payment">
+      <option name="closed" value="true" />
+      <created>1730808867188</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1730808867188</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -427,6 +429,7 @@
     <MESSAGE value="update authorization" />
     <MESSAGE value="update authority" />
     <MESSAGE value="update order" />
-    <option name="LAST_COMMIT_MESSAGE" value="update order" />
+    <MESSAGE value="update payment" />
+    <option name="LAST_COMMIT_MESSAGE" value="update payment" />
   </component>
 </project>

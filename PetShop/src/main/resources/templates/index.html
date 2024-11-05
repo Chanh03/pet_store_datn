@@ -346,6 +346,7 @@
                 if (index !== -1) {
                     this.items.splice(index, 1);
                     this.saveToLocalStorage();
+                    this.loadFromLocalStorage();
                     new Notify({
                         title: 'Sản phẩm đã được xóa khỏi giỏ hàng',
                         status: 'success',
