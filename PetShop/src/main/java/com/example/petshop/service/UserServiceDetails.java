@@ -5,6 +5,14 @@ import com.example.petshop.entity.Authority;
 import com.example.petshop.entity.Role;
 import com.example.petshop.entity.User;
 
+import io.ipinfo.api.IPinfo;
+import io.ipinfo.api.model.IPResponse;
+import jakarta.servlet.http.HttpServletRequest;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -15,6 +23,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceDetails implements UserDetailsService {
@@ -24,6 +33,8 @@ public class UserServiceDetails implements UserDetailsService {
     RoleService roleService;
     @Autowired
     AuthorityService authorityService;
+    @Autowired
+    HttpServletRequest request;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,6 +44,7 @@ public class UserServiceDetails implements UserDetailsService {
         }
         return new CustomUserDetails(user);
     }
+    @Transactional
  // Phương thức để lưu trữ người dùng
     public boolean saveUser(OAuth2User oAuth2User) { 
     	System.out.println(oAuth2User.getAttributes());
@@ -50,7 +62,7 @@ public class UserServiceDetails implements UserDetailsService {
             
         }
         if(!userService.existedByUsername(id)) {
-	
+        	
         	User user = new User();
         	user.setUserName(id); // hoặc có thể sử dụng email
         	user.setEmail(email);
@@ -64,22 +76,47 @@ public class UserServiceDetails implements UserDetailsService {
         	Authority authority = new Authority();
         	Role role = roleService.findById("USER");
         	authority.setRole(role);
-    	authority.setUserName(user); // Thiết lập người dùng cho quyền
-    
-    	user.setUserPassword(encodedPassword);
-    	user.getAuthorities().add(authority);
-    	user.setUserAddress("None");
-    	user.setPhoneNumber("None"); // Hoặc có thể để trống nếu không cần
-    user.setEnable(true);
-    user.setDateCreated(LocalDateTime.now());
-
+        	authority.setUserName(user); // Thiết lập người dùng cho quyền
+        	
+        	user.setUserPassword(encodedPassword);
+        	user.getAuthorities().add(authority);
+        	
+        	user.setPhoneNumber("None"); // Hoặc có thể để trống nếu không cần
+        	user.setEnable(true);
+        	user.setDateCreated(LocalDateTime.now());
+        	try {
+                URL url = new URL("https://api.ipify.org?format=text");
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                String inInfoToken = System.getenv("ipInfoToken");
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String publicIp = in.readLine();
+                in.close();
+                
+                IPinfo ipInfo = new IPinfo.Builder()
+                        .setToken(inInfoToken)
+                        .build();	
+                IPResponse response = ipInfo.lookupIP(publicIp);
+                System.out.println(response.getCity());
+                user.setUserAddress(response.getCity() +", " + response.getRegion());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     // Tạo token duy nhất cho người dùng
-    user.setActiveToken(UUID.randomUUID().toString());
-
+        	user.setActiveToken(UUID.randomUUID().toString());
+        	System.out.println("Lưu thành công user: " + user.getUserAddress());
+        	System.out.println("Lưu thành công user: " + user.getPhoneNumber());
+        	try {
+        		userService.create(user);
+            	authorityService.create(authority); // Lưu quyền
+			} catch (Exception e) {
+		        e.printStackTrace();
+		        System.err.println("Lỗi khi lưu người dùng và quyền vào cơ sở dữ liệu.");
+		        throw new RuntimeException("Error while saving user and authority data: " + e.getMessage());
+		    }
     // Lưu người dùng và quyền vào cơ sở dữ liệu
-    userService.create(user);
-    authorityService.create(authority); // Lưu quyền
-    return true;
+        	
+    	return true;
         }
         return true;
     }

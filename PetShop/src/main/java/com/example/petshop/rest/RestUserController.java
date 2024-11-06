@@ -126,7 +126,7 @@ public class RestUserController {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body("{\"success\": false, \"message\": \"Tên đăng nhập đã tồn tại\"}");
             }
-            if (service.existedByEmail(user.getEmail()) && !user.getUsername().matches("\\d+")) {
+            if (service.existedByEmail(user.getEmail()) && user.getUsername().matches("\\d+")) {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body("{\"success\": false, \"message\": \"Email đã được sử dụng cho một tài khoản khác\"}");
             }

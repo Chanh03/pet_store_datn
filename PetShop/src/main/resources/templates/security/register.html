@@ -502,13 +502,12 @@
                 title: 'Đăng ký thành công',
                 text: 'Vui lòng kiểm tra email của bạn.',
                 icon: 'success',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                // Thêm thời gian chờ trước khi load lại trang, ví dụ 2 giây
-                setTimeout(() => {
-                    window.location.href= '/login';
-                }, 3000);
-            });
+                showConfirmButton: false,
+          	  timer: 3000 // Hiển thị 2 giây
+          	}).then(() => {
+          	  // Sau khi hết thời gian delay, chuyển hướng trang
+          	  window.location.href = "/login"; // Chuyển đến trang đăng nhập hoặc trang khác
+          	});
 
           })
           .catch((error) => {

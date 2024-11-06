@@ -21,6 +21,7 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequ
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 @EnableWebSecurity
@@ -100,6 +101,8 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
+    
+
     @Bean
     public AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler() {
         return (request, response, authentication) -> {
