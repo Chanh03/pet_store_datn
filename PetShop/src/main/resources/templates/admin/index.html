@@ -900,12 +900,6 @@
             $scope.openOrderDetailModal = function (orderId) {
                 $http.get(baseUrl + 'order-detail/' + orderId).then(function (response) {
                     $scope.orderDetail = response.data;
-                    $scope.totalOrderProductPrice = $scope.orderDetail.reduce((total, order) => {
-                        return total + order.price;
-                    }, 0);
-                    $scope.totalOrderProductQuantity = $scope.orderDetail.reduce((total, order) => {
-                        return total + order.quantity;
-                    }, 0);
                     $scope.totalOrderPrice = $scope.orderDetail.reduce((total, order) => {
                         return total + order.price * order.quantity;
                     }, 0);
@@ -922,6 +916,7 @@
                 });
                 orderDetailModal.show();
             };
+
             /*ORDER STATUS*/
             $scope.getOrderStatus = function () {
                 $http.get(baseUrl + 'orderStatus').then(function (response) {

@@ -216,9 +216,27 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
 
 <!--    JS-->
 <script>
+    const socket = new SockJS('http://localhost:8080/ws');
+    const stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/', function (response) {
+            Swal.fire({
+                title: 'Thông báo mới',
+                text: response.body,
+                icon: 'info',
+                confirmButtonText: 'OK',
+                autoclose: true,
+                autotimeout: 2000
+            });
+        });
+    });
     var prevScrollpos = window.scrollY;
     let goToTop = document.getElementById('goToTop');
 

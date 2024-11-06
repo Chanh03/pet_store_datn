@@ -148,4 +148,9 @@ public class HomeController {
     public String cartPayMent(Model model) {
         return "layout/_payMent";
     }
+
+    @RequestMapping("/notifications")
+    public String notification(Model model) {
+        return "notificationDemo";
+    }
 }
