@@ -15,7 +15,7 @@
 </form>
 
 <script>
-    const socket = new SockJS('http://192.168.1.130:8080/ws');  // Kết nối WebSocket qua IPv4 từ điện thoại
+    const socket = new SockJS('http://localhost:8080/ws');  // Kết nối WebSocket
     const stompClient = Stomp.over(socket);
 
     stompClient.connect({}, function (frame) {
