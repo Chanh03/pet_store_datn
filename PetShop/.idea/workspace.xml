@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="demo all notification">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="up">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/notificationDemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/notificationDemo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/security/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/security/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_productAddModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_productAddModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_productModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_productModal.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +47,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/admin/index.html" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/resources/templates/layout/_cartDetail.html" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -164,7 +165,8 @@
       <workItem from="1730819928905" duration="10228000" />
       <workItem from="1730831539222" duration="1182000" />
       <workItem from="1730883648416" duration="9800000" />
-      <workItem from="1730898341104" duration="2033000" />
+      <workItem from="1730898341104" duration="2060000" />
+      <workItem from="1730972224232" duration="331000" />
     </task>
     <task id="LOCAL-00001" summary="pushALllllllllllll">
       <option name="closed" value="true" />
@@ -406,7 +408,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730893320727</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="up">
+      <option name="closed" value="true" />
+      <created>1730906479493</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1730906479493</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -436,7 +446,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="gitignore" />
     <MESSAGE value="addToCart" />
     <MESSAGE value="addToCart-0.1" />
     <MESSAGE value="addToCart-0.2" />
@@ -461,6 +470,7 @@
     <MESSAGE value="update cart payment" />
     <MESSAGE value="update a lot of file :)" />
     <MESSAGE value="demo all notification" />
-    <option name="LAST_COMMIT_MESSAGE" value="demo all notification" />
+    <MESSAGE value="up" />
+    <option name="LAST_COMMIT_MESSAGE" value="up" />
   </component>
 </project>
