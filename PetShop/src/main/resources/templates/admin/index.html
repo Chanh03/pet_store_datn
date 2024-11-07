@@ -916,7 +916,11 @@
                 });
                 orderDetailModal.show();
             };
-
+            $scope.isDisabledOption = function (currentStatusId, optionStatusId) {
+                if (optionStatusId < currentStatusId) {
+                    return true;
+                }
+            };
             /*ORDER STATUS*/
             $scope.getOrderStatus = function () {
                 $http.get(baseUrl + 'orderStatus').then(function (response) {

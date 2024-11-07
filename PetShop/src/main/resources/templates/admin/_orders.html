@@ -59,12 +59,15 @@
                 <td sortable="'totalAmount'" filter="{ 'userName.email': 'text' }"
                     data-title="'Tổng tiền'" class="text-center">{{ order.totalAmount | number: 0 }}đ
                 </td>
-                <td data-title="'Vai trò'" class="text-start">
+                <td data-title="'Trạng thái'" class="text-start">
                     <select
                             ng-model="order.orderStatusID.id"
                             ng-change="changeOrderStatus(order.id, order.orderStatusID.id)"
                             class="form-select form-select-sm">
-                        <option ng-repeat="orderStatus in orderStatusData" ng-value="orderStatus.id">
+                        <option
+                                ng-repeat="orderStatus in orderStatusData"
+                                ng-value="orderStatus.id"
+                                ng-disabled="isDisabledOption(order.orderStatusID.id, orderStatus.id)">
                             {{orderStatus.statusName}}
                         </option>
                     </select>
