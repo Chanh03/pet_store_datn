@@ -514,7 +514,7 @@
             console.error("Error:", error);
             Swal.fire({
                 title: 'Thông tin không chính xác',
-                text: 'Đã xảy ra lỗi: ' + error.message,
+                text: error.message,
                 icon: 'warning',
                 confirmButtonText: 'OK'
             });

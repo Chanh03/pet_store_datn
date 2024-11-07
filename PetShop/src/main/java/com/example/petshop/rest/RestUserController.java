@@ -22,7 +22,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -130,7 +132,10 @@ public class RestUserController {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body("{\"success\": false, \"message\": \"Email đã được sử dụng cho một tài khoản khác\"}");
             }
-
+            if (service.existedByEmail(user.getEmail()) && user.getUsername().matches(".*[a-zA-Z]+.*")) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body("{\"success\": false, \"message\": \"Email đã được sử dụng cho một tài khoản khác 2\"}");
+            }
             // Mã hóa mật khẩu người dùng
             BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
             String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
@@ -156,28 +161,28 @@ public class RestUserController {
             authority.setUserName(user);
             user.getAuthorities().add(authority);
             boolean isEmailSent =
-            mailerService.sendEmail(
-                    user.getEmail(),
-                    "Pet Shop",
-                    "Confirm your email",
-                    user.getFullName(),
-                    user.getActiveToken()
-            );
-            if(!isEmailSent) {
-            	return ResponseEntity.status(HttpStatus.CONFLICT)
-                        .body("{\"success\": false, \"message\": \"Gửi Mail không thành công vui lòng kiểm tra lại\"}");
-            }
+                    mailerService.sendEmail(
+                            user.getEmail(),
+                            "Pet Shop",
+                            "Confirm your email",
+                            user.getUsername(),
+                            user.getActiveToken()
+                    );
+                    if(!isEmailSent) {
+                    	return ResponseEntity.status(HttpStatus.CONFLICT)
+                                .body("{\"success\": false, \"message\": \"Gửi Mail không thành công vui lòng kiểm tra lại\"}");
+                    }
             
             
             User newUser = service.create(user);
             Authority newAuthority = authorityService.create(authority);
-
+            
             // Chuyển đổi người dùng mới thành UserDTO
             UserDTO newUserDto = new UserDTO(newUser);
 
             // Gửi email xác nhận
             
-
+            
             // Trả về người dùng mới với mã trạng thái HTTP 201 (Created)
             return new ResponseEntity<>(newUserDto, HttpStatus.CREATED);
 
@@ -241,7 +246,7 @@ public class RestUserController {
                 // Tạo UUID và thiết lập thời gian hết hạn
                 UUID uuid = UUID.randomUUID();
                 user.setTemporaryGUID(uuid.toString());
-                user.setTempGuidExpir(LocalDateTime.now().plusMinutes(10)); // UUID có hiệu lực trong 10 phút
+                user.setTempGuidExpir(LocalDateTime.now()); // UUID có hiệu lực trong 10 phút
 
                 // Gửi email
                 boolean isSent = mailerService.confirmChangePassword(
@@ -300,27 +305,35 @@ public class RestUserController {
 
     //new pass dto
     @GetMapping("/new-password/{userName}")
-    public ResponseEntity<Object> forgotPassword(@PathVariable String userName, @RequestParam("token") String token){
-        if(!service.existedByUsername(userName) || !service.existedByTempToken(token)) {
+    public ResponseEntity<Object> forgotPassword(@PathVariable String userName, @RequestParam("token") String token) {
+    	
+        if (!service.existedByUsername(userName) || !service.existedByTempToken(token)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"success\": false, \"message\": \"Đường dẫn không còn khả dụng với bạn\"}");
         }
-        Instant now = Instant.now();
-        User user  = service.findByUsername(userName);
+
+        User user = service.findByUsername(userName);
         LocalDateTime nowLocal = LocalDateTime.now();
         LocalDateTime dateCreated = user.getTempGuidExpir();
-        Instant dateCreatedInstant = dateCreated.atZone(ZoneId.systemDefault()).toInstant();
-        LocalDateTime time2Local = dateCreatedInstant.atZone(ZoneId.of("UTC")).toLocalDateTime();
-        updateUserDTO dto = new updateUserDTO();
-        if (time2Local.isBefore(nowLocal.minusSeconds(600))) {
-        	return ResponseEntity.status(HttpStatus.NOT_FOUND)
+        System.out.println(nowLocal);
+        System.out.println(dateCreated);
+        // Thời gian hết hạn của token, tính bằng cách cộng thêm 600 giây vào thời gian tạo
+        LocalDateTime tokenExpirationTime = dateCreated.plusSeconds(600);
+        if (nowLocal.isAfter(tokenExpirationTime)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"success\": false, \"message\": \"Đường dẫn của bạn đã hết hạn!\"}");
         }
+
+        updateUserDTO dto = new updateUserDTO();
         dto.setUserName(userName);
         dto.setOldPassword(user.getUserPassword());
         dto.setActiveToken(token);
-        return ResponseEntity.ok(dto);
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("data", dto);
+        return ResponseEntity.ok(response);
     }
+
 
     //Cập nhật thông tin cá nhân
     @PutMapping("/update/{username}")

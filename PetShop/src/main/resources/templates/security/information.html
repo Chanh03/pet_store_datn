@@ -372,6 +372,15 @@
                 });
                 return;
             }
+            if (newPassword == currentPassword) {
+                Swal.fire({
+                    title: 'Mật khẩu bị trùng',
+                    text: 'Mật khẩu mới và mật khẩu hiện tại không nên giống nhau !',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
 
             // Nếu tất cả các điều kiện đều đúng, hiển thị hộp thoại xác nhận
             Swal.fire({

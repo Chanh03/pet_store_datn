@@ -82,13 +82,13 @@ public class UserServiceImpl implements UserService {
     public void cleanupInactiveUsers() {
         List<User> listUser = userRepo.findUserByEnableFalse();
         Instant now = Instant.now();
-        LocalDateTime nowLocal = LocalDateTime.now();
         
         for (User user : listUser) {
             LocalDateTime dateCreated = user.getDateCreated();
-            Instant dateCreatedInstant = dateCreated.atZone(ZoneId.systemDefault()).toInstant();
-            LocalDateTime time2Local = dateCreatedInstant.atZone(ZoneId.of("UTC")).toLocalDateTime();
-            if (time2Local.isBefore(nowLocal.minusSeconds(600))) {
+            LocalDateTime nowLocal = LocalDateTime.now();
+            if (dateCreated.isBefore(nowLocal.minusSeconds(600))) {
+            	System.out.println(nowLocal);
+                System.out.println(dateCreated);
                 authorityService.deleteByUserName(user);
                 userRepo.delete(user);
             }
