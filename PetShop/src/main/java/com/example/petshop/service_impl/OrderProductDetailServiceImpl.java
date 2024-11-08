@@ -19,8 +19,8 @@ public class OrderProductDetailServiceImpl implements OrderProductDetailService 
     }
 
     @Override
-    public OrderProductDetail findById(Integer id) {
-        return orderProductDetailRepo.findById(id).orElse(null);
+    public void findById(Integer id) {
+         orderProductDetailRepo.findById(id).orElse(null);
     }
 
     @Override

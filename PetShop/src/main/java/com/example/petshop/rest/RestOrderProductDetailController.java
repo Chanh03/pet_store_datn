@@ -20,6 +20,11 @@ public class RestOrderProductDetailController {
         return orderProductDetailService.findAll();
     }
 
+    @GetMapping("/{id}")
+    public void getByID(@PathVariable int id){
+        orderProductDetailService.findById(id);
+    }
+
     @PostMapping
     public OrderProductDetail create(@RequestBody OrderProductDetail orderProductDetail){
         return orderProductDetailService.save(orderProductDetail);

@@ -174,7 +174,7 @@
                         <a class="nav-link menu-item" href="#">Dịch vụ</a>
                     </li>
                     <li class="nav-item text-center search-button">
-                        <div class="bg-white rounded-3 shadow border border-2 border-dark p-1" style="width: 600px;">
+                        <div class="bg-white rounded-3 shadow border border-2 border-dark p-1" style="width: 400px;">
                             <form action="/search" method="get" class="d-flex align-items-center shadow">
                                 <!-- Select box -->
                                 <select id="searchCategory" class="form-select form-select-sm mx-2"
@@ -227,10 +227,13 @@
                             </div>
                         </div>
                     </li>
+                    <a class="nav-link button-image-white background-color rounded-2 px-4" href="/history" >
+                        <i class="fa-solid fa-clock-rotate-left fa-beat-fade" style="color: #fdfcfc;"></i>
+                    </a>
                     <!--                cart-->
                     <li class="nav-item text-center card-button">
                         <a class="nav-link button-image-white background-color rounded-2 px-4" href="/cart-detail">
-                            <i class="fa-solid fa-cart-shopping p-0 text-white"></i>
+                            <i class="fa-solid fa-cart-shopping fa-beat-fade" style="color: #ffffff;"></i>
                         </a>
                         <div class="mini-cart-box p-4 rounded-3 shadow">
                             <div ng-if="!cart.items.length">

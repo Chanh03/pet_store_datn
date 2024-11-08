@@ -27,7 +27,7 @@ public class PetController {
     @RequestMapping("/pet/detail/{id}")
     public String getProductById(@PathVariable("id") String id, Model model) {
         Optional<Pet> pet = petService.findById(id);
-        model.addAttribute("pet", pet.get());
+        model.addAttribute("pet", pet);
         return "/layout/_petDetail";
     }
 

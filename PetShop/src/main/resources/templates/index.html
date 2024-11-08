@@ -461,68 +461,124 @@
                     const userAddress = document.getElementById("userAddress").value;
                     const currentDate = new Date();
 
-                    Promise.all([
-                        $http.get("/api/user/" + username),
-                        $http.get("/api/orderStatus/1"),
-                        $http.get("/api/paymentStatus/1")
-                    ])
-                        .then(function (responses) {
-                            const userResponse = responses[0].data;
-                            const orderStatusResponse = responses[1].data;
-                            const paymentStatusResponse = responses[2].data;
-                            const order = {
-                                totalAmount: cartTotal,
-                                userName: {userName: userResponse.username,},
-                                shippingAddress: userAddress,
-                                enable: true,
-                                orderStatusID: {id: orderStatusResponse.id},
-                                paymentStatusID: {id: paymentStatusResponse.id},
-                                orderDate: currentDate
-                            };
-                            return $http.post("/api/order", order);
-                        })
-                        .then(function (response) {
-                            const orderID = response.data.id; // Lấy OrderID từ phản hồi
-                            const orderDetailPromises = cartItems.map((item) => {
-                                const orderDetail = {
-                                    orderID: {id: orderID},
-                                    productID: {id: item.id},
-                                    quantity: item.quantity,
-                                    price: item.price
+                    if (cartItems != null) {
+                        Promise.all([
+                            $http.get("/api/user/" + username),
+                            $http.get("/api/orderStatus/1"),
+                            $http.get("/api/paymentStatus/1")
+                        ])
+                            .then(function (responses) {
+                                const userResponse = responses[0].data;
+                                const orderStatusResponse = responses[1].data;
+                                const paymentStatusResponse = responses[2].data;
+                                const order = {
+                                    totalAmount: cartTotal,
+                                    userName: {userName: userResponse.username,},
+                                    shippingAddress: userAddress,
+                                    enable: true,
+                                    orderStatusID: {id: orderStatusResponse.id},
+                                    paymentStatusID: {id: paymentStatusResponse.id},
+                                    orderDate: currentDate
                                 };
-                                return $http.post("/api/orderProductDetail", orderDetail);
-                            });
+                                return $http.post("/api/order", order);
+                            })
+                            .then(function (response) {
+                                const orderID = response.data.id; // Lấy OrderID từ phản hồi
+                                const orderDetailPromises = cartItems.map((item) => {
+                                    const orderDetail = {
+                                        orderID: {id: orderID},
+                                        productID: {id: item.id},
+                                        quantity: item.quantity,
+                                        price: item.price
+                                    };
+                                    return $http.post("/api/orderProductDetail", orderDetail);
+                                });
 
-                            return Promise.all(orderDetailPromises);
+                                return Promise.all(orderDetailPromises);
+                            })
+                            .then(function () {
+                                console.log("Order và OrderDetail thành công");
+
+                                localStorage.removeItem('cart');
+                                localStorage.removeItem('voucherCode');
+                                localStorage.removeItem('discountAmount');
+
+                                Swal.fire({
+                                    title: 'Thanh toán thành công',
+                                    icon: 'success',
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                    willClose: () => {
+                                        window.location.href = "http://localhost:8080/cart-payMent";
+                                    }
+                                });
+                            })
+                            .catch(function (error) {
+                                console.error("Lỗi khi order", error);
+                                Swal.fire({
+                                    title: 'Có lỗi xảy ra!',
+                                    text: 'Không thể hoàn tất thanh toán. Vui lòng thử lại.',
+                                    icon: 'error'
+                                });
+                            });
+                    } else {
+                        Swal.fire({
+                            title: 'Chua co don hang',
+                            icon: 'info',
                         })
-                        .then(function () {
-                            console.log("Order và OrderDetail thành công");
-
-                            localStorage.removeItem('cart');
-                            localStorage.removeItem('voucherCode');
-                            localStorage.removeItem('discountAmount');
-
-                            Swal.fire({
-                                title: 'Thanh toán thành công',
-                                icon: 'success',
-                                timer: 2000,
-                                timerProgressBar: true,
-                                willClose: () => {
-                                    window.location.href = "http://localhost:8080/cart-payMent";
-                                }
-                            });
-                        })
-                        .catch(function (error) {
-                            console.error("Lỗi khi order", error);
-                            Swal.fire({
-                                title: 'Có lỗi xảy ra!',
-                                text: 'Không thể hoàn tất thanh toán. Vui lòng thử lại.',
-                                icon: 'error'
-                            });
-                        });
+                    }
                 }
             });
         };
+
+        //history
+        $scope.getOrderHistory = function () {
+            $http.get("/api/order/history")
+                .then(function (response) {
+                    $scope.orderHistory = response.data;
+                })
+                .catch(function (error) {
+                    console.error("Lỗi khi lấy lịch sử đơn hàng", error);
+                });
+        };
+
+        $scope.getOrderHistory();
+
+        //huy don hang
+        $scope.deleteHistory = function (id) {
+            $http.put("/api/order/status/" + id)
+                .then(function (response) {
+                    $scope.orderHistory = $scope.orderHistory.filter(history => history.id !== id);
+                    new Notify({
+                        title: 'Đã hủy đơn hàng thành công',
+                        status: 'success',
+                        autoclose: true,
+                        autotimeout: 2000
+                    });
+                    $scope.getOrderHistory();
+                })
+                .catch(function (error) {
+                    console.log("Lỗi khi hủy đơn hàng", error);
+                    new Notify({
+                        title: 'Không thể hủy đơn hàng',
+                        status: 'error',
+                        autoclose: true,
+                        autotimeout: 2000
+                    });
+                });
+        };
+        //danh gia
+        // $scope.setProductReview = function (productId){
+        //     $scope.currentProductId = $scope.orderHistory.productID.id
+        // }
+        //
+        // $scope.submitReview = function (){
+        //     const productId = $scope.currentProductId
+        //     console.log(productId)
+        //     const submitData = {
+        //
+        //     }
+        // }
 
         // $scope.checkout = function () {
         //     const username = document.getElementById("username_auth").textContent;

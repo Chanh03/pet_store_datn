@@ -10,8 +10,10 @@ import com.example.petshop.service.OrderStatusService;
 import com.example.petshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.relational.core.sql.In;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -37,15 +39,15 @@ public class RestOrderController {
     }
 
     @GetMapping("/{id}")
-    public Order getById(@PathVariable("id") Integer id) {
-        return orderService.getById(id);
+    public void getById(@PathVariable("id") Integer id) {
+        orderService.getById(id);
     }
 
     @PostMapping
     public Order save(@RequestBody Order order) {
 //        User user = userService.findByUsername(order.getUserName().getUsername());
 //        order.setUserName(user);
-        return   orderService.save(order);
+        return orderService.save(order);
     }
 
     @PutMapping("/{id}")
@@ -54,8 +56,22 @@ public class RestOrderController {
         return orderService.save(order);
     }
 
+    @PutMapping("/status/{id}")
+    public Order updateStatus(@PathVariable("id") Integer id) {
+        Order order = orderService.getByOrderId(id);
+        OrderStatus orderStatus = orderStatusService.getById(5);
+        order.setOrderStatusID(orderStatus);
+        return orderService.save(order);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(Order order) {
         orderService.deleteById(order.getId());
+    }
+
+    @GetMapping("/history")
+    public List<Order> getHistory(Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        return orderService.getHistory(user.getUsername());
     }
 }

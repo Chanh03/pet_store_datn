@@ -9,6 +9,6 @@ import java.util.List;
 @Service
 public interface OrderProductDetailService {
     List<OrderProductDetail> findAll();
-    OrderProductDetail findById(Integer id);
+    void findById(Integer id);
     OrderProductDetail save(OrderProductDetail orderProductDetail);
 }

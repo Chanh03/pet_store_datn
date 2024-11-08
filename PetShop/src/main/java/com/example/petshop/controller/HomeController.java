@@ -20,6 +20,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.io.Console;
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -147,5 +148,19 @@ public class HomeController {
     @RequestMapping("/cart-payMent")
     public String cartPayMent(Model model) {
         return "layout/_payMent";
+    }
+
+    @RequestMapping("/history")
+    public String historyCart(Model model, Principal principal) {
+        User userHistory = userService.findByUsername(principal.getName());
+        model.addAttribute("userHistory", userHistory);
+        return "/layout/_historyCart";
+    }
+
+    @RequestMapping("/history-detail")
+    public String historyCartDetail(Model model, Principal principal) {
+        User userHistoryDetail = userService.findByUsername(principal.getName());
+        model.addAttribute("userHistoryDetail", userHistoryDetail);
+        return "layout/_historyCartDetail";
     }
 }

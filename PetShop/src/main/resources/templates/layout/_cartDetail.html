@@ -143,24 +143,14 @@
                     <td>{{item.price | currency:'':0}}₫</td>
                     <td>
                         <div class="input-group d-flex justify-content-center">
-            <span class="input-group-text p-0 rounded-0">
-                <button class="btn d-flex justify-content-center" ng-click="detailItem.quantity--">
-                    <i class="text-body-secondary fa-solid fa-minus"></i>
-                </button>
-            </span>
                             <input type="number" class="form-control text-center"
                                    ng-model="item.quantity" ng-change="cart.updateQuantity(item)"
                                    min="1" style="width: 60px;">
-                            <span class="input-group-text p-0 rounded-0">
-                <button class="btn d-flex justify-content-center" ng-click="detailItem.quantity++">
-                    <i class="text-body-secondary fa-solid fa-plus"></i>
-                </button>
-            </span>
                         </div>
                     </td>
                     <td>{{item.price * item.quantity | currency:'':0}}₫</td>
                     <td>
-                        <button class="btn" ng-click="cart.remove(detailItem.id)">
+                        <button class="btn" ng-click="cart.remove(item.id)">
                             <i class="fs-2 text-danger fa-solid fa-xmark"></i>
                         </button>
                     </td>

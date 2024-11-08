@@ -22,4 +22,9 @@ public class OrderStatusServiceImpl implements OrderStatusService {
     public List<OrderStatus> findAll() {
         return orderStatusRepo.findAll();
     }
+
+    @Override
+    public OrderStatus getById(int i) {
+        return orderStatusRepo.findById(i).orElse(null);
+    }
 }
