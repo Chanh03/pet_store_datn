@@ -25,6 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -128,13 +129,11 @@ public class RestUserController {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body("{\"success\": false, \"message\": \"Tên đăng nhập đã tồn tại\"}");
             }
-            if (service.existedByEmail(user.getEmail()) && user.getUsername().matches("\\d+")) {
+            List<User> existingUsers = service.findByEmail(user.getEmail());
+            if (service.existedByEmail(user.getEmail()) 
+                    && existingUsers.stream().anyMatch(u -> u.getUsername().matches(".*[a-zA-Z]+.*"))) {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body("{\"success\": false, \"message\": \"Email đã được sử dụng cho một tài khoản khác\"}");
-            }
-            if (service.existedByEmail(user.getEmail()) && user.getUsername().matches(".*[a-zA-Z]+.*")) {
-                return ResponseEntity.status(HttpStatus.CONFLICT)
-                        .body("{\"success\": false, \"message\": \"Email đã được sử dụng cho một tài khoản khác 2\"}");
             }
             // Mã hóa mật khẩu người dùng
             BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
