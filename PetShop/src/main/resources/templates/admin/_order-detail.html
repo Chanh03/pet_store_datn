@@ -16,7 +16,7 @@
             <div class="modal-body">
                 <div ng-if="orderDetail.length">
                     <div class="card rounded-0">
-                        <table class="table table-bordered m-0 table-hover">
+                        <table class="table table-borderless m-0 table-hover">
                             <tr>
                                 <th class="text-center">STT</th>
                                 <th>Tên sản phẩm</th>
@@ -55,7 +55,7 @@
                         </table>
                     </div>
                     <div class="row d-flex justify-content-end">
-                        <div class="mt-3 col-8">
+                        <div class="mt-3 col-7">
                             <div>
                                 <h6 class="text-muted fst-italic">
                                     Đơn hàng đã được đặt vào {{orderDetailAll.orderDate | date: 'dd/MM/yyyy'}}
@@ -63,15 +63,16 @@
                             </div>
                             <div>
                                 <h6 class="mt-1">
-                                    Thay đổi trạng thái đơn hàng
+                                    Trạng thái đơn hàng
                                 </h6>
                             </div>
-                            <div ng-repeat="orderStatus in orderStatusData" class="form-check">
+                            <div ng-repeat="orderStatus in orderStatusData" class="form-check ms-3">
                                 <input type="radio" class="form-check-input"
                                        name="orderStatusRadio"
                                        id="statusCheckbox{{$index}}"
                                        ng-value="orderStatus.statusName"
-                                       ng-checked="orderStatus.statusName == orderDetailAll.orderStatusID.statusName">
+                                       ng-checked="orderStatus.statusName == orderDetailAll.orderStatusID.statusName"
+                                       ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, orderStatus.id)">
                                 <label class="form-check-label w-100 d-flex align-items-center"
                                        for="statusCheckbox{{$index}}"
                                        ng-class="{
@@ -84,29 +85,28 @@
                                        }">
                                     <span>{{orderStatus.statusName}}</span>
                                     <i ng-if="orderStatus.statusName == orderDetailAll.orderStatusID.statusName"
-                                       class="ms-2 fa-solid fa-angles-left animate__animated animate__shakeX animate__infinite animate__delay-2s text-success fs-3"></i>
+                                       class="ms-2 fa-solid fa-angles-left animate__animated animate__shakeX animate__infinite text-success fs-3"></i>
                                 </label>
                             </div>
 
                         </div>
-                        <div class="mt-3 col-4">
+                        <div class="mt-3 col-5">
                             <table class="table table-bordered m-0 table-hover">
                                 <tr>
                                     <td>
-                                        <h5 class="text-start m-0 ms-3">Tổng tiền:</h5>
+                                        <h6 class="text-start m-0 ms-3">Người đặt:</h6>
                                     </td>
                                     <td>
-                                        <h5 class="text-center text-danger m-0">{{orderDetailAll.totalAmount | number:
-                                            '0'}}đ</h5>
+                                        <h6 class="text-start ms-2 text-danger m-0">{{orderDetailAll.userName.fullName}}</h6>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <h5 class="text-start m-0 ms-3">Tổng tiền:</h5>
+                                        <h6 class="text-start m-0 ms-3">Tổng tiền:</h6>
                                     </td>
                                     <td>
-                                        <h5 class="text-center text-danger m-0">{{orderDetail[0].orderID.totalAmount |
-                                            number: '0'}}đ</h5>
+                                        <h6 class="text-start ms-2 text-danger m-0">{{orderDetailAll.totalAmount | number:
+                                            '0'}}đ</h6>
                                     </td>
                                 </tr>
                             </table>
