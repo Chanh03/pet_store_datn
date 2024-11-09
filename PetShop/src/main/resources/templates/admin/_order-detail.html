@@ -36,7 +36,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    {{od.price}}
+                                    {{od.price | number: '0'}}đ
                                 </td>
                                 <td>
                                     {{od.quantity}}
@@ -97,7 +97,8 @@
                                         <h6 class="text-start m-0 ms-3">Người đặt:</h6>
                                     </td>
                                     <td>
-                                        <h6 class="text-start ms-2 text-danger m-0">{{orderDetailAll.userName.fullName}}</h6>
+                                        <h6 class="text-start ms-2 text-danger m-0">
+                                            {{orderDetailAll.userName.fullName}}</h6>
                                     </td>
                                 </tr>
                                 <tr>
@@ -105,7 +106,8 @@
                                         <h6 class="text-start m-0 ms-3">Tổng tiền:</h6>
                                     </td>
                                     <td>
-                                        <h6 class="text-start ms-2 text-danger m-0">{{orderDetailAll.totalAmount | number:
+                                        <h6 class="text-start ms-2 text-danger m-0">{{orderDetailAll.totalAmount |
+                                            number:
                                             '0'}}đ</h6>
                                     </td>
                                 </tr>

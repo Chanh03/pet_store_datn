@@ -64,11 +64,26 @@
                             ng-model="order.orderStatusID.id"
                             ng-change="changeOrderStatus(order.id, order.orderStatusID.id)"
                             class="form-select form-select-sm">
-                        <option
-                                ng-repeat="orderStatus in orderStatusData"
-                                ng-value="orderStatus.id"
-                                ng-disabled="isDisabledOption(order.orderStatusID.id, orderStatus.id)">
-                            {{orderStatus.statusName}}
+                        <option ng-disabled="isDisabledOption(order.orderStatusID.id,1)" ng-value="1"
+                                ng-selected="order.orderStatusID.id === 1">
+                            Đang xử lý
+                        </option>
+                        <option ng-disabled="isDisabledOption(order.orderStatusID.id,2)" ng-value="2"
+                                ng-selected="order.orderStatusID.id === 2">
+                            Đã xác nhận
+                        </option>
+                        <option ng-disabled="isDisabledOption(order.orderStatusID.id,3)" ng-value="3"
+                                ng-selected="order.orderStatusID.id === 3">
+                            Đang vận chuyển
+                        </option>
+                        <option ng-disabled="isDisabledOption(order.orderStatusID.id,4)" ng-value="4"
+                                ng-selected="order.orderStatusID.id === 4">
+                            Đã giao
+                        </option>
+                        <option ng-disabled="isDisabledOption(order.orderStatusID.id,5) || order.orderStatusID.id === 4"
+                                ng-value="5"
+                                ng-selected="order.orderStatusID.id === 5">
+                            Hủy đơn
                         </option>
                     </select>
                 </td>

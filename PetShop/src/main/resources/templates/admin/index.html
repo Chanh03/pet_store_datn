@@ -840,7 +840,7 @@
                     // ORDER TABLE
                     $scope.ordersTable = new NgTableParams({
                         page: 1,
-                        count: 5,
+                        count: 10,
                         sorting: {
                             orderDate: 'desc'
                         }
@@ -916,8 +916,8 @@
                 });
                 orderDetailModal.show();
             };
-            $scope.isDisabledOption = function (currentStatusId, optionStatusId) {
-                if (optionStatusId < currentStatusId) {
+            $scope.isDisabledOption = function (optionStatusId, currentStatusId) {
+                if (currentStatusId < optionStatusId) {
                     return true;
                 }
             };
