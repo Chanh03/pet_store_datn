@@ -32,4 +32,6 @@ public interface UserService {
     List<User> findByEmail(@Size(max = 50) @NotNull String email);
 
     boolean existedByTempToken(String token);
+
+    void cleanupInactiveUsers();
 }

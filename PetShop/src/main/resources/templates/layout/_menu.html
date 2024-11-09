@@ -174,7 +174,7 @@
                         <a class="nav-link menu-item" href="#">Dịch vụ</a>
                     </li>
                     <li class="nav-item text-center search-button">
-                        <div class="bg-white rounded-3 shadow border border-2 border-dark p-1" style="width: 600px;">
+                        <div class="bg-white rounded-3 shadow border border-2 border-dark p-1" style="width: 400px;">
                             <form action="/search" method="get" class="d-flex align-items-center shadow">
                                 <!-- Select box -->
                                 <select id="searchCategory" class="form-select form-select-sm mx-2"
@@ -202,9 +202,7 @@
                     <li sec:authorize="isAuthenticated()" class="nav-item text-center user-button">
                         <a class="nav-link menu-item" href="/information">
                             <i class="fa-solid fa-user-large"></i>
-                            <!-- Tên hiển thị -->
-                            <span th:text="${user.fullName}"></span>
-
+                            <span sec:authentication="principal.fullName"></span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </a>
                         <div class="mini-user-box p-4 rounded-3 shadow">

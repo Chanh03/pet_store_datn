@@ -25,7 +25,7 @@ public class RestPetController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Pet> getPetId(@PathVariable("id") String id) {
+    public Pet getPetId(@PathVariable("id") String id) {
         return petService.findById(id);
     }
 

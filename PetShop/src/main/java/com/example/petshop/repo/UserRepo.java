@@ -26,4 +26,7 @@ public interface UserRepo extends JpaRepository<User, String> {
 
     @Query("SELECT CASE WHEN COUNT(u) > 0 THEN TRUE ELSE FALSE END FROM User u WHERE u.temporaryGUID = :temp_token")
     boolean existsByTempToken(@Param("temp_token") String temp_token);
+
+    @Query("SELECT u FROM User u WHERE u.enable = false")
+    List<User> findUserByEnableFalse();
 }
