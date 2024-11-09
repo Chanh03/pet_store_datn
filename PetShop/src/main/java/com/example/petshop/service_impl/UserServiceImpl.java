@@ -71,4 +71,14 @@ public class UserServiceImpl implements UserService {
         userRepo.save(user);
     }
 
+    @Override
+    public List<User> findByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
+
+    @Override
+    public boolean existedByTempToken(String token) {
+        return userRepo.existsByTempToken(token);
+    }
+
 }
