@@ -70,7 +70,7 @@ public class PetController {
 	        return "error";
 	    }
 
-	    return "/layout/_petDetail";
+	    return "layout/_petDetail";
 	}
 
 }

@@ -46,12 +46,24 @@
                 <!-- Star Rating -->
                 <div th:if="${!ratings.isEmpty()}">
                     <div class="star-rating" style="font-size: 2rem; text-align: center;">
+                        <!-- Sao vàng cho các giá trị đánh giá nguyên -->
                         <span th:if="${averageRating >= 1}" style="color: #FFD700;">&#9733;</span>
                         <span th:if="${averageRating >= 2}" style="color: #FFD700;">&#9733;</span>
                         <span th:if="${averageRating >= 3}" style="color: #FFD700;">&#9733;</span>
                         <span th:if="${averageRating >= 4}" style="color: #FFD700;">&#9733;</span>
                         <span th:if="${averageRating >= 5}" style="color: #FFD700;">&#9733;</span>
-                        <span th:if="${averageRating % 1 >= 0.5}" style="color: #FFD700;">&#9734;</span>
+
+                        <!-- Sao nửa nếu đánh giá có phần lẻ 0.5 -->
+                        <span th:if="${averageRating % 1 >= 0.5 && averageRating < 5}"
+                            style="color: #FFD700;">&#9734;</span>
+
+                        <!-- Sao trắng cho các giá trị chưa đạt tới 5 -->
+                        <span th:if="${averageRating < 1}" style="color: #E0E0E0;">&#9733;</span>
+                        <span th:if="${averageRating < 2}" style="color: #E0E0E0;">&#9733;</span>
+                        <span th:if="${averageRating < 3}" style="color: #E0E0E0;">&#9733;</span>
+                        <span th:if="${averageRating < 4}" style="color: #E0E0E0;">&#9733;</span>
+                        <span th:if="${averageRating < 5 && averageRating % 1 < 0.5}"
+                            style="color: #E0E0E0;">&#9733;</span>
                     </div>
                     <div class="text-center mt-2">
                         <span class="fs-5"><span th:text="${averageRating}">0</span> / 5</span>

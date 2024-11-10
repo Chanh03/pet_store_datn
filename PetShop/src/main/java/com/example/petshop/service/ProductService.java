@@ -22,5 +22,5 @@ public interface ProductService {
 
 	Page<Product> searchProduct(String keyword, Pageable pageable);
 
-    List<Product> getProductsByCategory(Integer categoryId, Integer excludeProductId);
+	List<Product> getProductsByCategory(Integer categoryId, Integer excludeProductId);
 }

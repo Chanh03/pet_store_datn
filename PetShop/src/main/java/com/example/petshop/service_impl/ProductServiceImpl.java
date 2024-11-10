@@ -12,28 +12,28 @@ import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    @Autowired
-    private ProductRepo productRepo;
+	@Autowired
+	private ProductRepo productRepo;
 
-    @Override
-    public List<Product> getAll() {
-        return productRepo.findAll();
-    }
+	@Override
+	public List<Product> getAll() {
+		return productRepo.findAll();
+	}
 
-    @Override
-    public Product getById(int id) {
-        return productRepo.findById(id).orElse(null);
-    }
+	@Override
+	public Product getById(int id) {
+		return productRepo.findById(id).orElse(null);
+	}
 
-    @Override
-    public Product save(Product product) {
-        return productRepo.save(product);
-    }
+	@Override
+	public Product save(Product product) {
+		return productRepo.save(product);
+	}
 
-    @Override
-    public void deleteById(int id) {
-        productRepo.deleteById(id);
-    }
+	@Override
+	public void deleteById(int id) {
+		productRepo.deleteById(id);
+	}
 
 	@Override
 	public Page<Product> getPaginatedProduct(Pageable pageable) {
@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-    public List<Product> getProductsByCategory(Integer categoryId, Integer excludeProductId) {
-        return productRepo.findByProductCategoryID_IdAndIdNot(categoryId, excludeProductId);
-    }
+	public List<Product> getProductsByCategory(Integer categoryId, Integer excludeProductId) {
+		return productRepo.findByProductCategoryID_IdAndIdNot(categoryId, excludeProductId);
+	}
 }

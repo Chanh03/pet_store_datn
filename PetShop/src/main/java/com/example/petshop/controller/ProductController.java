@@ -1,4 +1,3 @@
-
 package com.example.petshop.controller;
 
 import com.example.petshop.entity.Product;
@@ -81,6 +80,6 @@ public class ProductController {
 	        return "error";
 	    }
 
-	    return "/layout/_productDetail";
+	    return "layout/_productDetail";
 	}
 }
