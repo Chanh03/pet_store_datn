@@ -17,7 +17,7 @@
     <script src="https://kit.fontawesome.com/246169b37f.js" crossorigin="anonymous"></script>
     <style>
         body {
-            background: url("/images/background/bg.png");
+            background: url("/images/background/bg.webp");
             font-family: 'Grandstander', cursive;
             background-size: cover;
             background-attachment: fixed;
@@ -182,7 +182,7 @@
         </div>
         <div class="col-4 bg-light">
             <div class="container mt-2">
-                <div class="table table-md" ng-repeat="voucher in vouchers">
+                <div class="table table-md" ng-repeat="voucher in vouchers | filter: {enable: 'true' }">
                     <div class="card p-3" style="border: 5px solid indianred; border-radius: 8px;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
@@ -192,8 +192,7 @@
                             </div>
                         </div>
                         <p class="text-muted m-0" style="font-size: 0.85em; color: darkred !important">*Voucher có hạn
-                            sử
-                            dụng</p>
+                            sử dụng</p>
                     </div>
                 </div>
             </div>

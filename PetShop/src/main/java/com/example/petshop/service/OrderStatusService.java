@@ -12,4 +12,6 @@ public interface OrderStatusService {
     List<OrderStatus> findAll();
 
     OrderStatus getByStatus(Integer orderStatus);
+
+    OrderStatus getById(int i);
 }

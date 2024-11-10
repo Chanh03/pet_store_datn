@@ -29,7 +29,7 @@
     <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
     <style>
         body {
-            background: url("/images/background/bg.png");
+            background: url("/images/background/bg.webp");
             font-family: 'Grandstander', cursive;
             background-size: cover;
             background-attachment: fixed;
@@ -197,6 +197,10 @@
             z-index: 999;
         }
 
+        .order-history-hover:hover {
+            border-bottom: 10px solid #f04336;
+            transform: scale(1.02);
+        }
     </style>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
@@ -374,11 +378,23 @@
             },
 
             updateQuantity(item) {
-                if (item.quantity < 1) {
-                    item.quantity = 1;
-                }
-                this.updateTotal();
-                this.saveToLocalStorage();
+                $http.get(`/api/product/${item.id}`)
+                    .then(response => {
+                        const productQuantity = response.data.quantity;
+
+                        if (item.quantity > productQuantity) {
+                            alert("Số lượng yêu cầu vượt quá số lượng có sẵn!");
+                            item.quantity = productQuantity;
+                        } else if (item.quantity < 1) {
+                            item.quantity = 1;
+                        }
+
+                        this.updateTotal();
+                        this.saveToLocalStorage();
+                    })
+                    .catch(error => {
+                        console.error("Lỗi khi lấy số lượng sản phẩm từ API:", error);
+                    });
             },
 
             cartTotal() {
@@ -436,9 +452,15 @@
         });
 
         $scope.applyVoucher = function (voucherCode) {
+            if (!$scope.cart.items || $scope.cart.items.length === 0) {
+                $scope.errorMessage = "Giỏ hàng trống. Không thể áp dụng voucher!";
+                $scope.successMessage = '';
+                $scope.discountAmount = '';
+                return;
+            }
             $http.get("/api/voucher/" + voucherCode)
                 .then(function (response) {
-                    if (response.data.discount) {
+                    if (response.data) {
                         $scope.successMessage = "Voucher đã được áp dụng thành công!";
                         $scope.discountAmount = response.data.discount;
                         $scope.errorMessage = '';
@@ -595,7 +617,51 @@
         //         console.log("Lỗi khi order", error);
         //     });
         // }
+//history
+        $scope.getOrderHistory = function () {
+            $http.get("/api/order/history")
+                .then(function (response) {
+                    $scope.orderHistory = response.data;
+                })
+                .catch(function (error) {
+                    console.error("Lỗi khi lấy lịch sử đơn hàng", error);
+                });
+        };
 
+        $scope.getOrderHistory();
+
+        //huy don hang
+        $scope.deleteHistory = function (id) {
+            Swal.fire({
+                title: 'Bạn có chắc chắn muốn hủy đơn hàng này?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $http.put("/api/order/status/" + id)
+                        .then(function (response) {
+                            $scope.orderHistory = $scope.orderHistory.filter(history => history.id !== id);
+                            Swal.fire({
+                                title: 'Hủy đơn hàng thành công',
+                                icon: 'success',
+                                timer: 2000,
+                                timerProgressBar: true
+                            });
+                            $scope.getOrderHistory();
+                        })
+                        .catch(function (error) {
+                            Swal.fire({
+                                title: 'Hủy đơn hàng thất bại',
+                                icon: 'error',
+                                timer: 2000,
+                                timerProgressBar: true
+                            });
+                        });
+                }
+            });
+        };
 
     });
 </script>

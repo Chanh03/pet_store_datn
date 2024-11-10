@@ -165,10 +165,10 @@
                            href="/">Trang chủ</a>
                     </li>
                     <li class="nav-item text-center">
-                        <a class="nav-link menu-item" href="#">Cửa hàng</a>
+                        <a class="nav-link menu-item" href="/allProduct">Cửa hàng</a>
                     </li>
                     <li class="nav-item text-center">
-                        <a class="nav-link menu-item" href="#">Thú cưng</a>
+                        <a class="nav-link menu-item" href="/all">Thú cưng</a>
                     </li>
                     <li class="nav-item text-center">
                         <a class="nav-link menu-item" href="#">Dịch vụ</a>
@@ -224,6 +224,11 @@
                                    class="btn btn-danger btn-sm user-button-decor">Đăng xuất</a>
                             </div>
                         </div>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item text-center">
+                        <a class="nav-link button-image-white background-color rounded-2 px-4" href="/history">
+                            <i class="fa-solid fa-clock-rotate-left fa-beat-fade" style="color: #fdfcfc;"></i>
+                        </a>
                     </li>
                     <!--                cart-->
                     <li class="nav-item text-center card-button">

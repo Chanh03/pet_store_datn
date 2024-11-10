@@ -59,30 +59,37 @@
                 <td sortable="'totalAmount'" filter="{ 'userName.email': 'text' }"
                     data-title="'Tổng tiền'" class="text-center">{{ order.totalAmount | number: 0 }}đ
                 </td>
-                <td sortable="'orderStatusID.statusName'" filter="{ 'orderStatusID.statusName': 'text' }" data-title="'Trạng thái'" class="text-start">
+                <td sortable="'orderStatusID.statusName'" filter="{ 'orderStatusID.statusName': 'text' }"
+                    data-title="'Trạng thái'" class="text-start">
                     <select
                             ng-model="order.orderStatusID.id"
                             ng-change="changeOrderStatus(order.id, order.orderStatusID.id)"
-                            class="form-select form-select-sm">
+                            class="form-select form-select-sm fw-bold"
+                            ng-class="order.orderStatusID.id === 1 ? 'text-info' : order.orderStatusID.id === 2 ? 'text-primary' : order.orderStatusID.id === 3 ? 'text-warning' : order.orderStatusID.id === 4 ? 'text-success' : 'text-danger'">
                         <option ng-disabled="isDisabledOption(order.orderStatusID.id,1)" ng-value="1"
-                                ng-selected="order.orderStatusID.id === 1">
+                                ng-selected="order.orderStatusID.id === 1"
+                                ng-class="order.orderStatusID.id === 1 ? 'text-info fw-bold' : 'text-secondary'">
                             Đang xử lý
                         </option>
                         <option ng-disabled="isDisabledOption(order.orderStatusID.id,2)" ng-value="2"
-                                ng-selected="order.orderStatusID.id === 2">
+                                ng-selected="order.orderStatusID.id === 2"
+                                ng-class="order.orderStatusID.id === 2 ? 'text-primary fw-bold' : 'text-secondary'">
                             Đã xác nhận
                         </option>
                         <option ng-disabled="isDisabledOption(order.orderStatusID.id,3)" ng-value="3"
-                                ng-selected="order.orderStatusID.id === 3">
+                                ng-selected="order.orderStatusID.id === 3"
+                                ng-class="order.orderStatusID.id === 3 ? 'text-warning fw-bold' : 'text-secondary'">
                             Đang vận chuyển
                         </option>
                         <option ng-disabled="isDisabledOption(order.orderStatusID.id,4)" ng-value="4"
-                                ng-selected="order.orderStatusID.id === 4">
+                                ng-selected="order.orderStatusID.id === 4"
+                                ng-class="order.orderStatusID.id === 4 ? 'text-success fw-bold' : 'text-secondary'">
                             Đã giao
                         </option>
                         <option ng-disabled="isDisabledOption(order.orderStatusID.id,5) || order.orderStatusID.id === 4"
                                 ng-value="5"
-                                ng-selected="order.orderStatusID.id === 5">
+                                ng-selected="order.orderStatusID.id === 5"
+                                ng-class="order.orderStatusID.id === 5 ? 'text-danger fw-bold' : 'text-secondary'">
                             Hủy đơn
                         </option>
                     </select>

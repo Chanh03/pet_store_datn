@@ -20,6 +20,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.io.Console;
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -152,5 +153,23 @@ public class HomeController {
     @RequestMapping("/notifications")
     public String notification(Model model) {
         return "notificationDemo";
+    }
+
+    @RequestMapping("/history")
+    public String historyCart(Model model, Principal principal) {
+        try {
+            User userHistory = userService.findByUsername(principal.getName());
+            model.addAttribute("userHistory", userHistory);
+            return "/layout/_historyCart";
+        } catch (Exception e) {
+            return "redirect:/access-denied";
+        }
+    }
+
+    @RequestMapping("/history-detail")
+    public String historyCartDetail(Model model, Principal principal) {
+        User userHistoryDetail = userService.findByUsername(principal.getName());
+        model.addAttribute("userHistoryDetail", userHistoryDetail);
+        return "layout/_historyCartDetail";
     }
 }

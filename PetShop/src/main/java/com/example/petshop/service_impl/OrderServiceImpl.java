@@ -37,4 +37,9 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getHistory(String username) {
         return orderRepo.findByUserName(username);
     }
+
+    @Override
+    public Order getByOrderId(Integer id) {
+        return orderRepo.findById(id).orElse(null);
+    }
 }

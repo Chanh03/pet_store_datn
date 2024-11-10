@@ -1,13 +1,7 @@
 package com.example.petshop.rest;
 
-import com.example.petshop.entity.Order;
-import com.example.petshop.entity.OrderStatus;
-import com.example.petshop.entity.PaymentStatus;
-import com.example.petshop.entity.User;
-import com.example.petshop.service.OrderPayMentService;
-import com.example.petshop.service.OrderService;
-import com.example.petshop.service.OrderStatusService;
-import com.example.petshop.service.UserService;
+import com.example.petshop.entity.*;
+import com.example.petshop.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.relational.core.sql.In;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +25,9 @@ public class RestOrderController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OrderProductDetailService orderProductDetailService;
 
     @GetMapping
     public List<Order> getAll() {
@@ -70,5 +67,14 @@ public class RestOrderController {
     public List<Order> getHistory(Principal principal) {
         User user = userService.findByUsername(principal.getName());
         return orderService.getHistory(user.getUsername());
+    }
+
+    @PutMapping("/status/{id}")
+    public Order updateStatus(@PathVariable("id") Integer id) {
+        Order order = orderService.getByOrderId(id);
+        List<OrderProductDetail> orderProductDetails = orderProductDetailService.getByOrderID(order);
+        OrderStatus orderStatus = orderStatusService.getById(5);
+        order.setOrderStatusID(orderStatus);
+        return orderService.save(order);
     }
 }

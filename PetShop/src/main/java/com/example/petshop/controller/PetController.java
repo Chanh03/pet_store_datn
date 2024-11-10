@@ -21,7 +21,7 @@ public class PetController {
     public String pet(Model model) {
         List<Pet> list = petService.getAll();
         model.addAttribute("list", list);
-        return "/layout/_petDetail";
+        return "/layout/_allPet";
     }
 
     @RequestMapping("/pet/detail/{id}")
