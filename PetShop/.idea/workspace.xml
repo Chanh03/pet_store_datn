@@ -4,11 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update order">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_order-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_order-detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_authority.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_authority.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_orders.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_petAddModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_petAddModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_petModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_petModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_pets.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_pets.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_productAddModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_productAddModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_productModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_productModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_products.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_users.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_users.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +183,10 @@
       <workItem from="1731081440395" duration="921000" />
       <workItem from="1731137297032" duration="1591000" />
       <workItem from="1731141866185" duration="10152000" />
-      <workItem from="1731172169952" duration="1565000" />
+      <workItem from="1731172169952" duration="1647000" />
+      <workItem from="1731175403599" duration="399000" />
+      <workItem from="1731232231455" duration="1000" />
+      <workItem from="1731239971178" duration="2019000" />
     </task>
     <task id="LOCAL-00001" summary="pushALllllllllllll">
       <option name="closed" value="true" />
@@ -467,7 +476,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731152884226</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="update order">
+      <option name="closed" value="true" />
+      <created>1731173821051</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1731173821051</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -511,7 +528,6 @@
     <MESSAGE value="update form" />
     <MESSAGE value="update authorization" />
     <MESSAGE value="update authority" />
-    <MESSAGE value="update order" />
     <MESSAGE value="update payment" />
     <MESSAGE value="update cart payment" />
     <MESSAGE value="update a lot of file :)" />
@@ -522,6 +538,7 @@
     <MESSAGE value="update order detail" />
     <MESSAGE value="cc" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="update order" />
+    <option name="LAST_COMMIT_MESSAGE" value="update order" />
   </component>
 </project>

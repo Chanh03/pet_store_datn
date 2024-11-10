@@ -23,10 +23,11 @@
                             <input ng-model="selectedProduct.productName" type="text" class="form-control"
                                    id="productName"
                                    name="productName"
-                                   placeholder="Nhập tên sản phẩm" required>
+                                   placeholder="Nhập tên sản phẩm" required
+                                   ng-minlength="10" ng-maxlength="255">
                             <span ng-show="editProductForm.productName.$touched && editProductForm.productName.$invalid"
                                   class="text-danger fst-italic">
-                                Vui lòng nhập tên sản phẩm.
+                                Vui lòng nhập tên sản phẩm (từ 10 đến 255 ký tự).
                             </span>
                         </div>
                         <div class="mb-3">
@@ -64,21 +65,21 @@
                                     Vui lòng nhập số lượng.
                             </span>
                         </div>
-<!--                        <div class="mb-3">-->
-<!--                            <label>Trạng thái</label>-->
-<!--                            <div class="form-check form-check-inline">-->
-<!--                                <input ng-checked="selectedProduct.available == true"-->
-<!--                                       ng-model="selectedProduct.available" class="form-check-input"-->
-<!--                                       type="radio" id="conHang" value="true">-->
-<!--                                <label class="form-check-label" for="conHang">Còn hàng</label>-->
-<!--                            </div>-->
-<!--                            <div class="form-check form-check-inline">-->
-<!--                                <input ng-checked="selectedProduct.available == false"-->
-<!--                                       ng-model="selectedProduct.available" class="form-check-input"-->
-<!--                                       type="radio" id="hetHang" value="false">-->
-<!--                                <label class="form-check-label" for="hetHang">Hết hàng</label>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <!--                        <div class="mb-3">-->
+                        <!--                            <label>Trạng thái</label>-->
+                        <!--                            <div class="form-check form-check-inline">-->
+                        <!--                                <input ng-checked="selectedProduct.available == true"-->
+                        <!--                                       ng-model="selectedProduct.available" class="form-check-input"-->
+                        <!--                                       type="radio" id="conHang" value="true">-->
+                        <!--                                <label class="form-check-label" for="conHang">Còn hàng</label>-->
+                        <!--                            </div>-->
+                        <!--                            <div class="form-check form-check-inline">-->
+                        <!--                                <input ng-checked="selectedProduct.available == false"-->
+                        <!--                                       ng-model="selectedProduct.available" class="form-check-input"-->
+                        <!--                                       type="radio" id="hetHang" value="false">-->
+                        <!--                                <label class="form-check-label" for="hetHang">Hết hàng</label>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                         <div class="mb-3">
                             <label for="photo" class="me-2">Chọn ảnh thú cưng:</label>
                             <div class=" d-flex align-items-center">
@@ -95,11 +96,12 @@
                         <div class="mb-3">
                             <label for="proDes">Thông tin chi tiết:</label>
                             <textarea ng-model="selectedProduct.productDescription" class="form-control"
-                                      placeholder="Thông tin chi tiết" id="proDes" required name="proDes">
+                                      placeholder="Thông tin chi tiết" id="proDes" required name="proDes"
+                                      ng-minlength="10" ng-maxlength="255">
                             </textarea>
                             <span ng-show="editProductForm.proDes.$touched && editProductForm.proDes.$invalid"
                                   class="text-danger fst-italic">
-                                Vui lòng nhập thông tin chi tiết.
+                                Vui lòng nhập thông tin chi tiết (từ 10 đến 255 ký tự).
                             </span>
                         </div>
                     </div>

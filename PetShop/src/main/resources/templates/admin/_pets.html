@@ -91,7 +91,7 @@
         <div class="d-flex position-absolute gap-4" style="right: 40px;top: 80px">
             <button ng-click="clearPetFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
         </div>
-        <table ng-table="petsTable" class="table table-responsive rounded-3 table-hover table-sm  p-5"
+        <table ng-table="petsTable" class="table table-responsive text-truncate rounded-3 table-hover table-sm  p-5"
                show-filter="true">
             <tr ng-repeat="pet in $data" class="align-middle">
                 <!-- STT tính toán dựa trên trang hiện tại -->
@@ -107,7 +107,7 @@
                     data-title="'Loài'" class="text-center">{{ pet.petCategoryID.petCategoryName }}
                 </td>
                 <td sortable="'breed'" filter="{ 'breed': 'text' }" data-title="'Giống'">{{ pet.breed }}</td>
-                <td sortable="'price'" filter="{ 'price': 'number' }" data-title="'Giá'">{{ pet.price }}</td>
+                <td sortable="'price'" filter="{ 'price': 'number' }" data-title="'Giá'">{{ pet.price | number : '0'}}đ</td>
                 <td sortable="'gender'" data-title="'Giới tính'" class="text-center">
                     <span ng-if="pet.gender" class="badge bg-primary">Đực</span>
                     <span ng-if="!pet.gender" class="badge bg-warning">Cái</span>

@@ -22,47 +22,48 @@
                                 <label for="petId">Nhập ID thú cưng</label>
                                 <input ng-model="selectedPet.petID" type="text" class="form-control" id="petId"
                                        name="petID" placeholder="Id thú cưng"
-                                       required>
+                                       required ng-minlength="10" ng-maxlength="20">
                                 <span ng-show="editPetForm.petID.$touched && editPetForm.petID.$invalid"
                                       class="text-danger fst-italic">
-                                    Vui lòng nhập ID thú cưng.
+                                    Vui lòng nhập ID thú cưng (từ 10 đến 20 ký tự).
                                 </span>
                             </div>
                             <div class="mb-3">
                                 <label for="breed">Chọn giống thú cưng:</label>
                                 <input ng-model="selectedPet.breed" type="text" class="form-control" id="breed"
-                                       placeholder="Giống" name="breed" required>
+                                       placeholder="Giống" name="breed" required ng-minlength="3" ng-maxlength="50">
                                 <span ng-show="editPetForm.breed.$touched && editPetForm.breed.$invalid"
                                       class="text-danger fst-italic">
-                                    Vui lòng nhập giống thú cưng.
+                                    Vui lòng nhập giống thú cưng (từ 3 đến 50 ký tự).
                                 </span>
                             </div>
                             <div class="mb-3">
                                 <label for="age">Độ tuổi:</label>
                                 <input ng-model="selectedPet.age" type="number" class="form-control" id="age"
-                                       placeholder="Độ tuổi" name="age" required>
+                                       placeholder="Độ tuổi" name="age" required min="0" max="30">
                                 <span ng-show="editPetForm.age.$touched && editPetForm.age.$invalid"
                                       class="text-danger fst-italic">
-                                    Vui lòng nhập độ tuổi.
+                                    Vui lòng nhập độ tuổi (từ 0 đến 30).
                                 </span>
                             </div>
                             <div class="mb-3">
                                 <label for="hair">Kiểu lông:</label>
                                 <input ng-model="selectedPet.hair" type="text" class="form-control" id="hair"
-                                       placeholder="Kiểu lông" name="hair" required>
+                                       placeholder="Kiểu lông" name="hair" required ng-minlength="3" ng-maxlength="50">
                                 <span ng-show="editPetForm.hair.$touched && editPetForm.hair.$invalid"
                                       class="text-danger fst-italic">
-                                    Vui lòng nhập kiểu lông.
+                                    Vui lòng nhập kiểu lông (từ 3 đến 50 ký tự).
                                 </span>
                             </div>
                             <div class="mb-3">
                                 <label for="petdes">Thông tin chi tiết:</label>
                                 <textarea ng-model="selectedPet.petDescription" class="form-control"
                                           placeholder="Thông tin chi tiết" id="petdes" name="petdes"
-                                          required></textarea>
+                                          required ng-minlength="10" ng-maxlength="255">
+                                </textarea>
                                 <span ng-show="editPetForm.petdes.$touched && editPetForm.petdes.$invalid"
                                       class="text-danger fst-italic">
-                                    Vui lòng nhập thông tin chi tiết.
+                                    Vui lòng nhập thông tin chi tiết (từ 10 đến 255 ký tự).
                                 </span>
                             </div>
                         </div>
@@ -71,10 +72,10 @@
                             <div class="mb-3">
                                 <label for="famous">Màu lông:</label>
                                 <input ng-model="selectedPet.famous" type="text" class="form-control" id="famous"
-                                       placeholder="Màu lông" name="famous" required>
+                                       placeholder="Màu lông" name="famous" required ng-minlength="3" ng-maxlength="50">
                                 <span ng-show="editPetForm.famous.$touched && editPetForm.famous.$invalid"
                                       class="text-danger fst-italic">
-                                    Vui lòng nhập màu lông.
+                                    Vui lòng nhập màu lông (từ 3 đến 50 ký tự).
                                 </span>
                             </div>
                             <div class="mb-3">
