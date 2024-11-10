@@ -59,7 +59,7 @@
                 <td sortable="'totalAmount'" filter="{ 'userName.email': 'text' }"
                     data-title="'Tổng tiền'" class="text-center">{{ order.totalAmount | number: 0 }}đ
                 </td>
-                <td data-title="'Trạng thái'" class="text-start">
+                <td sortable="'orderStatusID.statusName'" filter="{ 'orderStatusID.statusName': 'text' }" data-title="'Trạng thái'" class="text-start">
                     <select
                             ng-model="order.orderStatusID.id"
                             ng-change="changeOrderStatus(order.id, order.orderStatusID.id)"

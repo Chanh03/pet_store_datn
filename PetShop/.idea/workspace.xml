@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update order">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update validate (min max)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_authority.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_authority.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_orders.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_petAddModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_petAddModal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_petModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_petModal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_pets.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_pets.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_productAddModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_productAddModal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_productModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_productModal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_products.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_products.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_users.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_users.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +178,8 @@
       <workItem from="1731172169952" duration="1647000" />
       <workItem from="1731175403599" duration="399000" />
       <workItem from="1731232231455" duration="1000" />
-      <workItem from="1731239971178" duration="2019000" />
+      <workItem from="1731239971178" duration="2511000" />
+      <workItem from="1731250974965" duration="377000" />
     </task>
     <task id="LOCAL-00001" summary="pushALllllllllllll">
       <option name="closed" value="true" />
@@ -484,7 +477,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731173821051</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="update validate (min max)">
+      <option name="closed" value="true" />
+      <created>1731242316117</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1731242316117</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -514,7 +515,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add autocomplete" />
     <MESSAGE value="remade search button" />
     <MESSAGE value="update main" />
     <MESSAGE value="remove old login,sendmail,forgotpassword" />
@@ -539,6 +539,7 @@
     <MESSAGE value="cc" />
     <MESSAGE value="update" />
     <MESSAGE value="update order" />
-    <option name="LAST_COMMIT_MESSAGE" value="update order" />
+    <MESSAGE value="update validate (min max)" />
+    <option name="LAST_COMMIT_MESSAGE" value="update validate (min max)" />
   </component>
 </project>
