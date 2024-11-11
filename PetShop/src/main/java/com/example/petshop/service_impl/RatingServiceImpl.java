@@ -18,6 +18,16 @@ public class RatingServiceImpl implements RatingService {
     @Autowired
     private ProductService productService;
 
+    @Override
+    public List<Rating> getAll() {
+        return ratingRepo.findAll();
+    }
+
+    @Override
+    public Rating save(Rating rating) {
+        return ratingRepo.save(rating);
+    }
+
     public List<Rating> getRatingsByProductId(int productId) {
         Product product = productService.getById(productId);
         return ratingRepo.findByProductID(product);

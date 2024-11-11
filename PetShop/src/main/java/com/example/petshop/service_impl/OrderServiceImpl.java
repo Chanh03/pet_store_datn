@@ -19,11 +19,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getById(Integer id) {
-        return orderRepo.findById(id).orElse(null);
-    }
-
-    @Override
     public Order save(Order order) {
         return orderRepo.save(order);
     }

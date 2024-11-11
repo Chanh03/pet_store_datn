@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RequestMapping("/api/order")
@@ -36,7 +37,7 @@ public class RestOrderController {
 
     @GetMapping("/{id}")
     public Order getById(@PathVariable("id") Integer id) {
-        return orderService.getById(id);
+        return orderService.getByOrderId(id);
     }
 
     @PostMapping
@@ -52,7 +53,7 @@ public class RestOrderController {
 
     @PutMapping("/{order-id}/{order-status}")
     public Order updateStatus(@PathVariable("order-id") Integer id, @PathVariable("order-status") Integer orderStatus) {
-        Order order = orderService.getById(id);
+        Order order = orderService.getByOrderId(id);
         OrderStatus status = orderStatusService.getByStatus(orderStatus);
         order.setOrderStatusID(status);
         return orderService.save(order);

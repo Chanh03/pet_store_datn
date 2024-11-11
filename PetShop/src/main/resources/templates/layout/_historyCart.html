@@ -37,21 +37,21 @@
 
 <body>
 <main class="container mt-4 d-flex">
-    <aside class="col-md-3 bg-white p-1 sidebar">
-        <div class="shadow p-3" style="position: sticky;top: 10%;left: 0">
-            <div class="d-flex align-items-center mb-4">
-                <div>
-                    <h3 class="fw-bold mb-0" th:text="${userHistory.getFullName()}">Tên người dùng</h3>
-                    <h3 class="mb-0" th:text="${'Số lượng đơn hàng: ' + userHistory.getOrders().size()}">Đơn hàng</h3>
-                    <h3 class="mb-0" th:text="${'Dia chi: ' + userHistory.userAddress}">Đơn hàng</h3>
-                </div>
-            </div>
-            <ul class="list-unstyled">
-                <li><a href="#" class="text-danger text-decoration-underline">Đơn Mua</a></li>
-            </ul>
-        </div>
-    </aside>
-    <section class="col-md-9 bg-white p-4 shadow-sm">
+<!--    <aside class="col-md-3 bg-white p-1 sidebar">-->
+<!--        <div class="shadow p-3" style="position: sticky;top: 10%;left: 0">-->
+<!--            <div class="d-flex align-items-center mb-4">-->
+<!--                <div>-->
+<!--                    <h3 class="fw-bold mb-0" th:text="${userHistory.getFullName()}">Tên người dùng</h3>-->
+<!--                    <h3 class="mb-0" th:text="${'Số lượng đơn hàng: ' + userHistory.getOrders().size()}">Đơn hàng</h3>-->
+<!--                    <h3 class="mb-0" th:text="${'Dia chi: ' + userHistory.userAddress}">Đơn hàng</h3>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <ul class="list-unstyled">-->
+<!--                <li><a href="#" class="text-danger text-decoration-underline">Đơn Mua</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </aside>-->
+    <section class="col-12 bg-white p-4 shadow-sm">
         <div class="bg-danger text-white py-2 mb-4">
             <div class="container d-flex justify-content-between align-items-center">
                 <div class="d-flex gap-3">
@@ -73,9 +73,10 @@
         </div>
 
         <!-- Đơn hàng -->
-        <a href="/xem/{{history.id}}" ng-repeat="history in orderHistory | orderBy: '-orderDate'"
+        <div ng-repeat="history in orderHistory | orderBy: '-orderDate'"
            class="row card shadow p-3 mb-3 nav-link order-history-hover">
             <div class="col-12">
+                <a class="nav-link" href="/xem/{{history.id}}">
                 <div class="row">
                     <div class="col-8">
                         <div class="flex-grow-1">
@@ -104,12 +105,13 @@
                         </div>
                     </div>
                 </div>
+                </a>
                 <div class="row mt-5 mb-2">
                     <div class="col-12 d-flex align-items-center justify-content-end gap-3">
                         <div class="btn btn-outline-dark disabled">
                             <h5 class=" m-0 mx-1 my-2">{{history.paymentStatusID.statusPayment}}</h5>
                         </div>
-                        <button ng-if="history.orderStatusID.statusName === 'Đang xử lý'"
+                        <button style="z-index: 9999" ng-if="history.orderStatusID.statusName === 'Đang xử lý'"
                                 class="btn btn-danger"
                                 ng-click="deleteHistory(history.id)">
                             <h5 class=" m-0 mx-1 my-2">Hủy</h5>
@@ -117,7 +119,7 @@
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
     </section>
 </main>
 

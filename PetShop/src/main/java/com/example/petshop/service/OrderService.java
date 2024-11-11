@@ -10,8 +10,6 @@ import java.util.Optional;
 public interface OrderService {
     List<Order> getAll();
 
-    Optional<Order> getById(Integer id);
-
     Order save(Order order);
 
     void deleteById(Integer id);

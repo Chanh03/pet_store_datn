@@ -29,7 +29,7 @@
                     th:text="${product.available ? 'Còn hàng' : 'Hết hàng'}">Còn hàng</span></p>
             <button class="btn btn-primary mt-4"
                     style="width: 100%; font-size: 1.1em; transition: background-color 0.3s ease;"
-                    ng-click="cart.add(product.id)">Thêm vào giỏ hàng
+                    th:attr="ng-click=${'cart.add(' + product.id + ')'}">Thêm vào giỏ hàng
             </button>
 
             <div class="mt-3">

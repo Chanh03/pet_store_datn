@@ -111,7 +111,7 @@
 <body>
 <main class="container bg-white">
     <div class="d-flex justify-content-center">
-        <img loading="lazy" class="w-100" src="/images/banner/long-banner-placeholder.png" alt="banner"
+        <img loading="lazy" class="w-100" src="/images/banner/order_banner.webp" alt="banner"
              style="object-fit: cover;">
     </div>
     <div class="my-3">
@@ -144,19 +144,9 @@
                     <td>{{item.price | currency:'':0}}₫</td>
                     <td>
                         <div class="input-group d-flex justify-content-center">
-                            <span class="input-group-text p-0 rounded-0">
-                                <button class="btn d-flex justify-content-center" ng-click="detailItem.quantity--">
-                                    <i class="text-body-secondary fa-solid fa-minus"></i>
-                                </button>
-                            </span>
                             <input type="number" class="form-control text-center"
                                    ng-model="item.quantity" ng-change="cart.updateQuantity(item)"
                                    min="1" style="width: 60px;">
-                            <span class="input-group-text p-0 rounded-0">
-                            <button class="btn d-flex justify-content-center" ng-click="detailItem.quantity++">
-                                <i class="text-body-secondary fa-solid fa-plus"></i>
-                            </button>
-                            </span>
                         </div>
                     </td>
                     <td>{{item.price * item.quantity | currency:'':0}}₫</td>
@@ -172,12 +162,12 @@
                 <p class="text-body-tertiary fst-italic">Bạn đang có {{cart.items.length}} sản phẩm trong giỏ hàng</p>
             </div>
             <div class="d-flex justify-content-center gap-3 mb-5">
-                <button class="btn button-decor background-color py-2 text-white rounded-5" style="width: 200px;">
-                    Xóa
+                <button ng-if="cart.items.length" ng-click="cart.removeAll()" class="btn button-decor background-color py-2 text-white rounded-5" style="width: 200px;">
+                    Xóa tất cả sản phẩm
                 </button>
-                <button class="btn button-decor btn-outline-danger py-2 rounded-5" style="width: 200px;">
+                <a href="/trang-chu" class="btn button-decor btn-outline-danger py-2 rounded-5" style="width: 200px;">
                     Tiếp tục mua hàng
-                </button>
+                </a>
             </div>
         </div>
         <div class="col-4 bg-light">
