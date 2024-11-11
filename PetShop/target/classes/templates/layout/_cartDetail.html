@@ -145,7 +145,7 @@
                         <div class="input-group d-flex justify-content-center">
                             <input type="number" class="form-control text-center"
                                    ng-model="item.quantity" ng-change="cart.updateQuantity(item)"
-                                   min="1" style="width: 60px;">
+                                   min="1" style="width: 60px;" >
                         </div>
                     </td>
                     <td>{{item.price * item.quantity | currency:'':0}}₫</td>

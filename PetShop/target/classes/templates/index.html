@@ -354,13 +354,27 @@
                 }
             },
 
+
             updateQuantity(item) {
-                if (item.quantity < 1) {
-                    item.quantity = 1;
-                }
-                this.updateTotal();
-                this.saveToLocalStorage();
+                $http.get(`/api/product/${item.id}`)
+                    .then(response => {
+                        const productQuantity = response.data.quantity;
+
+                        if (item.quantity > productQuantity) {
+                            alert("Số lượng yêu cầu vượt quá số lượng có sẵn!");
+                            item.quantity = productQuantity;
+                        } else if (item.quantity < 1) {
+                            item.quantity = 1;
+                        }
+
+                        this.updateTotal();
+                        this.saveToLocalStorage();
+                    })
+                    .catch(error => {
+                        console.error("Lỗi khi lấy số lượng sản phẩm từ API:", error);
+                    });
             },
+
 
             cartTotal() {
                 return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -417,9 +431,15 @@
         });
 
         $scope.applyVoucher = function (voucherCode) {
+            if(!$scope.cart.items || $scope.cart.items.length === 0){
+                $scope.errorMessage = "Giỏ hàng trống. Không thể áp dụng voucher!";
+                $scope.successMessage = '';
+                $scope.discountAmount = '';
+                return;
+            }
             $http.get("/api/voucher/" + voucherCode)
                 .then(function (response) {
-                    if (response.data.discount) {
+                    if (response.data) {
                         $scope.successMessage = "Voucher đã được áp dụng thành công!";
                         $scope.discountAmount = response.data.discount;
                         $scope.errorMessage = '';
