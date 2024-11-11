@@ -1,9 +1,11 @@
 package com.example.petshop.service_impl;
 
+import com.example.petshop.entity.Order;
 import com.example.petshop.entity.OrderProductDetail;
 import com.example.petshop.repo.OrderProductDetailRepo;
 import com.example.petshop.service.OrderProductDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,17 +16,12 @@ public class OrderProductDetailServiceImpl implements OrderProductDetailService 
     private OrderProductDetailRepo orderProductDetailRepo;
 
     @Override
-    public List<OrderProductDetail> findAll() {
+    public List<OrderProductDetail> getAll() {
         return orderProductDetailRepo.findAll();
     }
 
     @Override
-    public void findById(Integer id) {
-         orderProductDetailRepo.findById(id).orElse(null);
-    }
-
-    @Override
-    public OrderProductDetail save(OrderProductDetail orderProductDetail) {
-        return orderProductDetailRepo.save(orderProductDetail);
+    public List<OrderProductDetail> getByOrderID(Order order) {
+        return orderProductDetailRepo.findByOrderID(order);
     }
 }

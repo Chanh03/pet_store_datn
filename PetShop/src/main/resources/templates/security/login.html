@@ -22,10 +22,10 @@
     <div class="row mt-3">
         <div class="d-flex justify-content-center position-relative">
             <img src="/images/background/login-form-bg.png" class="w-100" alt="login-form">
-            <div class="col-6 card shadow border-0"
-                 style="position: absolute; top: 58%; left: 50%; transform: translate(-50%, -50%)">
+            <div class="col-lg-6 col-12 col-sm-12 card shadow border-0"
+                 style="position: absolute; top: 58%; left: 50%; transform: translate(-50%, -50%);">
                 <div class="card-body">
-                    <h3 class="text-center">Đăng nhập</h3>
+                    <h3 class="text-center font-resp">Đăng nhập</h3>
                     <form action="/login" method="post">
                         <h5 class="alert font-resp" th:if="${message}" th:text="${message}"
                             th:classappend="${loginStatus == true ? 'alert-success' : 'alert-danger'}"></h5>
@@ -59,12 +59,12 @@
                             <a class="btn btn-primary d-flex align-items-center gap-2"
                                href="/oauth2/authorization/google"
                                style="background-color: #4285F4; border-color: #4285F4;">
-                                <i class="fa fa-google fs-2"></i> Đăng nhập bằng Google
+                                <i class="fa fa-google fs-2"></i><span> Đăng nhập bằng Google</span>
                             </a>
                             <a class="btn btn-primary d-flex align-items-center gap-2"
                                href="/oauth2/authorization/facebook"
                                style="background-color: #3b5998; border-color: #3b5998;">
-                                <i class="fa fa-facebook-official fs-2"></i> Đăng nhập bằng Facebook
+                                <i class="fa fa-facebook-official fs-2"></i> <span>Đăng nhập bằng Facebook</span>
                             </a>
                         </div>
                     </form>

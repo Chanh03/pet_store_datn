@@ -25,15 +25,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css"/>
     <!--    JQUERY-->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
     <style>
         body {
-            background: url("/images/background/bg.png");
+            background: url("/images/background/bg.webp");
             font-family: 'Grandstander', cursive;
             background-size: cover;
             background-attachment: fixed;
+            scroll-behavior: smooth;
         }
 
         .color {
@@ -197,6 +197,13 @@
             z-index: 999;
         }
 
+        .order-history-hover {
+            transition: 0.5s;
+        }
+
+        .order-history-hover:hover {
+            border-left: 10px solid #f04336;
+        }
     </style>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
@@ -215,9 +222,27 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
 
 <!--    JS-->
 <script>
+    const socket = new SockJS('http://172.16.72.83:8080/ws');
+    const stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/', function (response) {
+            Swal.fire({
+                title: 'Thông báo mới',
+                text: response.body,
+                icon: 'info',
+                confirmButtonText: 'OK',
+                autoclose: true,
+                autotimeout: 2000
+            });
+        });
+    });
     var prevScrollpos = window.scrollY;
     let goToTop = document.getElementById('goToTop');
 
@@ -345,6 +370,7 @@
                 if (index !== -1) {
                     this.items.splice(index, 1);
                     this.saveToLocalStorage();
+                    this.loadFromLocalStorage();
                     new Notify({
                         title: 'Sản phẩm đã được xóa khỏi giỏ hàng',
                         status: 'success',
@@ -353,7 +379,6 @@
                     })
                 }
             },
-
 
             updateQuantity(item) {
                 $http.get(`/api/product/${item.id}`)
@@ -374,7 +399,6 @@
                         console.error("Lỗi khi lấy số lượng sản phẩm từ API:", error);
                     });
             },
-
 
             cartTotal() {
                 return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -431,7 +455,7 @@
         });
 
         $scope.applyVoucher = function (voucherCode) {
-            if(!$scope.cart.items || $scope.cart.items.length === 0){
+            if (!$scope.cart.items || $scope.cart.items.length === 0) {
                 $scope.errorMessage = "Giỏ hàng trống. Không thể áp dụng voucher!";
                 $scope.successMessage = '';
                 $scope.discountAmount = '';
@@ -477,129 +501,69 @@
                 if (result.isConfirmed) {
                     const username = document.getElementById("username_auth").textContent;
                     const cartTotal = JSON.parse(localStorage.getItem('cartTotal'));
-                    const cartItems = JSON.parse(localStorage.getItem('cart'));
                     const userAddress = document.getElementById("userAddress").value;
                     const currentDate = new Date();
 
-                    if (cartItems != null) {
-                        Promise.all([
-                            $http.get("/api/user/" + username),
-                            $http.get("/api/orderStatus/1"),
-                            $http.get("/api/paymentStatus/1")
-                        ])
-                            .then(function (responses) {
-                                const userResponse = responses[0].data;
-                                const orderStatusResponse = responses[1].data;
-                                const paymentStatusResponse = responses[2].data;
-                                const order = {
-                                    totalAmount: cartTotal,
-                                    userName: {userName: userResponse.username,},
-                                    shippingAddress: userAddress,
-                                    enable: true,
-                                    orderStatusID: {id: orderStatusResponse.id},
-                                    paymentStatusID: {id: paymentStatusResponse.id},
-                                    orderDate: currentDate
-                                };
-                                return $http.post("/api/order", order);
-                            })
-                            .then(function (response) {
-                                const orderID = response.data.id; // Lấy OrderID từ phản hồi
-                                const orderDetailPromises = cartItems.map((item) => {
-                                    const orderDetail = {
-                                        orderID: {id: orderID},
-                                        productID: {id: item.id},
-                                        quantity: item.quantity,
-                                        price: item.price
-                                    };
-                                    return $http.post("/api/orderProductDetail", orderDetail);
-                                });
+                    // Tạo một mảng các Promise
+                    const userPromise = $http.get("/api/user/" + username);
+                    const orderStatusPromise = $http.get("/api/orderStatus/1");
+                    const paymentStatusPromise = $http.get("/api/paymentStatus/1");
 
-                                return Promise.all(orderDetailPromises);
-                            })
-                            .then(function () {
-                                console.log("Order và OrderDetail thành công");
+                    // Đợi tất cả các Promise hoàn thành
+                    Promise.all([userPromise, orderStatusPromise, paymentStatusPromise])
+                        .then(function (responses) {
+                            const userResponse = responses[0].data;
+                            const orderStatusResponse = responses[1].data;
+                            const paymentStatusResponse = responses[2].data;
 
-                                localStorage.removeItem('cart');
-                                localStorage.removeItem('voucherCode');
-                                localStorage.removeItem('discountAmount');
+                            console.log(cartTotal);
+                            console.log(userAddress);
+                            console.log(currentDate);
+                            console.log(userResponse.username);
+                            console.log(orderStatusResponse);
+                            console.log(paymentStatusResponse);
 
-                                Swal.fire({
-                                    title: 'Thanh toán thành công',
-                                    icon: 'success',
-                                    timer: 2000,
-                                    timerProgressBar: true,
-                                    willClose: () => {
-                                        window.location.href = "http://localhost:8080/cart-payMent";
-                                    }
-                                });
-                            })
-                            .catch(function (error) {
-                                console.error("Lỗi khi order", error);
-                                Swal.fire({
-                                    title: 'Có lỗi xảy ra!',
-                                    text: 'Không thể hoàn tất thanh toán. Vui lòng thử lại.',
-                                    icon: 'error'
-                                });
-                            });
-                    } else {
-                        Swal.fire({
-                            title: 'Chua co don hang',
-                            icon: 'info',
+                            const order = {
+                                totalAmount: cartTotal,
+                                userName: {
+                                    userName: userResponse.username,
+                                },
+                                shippingAddress: userAddress,
+                                enable: true,
+                                orderStatusID: {
+                                    id: orderStatusResponse.id
+                                },
+                                paymentStatusID: {
+                                    id: paymentStatusResponse.id
+                                },
+                                orderDate: currentDate
+                            };
+
+                            return $http.post("/api/order", order); // Trả về Promise cho yêu cầu POST
                         })
-                    }
+                        .then(function (response) {
+                            console.log("Order thành công");
+                            localStorage.removeItem('cart');
+                            localStorage.removeItem('voucherCode');
+                            localStorage.removeItem('discountAmount');
+                            Swal.fire({
+                                title: 'Đặt hàng thành công',
+                                icon: 'success',
+                                timer: 2000,
+                                timerProgressBar: true,
+                                willClose: () => {
+                                    window.location.href = "http://localhost:8080/cart-payMent"
+                                }
+                            })
+                        })
+                        .catch(function (error) {
+                            console.log("Lỗi khi order", error);
+                        });
                 }
-            });
-        };
+            })
 
-        //history
-        $scope.getOrderHistory = function () {
-            $http.get("/api/order/history")
-                .then(function (response) {
-                    $scope.orderHistory = response.data;
-                })
-                .catch(function (error) {
-                    console.error("Lỗi khi lấy lịch sử đơn hàng", error);
-                });
-        };
 
-        $scope.getOrderHistory();
-
-        //huy don hang
-        $scope.deleteHistory = function (id) {
-            $http.put("/api/order/status/" + id)
-                .then(function (response) {
-                    $scope.orderHistory = $scope.orderHistory.filter(history => history.id !== id);
-                    new Notify({
-                        title: 'Đã hủy đơn hàng thành công',
-                        status: 'success',
-                        autoclose: true,
-                        autotimeout: 2000
-                    });
-                    $scope.getOrderHistory();
-                })
-                .catch(function (error) {
-                    console.log("Lỗi khi hủy đơn hàng", error);
-                    new Notify({
-                        title: 'Không thể hủy đơn hàng',
-                        status: 'error',
-                        autoclose: true,
-                        autotimeout: 2000
-                    });
-                });
-        };
-        //danh gia
-        // $scope.setProductReview = function (productId){
-        //     $scope.currentProductId = $scope.orderHistory.productID.id
-        // }
-        //
-        // $scope.submitReview = function (){
-        //     const productId = $scope.currentProductId
-        //     console.log(productId)
-        //     const submitData = {
-        //
-        //     }
-        // }
-
+        }
         // $scope.checkout = function () {
         //     const username = document.getElementById("username_auth").textContent;
         //     $http.get("/api/user/" + username).then(function (response) {
@@ -656,7 +620,51 @@
         //         console.log("Lỗi khi order", error);
         //     });
         // }
+//history
+        $scope.getOrderHistory = function () {
+            $http.get("/api/order/history")
+                .then(function (response) {
+                    $scope.orderHistory = response.data;
+                })
+                .catch(function (error) {
+                    console.error("Lỗi khi lấy lịch sử đơn hàng", error);
+                });
+        };
 
+        $scope.getOrderHistory();
+
+        //huy don hang
+        $scope.deleteHistory = function (id) {
+            Swal.fire({
+                title: 'Bạn có chắc chắn muốn hủy đơn hàng này?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $http.put("/api/order/status/" + id)
+                        .then(function (response) {
+                            $scope.orderHistory = $scope.orderHistory.filter(history => history.id !== id);
+                            Swal.fire({
+                                title: 'Hủy đơn hàng thành công',
+                                icon: 'success',
+                                timer: 2000,
+                                timerProgressBar: true
+                            });
+                            $scope.getOrderHistory();
+                        })
+                        .catch(function (error) {
+                            Swal.fire({
+                                title: 'Hủy đơn hàng thất bại',
+                                icon: 'error',
+                                timer: 2000,
+                                timerProgressBar: true
+                            });
+                        });
+                }
+            });
+        };
 
     });
 </script>

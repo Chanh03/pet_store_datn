@@ -150,11 +150,20 @@ public class HomeController {
         return "layout/_payMent";
     }
 
+    @RequestMapping("/notifications")
+    public String notification(Model model) {
+        return "notificationDemo";
+    }
+
     @RequestMapping("/history")
     public String historyCart(Model model, Principal principal) {
-        User userHistory = userService.findByUsername(principal.getName());
-        model.addAttribute("userHistory", userHistory);
-        return "/layout/_historyCart";
+        try {
+            User userHistory = userService.findByUsername(principal.getName());
+            model.addAttribute("userHistory", userHistory);
+            return "/layout/_historyCart";
+        } catch (Exception e) {
+            return "redirect:/access-denied";
+        }
     }
 
     @RequestMapping("/history-detail")

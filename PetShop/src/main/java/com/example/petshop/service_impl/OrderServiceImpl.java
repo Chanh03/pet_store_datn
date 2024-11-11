@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -20,8 +19,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Optional<Order> getById(Integer id) {
-        return orderRepo.findById(id);
+    public Order getById(Integer id) {
+        return orderRepo.findById(id).orElse(null);
     }
 
     @Override
@@ -43,5 +42,4 @@ public class OrderServiceImpl implements OrderService {
     public Order getByOrderId(Integer id) {
         return orderRepo.findById(id).orElse(null);
     }
-
 }

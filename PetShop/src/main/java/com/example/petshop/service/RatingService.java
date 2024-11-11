@@ -7,6 +7,7 @@ import java.util.List;
 
 @Service
 public interface RatingService {
-    List<Rating> getAll();
-    Rating save(Rating rating);
+    List<Rating> getRatingsByProductId(int id);
+
+    double getAverageRatingByProductId(int id);
 }

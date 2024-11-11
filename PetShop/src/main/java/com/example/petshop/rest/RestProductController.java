@@ -26,11 +26,25 @@ public class RestProductController {
 
     @PostMapping
     public Product createProduct(@RequestBody Product product) {
+        if (product.getQuantity() == 0 || product.getQuantity() < 0) {
+            product.setQuantity(0);
+            product.setAvailable(false);
+        }
+        if (product.getQuantity() > 0) {
+            product.setAvailable(true);
+        }
         return productService.save(product);
     }
 
     @PutMapping("/{id}")
     public Product updateProduct(@PathVariable int id, @RequestBody Product product) {
+        if (product.getQuantity() == 0 || product.getQuantity() < 0) {
+            product.setQuantity(0);
+            product.setAvailable(false);
+        }
+        if (product.getQuantity() > 0) {
+            product.setAvailable(true);
+        }
         product.setId(id);
         return productService.save(product);
     }

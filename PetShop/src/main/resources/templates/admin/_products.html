@@ -92,7 +92,7 @@
         <div class="d-flex position-absolute gap-4" style="right: 75px;top: 80px">
             <button ng-click="clearProductFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
         </div>
-        <table ng-table="productsTable" class="table table-responsive rounded-3 table-hover table-sm  p-5"
+        <table ng-table="productsTable" class="table table-responsive text-truncate rounded-3 table-hover table-sm  p-5"
                show-filter="true">
             <tr ng-repeat="product in $data" class="align-middle">
                 <!-- STT tính toán dựa trên trang hiện tại -->
@@ -108,7 +108,7 @@
                 <td sortable="'productName'" filter="{ 'productName': 'text' }"
                     data-title="'Sản phẩm'" class="text-center">{{ product.productName }}
                 </td>
-                <td sortable="'price'" data-title="'Giá'">{{ product.price }}</td>
+                <td sortable="'price'" data-title="'Giá'">{{ product.price | number : '0'}}đ</td>
                 <td sortable="'quantity'" data-title="'Số lượng'">{{ product.quantity }}
                 </td>
                 <td sortable="'available'" data-title="'Trạng thái'" class="text-center">

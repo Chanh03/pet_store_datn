@@ -17,7 +17,7 @@
     <script src="https://kit.fontawesome.com/246169b37f.js" crossorigin="anonymous"></script>
     <style>
         body {
-            background: url("/images/background/bg.png");
+            background: url("/images/background/bg.webp");
             font-family: 'Grandstander', cursive;
             background-size: cover;
             background-attachment: fixed;
@@ -120,7 +120,7 @@
     </div>
     <div class="row">
         <div class="col-8">
-            <table class="table table-hover">
+            <table class="table table-hover table-responsive">
                 <thead>
                 <tr class="text-center">
                     <th class="text-body-secondary">#</th>
@@ -136,6 +136,7 @@
                 <!--ITEMS-->
                 <tr class="text-center align-middle" ng-repeat="item in cart.items track by item.id">
                     <td>{{$index + 1}}</td>
+                    <td>{{$index + 1}}</td>
                     <td>
                         <img ng-src="/images/product/{{item.photo}}" alt="product" style="width: 100px;">
                     </td>
@@ -143,9 +144,19 @@
                     <td>{{item.price | currency:'':0}}₫</td>
                     <td>
                         <div class="input-group d-flex justify-content-center">
+                            <span class="input-group-text p-0 rounded-0">
+                                <button class="btn d-flex justify-content-center" ng-click="detailItem.quantity--">
+                                    <i class="text-body-secondary fa-solid fa-minus"></i>
+                                </button>
+                            </span>
                             <input type="number" class="form-control text-center"
                                    ng-model="item.quantity" ng-change="cart.updateQuantity(item)"
-                                   min="1" style="width: 60px;" >
+                                   min="1" style="width: 60px;">
+                            <span class="input-group-text p-0 rounded-0">
+                            <button class="btn d-flex justify-content-center" ng-click="detailItem.quantity++">
+                                <i class="text-body-secondary fa-solid fa-plus"></i>
+                            </button>
+                            </span>
                         </div>
                     </td>
                     <td>{{item.price * item.quantity | currency:'':0}}₫</td>
@@ -160,7 +171,7 @@
             <div class="text-center">
                 <p class="text-body-tertiary fst-italic">Bạn đang có {{cart.items.length}} sản phẩm trong giỏ hàng</p>
             </div>
-            <div class="d-flex justify-content-center gap-3">
+            <div class="d-flex justify-content-center gap-3 mb-5">
                 <button class="btn button-decor background-color py-2 text-white rounded-5" style="width: 200px;">
                     Xóa
                 </button>
@@ -170,22 +181,18 @@
             </div>
         </div>
         <div class="col-4 bg-light">
-            <div class="my-2">
-                <h1 class="m-0 color fw-bold">TÓM TẮT</h1>
-                <div class="line background-color" style="height: 5px;"></div>
-            </div>
             <div class="container mt-2">
-                <div class="table table-md" ng-repeat="voucher in vouchers">
+                <div class="table table-md" ng-repeat="voucher in vouchers | filter: {enable: 'true' }">
                     <div class="card p-3" style="border: 5px solid indianred; border-radius: 8px;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="text-uppercase text-muted">Token: {{ voucher.voucherID }}</h6>
-                                <h2 class="font-weight-bold">Tiền giảm: {{ voucher.discount | currency:'':0}}₫</h2>
-                                <p class="text-muted">HSD: {{ voucher.expiryDate }}</p>
+                                <h6 class="text-uppercase text-muted">Mã giảm: {{ voucher.voucherID }}</h6>
+                                <h2 class="font-weight-bold">Giảm giá: {{ voucher.discount | currency:'':0}}₫</h2>
+                                <p class="text-muted m-0">HSD: {{ voucher.expiryDate }}</p>
                             </div>
                         </div>
-                        <p class="text-muted" style="font-size: 0.85em; color: darkred !important">*Voucher có hạn sử
-                            dụng</p>
+                        <p class="text-muted m-0" style="font-size: 0.85em; color: darkred !important">*Voucher có hạn
+                            sử dụng</p>
                     </div>
                 </div>
             </div>
@@ -221,8 +228,8 @@
                 <h3 class="fw-bold text-danger">{{cart.cartTotalAll() | currency:'':0}}₫</h3>
             </div>
             <div class="mt-3 d-flex justify-content-center">
-                <button class="btn button-decor button-image-white background-color rounded-5 px-5 py-3 text-white"><a style="color: black"
-                        href="/cart-payMent">Thanh toán</a></button>
+                <button class="btn button-decor button-image-white background-color rounded-5 px-5 py-3 text-white">
+                    <a class="nav-link" href="/cart-payMent">Thanh toán</a></button>
             </div>
         </div>
     </div>

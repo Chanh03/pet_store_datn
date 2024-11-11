@@ -165,10 +165,10 @@
                            href="/">Trang chủ</a>
                     </li>
                     <li class="nav-item text-center">
-                        <a class="nav-link menu-item" href="#">Cửa hàng</a>
+                        <a class="nav-link menu-item" href="/allProduct">Cửa hàng</a>
                     </li>
                     <li class="nav-item text-center">
-                        <a class="nav-link menu-item" href="#">Thú cưng</a>
+                        <a class="nav-link menu-item" href="/all">Thú cưng</a>
                     </li>
                     <li class="nav-item text-center">
                         <a class="nav-link menu-item" href="#">Dịch vụ</a>
@@ -202,9 +202,7 @@
                     <li sec:authorize="isAuthenticated()" class="nav-item text-center user-button">
                         <a class="nav-link menu-item" href="/information">
                             <i class="fa-solid fa-user-large"></i>
-                            <!-- Tên hiển thị -->
-                            <span th:text="${user.fullName}"></span>
-
+                            <span sec:authentication="principal.fullName"></span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </a>
                         <div class="mini-user-box p-4 rounded-3 shadow">
@@ -227,13 +225,15 @@
                             </div>
                         </div>
                     </li>
-                    <a class="nav-link button-image-white background-color rounded-2 px-4" href="/history" >
-                        <i class="fa-solid fa-clock-rotate-left fa-beat-fade" style="color: #fdfcfc;"></i>
-                    </a>
+                    <li sec:authorize="isAuthenticated()" class="nav-item text-center">
+                        <a class="nav-link button-image-white background-color rounded-2 px-4" href="/history">
+                            <i class="fa-solid fa-clock-rotate-left fa-beat-fade" style="color: #fdfcfc;"></i>
+                        </a>
+                    </li>
                     <!--                cart-->
                     <li class="nav-item text-center card-button">
                         <a class="nav-link button-image-white background-color rounded-2 px-4" href="/cart-detail">
-                            <i class="fa-solid fa-cart-shopping fa-beat-fade" style="color: #ffffff;"></i>
+                            <i class="fa-solid fa-cart-shopping p-0 text-white"></i>
                         </a>
                         <div class="mini-cart-box p-4 rounded-3 shadow">
                             <div ng-if="!cart.items.length">

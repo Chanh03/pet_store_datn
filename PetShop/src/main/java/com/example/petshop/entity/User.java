@@ -27,7 +27,6 @@ public class User implements UserDetails {
     @Column(name = "UserName", nullable = false, length = 50)
     private String userName;
 
-    @JsonIgnore
     @Size(max = 100)
     @NotNull
     @Nationalized
@@ -64,6 +63,7 @@ public class User implements UserDetails {
 
     @Size(max = 200)
     @NotNull
+    @JsonIgnore
     @Column(name = "ActiveToken", nullable = false, length = 200)
     private String activeToken;
 
@@ -86,6 +86,13 @@ public class User implements UserDetails {
     @JsonIgnore
     @OneToMany(mappedBy = "userName", fetch = FetchType.EAGER)
     private Set<Authority> authorities = new LinkedHashSet<>();
+
+    @Size(max = 225)
+    @Column(name = "TemporaryGUID", length = 225)
+    private String temporaryGUID;
+
+    @Column(name = "TempGuidExpir")
+    private LocalDateTime tempGuidExpir;
 
     @JsonIgnore
     @Override
