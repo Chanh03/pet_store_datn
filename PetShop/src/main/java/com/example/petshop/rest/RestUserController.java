@@ -348,6 +348,16 @@ public class RestUserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"success\": false, \"message\": \"Tài khoản không tồn tại\"}");
         }
+        
+         // Khởi tạo mailerService một lần
+
+        // Biến để theo dõi xem có người dùng hợp lệ hay không
+
+         
+            // Kiểm tra xem username có chứa ký tự số hay không
+            if (existingUser.getUsername().matches("\\d+") &&!existingUser.getEmail().equals(userDTO.getEmail())) { // Kiểm tra nếu username không chỉ chứa ký tự số
+               return ResponseEntity.ok("{\"success\": false, \"message\": \"Bạn không thể đổi email khác do đăng nhập bằng bên thứ 3!\"}");
+            }
 
         // Cập nhật thông tin
         existingUser.setFullName(userDTO.getFullName());

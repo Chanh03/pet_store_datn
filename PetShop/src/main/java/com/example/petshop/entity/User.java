@@ -83,7 +83,6 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "userName")
     private Set<Review> reviews = new LinkedHashSet<>();
 
-
     @OneToMany(mappedBy = "userName", fetch = FetchType.EAGER)
     private Set<Authority> authorities = new LinkedHashSet<>();
 

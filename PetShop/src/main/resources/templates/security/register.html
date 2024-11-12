@@ -410,11 +410,11 @@
           return;
         }
         //Kiểm tra username phải có ít nhất 5 ký tự
-        const usernameRegex = /^(?=.*[a-zA-Z])(?!.*[^a-zA-Z0-9]).{5,}$/; // Ít nhất 5 ký tự, phải có chữ, không có ký tự đặc biệt
+        const usernameRegex = /^(?=.*[a-zA-Z])(?!.*[^a-zA-Z0-9]).{5,20}$/; // Ít nhất 5 ký tự, phải có chữ, không có ký tự đặc biệt
         if (!usernameRegex.test(username)) {
           Swal.fire({
               title: 'Thông tin không chính xác',
-              text: 'Tên đăng nhập phải có ít nhất 5 ký tự, có ít nhất một chữ và không chứa ký tự đặc biệt.',
+              text: 'Tên đăng nhập phải có ít nhất 5 ký tự và nhiều nhất là 20 kí tự, có ít nhất một chữ và không chứa ký tự đặc biệt.',
               icon: 'warning',
               confirmButtonText: 'OK'
           });
