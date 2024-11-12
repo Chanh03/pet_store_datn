@@ -98,7 +98,7 @@
         }
 
         .card-image:hover {
-            transform: scale(1.2);
+            transform: scale(1.05);
         }
 
         h1 {
@@ -203,6 +203,12 @@
 
         .order-history-hover:hover {
             border-left: 10px solid #f04336;
+        }
+
+        .hover-animation {
+            background: rgba(71, 74, 255, 0);
+            background: -webkit-linear-gradient(121deg, rgba(71, 74, 255, 0) 0%, #ff8383 50%, rgba(255, 255, 255, 0) 100%);
+            background: linear-gradient(121deg, rgba(71, 74, 255, 0) 0%, #ff8383 50%, rgba(255, 255, 255, 0) 100%);
         }
     </style>
 </head>
@@ -632,7 +638,21 @@
         };
 
         $scope.getOrderHistory();
-
+        /*HISTORY ORDER DETAIL*/
+        $scope.getHistoryOrderDetail = function (orderId) {
+            $http.get("/api/order-detail/" + orderId)
+                .then(function (response) {
+                    $scope.historyOrderDetail = response.data;
+                    $scope.totalHistoryOrderPrice = $scope.historyOrderDetail.reduce((total, od) => total + (od.price * od.quantity), 0);
+                })
+                .catch(function (error) {
+                    console.error("Lỗi khi lấy chi tiết đơn hàng", error);
+                });
+            var orderDetailModal = new bootstrap.Modal(document.getElementById('historyOrderDetail'), {
+                keyboard: true
+            });
+            orderDetailModal.show();
+        };
         //huy don hang
         $scope.deleteHistory = function (id) {
             Swal.fire({

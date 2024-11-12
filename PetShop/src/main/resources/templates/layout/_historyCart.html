@@ -71,12 +71,11 @@
                 </div>
             </div>
         </div>
-
         <!-- Đơn hàng -->
-        <a href="/xem/{{history.id}}" ng-repeat="history in orderHistory | orderBy: '-orderDate'"
-           class="row card shadow p-3 mb-3 nav-link order-history-hover">
+        <div ng-repeat="history in orderHistory | orderBy: '-orderDate'"
+             class="row card shadow p-3 mb-3 nav-link order-history-hover">
             <div class="col-12">
-                <div class="row">
+                <div class="row" type="button" ng-click="getHistoryOrderDetail(history.id)">
                     <div class="col-8">
                         <div class="flex-grow-1">
                             <span class="text-danger fw-bold">ID: {{history.id}}</span>
@@ -117,9 +116,10 @@
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
     </section>
 </main>
+<div th:insert="~{layout/_historyOrderDetail}"></div>
 
 <!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
