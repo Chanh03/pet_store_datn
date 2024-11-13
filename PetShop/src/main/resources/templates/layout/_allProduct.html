@@ -24,7 +24,8 @@
                         </h6>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item" style="border: none;" th:each="category : ${categories}">
-                                <a th:href="@{/allProduct(categoryId=${category.id}, search=${search}, sort=${sort}, page=0)}"
+                                <!-- Thêm tham số categoryId vào URL -->
+                                <a th:href="@{/allProduct(categoryId=${category.id}, page=0)}"
                                     class="text-decoration-none text-dark" th:text="${category.productCategoryName}"
                                     style="font-weight: 500; font-size: 1rem;">
                                 </a>
@@ -48,6 +49,7 @@
                                 <option value="desc" th:selected="${sort == 'desc'}">Giá giảm dần</option>
                             </select>
                             <input type="hidden" name="search" th:value="${search}" />
+                            <input type="hidden" name="categoryId" th:value="${categoryId}" />
                         </form>
                     </div>
                     <div class="col-6">
@@ -57,6 +59,8 @@
                                 aria-label="Search" name="search" th:value="${search}"
                                 style="border: 2px solid #dc3545; border-radius: 5px;">
                             <button class="btn btn-danger" type="submit">Tìm</button>
+                            <input type="hidden" name="sort" th:value="${sort}" />
+                            <input type="hidden" name="categoryId" th:value="${categoryId}" />
                         </form>
                     </div>
                 </div>

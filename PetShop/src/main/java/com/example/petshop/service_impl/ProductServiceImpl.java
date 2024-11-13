@@ -42,11 +42,21 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Page<Product> searchProduct(String keyword, Pageable pageable) {
-		return productRepo.findByProductDescriptionContainingIgnoreCase(keyword, pageable);
+	    return productRepo.findByProductDescriptionContainingIgnoreCase(keyword, pageable);
 	}
 
 	@Override
 	public List<Product> getProductsByCategory(Integer categoryId, Integer excludeProductId) {
 		return productRepo.findByProductCategoryID_IdAndIdNot(categoryId, excludeProductId);
+	}
+
+	@Override
+	public Page<Product> getProductsByCategoryId(Integer categoryId, Pageable pageable) {
+	    return productRepo.findByProductCategoryID_Id(categoryId, pageable);
+	}
+
+	@Override
+	public Page<Product> searchProductWithCategory(String keyword, Integer categoryId, Pageable pageable) {
+	    return productRepo.findByProductCategoryID_IdAndProductDescriptionContainingIgnoreCase(categoryId, keyword, pageable);
 	}
 }
