@@ -29,7 +29,7 @@
 
 <!--BANNER-->
 <div class="d-flex justify-content-center">
-    <img loading="lazy" class="w-100" src="/images/banner/advertise.png" alt="banner" style="object-fit: cover;">
+    <img loading="lazy" class="w-100" src="/images/banner/banner-sieu-xin.webp" alt="banner" style="object-fit: cover;">
 </div>
 <!--BANNER END-->
 <!--TIEN ICH-->
@@ -76,9 +76,9 @@
 <div class="row my-3 g-3 d-flex align-items-center px-2">
     <h1 class="color fw-bold text-center">THÚ CƯNG MỚI</h1>
     <div class="col-lg-5 col-md-5 position-relative">
-        <div class="d-flex justify-content-center position-relative overflow-hidden rounded-5 shadow p-3">
-            <img loading="lazy" class="w-100 card-image" th:src="@{/images/pet/{photo}(photo=${firstPet.photo})}"
-                 th:alt="${firstPet.photo}">
+        <div class="d-flex justify-content-center position-relative overflow-hidden rounded-5 shadow">
+            <img loading="lazy" class="w-100 card-image" src="/images/banner/advertise-vertical-1.webp"
+                 alt="">
             <button class="btn rounded-5 px-4 btn-outline-danger position-absolute button-image"
                     style="bottom: 10%; left: 50%; transform: translateX(-50%)">
                 <span class="fw-bold m-0">Xem thêm</span>
@@ -91,7 +91,7 @@
             <div th:each="pet : ${nextSixPet}" class="col-lg-4 col-md-6 col-sm-6 col-6">
                 <a class="nav-link" th:href="@{/pet/detail/{id}(id=${pet.petID})}">
                     <div class="card card-hover border-0 position-relative">
-                        <div class="overflow-hidden rounded-5 p-3 button-image"
+                        <div class="overflow-hidden rounded-5 button-image"
                              style="background-color: #f7f7f5; display: flex; align-items: center; justify-content: center;">
                             <img loading="lazy" th:src="@{/images/pet/{photo}(photo=${pet.photo})}"
                                  class="card-img-top card-image" alt="pet"

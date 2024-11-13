@@ -66,7 +66,6 @@ public class HomeController {
                 .orElseThrow(() -> new NoSuchElementException("No pet found"));
         Collection<Pet> nextSixPet = petList.stream().skip(1).limit(6).toList();
 
-        model.addAttribute("firstProduct", latestProduct);
         model.addAttribute("nextSixProducts", nextSixProducts);
         model.addAttribute("firstPet", latestPet);
         model.addAttribute("nextSixPet", nextSixPet);
