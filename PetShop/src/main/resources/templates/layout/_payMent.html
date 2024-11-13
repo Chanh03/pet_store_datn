@@ -39,7 +39,13 @@
                 <h1 class="m-0 color fw-bold">GIỎ HÀNG</h1>
                 <div class="line background-color" style="height: 5px;"></div>
             </div>
-            <div style="max-height: 400px; overflow-y: auto;">
+            <div ng-if="!cart.items.length">
+                <div class="text-center" ng-if="!cart.items.length">
+                    <img class="" src="/gifs/shopping-cart.gif" alt="empty-cart" style="width: 150px;">
+                    <h2 class="color">Giỏ hàng trống</h2>
+                </div>
+            </div>
+            <div style="max-height: 400px; overflow-y: auto;" ng-if="cart.items.length">
                 <table class="table">
                     <thead>
                     <tr class="text-center align-middle">
@@ -57,7 +63,7 @@
                         <td>
                             <img ng-src="/images/product/{{item.photo}}" alt="product" style="width: 100px;">
                         </td>
-                        <td class="fw-bold">{{item.productName}}</td>
+                        <td class="fw-bold text-truncate" style="max-width: 200px">{{item.productName}}</td>
                         <td>{{item.price | number}}₫</td>
                         <td>{{item.quantity}}</td>
                         <td>{{item.price * item.quantity | number}}₫</td>
@@ -65,7 +71,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="row">
+            <div ng-if="cart.items.length" class="row">
                 <div class="mb-3">
                     <h1 class="m-0 color fw-bold">Tổng</h1>
                     <div class="line background-color" style="height: 5px;"></div>
@@ -152,10 +158,17 @@
                         chung
                         của website *</a>
                 </div>
-                <div class="text-center">
+                <div ng-if="cart.items.length" class="text-center">
                     <button class="btn btn-danger background-color button-image-white text-white w-100 py-3"
                             ng-click="checkout()">Đặt hàng
                     </button>
+                </div>
+                <div ng-if="!cart.items.length">
+                    <div class="btn btn-danger background-color button-image-white text-white w-100 py-3">
+                        <span>
+                        Thêm sản phẩm vào giỏ hàng để tiếp tục mua sắm
+                    </span>
+                    </div>
                 </div>
                 <div sec:authorize="isAuthenticated()">
                     <span id="username_auth" hidden="hidden" th:text="${#authentication.getName()}"></span>

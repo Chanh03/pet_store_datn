@@ -64,6 +64,15 @@
             height: 200px;
         }
 
+        .mini-cart-box .cart-item {
+            transition: 0.5s;
+        }
+
+        .mini-cart-box .cart-item:hover {
+            border-bottom: 5px solid #f04336;
+            padding-bottom: 10px;
+        }
+
         .ui-menu {
             z-index: 8000 !important;
             border-bottom: 10px solid #f04336 !important;
@@ -235,7 +244,7 @@
                         <a class="nav-link button-image-white background-color rounded-2 px-4" href="/cart-detail">
                             <i class="fa-solid fa-cart-shopping p-0 text-white"></i>
                         </a>
-                        <div class="mini-cart-box p-4 rounded-3 shadow">
+                        <div class="mini-cart-box rounded-3 shadow">
                             <div ng-if="!cart.items.length">
                                 <img loading="lazy" class="mini-cart-img" src="/images/background/no-cart.png" alt="">
                                 <p class="m-0">Chưa có sản phẩm</p>
@@ -251,7 +260,9 @@
                                                  class="img-fluid me-3"
                                                  style="width: 80px; height: 80px;">
                                             <div class="flex-grow-1 me-2">
-                                                <h6 class="mb-0">{{item.productName}}</h6>
+                                                <h6 class="mb-0 text-truncate"
+                                                    style="max-width: 200px;word-wrap: break-word">
+                                                    {{item.productName}}</h6>
                                                 <p class="mb-0">Số lượng: <span
                                                         class="quantity">{{item.quantity}}</span></p>
                                                 <p class="mb-0" style="color: red;">Giá: {{item.price |

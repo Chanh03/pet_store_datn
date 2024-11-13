@@ -4,35 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update bla bla bla bla">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/banner/advertise-vertical-1.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/banner/banner-sieu-xin.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/cho_Alaska.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/cho_Chihuahua.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/cho_Husky.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/cho_Poodle.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/cho_Shiba.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/meo_Anh.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/meo_Bengal.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/meo_Ragdoll.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/meo_Sphynx.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/meo_ba_tu.webp" afterDir="false" />
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update bla bla bla bla x2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/cho.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/cho_Alaska.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/cho_Chihuahua.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/cho_Husky.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/cho_Poodle.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/cho_Shiba.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/meo.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/meo_Anh.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/meo_Bengal.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/meo_Ragdoll.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/meo_Sphynx.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/meo_ba_tu.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/pet-placeholder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/entity/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/PetRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/PetRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/ProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/ProductRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderProductDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderProductDetailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/OrderProductDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/OrderProductDetailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/PetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/PetService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/OrderProductDetailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/OrderProductDetailServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/PetServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/PetServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/ProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_cartDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_cartDetail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_payMent.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_payMent.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_cartDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_cartDetail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -212,7 +204,7 @@
       <workItem from="1731345991003" duration="449000" />
       <workItem from="1731406197515" duration="1447000" />
       <workItem from="1731513725062" duration="6156000" />
-      <workItem from="1731520311763" duration="3861000" />
+      <workItem from="1731520311763" duration="7758000" />
     </task>
     <task id="LOCAL-00001" summary="pushALllllllllllll">
       <option name="closed" value="true" />
@@ -566,7 +558,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731521825384</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="update bla bla bla bla x2">
+      <option name="closed" value="true" />
+      <created>1731524846958</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1731524846958</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -583,7 +583,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="trongphuc" />
+                        <option value="origin/main" />
                       </list>
                     </value>
                   </entry>
@@ -596,7 +596,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update voucher, user" />
     <MESSAGE value="update register form" />
     <MESSAGE value="update send mail" />
     <MESSAGE value="update go to top" />
@@ -621,6 +620,7 @@
     <MESSAGE value="add access denied handle" />
     <MESSAGE value="add history order detail" />
     <MESSAGE value="update bla bla bla bla" />
-    <option name="LAST_COMMIT_MESSAGE" value="update bla bla bla bla" />
+    <MESSAGE value="update bla bla bla bla x2" />
+    <option name="LAST_COMMIT_MESSAGE" value="update bla bla bla bla x2" />
   </component>
 </project>

@@ -25,4 +25,8 @@ public class RestOrderProductDetailController {
         Order order = orderService.getById(id);
         return orderProductDetailService.getByOrderID(order);
     }
+    @PostMapping
+    public OrderProductDetail createOrderProductDetail(@RequestBody OrderProductDetail orderProductDetail) {
+        return orderProductDetailService.save(orderProductDetail);
+    }
 }

@@ -24,4 +24,9 @@ public class OrderProductDetailServiceImpl implements OrderProductDetailService 
     public List<OrderProductDetail> getByOrderID(Order order) {
         return orderProductDetailRepo.findByOrderID(order);
     }
+
+    @Override
+    public OrderProductDetail save(OrderProductDetail orderProductDetail) {
+        return orderProductDetailRepo.save(orderProductDetail);
+    }
 }

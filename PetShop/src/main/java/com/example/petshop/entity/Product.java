@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -43,6 +44,9 @@ public class Product {
     @NotNull
     @Column(name = "Quantity", nullable = false)
     private Integer quantity;
+
+    @Column(name = "CreateDate", nullable = false)
+    private LocalDateTime createDate;
 
     @Size(max = 255)
     @NotNull

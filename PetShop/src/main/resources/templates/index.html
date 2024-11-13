@@ -411,7 +411,7 @@
             },
 
             cartTotalAll() {
-                return $scope.cart.total - ($scope.discountAmount || 0);
+                return $scope.cart.total - ($scope.discountAmount || 0) + 50000;
             },
 
             updateTotal() {
@@ -507,69 +507,87 @@
                 if (result.isConfirmed) {
                     const username = document.getElementById("username_auth").textContent;
                     const cartTotal = JSON.parse(localStorage.getItem('cartTotal'));
+                    const cartItems = JSON.parse(localStorage.getItem('cart'));
                     const userAddress = document.getElementById("userAddress").value;
                     const currentDate = new Date();
 
-                    // Tạo một mảng các Promise
-                    const userPromise = $http.get("/api/user/" + username);
-                    const orderStatusPromise = $http.get("/api/orderStatus/1");
-                    const paymentStatusPromise = $http.get("/api/paymentStatus/1");
-
-                    // Đợi tất cả các Promise hoàn thành
-                    Promise.all([userPromise, orderStatusPromise, paymentStatusPromise])
-                        .then(function (responses) {
-                            const userResponse = responses[0].data;
-                            const orderStatusResponse = responses[1].data;
-                            const paymentStatusResponse = responses[2].data;
-
-                            console.log(cartTotal);
-                            console.log(userAddress);
-                            console.log(currentDate);
-                            console.log(userResponse.username);
-                            console.log(orderStatusResponse);
-                            console.log(paymentStatusResponse);
-
-                            const order = {
-                                totalAmount: cartTotal,
-                                userName: {
-                                    userName: userResponse.username,
-                                },
-                                shippingAddress: userAddress,
-                                enable: true,
-                                orderStatusID: {
-                                    id: orderStatusResponse.id
-                                },
-                                paymentStatusID: {
-                                    id: paymentStatusResponse.id
-                                },
-                                orderDate: currentDate
-                            };
-
-                            return $http.post("/api/order", order); // Trả về Promise cho yêu cầu POST
-                        })
-                        .then(function (response) {
-                            console.log("Order thành công");
-                            localStorage.removeItem('cart');
-                            localStorage.removeItem('voucherCode');
-                            localStorage.removeItem('discountAmount');
-                            Swal.fire({
-                                title: 'Đặt hàng thành công',
-                                icon: 'success',
-                                timer: 2000,
-                                timerProgressBar: true,
-                                willClose: () => {
-                                    window.location.href = "http://localhost:8080/cart-payMent"
-                                }
+                    if (cartItems != null) {
+                        Promise.all([
+                            $http.get("/api/user/" + username),
+                            $http.get("/api/orderStatus/1"),
+                            $http.get("/api/paymentStatus/1")
+                            // $http.get("/api/product")
+                        ])
+                            .then(function (responses) {
+                                const userResponse = responses[0].data;
+                                const orderStatusResponse = responses[1].data;
+                                const paymentStatusResponse = responses[2].data;
+                                const order = {
+                                    totalAmount: cartTotal + 50000 - $scope.discountAmount,
+                                    userName: {userName: userResponse.username,},
+                                    shippingAddress: userAddress,
+                                    enable: true,
+                                    orderStatusID: {id: orderStatusResponse.id},
+                                    paymentStatusID: {id: paymentStatusResponse.id},
+                                    orderDate: currentDate
+                                };
+                                return $http.post("/api/order", order);
                             })
+                            .then(function (response) {
+                                const orderID = response.data.id; // Lấy OrderID từ phản hồi
+                                const orderDetailPromises = cartItems.map((item) => {
+                                    const orderDetail = {
+                                        orderID: {id: orderID},
+                                        productID: {id: item.id},
+                                        quantity: item.quantity,
+                                        price: item.price
+                                    };
+                                    return $http.post("/api/order-detail", orderDetail);
+                                });
+
+                                return Promise.all(orderDetailPromises);
+                            })
+                            // .then(function (response) {/-strong/-heart:>:o:-((:-h //     const product = response.data
+                            //     const quantityCart = cartItems.cart.quantity
+                            //     const newQuantity = product.quantity - quantityCart
+                            //
+                            //
+                            // })
+                            .then(function () {
+
+                                console.log("Order và OrderDetail thành công");
+
+                                localStorage.removeItem('cart');
+                                localStorage.removeItem('voucherCode');
+                                localStorage.removeItem('discountAmount');
+
+                                Swal.fire({
+                                    title: 'Thanh toán thành công',
+                                    icon: 'success',
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                    willClose: () => {
+                                        window.location.href = "http://localhost:8080/cart-payMent";
+                                    }
+                                });
+                            })
+                            .catch(function (error) {
+                                console.error("Lỗi khi order", error);
+                                Swal.fire({
+                                    title: 'Có lỗi xảy ra!',
+                                    text: 'Không thể hoàn tất thanh toán. Vui lòng thử lại.',
+                                    icon: 'error'
+                                });
+                            });
+                    } else {
+                        Swal.fire({
+                            title: 'Chua co don hang',
+                            icon: 'info',
                         })
-                        .catch(function (error) {
-                            console.log("Lỗi khi order", error);
-                        });
+                    }
                 }
-            })
-
-
-        }
+            });
+        };
         // $scope.checkout = function () {
         //     const username = document.getElementById("username_auth").textContent;
         //     $http.get("/api/user/" + username).then(function (response) {

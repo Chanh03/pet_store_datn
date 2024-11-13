@@ -11,4 +11,6 @@ public interface OrderProductDetailService {
     List<OrderProductDetail> getAll();
 
     List<OrderProductDetail> getByOrderID(Order order);
+
+    OrderProductDetail save(OrderProductDetail orderProductDetail);
 }
