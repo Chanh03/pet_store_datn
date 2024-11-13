@@ -61,10 +61,6 @@ public class Product {
 
     @JsonIgnore
     @OneToMany(mappedBy = "productID")
-    private Set<Rating> ratings = new LinkedHashSet<>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "productID")
     private Set<Review> reviews = new LinkedHashSet<>();
 
 }

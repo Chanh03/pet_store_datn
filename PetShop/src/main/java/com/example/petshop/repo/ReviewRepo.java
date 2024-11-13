@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface ReviewRepo extends JpaRepository<Review, Integer> {
     List<Review> findByProductID(Product product);
+
+    List<Review> findByProductIDAndRatingGreaterThan(Product product, int i);
 }

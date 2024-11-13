@@ -6,6 +6,7 @@ import com.example.petshop.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,7 +32,7 @@ public class RestPetController {
 
     @PostMapping
     public void save(@RequestBody Pet pet) {
-        pet.setPetID(UUID.randomUUID().toString());
+        pet.setCreateDate(LocalDateTime.now());
         petService.save(pet);
     }
 
