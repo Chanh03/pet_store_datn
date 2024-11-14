@@ -386,6 +386,22 @@
                 }
             },
 
+            removeAll(){
+                Swal.fire({
+                    title: 'Xóa tất cả',
+                    text:'Xóa tất cả sản phẩm trong giỏ?',
+                    icon: 'info',
+                    cancelButtonText: 'Hủy',
+                    showConfirmButton: true,
+                    showCancelButton: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        localStorage.removeItem('cart');
+                        window.location.href = "http://localhost:8080/cart-detail";
+                    }
+                })
+            },
+
             updateQuantity(item) {
                 $http.get(`/api/product/${item.id}`)
                     .then(response => {
