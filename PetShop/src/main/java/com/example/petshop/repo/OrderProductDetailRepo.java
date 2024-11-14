@@ -10,6 +10,5 @@ import java.util.List;
 
 @Repository
 public interface OrderProductDetailRepo extends JpaRepository<OrderProductDetail, Integer> {
-    @Query("SELECT opd FROM OrderProductDetail opd WHERE opd.orderID = :order")
     List<OrderProductDetail> findByOrderID(Order order);
 }

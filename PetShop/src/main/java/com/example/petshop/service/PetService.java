@@ -16,4 +16,6 @@ public interface PetService {
     void deleteById(String id);
 
     boolean existsById(String id);
+
+    List<Pet> getAllByCreatedDate();
 }

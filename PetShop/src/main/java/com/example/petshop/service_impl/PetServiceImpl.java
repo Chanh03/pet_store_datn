@@ -37,4 +37,9 @@ public class PetServiceImpl implements PetService {
     public boolean existsById(String id) {
         return petRepo.existsById(id);
     }
+
+    @Override
+    public List<Pet> getAllByCreatedDate() {
+        return petRepo.findAllByCreatedDateDesc();
+    }
 }

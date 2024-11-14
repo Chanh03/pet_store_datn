@@ -1,0 +1,69 @@
+<style>
+    input[type="file"] {
+        width: 90px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+</style>
+<!-- Modal -->
+<div class="modal fade" id="historyOrderDetail" tabindex="-1" aria-labelledby="editProductLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-color">
+                <h5 class="modal-title" id="editProductLabel">Đơn hàng đặt</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div ng-if="!historyOrderDetail.length" class="text-center">
+                    <h4>Không có sản phẩm nào trong đơn hàng này</h4>
+                </div>
+                <div ng-if="historyOrderDetail.length">
+                    <div class="card rounded-0">
+                        <table class="table table-border m-0 table-hover">
+                            <tr>
+                                <th class="text-center">STT</th>
+                                <th class="text-center">Hỉnh ảnh</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                            <tr class="align-middle" ng-repeat="od in historyOrderDetail">
+                                <td class="text-center">
+                                    {{$index + 1}}
+                                </td>
+                                <td class="text-center">
+                                    <img ng-src="/images/product/{{od.productID.photo}}"
+                                         alt="{{od.productID.productName}}"
+                                         class="img-fluid" width="100">
+                                </td>
+                                <td>
+                                    {{od.productID.productName}}
+                                </td>
+                                <td>
+                                    {{od.price | number: '0'}}đ
+                                </td>
+                                <td>
+                                    {{od.quantity}}
+                                </td>
+                                <td>
+                                    {{od.price * od.quantity | number: '0'}}đ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold text-center" colspan="4">
+                                    Tổng
+                                </td>
+                                <td class="fw-bold">{{totalHistoryOrderPrice | number: '0'}}đ
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,6 +5,7 @@ import com.example.petshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -33,6 +34,7 @@ public class RestProductController {
         if (product.getQuantity() > 0) {
             product.setAvailable(true);
         }
+        product.setCreateDate(LocalDateTime.now());
         return productService.save(product);
     }
 

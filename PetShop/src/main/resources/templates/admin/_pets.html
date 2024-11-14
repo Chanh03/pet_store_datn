@@ -107,7 +107,12 @@
                     data-title="'Loài'" class="text-center">{{ pet.petCategoryID.petCategoryName }}
                 </td>
                 <td sortable="'breed'" filter="{ 'breed': 'text' }" data-title="'Giống'">{{ pet.breed }}</td>
-                <td sortable="'price'" filter="{ 'price': 'number' }" data-title="'Giá'">{{ pet.price | number : '0'}}đ</td>
+                <td sortable="'price'" filter="{ 'price': 'number' }" data-title="'Giá'">{{ pet.price | number :
+                    '0'}}đ
+                </td>
+                <td sortable="'createDate'" data-title="'Ngày thêm'">{{ pet.createDate |
+                    date: 'dd/MM/yyyy'}}
+                </td>
                 <td sortable="'gender'" data-title="'Giới tính'" class="text-center">
                     <span ng-if="pet.gender" class="badge bg-primary">Đực</span>
                     <span ng-if="!pet.gender" class="badge bg-warning">Cái</span>

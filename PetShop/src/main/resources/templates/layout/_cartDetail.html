@@ -125,7 +125,7 @@
                 <tr class="text-center">
                     <th class="text-body-secondary">#</th>
                     <th class="text-body-secondary">Ảnh</th>
-                    <th class="text-body-secondary">Sản phẩm</th>
+                    <th class="text-body-secondary text-start">Sản phẩm</th>
                     <th class="text-body-secondary">Giá</th>
                     <th class="text-body-secondary">Số lượng</th>
                     <th class="text-body-secondary">Tổng</th>
@@ -136,11 +136,10 @@
                 <!--ITEMS-->
                 <tr class="text-center align-middle" ng-repeat="item in cart.items track by item.id">
                     <td>{{$index + 1}}</td>
-                    <td>{{$index + 1}}</td>
                     <td>
                         <img ng-src="/images/product/{{item.photo}}" alt="product" style="width: 100px;">
                     </td>
-                    <td class="fw-bold">{{item.productName}}</td>
+                    <td class="fw-bold text-truncate text-start" style="max-width: 300px">{{item.productName}}</td>
                     <td>{{item.price | currency:'':0}}₫</td>
                     <td>
                         <div class="input-group d-flex justify-content-center">
@@ -209,6 +208,7 @@
                 <h4 class="mb-4" ng-if="discountAmount">Voucher giảm được:<span style="color: red" class="float-end"
                                                                                 ng-bind="'-' + (discountAmount | number) + 'đ'"></span>
                 </h4>
+                <h4 class="mb-4">Phí vận chuyển: <span class="float-end">+50.000đ</span></h4>
                 <h4 class="mb-4">Giá tiền gốc: <span class="float-end">{{cart.cartTotal() | currency:'':0}}₫</span></h4>
             </div>
 

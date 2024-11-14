@@ -2,11 +2,10 @@ package com.example.petshop.controller;
 
 import com.example.petshop.entity.Product;
 import com.example.petshop.entity.ProductCategory;
-import com.example.petshop.entity.Rating;
 import com.example.petshop.entity.Review;
+import com.example.petshop.service.OrderProductDetailService;
 import com.example.petshop.service.ProductCategoryService;
 import com.example.petshop.service.ProductService;
-import com.example.petshop.service.RatingService;
 import com.example.petshop.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ProductController {
@@ -29,7 +31,8 @@ public class ProductController {
     private ReviewService reviewService;
 
     @Autowired
-    private RatingService ratingService;
+    private OrderProductDetailService orderProductDetailService;
+
 
     @Autowired
     private ProductCategoryService productCategoryService;
@@ -65,11 +68,13 @@ public class ProductController {
             model.addAttribute("product", product);
             List<Product> relatedProducts = productService.getProductsByCategory(product.getProductCategoryID().getId(), id);
             model.addAttribute("relatedProducts", relatedProducts);
+
+
             List<Review> reviews = reviewService.getReviewsByProductId(id);
             model.addAttribute("reviews", reviews);
-            List<Rating> ratings = ratingService.getRatingsByProductId(id);
+            List<Review> ratings = reviewService.getRatingsByProductId(id);
             model.addAttribute("ratings", ratings);
-            double averageRating = ratingService.getAverageRatingByProductId(id);
+            double averageRating = reviewService.getAverageRatingByProductId(id);
             model.addAttribute("averageRating", averageRating);
         } else {
             model.addAttribute("errorMessage", "Sản phẩm không tồn tại");

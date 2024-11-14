@@ -22,4 +22,6 @@ public interface ProductService {
     Page<Product> getPaginatedProduct(PageRequest of);
 
     List<Product> getProductsByCategory(Integer id, int id1);
+
+    List<Product> getAllByCreatedDate();
 }

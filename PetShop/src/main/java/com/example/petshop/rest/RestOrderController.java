@@ -66,8 +66,12 @@ public class RestOrderController {
 
     @GetMapping("/history")
     public List<Order> getHistory(Principal principal) {
-        User user = userService.findByUsername(principal.getName());
-        return orderService.getHistory(user.getUsername());
+        if (principal == null) {
+            return null;
+        } else {
+            User user = userService.findByUsername(principal.getName());
+            return orderService.getHistory(user.getUsername());
+        }
     }
 
     @PutMapping("/status/{id}")

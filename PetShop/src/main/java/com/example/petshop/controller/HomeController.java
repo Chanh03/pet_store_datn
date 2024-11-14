@@ -56,19 +56,10 @@ public class HomeController {
 
     @RequestMapping({"/", "/trang-chu", "/home"})
     public String home(Model model, Authentication authentication) {
+        List<Product> nextSixProducts = productService.getAllByCreatedDate();
+        List<Pet> nextSixPet = petService.getAllByCreatedDate();
 
-        List<Product> productsList = productService.getAll();
-        Product latestProduct = productsList.stream().max(Comparator.comparingInt(Product::getId))
-                .orElseThrow(() -> new NoSuchElementException("No product found"));
-        Collection<Product> nextSixProducts = productsList.stream().skip(1).limit(6).collect(Collectors.toList());
-        List<Pet> petList = petService.getAll();
-        Pet latestPet = petList.stream().max(Comparator.comparing(Pet::getPetID))
-                .orElseThrow(() -> new NoSuchElementException("No pet found"));
-        Collection<Pet> nextSixPet = petList.stream().skip(1).limit(6).toList();
-
-        model.addAttribute("firstProduct", latestProduct);
         model.addAttribute("nextSixProducts", nextSixProducts);
-        model.addAttribute("firstPet", latestPet);
         model.addAttribute("nextSixPet", nextSixPet);
         model.addAttribute("productCategories", productCategoryService.getAll());
         model.addAttribute("slides", slideBarService.getAll());

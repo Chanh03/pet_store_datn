@@ -98,7 +98,7 @@
         }
 
         .card-image:hover {
-            transform: scale(1.2);
+            transform: scale(1.05);
         }
 
         h1 {
@@ -203,6 +203,12 @@
 
         .order-history-hover:hover {
             border-left: 10px solid #f04336;
+        }
+
+        .hover-animation {
+            background: rgba(71, 74, 255, 0);
+            background: -webkit-linear-gradient(121deg, rgba(71, 74, 255, 0) 0%, #ff8383 50%, rgba(255, 255, 255, 0) 100%);
+            background: linear-gradient(121deg, rgba(71, 74, 255, 0) 0%, #ff8383 50%, rgba(255, 255, 255, 0) 100%);
         }
     </style>
 </head>
@@ -380,22 +386,6 @@
                 }
             },
 
-            removeAll(){
-                Swal.fire({
-                    title: 'Xóa tất cả',
-                    text:'Xóa tất cả sản phẩm trong giỏ?',
-                    icon: 'info',
-                    cancelButtonText: 'Hủy',
-                    showConfirmButton: true,
-                    showCancelButton: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        localStorage.removeItem('cart');
-                        window.location.href = "http://localhost:8080/cart-detail";
-                    }
-                })
-            },
-
             updateQuantity(item) {
                 $http.get(`/api/product/${item.id}`)
                     .then(response => {
@@ -421,7 +411,7 @@
             },
 
             cartTotalAll() {
-                return $scope.cart.total - ($scope.discountAmount || 0);
+                return $scope.cart.total - ($scope.discountAmount || 0) + 50000;
             },
 
             updateTotal() {
@@ -526,13 +516,14 @@
                             $http.get("/api/user/" + username),
                             $http.get("/api/orderStatus/1"),
                             $http.get("/api/paymentStatus/1")
+                            // $http.get("/api/product")
                         ])
                             .then(function (responses) {
                                 const userResponse = responses[0].data;
                                 const orderStatusResponse = responses[1].data;
                                 const paymentStatusResponse = responses[2].data;
                                 const order = {
-                                    totalAmount: cartTotal,
+                                    totalAmount: cartTotal + 50000 - $scope.discountAmount,
                                     userName: {userName: userResponse.username,},
                                     shippingAddress: userAddress,
                                     enable: true,
@@ -556,7 +547,14 @@
 
                                 return Promise.all(orderDetailPromises);
                             })
+                            // .then(function (response) {/-strong/-heart:>:o:-((:-h //     const product = response.data
+                            //     const quantityCart = cartItems.cart.quantity
+                            //     const newQuantity = product.quantity - quantityCart
+                            //
+                            //
+                            // })
                             .then(function () {
+
                                 console.log("Order và OrderDetail thành công");
 
                                 localStorage.removeItem('cart');
@@ -589,10 +587,7 @@
                     }
                 }
             });
-
-
-
-    }
+        };
         // $scope.checkout = function () {
         //     const username = document.getElementById("username_auth").textContent;
         //     $http.get("/api/user/" + username).then(function (response) {
@@ -661,7 +656,21 @@
         };
 
         $scope.getOrderHistory();
-
+        /*HISTORY ORDER DETAIL*/
+        $scope.getHistoryOrderDetail = function (orderId) {
+            $http.get("/api/order-detail/" + orderId)
+                .then(function (response) {
+                    $scope.historyOrderDetail = response.data;
+                    $scope.totalHistoryOrderPrice = $scope.historyOrderDetail.reduce((total, od) => total + (od.price * od.quantity), 0);
+                })
+                .catch(function (error) {
+                    console.error("Lỗi khi lấy chi tiết đơn hàng", error);
+                });
+            var orderDetailModal = new bootstrap.Modal(document.getElementById('historyOrderDetail'), {
+                keyboard: true
+            });
+            orderDetailModal.show();
+        };
         //huy don hang
         $scope.deleteHistory = function (id) {
             Swal.fire({
