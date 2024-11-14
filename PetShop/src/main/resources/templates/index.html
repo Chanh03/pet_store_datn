@@ -341,39 +341,61 @@
             items: JSON.parse(localStorage.getItem('cart')) || [],
 
             add(id) {
-                const item = this.items.find(item => item.id === id);
-                if (item) {
-                    item.quantity++;
-                    if (item.quantity > 10) {
-                        item.quantity = 10;
+                $http.get(`/api/product/${id}`).then(response => {
+                    const product = response.data;
+                    const productQuantity = product.quantity;
+
+                    if (productQuantity === 0) {
                         new Notify({
-                            title: `Số lượng sản phẩm: ${item.productName} đã đạt giới hạn`,
-                            status: 'warning',
+                            title: `Sản phẩm ${product.productName} đã hết hàng`,
+                            status: 'error',
                             autoclose: true,
                             autotimeout: 2000
-                        })
+                        });
+                        return;
                     }
-                    this.saveToLocalStorage();
-                } else {
-                    $http.get(`/api/product/${id}`).then(response => {
-                        response.data.quantity = 1;
-                        this.items.push(response.data);
+                    const item = this.items.find(item => item.id === id);
+
+                    if (item) {
+                        if (item.quantity < productQuantity) {
+                            item.quantity++;
+                        } else{
+                            item.quantity = productQuantity
+                            new Notify({
+                                title: `Số lượng sản phẩm: ${item.productName} đã đạt giới hạn`,
+                                status: 'warning',
+                                autoclose: true,
+                                autotimeout: 2000
+                            });
+                        }
+                        this.saveToLocalStorage();
+
+                    } else {
+                        product.quantity = 1;
+                        this.items.push(product);
                         this.saveToLocalStorage();
                         new Notify({
                             title: 'Sản phẩm đã được thêm vào giỏ hàng',
                             status: 'success',
                             autoclose: true,
                             autotimeout: 2000
-                        })
-                    }).catch(error => {
-                        console.error("Lỗi khi lấy sản phẩm:", error);
+                        });
+                    }
+                }).catch(error => {
+                    console.error("Lỗi khi lấy sản phẩm:", error);
+                    new Notify({
+                        title: 'Lỗi khi thêm sản phẩm',
+                        status: 'error',
+                        autoclose: true,
+                        autotimeout: 2000
                     });
-                }
+                });
             },
 
             remove(id) {
                 const index = this.items.findIndex(item => item.id === id);
                 if (index !== -1) {
+                    //splice trong mang Array angular de them hoac xoa phan tu trong mang
                     this.items.splice(index, 1);
                     this.saveToLocalStorage();
                     this.loadFromLocalStorage();
@@ -386,10 +408,10 @@
                 }
             },
 
-            removeAll(){
+            removeAll() {
                 Swal.fire({
                     title: 'Xóa tất cả',
-                    text:'Xóa tất cả sản phẩm trong giỏ?',
+                    text: 'Xóa tất cả sản phẩm trong giỏ?',
                     icon: 'info',
                     cancelButtonText: 'Hủy',
                     showConfirmButton: true,
@@ -437,7 +459,7 @@
 
             saveToLocalStorage() {
                 localStorage.setItem('cart', JSON.stringify(this.items));
-                this.updateTotal(); // Cập nhật tổng khi lưu
+                this.updateTotal();
             },
 
             loadFromLocalStorage() {
@@ -448,12 +470,12 @@
                 this.updateTotal();
             },
 
-            // Hàm để lấy detailItems từ items
+
             getDetailItems() {
                 return this.items;
             },
 
-            //
+
             getPayMent() {
                 return this.getDetailItems()
             }
@@ -532,7 +554,6 @@
                             $http.get("/api/user/" + username),
                             $http.get("/api/orderStatus/1"),
                             $http.get("/api/paymentStatus/1")
-                            // $http.get("/api/product")
                         ])
                             .then(function (responses) {
                                 const userResponse = responses[0].data;
@@ -558,17 +579,21 @@
                                         quantity: item.quantity,
                                         price: item.price
                                     };
-                                    return $http.post("/api/order-detail", orderDetail);
+                                    //update lai quantity khi checkout
+                                    const updateQuantityPromise = $http.put(
+                                        `/api/product/${item.id}/updateQuantity`,
+                                        {quantity: item.quantity}
+                                    );
+
+                                    return Promise.all([
+                                        $http.post("/api/order-detail", orderDetail),
+                                        updateQuantityPromise
+                                    ]);
                                 });
 
                                 return Promise.all(orderDetailPromises);
+
                             })
-                            // .then(function (response) {/-strong/-heart:>:o:-((:-h //     const product = response.data
-                            //     const quantityCart = cartItems.cart.quantity
-                            //     const newQuantity = product.quantity - quantityCart
-                            //
-                            //
-                            // })
                             .then(function () {
 
                                 console.log("Order và OrderDetail thành công");
@@ -604,6 +629,7 @@
                 }
             });
         };
+
         // $scope.checkout = function () {
         //     const username = document.getElementById("username_auth").textContent;
         //     $http.get("/api/user/" + username).then(function (response) {
@@ -660,7 +686,7 @@
         //         console.log("Lỗi khi order", error);
         //     });
         // }
-//history
+        //history
         $scope.getOrderHistory = function () {
             $http.get("/api/order/history")
                 .then(function (response) {
