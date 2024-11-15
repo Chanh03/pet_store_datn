@@ -848,8 +848,11 @@
             $scope.getOrders = function () {
                 $http.get(baseUrl + 'order').then(function (response) {
                     $scope.orderData = response.data;
-                    $scope.orderStatusTrueLength = $scope.orderData.filter(order => order.status === true).length;
-                    $scope.orderStatusFalseLength = $scope.orderData.filter(order => order.status === false).length;
+                    $scope.dangXuLiLength = $scope.orderData.filter(order => order.orderStatusID.id === 1).length;
+                    $scope.daXacNhanLength = $scope.orderData.filter(order => order.orderStatusID.id === 2).length;
+                    $scope.dangVanChuyenLength = $scope.orderData.filter(order => order.orderStatusID.id === 3).length;
+                    $scope.daGiaoLength = $scope.orderData.filter(order => order.orderStatusID.id === 4).length;
+                    $scope.daHuyLength = $scope.orderData.filter(order => order.orderStatusID.id === 5).length;
                     $scope.orderEnableTrueLength = $scope.orderData.filter(order => order.enable === true).length;
                     $scope.orderEnableFalseLength = $scope.orderData.filter(order => order.enable === false).length;
                     // ORDER TABLE
@@ -910,7 +913,9 @@
             }
             $scope.clearOrderFilter = function () {
                 $scope.ordersTable.filter({});
-                $scope.ordersTable.sorting({});
+                $scope.ordersTable.sorting({
+                    orderDate: 'desc'
+                });
             };
             $scope.openOrderDetailModal = function (orderId) {
                 $http.get(baseUrl + 'order-detail/' + orderId).then(function (response) {

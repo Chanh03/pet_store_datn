@@ -80,11 +80,11 @@
                 <td sortable="'dateCreated'" filter="{ 'dateCreated': 'date' }"
                     data-title="'Ngày tạo'" class="text-center">{{ user.dateCreated | date: 'dd/MM/yyyy' }}
                 </td>
-                <td data-title="'Địa chỉ'" class="text-center text-wrap" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                <td data-title="'Địa chỉ'" class="text-start text-wrap" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                     {{ user.userAddress }}
                 </td>
                 <td data-title="'Số điện thoại'" class="text-center">{{ user.phoneNumber }}
-                <td data-title="'Email'" class="text-center">{{ user.email }}
+                <td data-title="'Email'" class="text-start">{{ user.email }}
                 </td>
                 <td sortable="'enable'" data-title="'Trạng thái'" class="text-center">
                     <div ng-if="user.enable" class="text-success">

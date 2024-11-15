@@ -23,16 +23,64 @@
             </h1>
         </div>
         <hr>
-        <div class="row g-5">
+        <div class="row g-1">
+            <div class="col">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">Đang xử lí</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h3>{{dangXuLiLength}}</h3>
+                        <h6 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{orderData.length}}</span>
+                            <span class="fs-6 badge bg-info">{{ (dangXuLiLength / orderData.length * 100) | number:2 }}%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">Đã xác nhận</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h3>{{daXacNhanLength}}</h3>
+                        <h6 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{orderData.length}}</span>
+                            <span class="fs-6 badge bg-primary">{{ (daXacNhanLength / orderData.length * 100) | number:2 }}%</span>
+                    </div>
+                </div>
+            </div>
             <div class="col">
                 <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
                     <h4 class="text-secondary">Đang vận chuyển</h4>
                     <div class="d-flex justify-content-start align-items-end">
-                        <div ng-repeat="role in roleData" class="d-flex justify-content-start align-items-end">
-                            <h4>
-                                <span class="badge bg-primary me-2">{{role.name.replace('ROLE_', '')}}</span>
-                            </h4>
-                        </div>
+                        <h3>{{dangVanChuyenLength}}</h3>
+                        <h6 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{orderData.length}}</span>
+                            <span class="fs-6 badge bg-warning text-dark">{{ (dangVanChuyenLength / orderData.length * 100) | number:2 }}%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">Đã giao</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h3>{{daGiaoLength}}</h3>
+                        <h6 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{orderData.length}}</span>
+                            <span class="fs-6 badge bg-success">{{ (daGiaoLength / orderData.length * 100) | number:2 }}%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">Đã hủy</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h3>{{daHuyLength}}</h3>
+                        <h6 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{orderData.length}}</span>
+                            <span class="fs-6 badge bg-danger">{{ (daHuyLength / orderData.length * 100) | number:2 }}%</span>
                     </div>
                 </div>
             </div>
@@ -49,17 +97,20 @@
                 <td data-title="'#'" class="p-2 px-3 text-center">
                     <b>{{ (ordersTable.page() - 1) * ordersTable.count() + $index + 1 }}</b>
                 </td>
-                <td style="width: 150px" class="text-primary fw-bold" sortable="'id'" filter="{ 'id': 'text' }"
+                <td style="width: 150px" class="text-start fw-bold" sortable="'id'" filter="{ 'id': 'text' }"
                     data-title="'ID'">
-                    <span class="badge bg-info fs-6">#{{ order.id }}</span>
+                    <span class="badge"
+                          style="background-color: #1d3557; color: #ffffff; font-size: 1rem;  padding: 0.4rem 0.6rem; border-radius: 0.5rem;">
+                        #{{ order.id }}
+                    </span>
                 </td>
                 <td sortable="'userName.fullName'" filter="{ 'userName.fullName': 'text' }"
                     data-title="'Họ và tên'" class="text-start">{{ order.userName.fullName }}
                 </td>
-                <td sortable="'orderDate'" filter="{ 'orderDate': 'date' }"
+                <td sortable="'orderDate'"
                     data-title="'Ngày đặt hàng'" class="text-center">{{ order.orderDate | date: 'dd/MM/yyyy' }}
                 </td>
-                <td sortable="'totalAmount'" filter="{ 'userName.email': 'text' }"
+                <td sortable="'totalAmount'"
                     data-title="'Tổng tiền'" class="text-center">{{ order.totalAmount | number: 0 }}đ
                 </td>
                 <td sortable="'orderStatusID.statusName'" filter="{ 'orderStatusID.statusName': 'text' }"
