@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update nhieu cai hahah">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update pet (remove input id for update), order">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_order-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_order-detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_petModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_petModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_orders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,7 +217,7 @@
       <workItem from="1731664332375" duration="189000" />
       <workItem from="1731664531608" duration="47000" />
       <workItem from="1731664587633" duration="3268000" />
-      <workItem from="1731685744255" duration="2709000" />
+      <workItem from="1731685744255" duration="3272000" />
     </task>
     <task id="LOCAL-00001" summary="pushALllllllllllll">
       <option name="closed" value="true" />
@@ -603,7 +603,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731667813763</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="update pet (remove input id for update), order">
+      <option name="closed" value="true" />
+      <created>1731688714455</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1731688714455</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -633,7 +641,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update loading" />
     <MESSAGE value="update form" />
     <MESSAGE value="update authorization" />
     <MESSAGE value="update authority" />
@@ -658,7 +665,8 @@
     <MESSAGE value="update bla bla bla bla x3" />
     <MESSAGE value="update order detail form" />
     <MESSAGE value="update nhieu cai hahah" />
-    <option name="LAST_COMMIT_MESSAGE" value="update nhieu cai hahah" />
+    <MESSAGE value="update pet (remove input id for update), order" />
+    <option name="LAST_COMMIT_MESSAGE" value="update pet (remove input id for update), order" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

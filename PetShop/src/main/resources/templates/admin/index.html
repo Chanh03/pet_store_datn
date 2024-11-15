@@ -297,8 +297,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- Thư viện XLSX -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-
 
 <script type="text/javascript">
     var colors = ['#AEC6CF', '#FFB7B2', '#C3B1E1', '#FFDAC1', '#FFB6C1', '#B5EAD7', '#FFDFBA', '#FDFD96', '#B3E5FC', '#FADADD'];
@@ -1115,6 +1113,29 @@
                     const wb = XLSX.utils.book_new();
                     XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data));
                     XLSX.writeFile(wb, "Danh sách người dùng.xlsx");
+                    Swal.fire({
+                        title: 'Thành công!',
+                        text: 'Đã xuất file Excel',
+                        icon: 'success',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                } catch (error) {
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: 'Có lỗi xảy ra khi xuất file Excel',
+                        icon: 'error',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                }
+            };
+            $scope.exportExcelOrder = function () {
+                try {
+                    // đang làm
+                    const wb = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet($scope.orderData));
+                    XLSX.writeFile(wb, "Danh sách đơn hàng.xlsx");
                     Swal.fire({
                         title: 'Thành công!',
                         text: 'Đã xuất file Excel',
