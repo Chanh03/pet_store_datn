@@ -80,7 +80,7 @@
                 <td sortable="'dateCreated'" filter="{ 'dateCreated': 'date' }"
                     data-title="'Ngày tạo'" class="text-center">{{ user.dateCreated | date: 'dd/MM/yyyy' }}
                 </td>
-                <td data-title="'Địa chỉ'" class="text-center text-truncate" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                <td data-title="'Địa chỉ'" class="text-center text-wrap" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                     {{ user.userAddress }}
                 </td>
                 <td data-title="'Số điện thoại'" class="text-center">{{ user.phoneNumber }}

@@ -102,9 +102,9 @@
                     <img height="100px" width="100px" ng-src="/images/pet/{{ pet.photo }}" alt="{{ pet.photo }}"
                          class="img-thumbnail pet-image">
                 </td>
-                <td sortable="'petID'" filter="{ 'petID': 'text' }" data-title="'Pet Id'">{{ pet.petID }}</td>
+                <td sortable="'petID'" class="text-wrap" filter="{ 'petID': 'text' }" data-title="'Pet Id'">{{ pet.petID }}</td>
                 <td sortable="'petCategoryID.petCategoryName'" filter="{ 'petCategoryID.petCategoryName': 'text' }"
-                    data-title="'Loài'" class="text-center">{{ pet.petCategoryID.petCategoryName }}
+                    data-title="'Loài'" class="text-center text-wrap">{{ pet.petCategoryID.petCategoryName }}
                 </td>
                 <td sortable="'breed'" filter="{ 'breed': 'text' }" data-title="'Giống'">{{ pet.breed }}</td>
                 <td sortable="'price'" filter="{ 'price': 'number' }" data-title="'Giá'">{{ pet.price | number :
