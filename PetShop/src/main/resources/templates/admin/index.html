@@ -295,18 +295,18 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- Thư viện XLSX -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 <script type="text/javascript">
     var colors = ['#AEC6CF', '#FFB7B2', '#C3B1E1', '#FFDAC1', '#FFB6C1', '#B5EAD7', '#FFDFBA', '#FDFD96', '#B3E5FC', '#FADADD'];
     /* Bôi màu cho menu hiện tại thoôi nhìn gì?*/
-    const currentUrl = window.location.pathname;
-    const links = document.querySelectorAll('.nav-link');
-    links.forEach(link => {
-        if (link.getAttribute('href') === currentUrl) {
-            link.classList.add('active', 'fw-bold');
-        }
+    $(document).ready(function () {
+        var url = window.location.href;
+        $('.nav-link').each(function () {
+            if (this.href === url) {
+                $(this).addClass('active');
+            }
+        });
     });
     /* Đây mới là phần chính của AngularJS nè =))*/
     var app = angular.module('myApp', ['ngRoute', 'ngTable']);
@@ -939,6 +939,27 @@
                     return true;
                 }
             };
+            $scope.orderChart = function () {
+                $http.get(baseUrl + 'order').then(function (response) {
+                    $scope.orderData = response.data;
+                    new Chart(document.getElementById('orderChart'), {
+                        type: 'line',
+                        data: {
+                            labels: $scope.orderData.map(order => order.orderDate.split('T')[0]),
+                            datasets: [{
+                                label: 'Tổng tiền đơn hàng',
+                                data: $scope.orderData.map(order => order.totalAmount),
+                                fill: true,
+                                borderColor: 'rgb(75, 192, 192)',
+                                tension: 0.3
+                            }]
+                        },
+                    });
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu order:', error);
+                });
+            }
+            $scope.orderChart();
             /*ORDER STATUS*/
             $scope.getOrderStatus = function () {
                 $http.get(baseUrl + 'orderStatus').then(function (response) {
@@ -1154,12 +1175,14 @@
                 }
             };
             // Lấy ngày giờ hiện tại
-            $scope.date = new Date().toLocaleString();
-            setInterval(function () {
-                $scope.$apply(function () {
-                    $scope.date = new Date().toLocaleString();
-                });
-            }, 1000);
+            $(document).ready(function () {
+                $scope.date = new Date().toLocaleString();
+                setInterval(function () {
+                    $scope.$apply(function () {
+                        $scope.date = new Date().toLocaleString();
+                    });
+                }, 1000);
+            });
 
             // Cập nhật tên ảnh khi chọn file
             $scope.updatePhotoPetName = function (input) {
