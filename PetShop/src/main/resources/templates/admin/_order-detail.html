@@ -70,7 +70,7 @@
                                             <label class="form-check-label w-100 d-flex align-items-center"
                                                    for="statusCheckbox{{$index}}"
                                                    ng-class="{
-                                                       'text-secondary': orderStatus.statusName === 'Đang xử lý',
+                                                       'text-info': orderStatus.statusName === 'Đang xử lý',
                                                        'text-primary': orderStatus.statusName === 'Đã xác nhận',
                                                        'text-warning': orderStatus.statusName === 'Đang vận chuyển',
                                                        'text-success': orderStatus.statusName === 'Đã giao',
@@ -79,7 +79,7 @@
                                                    }">
                                                 <span>{{orderStatus.statusName}}</span>
                                                 <i ng-if="orderStatus.statusName == orderDetailAll.orderStatusID.statusName"
-                                                   class="ms-2 fa-solid fa-angles-left text-success fs-3"></i>
+                                                   class="ms-2 fa-solid fa-angles-left fs-3"></i>
                                             </label>
                                         </div>
                                     </div>
