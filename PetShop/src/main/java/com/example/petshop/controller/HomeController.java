@@ -20,6 +20,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.io.Console;
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -55,19 +56,10 @@ public class HomeController {
 
 	@RequestMapping({ "/", "/trang-chu", "/home" })
 	public String home(Model model, Authentication authentication) {
+		List<Product> nextSixProducts = productService.getAllByCreatedDate();
+		List<Pet> nextSixPet = petService.getAllByCreatedDate();
 
-		List<Product> productsList = productService.getAll();
-		Product latestProduct = productsList.stream().max(Comparator.comparingInt(Product::getId))
-				.orElseThrow(() -> new NoSuchElementException("No product found"));
-		Collection<Product> nextSixProducts = productsList.stream().skip(1).limit(6).collect(Collectors.toList());
-		List<Pet> petList = petService.getAll();
-		Pet latestPet = petList.stream().max(Comparator.comparing(Pet::getPetID))
-				.orElseThrow(() -> new NoSuchElementException("No pet found"));
-		Collection<Pet> nextSixPet = petList.stream().skip(1).limit(6).toList();
-
-		model.addAttribute("firstProduct", latestProduct);
 		model.addAttribute("nextSixProducts", nextSixProducts);
-		model.addAttribute("firstPet", latestPet);
 		model.addAttribute("nextSixPet", nextSixPet);
 		model.addAttribute("productCategories", productCategoryService.getAll());
 		model.addAttribute("slides", slideBarService.getAll());
@@ -86,7 +78,6 @@ public class HomeController {
 		if (success) {
 			model.addAttribute("message", "Đăng nhập thành công!");
 			model.addAttribute("loginStatus", true);
-
 		}
 		return "security/login";
 	}
@@ -150,5 +141,28 @@ public class HomeController {
 	@RequestMapping("/cart-payMent")
 	public String cartPayMent(Model model) {
 		return "layout/_payMent";
+	}
+
+	@RequestMapping("/notifications")
+	public String notification(Model model) {
+		return "notificationDemo";
+	}
+
+	@RequestMapping("/history")
+	public String historyCart(Model model, Principal principal) {
+		try {
+			User userHistory = userService.findByUsername(principal.getName());
+			model.addAttribute("userHistory", userHistory);
+			return "/layout/_historyCart";
+		} catch (Exception e) {
+			return "redirect:/access-denied";
+		}
+	}
+
+	@RequestMapping("/history-detail")
+	public String historyCartDetail(Model model, Principal principal) {
+		User userHistoryDetail = userService.findByUsername(principal.getName());
+		model.addAttribute("userHistoryDetail", userHistoryDetail);
+		return "layout/_historyCartDetail";
 	}
 }

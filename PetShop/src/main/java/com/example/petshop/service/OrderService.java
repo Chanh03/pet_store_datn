@@ -14,4 +14,8 @@ public interface OrderService {
     Order save(Order order);
 
     void deleteById(Integer id);
+
+    List<Order> getHistory(String username);
+
+    Order getByOrderId(Integer id);
 }

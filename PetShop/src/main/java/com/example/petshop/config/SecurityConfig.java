@@ -29,58 +29,64 @@ public class SecurityConfig {
     @Autowired
     private UserServiceDetails userServiceDetails;
 
+    @Autowired
+    private CustomAccessDeniedHandle customAccessDeniedHandle;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable());
         http.cors(cors -> cors.disable());
 
         http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/").permitAll()
-                .requestMatchers("/quan-tri-he-thong/**").hasAnyRole("ADMIN", "STAFF")
-                .requestMatchers("/thanh-toan/**").authenticated()
-                .requestMatchers("/cart-payMent/**").authenticated()
-                .anyRequest().permitAll()
-            )
-            .formLogin(form -> form
-                .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/login?success=true", true)
-                .failureUrl("/login?error=true")
-            )
-            .oauth2Login(oauth2 -> oauth2
-                .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/login?success=true", true)
-                .failureUrl("/login?error=true")
-                .successHandler(oauth2AuthenticationSuccessHandler())
-                .authorizationEndpoint()
-                .baseUri("/oauth2/authorization")
-                .authorizationRequestRepository(getRepository())
-                .and().tokenEndpoint()
-                .accessTokenResponseClient(getToken())
-            )
-            .logout(logout -> logout
-                .logoutSuccessUrl("/login")
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-            )
-            .exceptionHandling(ex -> ex.accessDeniedPage("/access-denied"))
-            .rememberMe(rememberMe -> rememberMe
-                .key("uniqueAndSecret")
-                .tokenValiditySeconds(86400)
-                .userDetailsService(userServiceDetails)
-            )
-            .httpBasic(Customizer.withDefaults());
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/quan-tri-he-thong/**").hasAnyRole("ADMIN", "STAFF")
+                        .requestMatchers("/thanh-toan/**").authenticated()
+                        .requestMatchers("/cart-payMent/**").authenticated()
+                        .anyRequest().permitAll()
+                )
+                .exceptionHandling(ex -> ex
+                        .accessDeniedHandler(customAccessDeniedHandle)
+                )
+                .formLogin(form -> form
+                        .loginPage("/login").permitAll()
+                        .defaultSuccessUrl("/login?success=true", true)
+                        .failureUrl("/login?error=true")
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login").permitAll()
+                        .defaultSuccessUrl("/login?success=true", true)
+                        .failureUrl("/login?error=true")
+                        .successHandler(oauth2AuthenticationSuccessHandler())
+                        .authorizationEndpoint()
+                        .baseUri("/oauth2/authorization")
+                        .authorizationRequestRepository(getRepository())
+                        .and().tokenEndpoint()
+                        .accessTokenResponseClient(getToken())
+                )
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                )
+                .exceptionHandling(ex -> ex.accessDeniedPage("/access-denied"))
+                .rememberMe(rememberMe -> rememberMe
+                        .key("uniqueAndSecret")
+                        .tokenValiditySeconds(86400)
+                        .userDetailsService(userServiceDetails)
+                )
+                .httpBasic(Customizer.withDefaults());
         return http.build();
     }
-    
+
     @Bean
-    public AuthorizationRequestRepository<OAuth2AuthorizationRequest> getRepository(){
-    	return new HttpSessionOAuth2AuthorizationRequestRepository();
+    public AuthorizationRequestRepository<OAuth2AuthorizationRequest> getRepository() {
+        return new HttpSessionOAuth2AuthorizationRequestRepository();
     }
-    
+
     @Bean
-    public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> getToken(){
-    	return new DefaultAuthorizationCodeTokenResponseClient();
+    public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> getToken() {
+        return new DefaultAuthorizationCodeTokenResponseClient();
     }
 
     @Bean
@@ -100,6 +106,7 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
+
     @Bean
     public AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler() {
         return (request, response, authentication) -> {

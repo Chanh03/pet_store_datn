@@ -5,8 +5,12 @@ import com.example.petshop.repo.OrderStatusRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface OrderPayMentService{
 
     PaymentStatus findById(Integer payMent);
+
+    List<PaymentStatus> findAll();
 }

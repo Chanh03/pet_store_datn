@@ -8,25 +8,28 @@
 </head>
 
 <body>
-<div class="container-lg main-content px-3">
-    <div class="d-flex flex-column align-items-center justify-content-center mt-5 text-center" >
-        <div class="mb-3">
-            <!-- Icon centered above the message -->
-            <i class="fa-regular fa-envelope fa-3x text-danger"></i>
-        </div>
-        <div class="w-75 mb-3">
-            <!-- Activation message with centered text -->
-            <h3 id="activation-message" class="fw-bold font-resp text-danger">
-                Mã xác nhận đã gửi vào email của bạn thành công
-            </h3>
-        </div>
-        <!-- Button to open email -->
-        <div class="d-flex justify-content-center">
-            <a type="button" class="btn btn-outline-primary button-image" href="https://gmail.com/" target="_blank">
-                <i class="fa-solid fa-envelope-open-text"></i> Mở email của bạn
-            </a>
+<div class="container-lg main-content d-flex align-items-center justify-content-center px-3" style="min-height: 700px">
+    <div class="d-flex flex-column align-items-center justify-content-center mt-5 text-center">
+        <div class="card shadow-lg border-0 py-2 px-5" style="height: 500px; width: 800px;">
+            <div class="card-body">
+                <img src="/images/logo/success-noty.png" style="width: 300px" alt="">
+                <h1 class="text-danger fw-bold">
+                    THÀNH CÔNG
+                </h1>
+                <h5 class="text-muted">Vui lòng kiểm tra email để xác nhận tài khoản.</h5>
+                <div class="mt-5">
+                    <a type="button" class="btn btn-outline-primary button-image w-50" href="https://gmail.com/"
+                       target="_blank">
+                        <i class="fa-solid fa-envelope-open-text"></i> Mở email của bạn
+                    </a>
+                    <a type="button" class="" href="https://gmail.com/" target="_blank">
+                        Chưa nhận được email? Click vào đây
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 </body>
 </html>

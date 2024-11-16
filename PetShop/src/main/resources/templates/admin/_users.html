@@ -63,7 +63,7 @@
         <div class="d-flex position-absolute gap-4" style="right: 45px;top: 83px">
             <button ng-click="clearUserFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
         </div>
-        <table ng-table="usersTable" class="table table-responsive rounded-3 table-hover table-sm  p-5"
+        <table ng-table="usersTable" class="table text-truncate table-responsive rounded-3 table-hover table-sm  p-5"
                show-filter="true">
             <tr ng-repeat="user in $data" class="align-middle">
                 <!-- STT tính toán dựa trên trang hiện tại -->
@@ -72,14 +72,19 @@
                 </td>
                 <!--                <td sortable="'id'" data-title="'productID'">{{ product.id }}</td>-->
                 <td sortable="'fullName'" filter="{ 'fullName': 'text' }"
-                    data-title="'Họ và tên'" class="text-center">{{ user.fullName }}
+                    data-title="'Họ và tên'" class="text-start">
+                    <span class="text-primary fw-bold">
+                        {{ user.fullName }}
+                    </span>
                 </td>
                 <td sortable="'dateCreated'" filter="{ 'dateCreated': 'date' }"
                     data-title="'Ngày tạo'" class="text-center">{{ user.dateCreated | date: 'dd/MM/yyyy' }}
                 </td>
-                <td data-title="'Địa chỉ'" class="text-center">{{ user.userAddress | date: 'dd/MM/yyyy' }}
+                <td data-title="'Địa chỉ'" class="text-start text-wrap" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    {{ user.userAddress }}
+                </td>
                 <td data-title="'Số điện thoại'" class="text-center">{{ user.phoneNumber }}
-                <td data-title="'Email'" class="text-center">{{ user.email }}
+                <td data-title="'Email'" class="text-start">{{ user.email }}
                 </td>
                 <td sortable="'enable'" data-title="'Trạng thái'" class="text-center">
                     <div ng-if="user.enable" class="text-success">

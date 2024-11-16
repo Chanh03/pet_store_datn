@@ -1,13 +1,19 @@
 package com.example.petshop.service;
 
-import java.util.List;
-
+import com.example.petshop.entity.Review;
 import org.springframework.stereotype.Service;
 
-import com.example.petshop.entity.Review;
+import java.util.List;
 
 @Service
 public interface ReviewService {
+    List<Review> getReviewsByProductId(int id);
 
-	List<Review> getReviewsByProductId(int id);
+    List<Review> getAll();
+
+    List<Review> getRatingsByProductId(int id);
+
+    double getAverageRatingByProductId(int id);
+
+    boolean isOrdered(String username, int id);
 }

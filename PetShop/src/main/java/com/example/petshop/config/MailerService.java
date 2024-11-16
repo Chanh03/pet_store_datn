@@ -1,7 +1,6 @@
 package com.example.petshop.config;
 
 
-
 import java.util.Properties;
 import java.util.UUID;
 
@@ -44,9 +43,9 @@ public class MailerService implements IJavaMail {
             message.setSubject(subject);
             // Đoạn HTML để gửi email
             String htmlMessage = "<html><body>"
-                    + "<p>Chào "+ name +",</p>"
+                    + "<p>Chào " + name + ",</p>"
                     + "<p>Nhấn vào đường dẫn dưới đây để xác nhận email của bạn:</p>"
-                    + "<a href='http://localhost:8080/confirmation?confirmation_token="+uuid +"'>Confirm your email</a>"
+                    + "<a href='http://localhost:8080/confirmation?confirmation_token=" + uuid + "'>Confirm your email</a>"
                     + "</body></html>";
 
             // Gửi email với nội dung HTML
@@ -65,7 +64,6 @@ public class MailerService implements IJavaMail {
 
     @Override
     public boolean confirmChangePassword(String to, String subject, String messageContent, String name, String uuid) {
-        // Thiết lập thuộc tính SMTP
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -74,8 +72,6 @@ public class MailerService implements IJavaMail {
         props.setProperty("mail.smtp.port", "8080");
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.port", EmailProperty.TLS_PORT);
-
-        // Lấy phiên làm việc với Authenticator
         Session session = Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -84,22 +80,30 @@ public class MailerService implements IJavaMail {
         });
 
         try {
-            // Tạo tin nhắn email
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(EmailProperty.APP_EMAIL));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject(subject);
-            // Đoạn HTML để gửi email
-            String htmlMessage = "<html><body>"
-                    + "<p>Chào "+ name +",</p>"
-                    + "<p>Đây là đường link xác nhận đổi mật khẩu:</p>"
-                    + "<a href='http://localhost:8080/new-password/"+ name + "?token="+uuid +"'>Nhấn để đổi mật khẩu mới</a>"
-                    +"<p>Nếu bạn không phải là người yêu cầu cho việc làm này thì hãy bảo vệ thông tin tài khoản cá nhân, không để lộ cho người khác!</p>"
+            String htmlMessage = "<html><body style='font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;'>"
+                    + "<div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden;'>"
+                    + "  <div style='padding: 20px; background-color: #0066cc; color: #ffffff; text-align: center;'>"
+                    + "    <h1 style='margin: 0; font-size: 24px;'>Xác Nhận Đổi Mật Khẩu</h1>"
+                    + "  </div>"
+                    + "  <div style='padding: 20px;'>"
+                    + "    <p style='color: #333333;'>Chào " + name + ",</p>"
+                    + "    <p style='color: #333333; line-height: 1.6;'>Bạn đã yêu cầu đổi mật khẩu. Để xác nhận, vui lòng nhấp vào đường link dưới đây:</p>"
+                    + "    <p style='text-align: center;'>"
+                    + "      <a href='http://localhost:8080/new-password/" + name + "?token=" + uuid
+                    + "' style='display: inline-block; padding: 10px 20px; color: #ffffff; background-color: #0099ff; border-radius: 5px; text-decoration: none;'>Đổi mật khẩu mới</a>"
+                    + "    </p>"
+                    + "    <p style='color: #666666; font-size: 14px; line-height: 1.5;'>Nếu bạn không phải là người yêu cầu, hãy bỏ qua email này và bảo vệ thông tin tài khoản cá nhân.</p>"
+                    + "  </div>"
+                    + "  <div style='padding: 15px; background-color: #f0f0f0; color: #999999; text-align: center; font-size: 12px;'>"
+                    + "    <p style='margin: 0;'>© 2024 Công Ty ABC. Bảo mật thông tin của bạn là ưu tiên hàng đầu của chúng tôi.</p>"
+                    + "  </div>"
+                    + "</div>"
                     + "</body></html>";
-            // Gửi email với nội dung HTML
             message.setContent(htmlMessage, "text/html; charset=UTF-8");
-
-            // Gửi email
             Transport.send(message);
             System.out.println("Email đã được gửi thành công tới: " + to);
             return true;
@@ -108,6 +112,7 @@ public class MailerService implements IJavaMail {
             e.printStackTrace();
             return false;
         }
+
     }
 
 }

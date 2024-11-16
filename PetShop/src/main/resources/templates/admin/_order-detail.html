@@ -1,0 +1,150 @@
+<style>
+    input[type="file"] {
+        width: 90px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .bg-modal-header-color {
+    }
+</style>
+<!-- Modal -->
+<div class="modal fade" id="orderDetailModal" tabindex="-1" aria-labelledby="editProductLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-color">
+                <h5 class="modal-title" id="editProductLabel">Đơn đặt hàng #{{orderDetailAll.id}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body order-detail-modal">
+                <div ng-if="orderDetail.length">
+                    <div class="card border-0 mb-5">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header fw-bold bg-modal-header-color">Thông tin người dùng</div>
+                                    <div class="card-body">
+                                        <p><span class="text-muted">Họ tên:</span>
+                                            {{ orderDetailAll.userName.fullName }}</p>
+                                        <p><span class="text-muted">Email:</span>
+                                            {{ orderDetailAll.userName.email }}</p>
+                                        <p><span class="text-muted">SĐT:</span>
+                                            {{ orderDetailAll.userName.phoneNumber }}</p>
+                                        <p><span class="text-muted">Địa chỉ:</span>
+                                            {{ orderDetailAll.userName.userAddress }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header fw-bold bg-modal-header-color">Thông tin đơn hàng</div>
+                                    <div class="card-body">
+                                        <p><span class="text-muted">Ngày đặt:</span>
+                                            {{ orderDetailAll.orderDate | date: 'dd/MM/yyyy' }}</p>
+                                        <p><span class="text-muted">Tổng tiền:</span>
+                                            {{ orderDetailAll.totalAmount | number:'0' }}đ</p>
+                                        <p><span class="text-muted">Địa chỉ giao hàng:</span>
+                                            {{ orderDetailAll.shippingAddress }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header fw-bold bg-modal-header-color">Trạng thái đơn hàng</div>
+                                    <div class="card-body">
+                                        <div>
+                                            <h6 class="text-muted fst-italic">
+                                                Đơn hàng đã được đặt vào {{orderDetailAll.orderDate | date:
+                                                'dd/MM/yyyy'}}
+                                            </h6>
+                                        </div>
+                                        <div ng-repeat="orderStatus in orderStatusData" class="form-check ms-3">
+                                            <input type="radio" class="form-check-input"
+                                                   name="orderStatusRadio"
+                                                   id="statusCheckbox{{$index}}"
+                                                   ng-value="orderStatus.statusName"
+                                                   ng-checked="orderStatus.statusName == orderDetailAll.orderStatusID.statusName"
+                                                   ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, orderStatus.id)">
+                                            <label class="form-check-label w-100 d-flex align-items-center"
+                                                   for="statusCheckbox{{$index}}"
+                                                   ng-class="{
+                                                       'text-info': orderStatus.statusName === 'Đang xử lý',
+                                                       'text-primary': orderStatus.statusName === 'Đã xác nhận',
+                                                       'text-warning': orderStatus.statusName === 'Đang vận chuyển',
+                                                       'text-success': orderStatus.statusName === 'Đã giao',
+                                                       'text-danger': orderStatus.statusName === 'Hủy đơn',
+                                                       'fw-bold': orderStatus.statusName == orderDetailAll.orderStatusID.statusName
+                                                   }">
+                                                <span>{{orderStatus.statusName}}</span>
+                                                <i ng-if="orderStatus.statusName == orderDetailAll.orderStatusID.statusName"
+                                                   class="ms-2 fa-solid fa-angles-left fs-3"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header fw-bold bg-modal-header-color">Trạng thái thanh toán</div>
+                                    <div class="card-body">
+                                        <p>
+                                            <span class="badge" style="background-color: #fff9c4; color: #333;">{{ orderDetailAll.paymentStatusID.statusPayment }}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-5">
+                        <div class="card-header fw-bold bg-modal-header-color">Danh sách sản phẩm</div>
+                        <table class="table table-border border m-0 table-hover">
+                            <tr>
+                                <th class="text-center">STT</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                            <tr ng-repeat="od in orderDetail">
+                                <td class="text-center">
+                                    {{$index + 1}}
+                                </td>
+                                <td class="text-truncate" style="max-width: 100px">
+                                    {{od.productID.productName}}
+                                    <span>
+                                        <a href="/san-pham/{{od.productID.id}}"
+                                           target="_blank">(Xem)</a>
+                                    </span>
+                                </td>
+                                <td>
+                                    {{od.price | number: '0'}}đ
+                                </td>
+                                <td>
+                                    x{{od.quantity}}
+                                </td>
+                                <td>
+                                    {{od.price * od.quantity | number: '0'}}đ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold text-center" colspan="4">
+                                    Tổng
+                                </td>
+                                <td class="fw-bold">{{totalOrderPrice | number: '0'}}đ
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div ng-if="!orderDetail.length" class="text-center">
+                    <h4>Không có sản phẩm nào trong đơn hàng này</h4>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

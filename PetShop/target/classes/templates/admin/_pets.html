@@ -91,10 +91,9 @@
         <div class="d-flex position-absolute gap-4" style="right: 40px;top: 80px">
             <button ng-click="clearPetFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
         </div>
-        <table ng-table="petsTable" class="table table-responsive rounded-3 table-hover table-sm  p-5"
+        <table ng-table="petsTable" class="table table-responsive text-truncate rounded-3 table-hover table-sm  p-5"
                show-filter="true">
             <tr ng-repeat="pet in $data" class="align-middle">
-                <!-- STT tính toán dựa trên trang hiện tại -->
                 <td data-title="'#'" class="p-2 px-3 text-center">
                     <b>{{ (petsTable.page() - 1) * petsTable.count() + $index + 1 }}</b>
                 </td>
@@ -102,12 +101,17 @@
                     <img height="100px" width="100px" ng-src="/images/pet/{{ pet.photo }}" alt="{{ pet.photo }}"
                          class="img-thumbnail pet-image">
                 </td>
-                <td sortable="'petID'" filter="{ 'petID': 'text' }" data-title="'Pet Id'">{{ pet.petID }}</td>
+                <td sortable="'petID'" class="text-start text-wrap" filter="{ 'petID': 'text' }" data-title="'Pet Id'">{{ pet.petID }}</td>
                 <td sortable="'petCategoryID.petCategoryName'" filter="{ 'petCategoryID.petCategoryName': 'text' }"
-                    data-title="'Loài'" class="text-center">{{ pet.petCategoryID.petCategoryName }}
+                    data-title="'Loài'" class="text-start text-wrap">{{ pet.petCategoryID.petCategoryName }}
                 </td>
-                <td sortable="'breed'" filter="{ 'breed': 'text' }" data-title="'Giống'">{{ pet.breed }}</td>
-                <td sortable="'price'" filter="{ 'price': 'number' }" data-title="'Giá'">{{ pet.price }}</td>
+                <td sortable="'breed'"  class="text-start" filter="{ 'breed': 'text' }" data-title="'Giống'">{{ pet.breed }}</td>
+                <td sortable="'price'" filter="{ 'price': 'number' }" data-title="'Giá'">{{ pet.price | number :
+                    '0'}}đ
+                </td>
+                <td sortable="'createDate'" data-title="'Ngày thêm'">{{ pet.createDate |
+                    date: 'dd/MM/yyyy'}}
+                </td>
                 <td sortable="'gender'" data-title="'Giới tính'" class="text-center">
                     <span ng-if="pet.gender" class="badge bg-primary">Đực</span>
                     <span ng-if="!pet.gender" class="badge bg-warning">Cái</span>

@@ -6,37 +6,30 @@
     <title>Title</title>
 </head>
 
-<body >
+<body>
 
 <!--SLIDE-->
 <div class="row g-0">
-    <div class="col-lg-8">
-        <!-- Shaders slider -->
+    <div class="col-12">
         <div class="swiper swiper-container-banner">
             <div class="swiper-wrapper">
                 <div th:each="s : ${slides}" class="swiper-slide">
-                    <!-- shaders image must be a direct child of the slide and have additional "swiper-gl-image" class  -->
                     <img loading="lazy" class="swiper-gl-image w-100"
                          th:src="@{/images/slide/{photo}(photo = ${s.sliderImage})}" th:alt="${s.sliderImage}">
                 </div>
             </div>
 
-            <div class="swiper-button-prev swiper-button-next-banner"></div>
+            <div class="swiper-button-prev swiper-button-prev-banner"></div>
             <div class="swiper-button-next swiper-button-next-banner"></div>
             <div class="swiper-pagination swiper-pagination-banner"></div>
         </div>
-    </div>
-
-    <div class="col-lg-4 d-flex flex-column">
-        <img src="/images/slide/cn1.jpg" alt="Image 1" class="img-fluid mb-3" style="height: 50%;">
-        <img src="/images/slide/cn2.jpg" alt="Image 2" class="img-fluid" style="height: 50%;">
     </div>
 </div>
 <!--SLIDE END-->
 
 <!--BANNER-->
 <div class="d-flex justify-content-center">
-    <img loading="lazy" class="w-100" src="/images/banner/advertise.png" alt="banner" style="object-fit: cover;">
+    <img loading="lazy" class="w-100" src="/images/banner/banner-sieu-xin.webp" alt="banner" style="object-fit: cover;">
 </div>
 <!--BANNER END-->
 <!--TIEN ICH-->
@@ -80,12 +73,12 @@
 </div>
 <!--TIEN ICH END-->
 <!--THU CUNG MOI-->
-<div class="row my-3 g-4 d-flex align-items-center">
+<div class="row my-3 g-3 d-flex align-items-center px-2">
     <h1 class="color fw-bold text-center">THÚ CƯNG MỚI</h1>
     <div class="col-lg-5 col-md-5 position-relative">
-        <div class="d-flex justify-content-center position-relative overflow-hidden rounded-5 shadow p-3">
-            <img loading="lazy" class="w-100 card-image" th:src="@{/images/pet/{photo}(photo=${firstPet.photo})}"
-                 th:alt="${firstPet.photo}">
+        <div class="d-flex justify-content-center position-relative overflow-hidden rounded-5 shadow">
+            <img loading="lazy" class="w-100 card-image" src="/images/banner/advertise-vertical-1.webp"
+                 alt="">
             <button class="btn rounded-5 px-4 btn-outline-danger position-absolute button-image"
                     style="bottom: 10%; left: 50%; transform: translateX(-50%)">
                 <span class="fw-bold m-0">Xem thêm</span>
@@ -93,14 +86,16 @@
         </div>
     </div>
     <div class="col-lg-7 col-md-7">
-        <div class="row g-3">
+        <div class="row g-2">
             <!--ITEMS-->
             <div th:each="pet : ${nextSixPet}" class="col-lg-4 col-md-6 col-sm-6 col-6">
                 <a class="nav-link" th:href="@{/pet/detail/{id}(id=${pet.petID})}">
                     <div class="card card-hover border-0 position-relative">
-                        <div class="overflow-hidden rounded-5 p-3 button-image" style="background-color: #f7f7f5; height: 250px; display: flex; align-items: center; justify-content: center;">
+                        <div class="overflow-hidden rounded-5 button-image"
+                             style="background-color: #f7f7f5; display: flex; align-items: center; justify-content: center;">
                             <img loading="lazy" th:src="@{/images/pet/{photo}(photo=${pet.photo})}"
-                                 class="card-img-top card-image" alt="pet" style="max-width: 100%; max-height: 100%; object-fit: cover;">
+                                 class="card-img-top card-image" alt="pet"
+                                 style="max-width: 300px; max-height: 300px; object-fit: cover;">
                         </div>
                         <div class="badge bg-warning position-absolute" style="top: 0; right: 0; z-index: 1000;">
                             <h5 class="m-0">New</h5>
@@ -129,9 +124,39 @@
          style="object-fit: cover;">
 </div>
 <!--BANNER END-->
+<!--LOAI SP DANH CHO THU CUNG-->
+<div class="container my-5 overflow-hidden">
+    <h1 class="color fw-bold text-center mb-4">LOẠI SẢN PHẨM DÀNH CHO THÚ CƯNG</h1>
+    <!-- Swiper -->
+    <div class="swiper-container position-relative">
+        <div class="swiper-wrapper">
+            <!--ITEMS-->
+            <div th:each="pc : ${productCategories}" class="swiper-slide">
+                <a href="/filter" class="nav-link">
+                    <div class="card card-hover border-0 d-flex justify-content-center align-items-center">
+                        <div class="overflow-hidden button-image"
+                             style="background-color: #f7f7f5; border-radius: 50%; width: 100%; height: 100%;">
+                            <img loading="lazy" th:src="@{/images/product_category/{photo}(photo=${pc.photo})}"
+                                 class="card-img-top card-image img-fluid" th:alt="${pc.photo}">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 th:text="${pc.productCategoryName}" class="">Tên loại sản phẩm</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- Nút điều hướng -->
+        <div class="swiper-button-next color" style="position: absolute;top: 35%"></div>
+        <div class="swiper-button-prev color" style="position: absolute;top: 35%"></div>
+        <!-- Thanh phân trang -->
+        <div class="swiper-pagination color" style="position: static"></div>
+    </div>
+</div>
+<!--LOAI SP DANH CHO THU CUNG END-->
 <!--SP NOI BAT-->
-<div class="row my-3 g-4 d-flex align-items-center">
-    <h1 class="color fw-bold text-center">SẢN PHẨM NỔI BẬT</h1>
+<div class="row my-3 g-3 d-flex align-items-center px-2">
+    <h1 class="color fw-bold text-center">SẢN PHẨM MỚI</h1>
     <div class="col-lg-5 col-md-5 position-relative sticky-top sticky-element">
         <div class=" d-flex justify-content-center position-relative overflow-hidden shadow p-3 ">
             <div class="position-absolute text-center d-flex justify-content-center align-items-center gap-2"
@@ -151,21 +176,25 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-7 col-md-7" >
-        <div class="row g-3">
+    <div class="col-lg-7 col-md-7">
+        <div class="row g-2">
             <!--ITEMS-->
             <div th:each="product : ${nextSixProducts}" class="col-lg-4 col-md-6 col-sm-6 col-6">
-                <div class="card card-hover border-0 ">
-                    <div class="p-3 position-relative button-image add-to-cart-container" style="background-color: #f7f7f5">
+                <div class="card card-hover border-0">
+                    <div class="position-relative button-image add-to-cart-container"
+                         style="background-color: #f7f7f5">
                         <div class="overflow-hidden p-0 position-relative">
                             <a class="nav-link" th:href="@{/product/detail/{id}(id=${product.id})}">
-                                <img loading="lazy" th:src="@{/images/product/{photo}(photo=${product.photo})}" class="card-img-top card-image" alt="product">
+                                <img loading="lazy" th:src="@{/images/product/{photo}(photo=${product.photo})}"
+                                     class="card-img-top card-image" alt="product">
                             </a>
                         </div>
                         <div class="badge position-absolute" style="top: 0; right: 0; z-index: 1000;">
                             <img src="/images/logo/hot-badge.png" alt="hot-badge" style="width: 50px;">
                         </div>
-                        <a  th:attr="ng-click=${'cart.add(' + product.id + ')'}" class="btn background-color button-image-white add-to-cart w-100 py-3 rounded-0 position-absolute" style="bottom: 0; left: 0; z-index: 1001;">
+                        <a th:attr="ng-click=${'cart.add(' + product.id + ')'}"
+                           class="btn background-color button-image-white add-to-cart w-100 py-3 rounded-0 position-absolute"
+                           style="bottom: 0; left: 0; z-index: 1001;">
                             <h5 class="text-white m-0">
                                 <span>Thêm vào giỏ</span> <i class="fas fa-cart-plus"></i>
                             </h5>
@@ -181,7 +210,9 @@
                             <i class="fa-solid fa-star"></i>
                         </div>
                         <h5 class="" th:text="${product.productName}">ten sp</h5>
-                        <h4 class="color fw-bold" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">100.000đ</h4>
+                        <h4 class="color fw-bold"
+                            th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">
+                            100.000đ</h4>
                     </div>
                 </div>
             </div>
@@ -196,39 +227,8 @@
     </div>
 </div>
 <!--SP NOI BAT END-->
-<!--LOAI SP DANH CHO THU CUNG-->
-<div class="container my-5 overflow-hidden">
-    <h1 class="color fw-bold text-center mb-4">LOẠI SẢN PHẨM DÀNH CHO THÚ CƯNG</h1>
-    <!-- Swiper -->
-    <div class="swiper-container position-relative">
-        <div class="swiper-wrapper">
-            <!--ITEMS-->
-            <div th:each="pc : ${productCategories}" class="swiper-slide">
-                <a href="/filter" class="nav-link">
-                    <div class="card card-hover border-0 d-flex justify-content-center align-items-center">
-                        <div class="overflow-hidden p-3 button-image"
-                             style="background-color: #f7f7f5; border-radius: 50%; width: 100%; height: 100%;">
-                            <img loading="lazy" th:src="@{/images/product_category/{photo}(photo=${pc.photo})}"
-                                 class="card-img-top card-image" th:alt="${pc.photo}">
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 th:text="${pc.productCategoryName}" class="">Tên loại sản phẩm</h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <!-- Nút điều hướng -->
-        <div class="swiper-button-next color" style="position: absolute;top: 35%"></div>
-        <div class="swiper-button-prev color" style="position: absolute;top: 35%"></div>
-        <!-- Thanh phân trang -->
-        <div class="swiper-pagination color" style="position: static"></div>
-    </div>
-</div>
-
-<!--LOAI SP DANH CHO THU CUNG END-->
 <!--FEEDBACK-->
-<div class="row my-3 g-4 d-flex align-items-center">
+<div class="row my-3 g-4 d-flex align-items-center px-2">
     <div class="col-lg-6">
         <div class="card position-relative">
             <img loading="lazy" src="/images/banner/vertical-banner-placeholder.png" class="" alt="feedback">
@@ -349,12 +349,11 @@
 <!--FEEDBACK END-->
 
 <!-- DỊCH VỤ -->
-<div class="my-3">
-    <h1 class="m-0 color fw-bold">Dịch vụ của chúng tôi</h1>
-    <div class="line background-color" style="height: 5px;"></div>
-</div>
-
-<div class="row justify-content-center g-3">
+<div class="row justify-content-center g-3 px-2">
+    <div class="my-3">
+        <h1 class="m-0 color fw-bold">Dịch vụ của chúng tôi</h1>
+        <div class="line background-color" style="height: 5px;"></div>
+    </div>
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="card border-0 shadow p-3">
             <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
@@ -400,11 +399,9 @@
     </div>
 </div>
 <!-- <DỊCH VỤ END> -->
-
-
 <!--DANG KY NHAN THONG TIN MOI NHAT-->
 <div class="row g-0 py-3">
-    <div class="my-3">
+    <div class="my-3 px-2">
         <h1 class="m-0 color fw-bold">Đăng ký nhận thông tin mới nhất</h1>
         <div class="line background-color" style="height: 5px;"></div>
     </div>
@@ -450,69 +447,34 @@
 <!--DANG KY NHAN THONG TIN MOI NHAT END-->
 
 <!-- Nhân viên chăm sóc khách hàng -->
-<div class="my-3">
-    <h1 class="m-0 color fw-bold">Nhân viên chăm sóc khách hàng</h1>
-    <div class="line background-color" style="height: 5px;"></div>
-</div>
-
-<div class="row justify-content-center g-3">
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="card border-0 shadow p-3">
-            <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
-                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                     style="object-fit: cover;">
-            </div>
-            <div class="card-body text-center p-2">
-                <h5 class="color fw-bold">Nguyễn Văn A</h5>
-                <p class="text-body-tertiary">Chăm sóc khách hàng</p>
-                <p class="text-body-tertiary">Email: anc@gmail.com</p>
-                <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
-            </div>
-        </div>
+<div class="row justify-content-center g-3 px-2 mb-3">
+    <div class="my-3">
+        <h1 class="m-0 color fw-bold">Nhân sự</h1>
+        <div class="line background-color" style="height: 5px;"></div>
     </div>
-
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="card border-0 shadow p-3">
             <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
                 <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
                      style="object-fit: cover;">
             </div>
-            <div class="card-body text-center p-2">
-                <h5 class="color fw-bold">Nguyễn Văn A</h5>
-                <p class="text-body-tertiary">Chăm sóc khách hàng</p>
-                <p class="text-body-tertiary">Email: anc@gmail.com</p>
-                <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="card border-0 shadow p-3">
-            <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
-                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                     style="object-fit: cover;">
-            </div>
-            <div class="card-body text-center p-2">
-                <h5 class="color fw-bold">Nguyễn Văn A</h5>
-                <p class="text-body-tertiary">Chăm sóc khách hàng</p>
-                <p class="text-body-tertiary">Email: anc@gmail.com</p>
-                <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="w-100 my-4"></div>
-
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="card border-0 shadow p-3">
-            <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
-                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                     style="object-fit: cover;">
-            </div>
-            <div class="card-body text-center p-2">
-                <h5 class="color fw-bold">Nguyễn Văn A</h5>
-                <p class="text-body-tertiary">Chăm sóc khách hàng</p>
-                <p class="text-body-tertiary">Email: anc@gmail.com</p>
+            <div class="card-body p-2">
+                <h5 class="color fw-bold d-flex justify-content-center gap-2 align-items-center">
+                    <span>Ngô Viêt Anh</span>
+                    <span class="badge bg-success">Admin</span>
+                </h5>
+                <span>
+                    Vai trò: Quản trị viên
+                </span>
+                <ul>
+                    <li>
+                        Thiết kế FE (Figma) và code FE (Trang chủ, Giỏ hàng, ADMIN, Login, Module)
+                    </li>
+                    <li>
+                        Code BE (Entity, Repository, Service (và Implement), Controller, Security)
+                    </li>
+                </ul>
+                <p class="text-body-tertiary">Email: anhnvps30934@fpt.edu.vn</p>
                 <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
             </div>
         </div>
@@ -523,10 +485,104 @@
                 <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
                      style="object-fit: cover;">
             </div>
-            <div class="card-body text-center p-2">
-                <h5 class="color fw-bold">Nguyễn Văn A</h5>
-                <p class="text-body-tertiary">Chăm sóc khách hàng</p>
-                <p class="text-body-tertiary">Email: anc@gmail.com</p>
+            <div class="card-body p-2">
+                <h5 class="color fw-bold d-flex justify-content-center gap-2 align-items-center">
+                    <span>Ngô Viêt Anh</span>
+                    <span class="badge bg-success">Admin</span>
+                </h5>
+                <span>
+                    Vai trò: Quản trị viên
+                </span>
+                <ul>
+                    <li>
+                        Thiết kế FE (Figma) và code FE (Trang chủ, Giỏ hàng, ADMIN, Login, Module)
+                    </li>
+                    <li>
+                        Code BE (Entity, Repository, Service (và Implement), Controller, Security)
+                    </li>
+                </ul>
+                <p class="text-body-tertiary">Email: anhnvps30934@fpt.edu.vn</p>
+                <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card border-0 shadow p-3">
+            <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
+                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
+                     style="object-fit: cover;">
+            </div>
+            <div class="card-body p-2">
+                <h5 class="color fw-bold d-flex justify-content-center gap-2 align-items-center">
+                    <span>Ngô Viêt Anh</span>
+                    <span class="badge bg-success">Admin</span>
+                </h5>
+                <span>
+                    Vai trò: Quản trị viên
+                </span>
+                <ul>
+                    <li>
+                        Thiết kế FE (Figma) và code FE (Trang chủ, Giỏ hàng, ADMIN, Login, Module)
+                    </li>
+                    <li>
+                        Code BE (Entity, Repository, Service (và Implement), Controller, Security)
+                    </li>
+                </ul>
+                <p class="text-body-tertiary">Email: anhnvps30934@fpt.edu.vn</p>
+                <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card border-0 shadow p-3">
+            <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
+                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
+                     style="object-fit: cover;">
+            </div>
+            <div class="card-body p-2">
+                <h5 class="color fw-bold d-flex justify-content-center gap-2 align-items-center">
+                    <span>Ngô Viêt Anh</span>
+                    <span class="badge bg-success">Admin</span>
+                </h5>
+                <span>
+                    Vai trò: Quản trị viên
+                </span>
+                <ul>
+                    <li>
+                        Thiết kế FE (Figma) và code FE (Trang chủ, Giỏ hàng, ADMIN, Login, Module)
+                    </li>
+                    <li>
+                        Code BE (Entity, Repository, Service (và Implement), Controller, Security)
+                    </li>
+                </ul>
+                <p class="text-body-tertiary">Email: anhnvps30934@fpt.edu.vn</p>
+                <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card border-0 shadow p-3">
+            <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
+                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
+                     style="object-fit: cover;">
+            </div>
+            <div class="card-body p-2">
+                <h5 class="color fw-bold d-flex justify-content-center gap-2 align-items-center">
+                    <span>Ngô Viêt Anh</span>
+                    <span class="badge bg-success">Admin</span>
+                </h5>
+                <span>
+                    Vai trò: Quản trị viên
+                </span>
+                <ul>
+                    <li>
+                        Thiết kế FE (Figma) và code FE (Trang chủ, Giỏ hàng, ADMIN, Login, Module)
+                    </li>
+                    <li>
+                        Code BE (Entity, Repository, Service (và Implement), Controller, Security)
+                    </li>
+                </ul>
+                <p class="text-body-tertiary">Email: anhnvps30934@fpt.edu.vn</p>
                 <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
             </div>
         </div>

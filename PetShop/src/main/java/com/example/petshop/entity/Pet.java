@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -28,6 +30,9 @@ public class Pet {
     @NotNull
     @Column(name = "Age", nullable = false)
     private Integer age;
+
+    @Column(name = "CreateDate", nullable = false)
+    private LocalDateTime createDate;
 
     @NotNull
     @Column(name = "Gender", nullable = false)

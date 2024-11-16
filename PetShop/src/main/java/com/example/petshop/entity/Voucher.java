@@ -19,11 +19,6 @@ public class Voucher {
     @Column(name = "VoucherID", nullable = false, length = 50)
     private String voucherID;
 
-    @Size(max = 50)
-    @NotNull
-    @Column(name = "Code", nullable = false, length = 50)
-    private String code;
-
     @NotNull
     @Column(name = "Discount", nullable = false)
     private Integer discount;
