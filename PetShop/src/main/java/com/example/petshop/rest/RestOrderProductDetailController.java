@@ -20,6 +20,10 @@ public class RestOrderProductDetailController {
     @Autowired
     private OrderService orderService;
 
+    @GetMapping
+    public List<OrderProductDetail> all(){
+        return orderProductDetailService.getAll();
+    }
 
     @GetMapping("/{id}")
     public List<OrderProductDetail> getAll(@PathVariable("id") Integer id) {

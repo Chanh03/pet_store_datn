@@ -19,8 +19,14 @@ public class RestReviewController {
     public List<Review> getAll() {
         return reviewService.getAll();
     }
+
     @GetMapping("/{id}")
     public List<Review> getReviewsByProductId(@PathVariable int id) {
         return reviewService.getReviewsByProductId(id);
+    }
+
+    @PostMapping
+    public Review addReview(@RequestBody Review review) {
+        return reviewService.save(review);
     }
 }

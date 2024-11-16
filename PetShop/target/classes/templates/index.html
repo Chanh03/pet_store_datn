@@ -210,6 +210,9 @@
             background: -webkit-linear-gradient(121deg, rgba(71, 74, 255, 0) 0%, #ff8383 50%, rgba(255, 255, 255, 0) 100%);
             background: linear-gradient(121deg, rgba(71, 74, 255, 0) 0%, #ff8383 50%, rgba(255, 255, 255, 0) 100%);
         }
+
+
+
     </style>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
@@ -359,7 +362,7 @@
                     if (item) {
                         if (item.quantity < productQuantity) {
                             item.quantity++;
-                        } else{
+                        } else {
                             item.quantity = productQuantity
                             new Notify({
                                 title: `Số lượng sản phẩm: ${item.productName} đã đạt giới hạn`,
@@ -629,7 +632,7 @@
                 }
             });
         };
-        
+
         // $scope.checkout = function () {
         //     const username = document.getElementById("username_auth").textContent;
         //     $http.get("/api/user/" + username).then(function (response) {
@@ -686,6 +689,7 @@
         //         console.log("Lỗi khi order", error);
         //     });
         // }
+
         //history
         $scope.getOrderHistory = function () {
             $http.get("/api/order/history")
@@ -697,7 +701,16 @@
                 });
         };
 
+        $scope.updatePaymentStatus = function (history) {
+            if (history.orderStatusID.statusName === 'Đã giao') {
+                history.paymentStatusID = {statusPayment: 2};
+            } else {
+                history.paymentStatusID = {statusPayment: 1};
+            }
+        };
+
         $scope.getOrderHistory();
+
         /*HISTORY ORDER DETAIL*/
         $scope.getHistoryOrderDetail = function (orderId) {
             $http.get("/api/order-detail/" + orderId)
@@ -708,8 +721,9 @@
                 .catch(function (error) {
                     console.error("Lỗi khi lấy chi tiết đơn hàng", error);
                 });
-            var orderDetailModal = new bootstrap.Modal(document.getElementById('historyOrderDetail'), {
-                keyboard: true
+            const orderDetailModal = new bootstrap.Modal(document.getElementById('historyOrderDetail'), {
+                backdrop: 'static',
+                keyboard: false
             });
             orderDetailModal.show();
         };
@@ -744,6 +758,51 @@
                         });
                 }
             });
+        };
+        $scope.reviewData = {};
+
+        $scope.review = function () {
+            const username = document.getElementById("username_auth").textContent;
+            const productID = document.getElementById("productID").textContent;
+
+            Promise.all([
+                $http.get("/api/user/" + username),
+                $http.get("/api/product/" + productID)
+            ])
+                .then(function (response) {
+                    $scope.reviewData.username = response[0].data;
+                    $scope.reviewData.productID = response[1].data;
+                })
+                .catch(function (error) {
+                    console.error("Loi khong lay duoc product user", error);
+                });
+
+            const reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'), {
+                backdrop: 'static',
+                keyboard: false
+            });
+            reviewModal.show();
+        };
+
+        $scope.submitReview = function () {
+            const currentDate = new Date();
+
+            const review = {
+                comment: $scope.reviewData.comment,
+                username: $scope.reviewData.username,
+                productID: $scope.reviewData.productID,
+                rating: $scope.reviewData.rating,
+                reviewDate: currentDate
+            };
+            console.log($scope.reviewData)
+
+            $http.post("/api/review", review)
+                .then(function (response) {
+                    console.log("Review san pham thanh cong", response.data);
+                })
+                .catch(function (error) {
+                    console.error("Loi review", error);
+                });
         };
 
     });

@@ -157,10 +157,4 @@ public class HomeController {
         }
     }
 
-    @RequestMapping("/history-detail")
-    public String historyCartDetail(Model model, Principal principal) {
-        User userHistoryDetail = userService.findByUsername(principal.getName());
-        model.addAttribute("userHistoryDetail", userHistoryDetail);
-        return "layout/_historyCartDetail";
-    }
 }

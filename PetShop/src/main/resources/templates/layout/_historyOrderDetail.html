@@ -1,12 +1,16 @@
-<style>
-    input[type="file"] {
-        width: 90px;
-        overflow: hidden;
-        cursor: pointer;
-    }
-</style>
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
 <!-- Modal -->
-<div class="modal fade" id="historyOrderDetail" tabindex="-1" aria-labelledby="editProductLabel" aria-hidden="true">
+<div class="modal fade" id="historyOrderDetail" tabindex="1" aria-labelledby="editProductLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header bg-color">
@@ -27,6 +31,7 @@
                                 <th>Giá</th>
                                 <th>Số lượng</th>
                                 <th>Thành tiền</th>
+                                <th>Đánh giá</th>
                             </tr>
                             <tr class="align-middle" ng-repeat="od in historyOrderDetail">
                                 <td class="text-center">
@@ -36,6 +41,9 @@
                                     <img ng-src="/images/product/{{od.productID.photo}}"
                                          alt="{{od.productID.productName}}"
                                          class="img-fluid" width="100">
+                                </td>
+                                <td id="productID" hidden="">
+                                    {{od.productID.id}}
                                 </td>
                                 <td>
                                     {{od.productID.productName}}
@@ -49,6 +57,17 @@
                                 <td>
                                     {{od.price * od.quantity | number: '0'}}đ
                                 </td>
+                                <td>
+                                    <button ng-if="od.orderID.paymentStatusID.id == 2"
+                                            ng-click="review()">
+                                        <h5 class=" m-0 mx-1 my-2">Đánh giá sản phẩm</h5>
+                                    </button>
+                                    <button ng-if="od.orderID.paymentStatusID.id == 1"
+                                            ng-click="">
+                                        <h5 class=" m-0 mx-1 my-2">Vui lòng thanh toán</h5>
+                                    </button>
+                                </td>
+
                             </tr>
                             <tr>
                                 <td class="fw-bold text-center" colspan="4">
@@ -60,6 +79,9 @@
                         </table>
                     </div>
                 </div>
+                <div sec:authorize="isAuthenticated()">
+                    <span id="username_auth" hidden="hidden" th:text="${#authentication.getName()}"></span>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
@@ -67,3 +89,7 @@
         </div>
     </div>
 </div>
+</body>
+</html>
+
+

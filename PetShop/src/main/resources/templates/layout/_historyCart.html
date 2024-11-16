@@ -75,7 +75,7 @@
         <div ng-repeat="history in orderHistory | orderBy: '-orderDate'"
              class="row card shadow p-3 mb-3 nav-link order-history-hover">
             <div class="col-12">
-                <div class="row" type="button" ng-click="getHistoryOrderDetail(history.id)">
+                <div class="row" type="button" ng-click="getHistoryOrderDetail(history.id)" data-bs-toggle="modal" data-bs-target="#historyOrderDetail">
                     <div class="col-8">
                         <div class="flex-grow-1">
                             <span class="text-danger fw-bold">ID: {{history.id}}</span>
@@ -86,7 +86,7 @@
                     </div>
                     <div class="col-4">
                         <div class="text-end">
-                            <h5 class="badge"
+                            <h5 class="badge" id="statusName"
                                 ng-class="{
                                     'bg-info': history.orderStatusID.statusName === 'Đang xử lý',
                                     'bg-primary': history.orderStatusID.statusName === 'Đã xác nhận',
@@ -106,8 +106,20 @@
                 <div class="row mt-5 mb-2">
                     <div class="col-12 d-flex align-items-center justify-content-end gap-3">
                         <div class="btn btn-outline-dark disabled">
-                            <h5 class=" m-0 mx-1 my-2">{{history.paymentStatusID.statusPayment}}</h5>
+                            <h5 ng-init="updatePaymentStatus(history)" ng-class="{
+                                'text-success': history.paymentStatusID.statusPayment == 2,
+                                'text-danger': history.paymentStatusID.statusPayment == 1
+                            }">
+                                {{ history.paymentStatusID.statusPayment == 2 ? 'Thanh toán thành công' : 'Chưa thanh
+                                toán' }}
+                            </h5>
                         </div>
+                        <button ng-if="history.paymentStatusID.statusPayment == 2"
+                                class="btn btn-danger"
+                                ng-click="getHistoryOrderDetail(history.id)"
+                                data-bs-toggle="modal" data-bs-target="#historyOrderDetail">
+                            <h5 class=" m-0 mx-1 my-2">Đánh giá sản phẩm</h5>
+                        </button>
                         <button ng-if="history.orderStatusID.statusName === 'Đang xử lý'"
                                 class="btn btn-danger"
                                 ng-click="deleteHistory(history.id)">
