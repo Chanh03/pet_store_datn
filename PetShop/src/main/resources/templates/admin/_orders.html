@@ -38,6 +38,7 @@
                             . trên tổng số
                             <span class="">{{orderData.length}}</span>
                             <span class="fs-6 badge bg-info">{{ (dangXuLiLength / orderData.length * 100) | number:2 }}%</span>
+                        </h6>
                     </div>
                 </div>
             </div>
@@ -50,6 +51,7 @@
                             . trên tổng số
                             <span class="">{{orderData.length}}</span>
                             <span class="fs-6 badge bg-primary">{{ (daXacNhanLength / orderData.length * 100) | number:2 }}%</span>
+                        </h6>
                     </div>
                 </div>
             </div>
@@ -62,6 +64,7 @@
                             . trên tổng số
                             <span class="">{{orderData.length}}</span>
                             <span class="fs-6 badge bg-warning text-dark">{{ (dangVanChuyenLength / orderData.length * 100) | number:2 }}%</span>
+                        </h6>
                     </div>
                 </div>
             </div>
@@ -74,6 +77,7 @@
                             . trên tổng số
                             <span class="">{{orderData.length}}</span>
                             <span class="fs-6 badge bg-success">{{ (daGiaoLength / orderData.length * 100) | number:2 }}%</span>
+                        </h6>
                     </div>
                 </div>
             </div>
@@ -86,13 +90,14 @@
                             . trên tổng số
                             <span class="">{{orderData.length}}</span>
                             <span class="fs-6 badge bg-danger">{{ (daHuyLength / orderData.length * 100) | number:2 }}%</span>
+                        </h6>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="text-center mt-1 mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
-        <div class="d-flex position-absolute gap-4" style="right: 25px;top: 83px">
+        <div class="d-flex position-absolute gap-4" style="right: 35px;top: 83px">
             <button ng-click="clearOrderFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
         </div>
         <table ng-table="ordersTable" class="table text-truncate table-responsive rounded-3 table-hover table-sm  p-5"
@@ -152,6 +157,17 @@
                             Hủy đơn
                         </option>
                     </select>
+                </td>
+                <td sortable="'paymentStatusID.statusPayment'" filter="{ 'paymentStatusID.statusPayment': 'text' }"
+                    data-title="'Trạng thái thanh toán'" class="text-center">
+                    <span ng-if="order.paymentStatusID.id === 1" class="badge bg-warning">
+                        <i class="fa-solid fa-loading"></i>
+                        <span>{{ order.paymentStatusID.statusPayment }}</span>
+                    </span>
+                    <span ng-if="order.paymentStatusID.id === 2" class="badge bg-success">
+                        <i class="fa-solid fa-loading"></i>
+                        <span>{{ order.paymentStatusID.statusPayment }}</span>
+                    </span>
                 </td>
                 <td data-title="'Xem'" class="text-center">
                     <button ng-click="openOrderDetailModal(order.id)" class="btn open-order-detail-button">

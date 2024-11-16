@@ -53,6 +53,10 @@ public class RestOrderController {
     @PutMapping("/{order-id}/{order-status}")
     public Order updateStatus(@PathVariable("order-id") Integer id, @PathVariable("order-status") Integer orderStatus) {
         Order order = orderService.getById(id);
+        if (orderStatus == 4) { // Order đã giao
+            PaymentStatus paymentStatus = orderPayMentService.getById(2); // Đã thanh toán
+            order.setPaymentStatusID(paymentStatus);
+        }
         OrderStatus status = orderStatusService.getByStatus(orderStatus);
         order.setOrderStatusID(status);
         return orderService.save(order);
@@ -71,14 +75,5 @@ public class RestOrderController {
             User user = userService.findByUsername(principal.getName());
             return orderService.getHistory(user.getUsername());
         }
-    }
-
-    @PutMapping("/status/{id}")
-    public Order updateStatus(@PathVariable("id") Integer id) {
-        Order order = orderService.getByOrderId(id);
-        List<OrderProductDetail> orderProductDetails = orderProductDetailService.getByOrderID(order);
-        OrderStatus orderStatus = orderStatusService.getById(5);
-        order.setOrderStatusID(orderStatus);
-        return orderService.save(order);
     }
 }

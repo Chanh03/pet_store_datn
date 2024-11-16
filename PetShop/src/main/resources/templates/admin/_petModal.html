@@ -18,16 +18,16 @@
                     <div class="row">
                         <!-- Cột 1 -->
                         <div class="col-md-6">
-                            <!--                            <div class="mb-3">-->
-                            <!--                                <label for="petId">Nhập ID thú cưng</label>-->
-                            <!--                                <input ng-model="selectedPet.petID" type="text" class="form-control" id="petId"-->
-                            <!--                                       name="petID" placeholder="Id thú cưng"-->
-                            <!--                                       required ng-minlength="10" ng-maxlength="20">-->
-                            <!--                                <span ng-show="editPetForm.petID.$touched && editPetForm.petID.$invalid"-->
-                            <!--                                      class="text-danger fst-italic">-->
-                            <!--                                    Vui lòng nhập ID thú cưng (từ 10 đến 20 ký tự).-->
-                            <!--                                </span>-->
-                            <!--                            </div>-->
+                            <div class="mb-3">
+                                <label for="petId">Nhập ID thú cưng</label>
+                                <input ng-model="selectedPet.petID" type="text" class="form-control" id="petId"
+                                       name="petID" placeholder="Id thú cưng"
+                                       required ng-minlength="10" ng-maxlength="20">
+                                <span ng-show="editPetForm.petID.$touched && editPetForm.petID.$invalid"
+                                      class="text-danger fst-italic">
+                                    Vui lòng nhập ID thú cưng (từ 10 đến 20 ký tự).
+                                </span>
+                            </div>
                             <div class="mb-3">
                                 <label for="breed">Chọn giống thú cưng:</label>
                                 <input ng-model="selectedPet.breed" type="text" class="form-control" id="breed"
@@ -164,10 +164,9 @@
                         class="fa-solid fa-trash"></i></button>
                 <button type="button" class="btn btn-primary"
                         ng-click="updatePet(selectedPet.petID)"
-                        ng-disabled="editPetForm.$invalid">
+                        ng-disabled="editPetForm.$invalid || editPetForm.$pristine">
                     <span>Lưu thay đổi</span> <i class="fa-solid fa-floppy-disk"></i>
                 </button>
-
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
             </div>
         </div>

@@ -28,6 +28,7 @@
             font-size: 16px;
             background-color: #f1f6fc;
             overflow: scroll;
+            scroll-behavior: smooth;
         }
 
         .sidebar {
@@ -311,10 +312,6 @@
     /* Đây mới là phần chính của AngularJS nè =))*/
     var app = angular.module('myApp', ['ngRoute', 'ngTable']);
     app.controller('myCtrl', function ($scope, $http, NgTableParams) {
-            $scope.selectedPet = {};
-            $scope.petData = [];
-            $scope.petCategoryData = [];
-            $scope.productData = [];
             var baseUrl = window.location.origin + '/api/';
             /*PET*/
             $scope.getPets = function () {

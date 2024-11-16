@@ -5,7 +5,87 @@
         cursor: pointer;
     }
 
-    .bg-modal-header-color {
+    .order-status-list span {
+        margin-bottom: 10px;
+    }
+
+    .disabled {
+        border-left: 3px solid #8bb4ff;
+        padding-left: 10px;
+        pointer-events: none;
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    .order-timeline {
+        position: relative;
+        border-left: 3px solid #2874ff;
+        padding-left: 20px;
+    }
+
+    .order-timeline-checked {
+        position: relative;
+        border-left: 3px solid #2874ff;
+        padding-left: 20px;
+        text-transform: uppercase;
+    }
+
+    .order-timeline-checked::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-left: 10px solid #2874ff;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        transform: translateY(-50%);
+        animation: heartbeat 1s infinite;
+        opacity: 0.8;
+    }
+
+    @keyframes heartbeat {
+        0% {
+            transform: translateY(-50%) scale(1);
+            opacity: 0.8;
+        }
+        50% {
+            transform: translateY(-50%) scale(1.2);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-50%) scale(1);
+            opacity: 0.8;
+        }
+    }
+
+
+    .button-checked-outline {
+        pointer-events: none;
+        cursor: not-allowed;
+        position: relative;
+        border: 1px solid transparent;
+        background-size: 200% 200%;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+        overflow: hidden;
+        z-index: 0;
+    }
+
+    .button-checked-outline:before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background-size: 200% 200%;
+        z-index: -1;
+        border-radius: 50%;
+        filter: blur(10px);
     }
 </style>
 <!-- Modal -->
@@ -60,27 +140,29 @@
                                                 'dd/MM/yyyy'}}
                                             </h6>
                                         </div>
-                                        <div ng-repeat="orderStatus in orderStatusData" class="form-check ms-3">
-                                            <input type="radio" class="form-check-input"
-                                                   name="orderStatusRadio"
-                                                   id="statusCheckbox{{$index}}"
-                                                   ng-value="orderStatus.statusName"
-                                                   ng-checked="orderStatus.statusName == orderDetailAll.orderStatusID.statusName"
-                                                   ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, orderStatus.id)">
-                                            <label class="form-check-label w-100 d-flex align-items-center"
-                                                   for="statusCheckbox{{$index}}"
-                                                   ng-class="{
-                                                       'text-info': orderStatus.statusName === 'Đang xử lý',
-                                                       'text-primary': orderStatus.statusName === 'Đã xác nhận',
-                                                       'text-warning': orderStatus.statusName === 'Đang vận chuyển',
-                                                       'text-success': orderStatus.statusName === 'Đã giao',
-                                                       'text-danger': orderStatus.statusName === 'Hủy đơn',
-                                                       'fw-bold': orderStatus.statusName == orderDetailAll.orderStatusID.statusName
-                                                   }">
-                                                <span>{{orderStatus.statusName}}</span>
-                                                <i ng-if="orderStatus.statusName == orderDetailAll.orderStatusID.statusName"
-                                                   class="ms-2 fa-solid fa-angles-left fs-3"></i>
-                                            </label>
+                                        <div class="order-status-list">
+                                            <div class="order-status-list">
+                                                <span class="text-info d-block p-3 m-0"
+                                                      ng-class="{'fw-bold order-timeline-checked': orderDetailAll.orderStatusID.id === 1, 'disabled': isDisabledOption(orderDetailAll.orderStatusID.id, 1)}">
+                                                    <i class="fas fa-hourglass-half"></i> Đang xử lý
+                                                </span>
+                                                <span class="text-primary d-block p-3 m-0"
+                                                      ng-class="{'fw-bold order-timeline-checked': orderDetailAll.orderStatusID.id === 2, 'disabled': isDisabledOption(orderDetailAll.orderStatusID.id, 2)}">
+                                                    <i class="fas fa-check-circle"></i> Đã xác nhận
+                                                </span>
+                                                <span class="text-warning d-block p-3 m-0"
+                                                      ng-class="{'fw-bold order-timeline-checked': orderDetailAll.orderStatusID.id === 3, 'disabled': isDisabledOption(orderDetailAll.orderStatusID.id, 3)}">
+                                                    <i class="fas fa-shipping-fast"></i> Đang vận chuyển
+                                                </span>
+                                                <span class="text-success d-block p-3 m-0 "
+                                                      ng-class="{'fw-bold order-timeline-checked': orderDetailAll.orderStatusID.id === 4, 'disabled': isDisabledOption(orderDetailAll.orderStatusID.id, 4)}">
+                                                    <i class="fas fa-box-open"></i> Đã giao
+                                                </span>
+                                                <span class="text-danger d-block p-3 m-0"
+                                                      ng-class="{'fw-bold order-timeline-checked': orderDetailAll.orderStatusID.id === 5, 'disabled': isDisabledOption(orderDetailAll.orderStatusID.id, 5) || orderDetailAll.orderStatusID.id === 4}">
+                                                    <i class="fas fa-times-circle"></i> Hủy đơn
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -143,7 +225,46 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <div class="me-auto shadow border border-1 p-2 rounded-3">
+                    <button type="button" class="btn btn-success fw-bold p-2" style="text-transform: uppercase">
+                        In đơn hàng
+                    </button>
+                </div>
+                <div class="mx-auto shadow border border-1 p-2 rounded-3">
+                    <button type="button" class="btn btn-info text-white"
+                            ng-click="changeOrderStatus(orderDetailAll.id, 1)"
+                            ng-class="orderDetailAll.orderStatusID.id === 1 ? 'button-checked-outline' : ''"
+                            ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, 1)">
+                        Đang xử lý
+                    </button>
+                    <button type="button" class="btn btn-primary"
+                            ng-click="changeOrderStatus(orderDetailAll.id, 2)"
+                            ng-class="oderDetailAll.orderStatusID.id === 2 ? 'button-checked-outline' : ''"
+                            ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, 2)">
+                        Đã xác nhận
+                    </button>
+                    <button type="button" class="btn btn-warning"
+                            ng-click="changeOrderStatus(orderDetailAll.id, 3)"
+                            ng-class="orderDetailAll.orderStatusID.id === 3 ? 'button-checked-outline' : ''"
+                            ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, 3)">
+                        Đang vận chuyển
+                    </button>
+                    <button type="button" class="btn btn-success"
+                            ng-click="changeOrderStatus(orderDetailAll.id, 4)"
+                            ng-class="orderDetailAll.orderStatusID.id === 4 ? 'button-checked-outline' : ''"
+                            ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, 4)">
+                        Đã giao
+                    </button>
+                    <button type="button" class="btn btn-danger"
+                            ng-click="changeOrderStatus(orderDetailAll.id, 5)"
+                            ng-class="orderDetailAll.orderStatusID.id === 5 ? 'button-checked-outline' : ''"
+                            ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, 5) || orderDetailAll.orderStatusID.id === 4">
+                        Hủy đơn
+                    </button>
+                </div>
+                <div class="ms-auto">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
             </div>
         </div>
     </div>
