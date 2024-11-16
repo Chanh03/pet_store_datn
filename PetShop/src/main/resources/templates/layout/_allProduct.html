@@ -68,7 +68,7 @@
 
                 <div class="row">
                     <!-- Product Card -->
-                    <div class="col-3 mb-4" th:each="product : ${productPage.content}">
+                    <!-- <div class="col-3 mb-4" th:each="product : ${productPage.content}">
                         <div class="card shadow-sm"
                             style="border-radius: 10px; transition: transform 0.3s; height: 100%;">
                             <div class="badge bg-success position-absolute" style="top: 10px; left: 10px;">
@@ -91,7 +91,45 @@
                                 </p>
                             </div>
                         </div>
+                    </div> -->
+                    <div th:each="product : ${productPage.content}" class="col-lg-3 col-md-4 col-sm-4 col-4">
+                        <div class="card card-hover border-0">
+                            <div class="position-relative button-image add-to-cart-container"
+                                 style="background-color: #f7f7f5">
+                                <div class="overflow-hidden p-0 position-relative">
+                                    <a class="nav-link" th:href="@{/product/detail/{id}(id=${product.id})}">
+                                        <img loading="lazy" th:src="@{/images/product/{photo}(photo=${product.photo})}"
+                                             class="card-img-top card-image" alt="product">
+                                    </a>
+                                </div>
+                                <div class="badge position-absolute" style="top: 0; right: 0; z-index: 1000;">
+                                    <img src="/images/logo/hot-badge.png" alt="hot-badge" style="width: 50px;">
+                                </div>
+                                <a th:attr="ng-click=${'cart.add(' + product.id + ')'}"
+                                   class="btn background-color button-image-white add-to-cart w-100 py-3 rounded-0 position-absolute"
+                                   style="bottom: 0; left: 0; z-index: 1001;">
+                                    <h5 class="text-white m-0">
+                                        <span>Thêm vào giỏ</span> <i class="fas fa-cart-plus"></i>
+                                    </h5>
+                                </a>
+                            </div>
+        
+                            <div class="card-body text-center">
+                                <div class="d-flex justify-content-center gap-2 my-2">
+                                    <i class="fa-solid fa-star text-warning"></i>
+                                    <i class="fa-solid fa-star text-warning"></i>
+                                    <i class="fa-solid fa-star text-warning"></i>
+                                    <i class="fa-solid fa-star text-warning"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <h5 class="" th:text="${product.productName}">ten sp</h5>
+                                <h4 class="color fw-bold"
+                                    th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">
+                                    100.000đ</h4>
+                            </div>
+                        </div>
                     </div>
+        
                 </div>
 
                 <!-- Pagination -->

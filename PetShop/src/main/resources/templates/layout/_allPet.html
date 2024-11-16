@@ -42,7 +42,7 @@
             <div th:if="${#lists.isEmpty(pets)}" class="text-center py-5">
                 <h4 class="text-danger">Không tìm thấy thú cưng nào phù hợp với từ khóa!</h4>
             </div>
-            <div th:each="pet : ${pets}" class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <!-- <div th:each="pet : ${pets}" class="col-lg-3 col-md-4 col-sm-6 mb-4">
                 <div class="card h-100 shadow-sm border-0" style="transition: transform 0.3s;">
                     <a th:href="@{/pet/detail/{id}(id=${pet.petID})}">
                         <img th:src="@{/images/pet/{photo}(photo=${pet.photo})}" class="card-img-top banner-image"
@@ -55,6 +55,26 @@
                         </p>
                     </div>
                 </div>
+            </div> -->
+            <div th:each="pet : ${pets}" class="col-lg-2 col-md-4 col-sm-4 col-4">
+                <a class="nav-link" th:href="@{/pet/detail/{id}(id=${pet.petID})}">
+                    <div class="card card-hover border-0 position-relative">
+                        <div class="overflow-hidden rounded-5 button-image"
+                            style="background-color: #f7f7f5; display: flex; align-items: center; justify-content: center;">
+                            <img loading="lazy" th:src="@{/images/pet/{photo}(photo=${pet.photo})}"
+                                class="card-img-top card-image" alt="pet"
+                                style="max-width: 300px; max-height: 300px; object-fit: cover;">
+                        </div>
+                        <!-- <div class="badge bg-warning position-absolute" style="top: 0; right: 0; z-index: 1000;">
+                            <h5 class="m-0">New</h5>
+                        </div> -->
+                        <div class="card-body text-center">
+                            <h5 th:text="${pet.petCategoryID.petCategoryName + ' ' + pet.breed + ' ' + pet.hair}"
+                                class="">ten thu cung</h5>
+                            <span th:text="${'ID : '+pet.petID}">ID</span>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
 
@@ -65,8 +85,8 @@
                     <a class="page-link"
                         th:href="@{/allPet(page=${currentPage - 1}, keyword=${keyword}, priceOrder=${sort})}">&laquo;</a>
                 </li>
-                <li th:each="i : ${#numbers.sequence(1, totalPages)}"
-                    th:classappend="${i == currentPage} ? 'active'" class="page-item">
+                <li th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${i == currentPage} ? 'active'"
+                    class="page-item">
                     <a class="page-link" th:href="@{/allPet(page=${i}, keyword=${keyword}, priceOrder=${sort})}"
                         th:text="${i}">1</a>
                 </li>
@@ -81,7 +101,8 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -27,7 +27,7 @@ public class PetController {
 	public String viewPets(Model model, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "desc") String priceOrder) {
 
-		int pageSize = 20; // Số thú cưng trên mỗi trang
+		int pageSize = 24; // Số thú cưng trên mỗi trang
 		Page<Pet> petPage;
 
 		// Sắp xếp theo giá (mặc định giảm dần)

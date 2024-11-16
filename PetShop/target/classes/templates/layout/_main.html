@@ -108,7 +108,6 @@
                     </div>
                 </a>
             </div>
-
         </div>
         <div class="d-flex justify-content-center mb-3">
             <button class="btn color py-2 px-4 rounded-5 button-image">
@@ -421,25 +420,20 @@
     </div>
     <div class="col-lg-6 background-color">
         <div class="border-0 p-5">
-            <form>
+            <form action="/subscribe" method="post">
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label text-white">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label text-white">Họ và tên</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1">
-
+                    <label for="email" class="form-label text-white">Email</label>
+                    <input type="email" name="email" class="form-control" id="email" required>
                 </div>
                 <div class="mb-3">
-                    <label for="sdt" class="form-label text-white">Số điện thoại</label>
-                    <input type="text" class="form-control" id="sdt">
+                    <label for="name" class="form-label text-white">Họ và Tên</label>
+                    <input type="text" name="name" class="form-control" id="name" required>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <button type="submit" class="rounded-5 py-2 px-4 button-image">
-                        <span class="color fw-bold">Đăng ký</span>
-                    </button>
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label text-white">Số Điện Thoại</label>
+                    <input type="text" name="phoneNumber" class="form-control" id="phoneNumber">
                 </div>
+                <button type="submit" class="btn btn-primary">Đăng ký</button>
             </form>
         </div>
     </div>
