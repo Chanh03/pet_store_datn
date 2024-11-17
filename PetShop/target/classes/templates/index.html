@@ -211,6 +211,17 @@
             background: linear-gradient(121deg, rgba(71, 74, 255, 0) 0%, #ff8383 50%, rgba(255, 255, 255, 0) 100%);
         }
 
+        .star-rating {
+            font-size: 2rem;
+            color: #ddd; /* Default color for unselected stars */
+            display: flex;
+            gap: 0.2rem;
+            cursor: pointer;
+        }
+
+        .star-rating .selected {
+            color: #f4c150; /* Yellow for selected stars */
+        }
 
 
     </style>
@@ -223,6 +234,7 @@
 <!--MODULE-->
 <div th:insert=" ~{/module/_backToTop}"></div>
 <div th:insert=" ~{/module/_loadingSpinner}"></div>
+<div th:insert=" ~{/layout/_ReviewModal}"></div>
 </body>
 <!--    BOOTSTRAP5-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -721,11 +733,6 @@
                 .catch(function (error) {
                     console.error("Lỗi khi lấy chi tiết đơn hàng", error);
                 });
-            const orderDetailModal = new bootstrap.Modal(document.getElementById('historyOrderDetail'), {
-                backdrop: 'static',
-                keyboard: false
-            });
-            orderDetailModal.show();
         };
         //huy don hang
         $scope.deleteHistory = function (id) {
@@ -761,13 +768,11 @@
         };
         $scope.reviewData = {};
 
-        $scope.review = function () {
+        $scope.review = function (productId) {
             const username = document.getElementById("username_auth").textContent;
-            const productID = document.getElementById("productID").textContent;
-
             Promise.all([
                 $http.get("/api/user/" + username),
-                $http.get("/api/product/" + productID)
+                $http.get("/api/product/" + productId)
             ])
                 .then(function (response) {
                     $scope.reviewData.username = response[0].data;
@@ -776,34 +781,56 @@
                 .catch(function (error) {
                     console.error("Loi khong lay duoc product user", error);
                 });
-
             const reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'), {
-                backdrop: 'static',
-                keyboard: false
+                keyboard: true
             });
             reviewModal.show();
         };
 
         $scope.submitReview = function () {
-            const currentDate = new Date();
+            const date = new Date()
 
             const review = {
                 comment: $scope.reviewData.comment,
-                username: $scope.reviewData.username,
+                userName: $scope.reviewData.username,
                 productID: $scope.reviewData.productID,
                 rating: $scope.reviewData.rating,
-                reviewDate: currentDate
+                reviewDate: date
             };
-            console.log($scope.reviewData)
+
 
             $http.post("/api/review", review)
                 .then(function (response) {
-                    console.log("Review san pham thanh cong", response.data);
+                    Swal.fire({
+                        title: 'Review thành công',
+                        icon: 'success',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        willClose: () => {
+                            window.location.reload();
+                        }
+                    });
+                    console.log("Review san pham thanh cong");
                 })
                 .catch(function (error) {
                     console.error("Loi review", error);
                 });
         };
+
+        $scope.reviewData = {
+            rating: 0,
+            comment: ''
+        };
+
+        $scope.setRating = function (star) {
+            $scope.reviewData.rating = star;
+        };
+
+        $scope.closeReview = function () {
+            $scope.reviewData.rating = 0;
+            $scope.reviewData.comment = '';
+        };
+
 
     });
 </script>

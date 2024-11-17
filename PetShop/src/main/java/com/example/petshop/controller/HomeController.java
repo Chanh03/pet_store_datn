@@ -1,13 +1,12 @@
 package com.example.petshop.controller;
 
-import com.example.petshop.entity.Pet;
-import com.example.petshop.entity.Product;
-import com.example.petshop.entity.User;
+import com.example.petshop.entity.*;
 import com.example.petshop.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +39,12 @@ public class HomeController {
 
     @Autowired
     private SlideBarService slideBarService;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private OrderProductDetailService orderProductDetailService;
 
     @ModelAttribute("fullname")
     public void getUser(Model model, HttpServletRequest request) {
@@ -155,6 +160,16 @@ public class HomeController {
         } catch (Exception e) {
             return "redirect:/access-denied";
         }
+    }
+
+    @RequestMapping("/history-detail/{id}")
+    public String historyDetail(Model model, Principal principal,@PathVariable(name = "id") int id) {
+        Order order = orderService.getByOrderId(id);
+        List<OrderProductDetail> orderDetailHistory = orderProductDetailService.getByOrderID(order);
+        System.out.println(orderDetailHistory);
+        model.addAttribute("order", order);
+        model.addAttribute("orderDetailHistory", orderDetailHistory);
+        return "/layout/_historyOrderDetail";
     }
 
 }

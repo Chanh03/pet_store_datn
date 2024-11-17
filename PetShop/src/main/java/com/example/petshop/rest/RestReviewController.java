@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -14,6 +16,12 @@ import java.util.List;
 public class RestReviewController {
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     public List<Review> getAll() {
@@ -27,6 +35,9 @@ public class RestReviewController {
 
     @PostMapping
     public Review addReview(@RequestBody Review review) {
+
+//        review.setReviewDate(LocalDateTime.now());
+
         return reviewService.save(review);
     }
 }

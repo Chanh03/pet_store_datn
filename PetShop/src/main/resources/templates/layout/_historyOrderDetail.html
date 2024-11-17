@@ -1,6 +1,7 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/index.html::home(~{::body})}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,87 +10,51 @@
     <title>Document</title>
 </head>
 <body>
-<!-- Modal -->
-<div class="modal fade" id="historyOrderDetail" tabindex="1" aria-labelledby="editProductLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header bg-color">
-                <h5 class="modal-title" id="editProductLabel">Đơn hàng đặt</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div ng-if="!historyOrderDetail.length" class="text-center">
-                    <h4>Không có sản phẩm nào trong đơn hàng này</h4>
-                </div>
-                <div ng-if="historyOrderDetail.length">
-                    <div class="card rounded-0">
-                        <table class="table table-border m-0 table-hover">
-                            <tr>
-                                <th class="text-center">STT</th>
-                                <th class="text-center">Hỉnh ảnh</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Giá</th>
-                                <th>Số lượng</th>
-                                <th>Thành tiền</th>
-                                <th>Đánh giá</th>
-                            </tr>
-                            <tr class="align-middle" ng-repeat="od in historyOrderDetail">
-                                <td class="text-center">
-                                    {{$index + 1}}
-                                </td>
-                                <td class="text-center">
-                                    <img ng-src="/images/product/{{od.productID.photo}}"
-                                         alt="{{od.productID.productName}}"
-                                         class="img-fluid" width="100">
-                                </td>
-                                <td id="productID" hidden="">
-                                    {{od.productID.id}}
-                                </td>
-                                <td>
-                                    {{od.productID.productName}}
-                                </td>
-                                <td>
-                                    {{od.price | number: '0'}}đ
-                                </td>
-                                <td>
-                                    {{od.quantity}}
-                                </td>
-                                <td>
-                                    {{od.price * od.quantity | number: '0'}}đ
-                                </td>
-                                <td>
-                                    <button ng-if="od.orderID.paymentStatusID.id == 2"
-                                            ng-click="review()">
-                                        <h5 class=" m-0 mx-1 my-2">Đánh giá sản phẩm</h5>
-                                    </button>
-                                    <button ng-if="od.orderID.paymentStatusID.id == 1"
-                                            ng-click="">
-                                        <h5 class=" m-0 mx-1 my-2">Vui lòng thanh toán</h5>
-                                    </button>
-                                </td>
 
-                            </tr>
-                            <tr>
-                                <td class="fw-bold text-center" colspan="4">
-                                    Tổng
-                                </td>
-                                <td class="fw-bold">{{totalHistoryOrderPrice | number: '0'}}đ
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+
+<div class="container mt-5">
+    <h2 class="text-center">Chi tiết đơn hàng</h2>
+    <div  class="text-center">
+        <h4>Không có sản phẩm nào trong đơn hàng này</h4>
+    </div>
+    <div>
+        <div class="card rounded-0">
+            <table class="table table-border m-0 table-hover">
+                <tr>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Hình ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+
+                </tr>
+                <tr class="align-middle" th:each="od : ${orderDetailHistory}">
+                    <td class="text-center">{{$index + 1}}</td>
+                    <td class="text-center">
+                        <img th:src="@{/images/product/{photo}(photo=${od.productID.photo})}"
+                             class="img-fluid" width="100">
+                    </td>
+                    <td th:text="${od.productID.productName}">name</td>
+                    <td th:text="${od.price}">{{od.price | number: '0'}}đ</td>
+                    <td th:text="${od.quantity}">{{od.quantity}}</td>
+                    <td th:text="${od.quantity * od.price}">{{od.price * od.quantity | number: '0'}}đ</td>
+                    <td>
+                        <button th:attr="ng-click=${'review(' + od.productID.id + ')'}"  th:if="${od.orderID.paymentStatusID.id == 2}">
+                            <h5>Đánh giá sản phẩm</h5>
+                        </button>
+                            <h5 th:if="${od.orderID.paymentStatusID.id == 1}">Vui lòng thanh toán</h5>
+<!--                        <h5 th:if="${od.orderID.paymentStatusID.id == 3}">San pham da danh gia</h5>-->
+
+                    </td>
+                </tr>
                 <div sec:authorize="isAuthenticated()">
                     <span id="username_auth" hidden="hidden" th:text="${#authentication.getName()}"></span>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-            </div>
+            </table>
         </div>
     </div>
 </div>
 </body>
 </html>
-
 

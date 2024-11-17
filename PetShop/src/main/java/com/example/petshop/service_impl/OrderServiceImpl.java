@@ -1,6 +1,7 @@
 package com.example.petshop.service_impl;
 
 import com.example.petshop.entity.Order;
+import com.example.petshop.entity.User;
 import com.example.petshop.repo.OrderRepo;
 import com.example.petshop.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order getByOrderId(Integer id) {
         return orderRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public Order getByOrderIdAndUser(int id, User user) {
+        return orderRepo.findByIdAndUser(id , user);
     }
 }

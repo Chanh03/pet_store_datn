@@ -2,6 +2,7 @@ package com.example.petshop.service_impl;
 
 import com.example.petshop.entity.Order;
 import com.example.petshop.entity.OrderProductDetail;
+import com.example.petshop.entity.User;
 import com.example.petshop.repo.OrderProductDetailRepo;
 import com.example.petshop.service.OrderProductDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,10 @@ public class OrderProductDetailServiceImpl implements OrderProductDetailService 
     @Override
     public OrderProductDetail save(OrderProductDetail orderProductDetail) {
         return orderProductDetailRepo.save(orderProductDetail);
+    }
+
+    @Override
+    public List<OrderProductDetail> getByOrderIdAndUser(Order order, User user) {
+        return orderProductDetailRepo.findByOrderIDAndUser(order , user);
     }
 }

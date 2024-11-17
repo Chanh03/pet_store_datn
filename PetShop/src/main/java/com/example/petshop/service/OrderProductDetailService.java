@@ -2,6 +2,7 @@ package com.example.petshop.service;
 
 import com.example.petshop.entity.Order;
 import com.example.petshop.entity.OrderProductDetail;
+import com.example.petshop.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface OrderProductDetailService {
     List<OrderProductDetail> getByOrderID(Order order);
 
     OrderProductDetail save(OrderProductDetail orderProductDetail);
+
+    List<OrderProductDetail> getByOrderIdAndUser(Order order, User user);
 }
