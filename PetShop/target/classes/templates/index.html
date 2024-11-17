@@ -52,6 +52,17 @@
             transition: 0.5s;
         }
 
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .button-image {
             background-color: white;
             border: 2px solid black;
@@ -214,7 +225,8 @@
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
 <header id="menu" class="sticky-top" th:insert="~{/layout/_menu}"></header>
-<main class="container p-0 bg-white rounded-3 border border-2 border-dark" th:insert="${view}"></main>
+<main class="container p-0 bg-white rounded-3 border border-2 border-dark animate__animated animate__fadeIn animate__faster"
+      th:insert="${view}"></main>
 <footer th:insert="~{/layout/_footer}"
         class="bg-white rounded-3 container overflow-hidden my-3 p-0 border border-2 border-dark"></footer>
 <!--MODULE-->
@@ -329,6 +341,21 @@
             clickable: true,
         },
         crossFade: true,
+    });
+    document.addEventListener("scroll", () => {
+        const elements = document.querySelectorAll(".fade-in");
+        const windowHeight = window.innerHeight;
+
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+
+            // Kiểm tra nếu thẻ nằm trong vùng hiển thị
+            if (elementTop < windowHeight - 100) { // 100 là khoảng cách buffer
+                element.classList.add("show");
+            } else {
+                element.classList.remove("show");
+            }
+        });
     });
 </script>
 <!--    Angular add to cart-->
