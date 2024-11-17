@@ -8,6 +8,7 @@ import org.springframework.data.relational.core.sql.In;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -66,7 +67,7 @@ public class RestOrderController {
         OrderStatus status = orderStatusService.getByStatus(orderStatus);
         order.setOrderStatusID(status);
         mailerService.sendOrderStatusEmail(email, "Đơn hàng của bạn đã được cập nhật",
-                "Đơn hàng của bạn đã được cập nhật thành " + status.getStatusName(),
+                "Đơn hàng của bạn đã được cập nhật thành " + status.getStatusName() + "vào lúc " + new Date(),
                 fullname, order.getId().toString());
         return orderService.save(order);
     }
