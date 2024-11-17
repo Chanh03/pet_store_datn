@@ -78,7 +78,7 @@ public class RestOrderController {
         } else if (orderStatus == 4) {
             emailOrderMessage = "Đơn hàng của bạn đã được <b style='color: white; text-transform: uppercase; background-color: green; padding: 5px 10px; border-radius: 5px;'>giao thành công</b> vào lúc <b>" + formattedDate + "</b>";
         } else if (orderStatus == 5) {
-            emailOrderMessage = "Đơn hàng của bạn đã bị <b style='color: black; text-transform: uppercase; background-color: red; padding: 5px 10px; border-radius: 5px;'>hủy</b> vào lúc <b>" + formattedDate + "</b>";
+            emailOrderMessage = "Đơn hàng của bạn đã bị <b style='color: white; text-transform: uppercase; background-color: red; padding: 5px 10px; border-radius: 5px;'>hủy</b> vào lúc <b>" + formattedDate + "</b>";
         }
         OrderStatus status = orderStatusService.getByStatus(orderStatus);
         order.setOrderStatusID(status);

@@ -161,16 +161,12 @@
                         </option>
                     </select>
                 </td>
-                <td sortable="'paymentStatusID.statusPayment'" filter="{ 'paymentStatusID.statusPayment': 'text' }"
-                    data-title="'Trạng thái thanh toán'" class="text-center">
-                    <span ng-if="order.paymentStatusID.id === 1" class="badge bg-warning">
-                        <i class="fa-solid fa-loading"></i>
-                        <span>{{ order.paymentStatusID.statusPayment }}</span>
-                    </span>
-                    <span ng-if="order.paymentStatusID.id === 2" class="">
-                        <i class="fa-solid fa-loading"></i>
-                        <img class="img-fluid" src="/gifs/payment-success.gif" alt="">
-                    </span>
+                <td sortable="'paymentStatusID.statusPayment'" data-title="'Trạng thái thanh toán'" class="text-center">
+                    <img style="width: 50px" ng-if="order.paymentStatusID.id === 1" class="img-fluid"
+                         src="/images/logo/not-paid.webp"
+                         alt="">
+                    <img style="width: 50px" ng-if="order.paymentStatusID.id === 2" class="img-fluid"
+                         src="/images/logo/paid-order-status-01.webp" alt="">
                 </td>
                 <td data-title="'Xem'" class="text-center">
                     <button ng-click="openOrderDetailModal(order.id)" class="btn open-order-detail-button">

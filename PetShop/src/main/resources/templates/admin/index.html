@@ -299,6 +299,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 <script type="text/javascript">
+    // Lấy ngày giờ hiện tại
+    $(document).ready(function () {
+        $scope.date = new Date().toLocaleString();
+        setInterval(function () {
+            $scope.$apply(function () {
+                $scope.date = new Date().toLocaleString();
+            });
+        }, 1000);
+    });
     var colors = ['#AEC6CF', '#FFB7B2', '#C3B1E1', '#FFDAC1', '#FFB6C1', '#B5EAD7', '#FFDFBA', '#FDFD96', '#B3E5FC', '#FADADD'];
     /* Bôi màu cho menu hiện tại thoôi nhìn gì?*/
     $(document).ready(function () {
@@ -1189,16 +1198,6 @@
                     });
                 }
             };
-            // Lấy ngày giờ hiện tại
-            $(document).ready(function () {
-                $scope.date = new Date().toLocaleString();
-                setInterval(function () {
-                    $scope.$apply(function () {
-                        $scope.date = new Date().toLocaleString();
-                    });
-                }, 1000);
-            });
-
             // Cập nhật tên ảnh khi chọn file
             $scope.updatePhotoPetName = function (input) {
                 if (input.files && input.files[0]) {

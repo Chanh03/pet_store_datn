@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update send mail order status">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/logo/not-paid.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/logo/paid-order-status-01.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/logo/paid-order-status.png" afterDir="false" />
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update payment status img">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/config/MailerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/config/MailerService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_order-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_order-detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_orders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -225,15 +223,7 @@
       <workItem from="1731756073044" duration="10962000" />
       <workItem from="1731812351758" duration="3662000" />
       <workItem from="1731837739968" duration="6433000" />
-      <workItem from="1731859200304" duration="6967000" />
-    </task>
-    <task id="LOCAL-00011" summary="update source">
-      <option name="closed" value="true" />
-      <created>1730619941709</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1730619941709</updated>
+      <workItem from="1731859200304" duration="7946000" />
     </task>
     <task id="LOCAL-00012" summary="add autocomplete">
       <option name="closed" value="true" />
@@ -619,7 +609,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731864789161</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="update payment status img">
+      <option name="closed" value="true" />
+      <created>1731868213711</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1731868213711</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -649,7 +647,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update order detail" />
     <MESSAGE value="cc" />
     <MESSAGE value="update" />
     <MESSAGE value="update validate (min max)" />
@@ -674,7 +671,8 @@
     <MESSAGE value="change order status send mail to customer" />
     <MESSAGE value="update order status send mail" />
     <MESSAGE value="update send mail order status" />
-    <option name="LAST_COMMIT_MESSAGE" value="update send mail order status" />
+    <MESSAGE value="update payment status img" />
+    <option name="LAST_COMMIT_MESSAGE" value="update payment status img" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
