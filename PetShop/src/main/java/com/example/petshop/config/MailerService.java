@@ -12,7 +12,9 @@ import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MailerService implements IJavaMail {
 
     @Override
@@ -59,6 +61,37 @@ public class MailerService implements IJavaMail {
             System.err.println("Gửi email thất bại: " + e.getMessage());
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public void sendOrderStatusEmail(String to, String subject, String message, String name, String orderID) {
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", EmailProperty.HOST_NAME);
+        props.put("mail.smtp.port", EmailProperty.TLS_PORT);
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(EmailProperty.APP_EMAIL, EmailProperty.APP_PASSWORD);
+            }
+        });
+        try {
+            MimeMessage orderMessage = new MimeMessage(session);
+            orderMessage.setFrom(new InternetAddress(EmailProperty.APP_EMAIL));
+            orderMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            orderMessage.setSubject(subject);
+            String htmlMessage = "<html><body>"
+                    + "<p>Chào " + name + ",</p>"
+                    + "<p>" + message + "</p>"
+                    + "<p>Nhấn vào đường dẫn dưới đây để xem đơn hàng của bạn:</p>"
+                    + "<a href='http://localhost:8080/cart-history/'>Xem đơn hàng</a>"
+                    + "</body></html>";
+            orderMessage.setContent(htmlMessage, "text/html; charset=UTF-8");
+            Transport.send(orderMessage);
+        } catch (MessagingException e) {
+            e.printStackTrace();
         }
     }
 

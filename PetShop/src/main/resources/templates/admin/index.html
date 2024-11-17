@@ -702,7 +702,7 @@
                     // PRODUCT TABLE
                     $scope.usersTable = new NgTableParams({
                         page: 1,
-                        count: 5
+                        count: 10
                     }, {
                         counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.userData.length],
                         dataset: $scope.userData
@@ -789,7 +789,7 @@
                     $scope.count_ROLE_STAFF = $scope.authorityData.filter(authority => authority.authority === 'ROLE_STAFF').length;
                     $scope.authorityTables = new NgTableParams({
                         page: 1,
-                        count: 5
+                        count: 10
                     }, {
                         counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.authorityData.length],
                         dataset: $scope.authorityData
@@ -868,15 +868,26 @@
             $scope.getOrders();
             $scope.changeOrderStatus = function (orderId, status) {
                 Swal.fire({
-                    title: 'Bạn có chắc chắn muôn thay đổi?',
-                    text: 'Thay đổi trạng thái',
+                    title: 'Bạn có chắc chắn muốn thay đổi?',
+                    text: 'Thay đổi trạng thái đơn hàng',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Xác nhận!',
                     cancelButtonText: 'Hủy bỏ'
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Đang xử lý...',
+                            text: 'Vui lòng chờ...',
+                            icon: 'info',
+                            showConfirmButton: false,
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
                         $http.put(baseUrl + 'order/' + orderId + '/' + status).then(function (response) {
+                            Swal.close();
                             Swal.fire({
                                 title: 'Thành công!',
                                 text: 'Cập nhật trạng thái đơn hàng thành công',
@@ -885,31 +896,42 @@
                                 showConfirmButton: false
                             });
                             $scope.getOrders();
+                            $scope.getOrderById(orderId);
                         }).catch(function (error) {
-                            new Notify({
-                                title: 'Thông báo',
-                                text: 'Lỗi khi cập nhật trạng thái đơn hàng',
-                                autoclose: true,
-                                status: 'warning',
-                                autotimeout: 3000
+                            Swal.close();
+                            Swal.fire({
+                                title: 'Lỗi',
+                                text: 'Không thể cập nhật trạng thái đơn hàng',
+                                icon: 'error',
+                                timer: 3000,
+                                showConfirmButton: false
                             });
                         });
                     } else {
-                        new Notify({
-                            title: 'Thông báo',
-                            text: 'Đã hủy',
-                            autoclose: true,
-                            status: 'info',
-                            autotimeout: 3000
+                        Swal.fire({
+                            title: 'Đã hủy',
+                            text: 'Thay đổi trạng thái đã bị hủy.',
+                            icon: 'info',
+                            timer: 3000,
+                            showConfirmButton: false
                         });
                         $scope.getOrders();
+                        $scope.getOrderById(orderId);
                     }
                 });
-            }
+            };
+
             $scope.clearOrderFilter = function () {
                 $scope.ordersTable.filter({});
                 $scope.ordersTable.sorting({
                     orderDate: 'desc'
+                });
+            };
+            $scope.getOrderById = function (orderId) {
+                $http.get(baseUrl + 'order/' + orderId).then(function (response) {
+                    $scope.orderDetailAll = response.data;
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu order:', error);
                 });
             };
             $scope.openOrderDetailModal = function (orderId) {
@@ -921,11 +943,7 @@
                 }).catch(function (error) {
                     console.error('Lỗi khi lấy dữ liệu order:', error);
                 });
-                $http.get(baseUrl + 'order/' + orderId).then(function (response) {
-                    $scope.orderDetailAll = response.data;
-                }).catch(function (error) {
-                    console.error('Lỗi khi lấy dữ liệu order:', error);
-                });
+                $scope.getOrderById(orderId);
                 var orderDetailModal = new bootstrap.Modal(document.getElementById('orderDetailModal'), {
                     keyboard: true
                 });

@@ -65,7 +65,7 @@
         pointer-events: none;
         cursor: not-allowed;
         position: relative;
-        border: 1px solid transparent;
+        border: 2px solid black;
         background-size: 200% 200%;
         border-radius: 5px;
         padding: 10px 20px;
@@ -225,41 +225,46 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="me-auto shadow border border-1 p-2 rounded-3">
-                    <button type="button" class="btn btn-success fw-bold p-2" style="text-transform: uppercase">
-                        In đơn hàng
+                <div class="me-auto shadow border border-1 rounded-3">
+                    <button type="button" class="btn btn-outline-success fw-bold" style="text-transform: uppercase">
+                        Xuất hóa đơn
                     </button>
                 </div>
-                <div class="mx-auto shadow border border-1 p-2 rounded-3">
+                <div class="mx-auto">
                     <button type="button" class="btn btn-info text-white"
                             ng-click="changeOrderStatus(orderDetailAll.id, 1)"
                             ng-class="orderDetailAll.orderStatusID.id === 1 ? 'button-checked-outline' : ''"
                             ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, 1)">
                         Đang xử lý
+                        <i class="fas fa-hourglass-half"></i>
                     </button>
                     <button type="button" class="btn btn-primary"
                             ng-click="changeOrderStatus(orderDetailAll.id, 2)"
-                            ng-class="oderDetailAll.orderStatusID.id === 2 ? 'button-checked-outline' : ''"
+                            ng-class="orderDetailAll.orderStatusID.id === 2 ? 'button-checked-outline' : ''"
                             ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, 2)">
                         Đã xác nhận
+                        <i class="fas fa-check-circle"></i>
                     </button>
                     <button type="button" class="btn btn-warning"
                             ng-click="changeOrderStatus(orderDetailAll.id, 3)"
                             ng-class="orderDetailAll.orderStatusID.id === 3 ? 'button-checked-outline' : ''"
                             ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, 3)">
                         Đang vận chuyển
+                        <i class="fas fa-shipping-fast"></i>
                     </button>
                     <button type="button" class="btn btn-success"
                             ng-click="changeOrderStatus(orderDetailAll.id, 4)"
                             ng-class="orderDetailAll.orderStatusID.id === 4 ? 'button-checked-outline' : ''"
                             ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, 4)">
                         Đã giao
+                        <i class="fas fa-box open"></i>
                     </button>
                     <button type="button" class="btn btn-danger"
                             ng-click="changeOrderStatus(orderDetailAll.id, 5)"
                             ng-class="orderDetailAll.orderStatusID.id === 5 ? 'button-checked-outline' : ''"
                             ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, 5) || orderDetailAll.orderStatusID.id === 4">
                         Hủy đơn
+                        <i class="fas fa-times-circle"></i>
                     </button>
                 </div>
                 <div class="ms-auto">

@@ -1,5 +1,6 @@
 package com.example.petshop.rest;
 
+import com.example.petshop.config.MailerService;
 import com.example.petshop.entity.*;
 import com.example.petshop.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class RestOrderController {
     @Autowired
     private OrderProductDetailService orderProductDetailService;
 
+    @Autowired
+    private MailerService mailerService;
+
     @GetMapping
     public List<Order> getAll() {
         return orderService.getAll();
@@ -52,6 +56,8 @@ public class RestOrderController {
 
     @PutMapping("/{order-id}/{order-status}")
     public Order updateStatus(@PathVariable("order-id") Integer id, @PathVariable("order-status") Integer orderStatus) {
+        String fullname = orderService.getById(id).getUserName().getFullName();
+        String email = orderService.getById(id).getUserName().getEmail();
         Order order = orderService.getById(id);
         if (orderStatus == 4) { // Order đã giao
             PaymentStatus paymentStatus = orderPayMentService.getById(2); // Đã thanh toán
@@ -59,6 +65,9 @@ public class RestOrderController {
         }
         OrderStatus status = orderStatusService.getByStatus(orderStatus);
         order.setOrderStatusID(status);
+        mailerService.sendOrderStatusEmail(email, "Đơn hàng của bạn đã được cập nhật",
+                "Đơn hàng của bạn đã được cập nhật thành " + status.getStatusName(),
+                fullname, order.getId().toString());
         return orderService.save(order);
     }
 

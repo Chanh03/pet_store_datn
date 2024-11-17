@@ -73,7 +73,7 @@
         </div>
         <!-- Đơn hàng -->
         <div ng-repeat="history in orderHistory | orderBy: '-orderDate'"
-             class="row card shadow p-3 mb-3 nav-link order-history-hover">
+             class="row card shadow fade-in p-3 mb-3 nav-link order-history-hover">
             <div class="col-12">
                 <div class="row" type="button" ng-click="getHistoryOrderDetail(history.id)">
                     <div class="col-8">
