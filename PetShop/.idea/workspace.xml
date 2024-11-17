@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="change order status send mail to customer">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update order status send mail">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/config/MailerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/config/MailerService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -218,15 +220,8 @@
       <workItem from="1731685744255" duration="6352000" />
       <workItem from="1731756073044" duration="10962000" />
       <workItem from="1731812351758" duration="3662000" />
-      <workItem from="1731837739968" duration="6384000" />
-    </task>
-    <task id="LOCAL-00009" summary="addToCart-0.2">
-      <option name="closed" value="true" />
-      <created>1730031095751</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1730031095751</updated>
+      <workItem from="1731837739968" duration="6433000" />
+      <workItem from="1731859200304" duration="3560000" />
     </task>
     <task id="LOCAL-00010" summary="2-11 admin">
       <option name="closed" value="true" />
@@ -612,7 +607,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731845963586</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="update order status send mail">
+      <option name="closed" value="true" />
+      <created>1731846058442</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1731846058442</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -642,7 +645,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update product form" />
     <MESSAGE value="add check currentStatus and optionStatus" />
     <MESSAGE value="update order detail" />
     <MESSAGE value="cc" />
@@ -667,7 +669,8 @@
     <MESSAGE value="add fade-in on scroll" />
     <MESSAGE value="update fade-in scroll up" />
     <MESSAGE value="change order status send mail to customer" />
-    <option name="LAST_COMMIT_MESSAGE" value="change order status send mail to customer" />
+    <MESSAGE value="update order status send mail" />
+    <option name="LAST_COMMIT_MESSAGE" value="update order status send mail" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

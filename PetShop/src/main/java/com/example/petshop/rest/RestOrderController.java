@@ -8,6 +8,9 @@ import org.springframework.data.relational.core.sql.In;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -57,6 +60,9 @@ public class RestOrderController {
 
     @PutMapping("/{order-id}/{order-status}")
     public Order updateStatus(@PathVariable("order-id") Integer id, @PathVariable("order-status") Integer orderStatus) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
+        String formattedDate = now.format(formatter);
         String fullname = orderService.getById(id).getUserName().getFullName();
         String email = orderService.getById(id).getUserName().getEmail();
         Order order = orderService.getById(id);
@@ -64,10 +70,19 @@ public class RestOrderController {
             PaymentStatus paymentStatus = orderPayMentService.getById(2); // Đã thanh toán
             order.setPaymentStatusID(paymentStatus);
         }
+        String emailOrderMessage = "";
+        if (orderStatus == 2) {
+            emailOrderMessage = "Đơn hàng của bạn đã được <b style='color: blue; text-transform: uppercase;'>xác nhận</b> vào lúc <b>" + formattedDate + "</b>";
+        } else if (orderStatus == 3) {
+            emailOrderMessage = "Đơn hàng của bạn đã được giao cho <b style='color: yellow; text-transform: uppercase;'>đơn vị vận chuyển</b> vào lúc <b>" + formattedDate + "</b>";
+        } else if (orderStatus == 4) {
+            emailOrderMessage = "Đơn hàng của bạn đã được <b style='color: green; text-transform: uppercase;'>giao thành công</b> vào lúc <b>" + formattedDate + "</b>";
+        } else if (orderStatus == 5) {
+            emailOrderMessage = "Đơn hàng của bạn đã bị <b style='color: red; text-transform: uppercase;'>hủy</b> vào lúc <b>" + formattedDate + "</b>";
+        }
         OrderStatus status = orderStatusService.getByStatus(orderStatus);
         order.setOrderStatusID(status);
-        mailerService.sendOrderStatusEmail(email, "Đơn hàng của bạn đã được cập nhật",
-                "Đơn hàng của bạn đã được cập nhật thành " + status.getStatusName() + "vào lúc " + new Date(),
+        mailerService.sendOrderStatusEmail(email, "Đơn hàng của bạn đã được cập nhật", emailOrderMessage,
                 fullname, order.getId().toString());
         return orderService.save(order);
     }
