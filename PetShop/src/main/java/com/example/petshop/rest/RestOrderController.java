@@ -72,13 +72,13 @@ public class RestOrderController {
         }
         String emailOrderMessage = "";
         if (orderStatus == 2) {
-            emailOrderMessage = "Đơn hàng của bạn đã được <b style='color: blue; text-transform: uppercase;'>xác nhận</b> vào lúc <b>" + formattedDate + "</b>";
+            emailOrderMessage = "Đơn hàng của bạn đã được <b style='color: white; text-transform: uppercase; background-color: blue; padding: 5px 10px; border-radius: 5px;'>xác nhận</b> vào lúc <b>" + formattedDate + "</b>";
         } else if (orderStatus == 3) {
-            emailOrderMessage = "Đơn hàng của bạn đã được giao cho <b style='color: yellow; text-transform: uppercase;'>đơn vị vận chuyển</b> vào lúc <b>" + formattedDate + "</b>";
+            emailOrderMessage = "Đơn hàng của bạn đã được giao cho <b style='color: black; text-transform: uppercase; background-color: yellow; padding: 5px 10px; border-radius: 5px;'>đơn vị vận chuyển</b> vào lúc <b>" + formattedDate + "vui lòng để ý điện thoại để nhận hàng</b>";
         } else if (orderStatus == 4) {
-            emailOrderMessage = "Đơn hàng của bạn đã được <b style='color: green; text-transform: uppercase;'>giao thành công</b> vào lúc <b>" + formattedDate + "</b>";
+            emailOrderMessage = "Đơn hàng của bạn đã được <b style='color: white; text-transform: uppercase; background-color: green; padding: 5px 10px; border-radius: 5px;'>giao thành công</b> vào lúc <b>" + formattedDate + "</b>";
         } else if (orderStatus == 5) {
-            emailOrderMessage = "Đơn hàng của bạn đã bị <b style='color: red; text-transform: uppercase;'>hủy</b> vào lúc <b>" + formattedDate + "</b>";
+            emailOrderMessage = "Đơn hàng của bạn đã bị <b style='color: black; text-transform: uppercase; background-color: red; padding: 5px 10px; border-radius: 5px;'>hủy</b> vào lúc <b>" + formattedDate + "</b>";
         }
         OrderStatus status = orderStatusService.getByStatus(orderStatus);
         order.setOrderStatusID(status);

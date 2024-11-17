@@ -101,7 +101,7 @@
                     <div class="card border-0 mb-5">
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <div class="card">
+                                <div class="card shadow">
                                     <div class="card-header fw-bold bg-modal-header-color">Thông tin người dùng</div>
                                     <div class="card-body">
                                         <p><span class="text-muted">Họ tên:</span>
@@ -116,7 +116,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="card">
+                                <div class="card shadow">
                                     <div class="card-header fw-bold bg-modal-header-color">Thông tin đơn hàng</div>
                                     <div class="card-body">
                                         <p><span class="text-muted">Ngày đặt:</span>
@@ -131,7 +131,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="card">
+                                <div class="card shadow">
                                     <div class="card-header fw-bold bg-modal-header-color">Trạng thái đơn hàng</div>
                                     <div class="card-body">
                                         <div>
@@ -168,20 +168,25 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="card">
+                                <div class="card shadow">
                                     <div class="card-header fw-bold bg-modal-header-color">Trạng thái thanh toán</div>
-                                    <div class="card-body">
-                                        <p>
-                                            <span class="badge" style="background-color: #fff9c4; color: #333;">{{ orderDetailAll.paymentStatusID.statusPayment }}</span>
-                                        </p>
+                                    <div class="card-body bg-white">
+                                        <div class="mx-auto" ng-if="orderDetailAll.paymentStatusID.id === 1" style="width: 200px">
+                                            <img class="img-fluid" src="/images/logo/not-paid.webp" alt="">
+                                        </div>
+                                        <div class="mx-auto" ng-if="orderDetailAll.paymentStatusID.id === 2" style="width: 200px">
+                                            <img class="img-fluid" src="/images/logo/paid-order-status-01.webp" alt="">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card mb-5">
-                        <div class="card-header fw-bold bg-modal-header-color">Danh sách sản phẩm</div>
-                        <table class="table table-border border m-0 table-hover">
+                        <div class="card-header fw-bold bg-modal-header-color text-center">
+                            <h2>Danh sách sản phẩm</h2>
+                        </div>
+                        <table class="table shadow table-border border m-0 table-hover">
                             <tr>
                                 <th class="text-center">STT</th>
                                 <th>Tên sản phẩm</th>

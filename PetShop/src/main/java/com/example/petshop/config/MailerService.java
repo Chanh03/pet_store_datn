@@ -84,16 +84,16 @@ public class MailerService implements IJavaMail {
             orderMessage.setSubject(subject);
             String htmlMessage = "<html>\n" +
                     "    <body style=\"font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;\">\n" +
-                    "        <div style=\"max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden;\">\n" +
+                    "        <div style=\"border:1px solid black;max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden;\">\n" +
                     "            <div style=\"padding: 20px; background: linear-gradient(to right, #0091fe 0%, #cc0033 100%); color: #ffffff; text-align: center;\">\n" +
-                    "                <h1 style=\"margin: 0; font-size: 24px;\">Thay đổi trạng thái đơn hàng #{id}</h1>\n" +
+                    "                <h1 style=\"margin: 0; font-size: 24px;\">Đơn hàng số #{id} đã được cập nhật</h1>\n" +
                     "            </div>\n" +
                     "            <div style=\"padding: 20px;\">\n" +
-                    "                <p style=\"color: #333333;\">Chào <strong>{name}</strong>,</p>\n" +
-                    "                <p style=\"color: #333333; line-height: 1.6;\">{message}</p>\n" +
-                    "                <p style=\"text-align: center;\">\n" +
+                    "                <h3 style=\"color: #333333;\">Chào <strong>{name}</strong>,</h3>\n" +
+                    "                <h4 style=\"color: #333333; line-height: 1.6;\">{message}</h4>\n" +
+                    "                <h4 style=\"text-align: center;\">\n" +
                     "                    <a href='http://localhost:8080/history-detail/{id}' style=\"display: inline-block; padding: 10px 20px; color: #ffffff; background-color: #0099ff; border-radius: 5px; text-decoration: none;\">Xem chi tiết đơn hàng</a>\n" +
-                    "                </p>\n" +
+                    "                </h4>\n" +
                     "            </div>\n" +
                     "            <div style=\"padding: 15px; background-color: #f0f0f0; color: #999999; text-align: center; font-size: 12px;\">\n" +
                     "                <p style=\"margin: 0;\">© 2024 Ninjas Pet. Bảo mật thông tin của bạn là ưu tiên hàng đầu của chúng tôi.</p>\n" +
