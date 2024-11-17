@@ -348,15 +348,17 @@
 
         elements.forEach(element => {
             const elementTop = element.getBoundingClientRect().top;
+            const elementBottom = element.getBoundingClientRect().bottom;
 
             // Kiểm tra nếu thẻ nằm trong vùng hiển thị
-            if (elementTop < windowHeight - 100) { // 100 là khoảng cách buffer
+            if (elementTop < windowHeight - 100 && elementBottom > 100) {
                 element.classList.add("show");
             } else {
                 element.classList.remove("show");
             }
         });
     });
+
 </script>
 <!--    Angular add to cart-->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>

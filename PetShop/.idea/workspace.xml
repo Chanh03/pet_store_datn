@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update index">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="add fade-in on scroll" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -220,15 +215,7 @@
       <workItem from="1731664587633" duration="3268000" />
       <workItem from="1731685744255" duration="6352000" />
       <workItem from="1731756073044" duration="10962000" />
-      <workItem from="1731812351758" duration="3463000" />
-    </task>
-    <task id="LOCAL-00006" summary="gitignore">
-      <option name="closed" value="true" />
-      <created>1729822486595</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1729822486595</updated>
+      <workItem from="1731812351758" duration="3628000" />
     </task>
     <task id="LOCAL-00007" summary="addToCart">
       <option name="closed" value="true" />
@@ -614,7 +601,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731815889032</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="add fade-in on scroll">
+      <option name="closed" value="true" />
+      <created>1731816202561</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1731816202561</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -644,7 +639,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update a lot of file :)" />
     <MESSAGE value="demo all notification" />
     <MESSAGE value="up" />
     <MESSAGE value="update product form" />
@@ -669,7 +663,8 @@
     <MESSAGE value="update all akldkaj" />
     <MESSAGE value="add gif payment success" />
     <MESSAGE value="update index" />
-    <option name="LAST_COMMIT_MESSAGE" value="update index" />
+    <MESSAGE value="add fade-in on scroll" />
+    <option name="LAST_COMMIT_MESSAGE" value="add fade-in on scroll" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
