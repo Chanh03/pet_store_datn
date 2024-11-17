@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update all akldkaj">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/gifs/payment-success.gif" afterDir="false" />
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="add gif payment success">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/banner/feedback.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/banner/sale-banner-1.webp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_orders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/ProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/ProductRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +80,7 @@
     "grid.search.filter.rows": "true",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Vanh/GitHub/DATN_DEV/PetShop/src/main/resources/static/gifs",
+    "last_opened_file_path": "D:/Vanh/GitHub/DATN_DEV/PetShop/src/main/resources/static/images/banner",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -97,11 +100,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\images\banner" />
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\gifs" />
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\images\background" />
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\images\logo" />
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\images\pet" />
-      <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\images\banner" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\templates\admin" />
@@ -218,15 +221,8 @@
       <workItem from="1731664531608" duration="47000" />
       <workItem from="1731664587633" duration="3268000" />
       <workItem from="1731685744255" duration="6352000" />
-      <workItem from="1731756073044" duration="9993000" />
-    </task>
-    <task id="LOCAL-00004" summary="layout fix">
-      <option name="closed" value="true" />
-      <created>1729716780742</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1729716780742</updated>
+      <workItem from="1731756073044" duration="10962000" />
+      <workItem from="1731812351758" duration="3085000" />
     </task>
     <task id="LOCAL-00005" summary="merge">
       <option name="closed" value="true" />
@@ -612,7 +608,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731769364029</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="add gif payment success">
+      <option name="closed" value="true" />
+      <created>1731770104253</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1731770104253</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -642,7 +646,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update payment" />
     <MESSAGE value="update cart payment" />
     <MESSAGE value="update a lot of file :)" />
     <MESSAGE value="demo all notification" />
@@ -667,7 +670,8 @@
     <MESSAGE value="add export excel (order)" />
     <MESSAGE value="add order chart" />
     <MESSAGE value="update all akldkaj" />
-    <option name="LAST_COMMIT_MESSAGE" value="update all akldkaj" />
+    <MESSAGE value="add gif payment success" />
+    <option name="LAST_COMMIT_MESSAGE" value="add gif payment success" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

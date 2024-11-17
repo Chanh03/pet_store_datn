@@ -15,6 +15,6 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 
     List<Product> findByProductCategoryID_IdAndIdNot(Integer id, int id1);
 
-    @Query("SELECT p FROM Product p ORDER BY p.createDate DESC limit 6")
+    @Query("SELECT p FROM Product p ORDER BY p.createDate DESC limit 8")
     List<Product> findAllByCreatedDateDesc();
 }
