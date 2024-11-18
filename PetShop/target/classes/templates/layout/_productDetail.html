@@ -142,6 +142,26 @@
             </div>
         </div>
     </div>
+    
+    <!-- Sản phẩm khác -->
+    <div>
+        <h2 class="text-center mb-4">Sản phẩm khác</h2>
+        <hr>
+        <div class="row g-4">
+            <div class="col-2" th:each="p, iterStat : otherProducts">
+                <div class="card product-card h-100" th:if="${iterStat.index < 12}">
+                    <a th:href="@{/product/detail/{id}(id=${p.id})}">
+                        <img th:src="@{/images/product/{photo}(photo=${p.photo})}"
+                             class="card-img-top rounded-image mx-auto mt-3" alt="Sản phẩm ${p.productName}">
+                    </a>
+                    <div class="card-body text-center">
+                        <p class="card-text fw-bold" th:text="${p.productName}">Tên sản phẩm</p>
+                        <p class="text-danger fw-bold" th:text="${p.price}">Giá sản phẩm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <hr>

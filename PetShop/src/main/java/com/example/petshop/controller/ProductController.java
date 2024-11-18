@@ -80,6 +80,11 @@ public class ProductController {
 			List<Product> relatedProducts = productService.getProductsByCategory(product.getProductCategoryID().getId(),
 					id);
 			model.addAttribute("relatedProducts", relatedProducts);
+			List<Product> otherProducts = productService.getProductsByDifferentCategory(
+					product.getProductCategoryID().getId(),
+					product.getId()
+	        );
+			model.addAttribute("otherProducts", otherProducts);
 
 			List<Review> reviews = reviewService.getReviewsByProductId(id);
 			model.addAttribute("reviews", reviews);

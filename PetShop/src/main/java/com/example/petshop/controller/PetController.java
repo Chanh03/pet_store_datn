@@ -66,7 +66,11 @@ public class PetController {
 			List<Pet> otherPets = petService.getAll().stream().filter(
 					p -> !p.getPetID().equals(pet.getPetID()) && p.getPetCategoryID().equals(pet.getPetCategoryID()))
 					.limit(12).collect(Collectors.toList());
+			List<Pet> otherPetCate = petService.getAll().stream().filter(
+					p -> !p.getPetCategoryID().equals(pet.getPetCategoryID()))
+					.limit(12).collect(Collectors.toList());
 			model.addAttribute("pets", otherPets);
+			model.addAttribute("petCates", otherPetCate);
 		} else {
 			model.addAttribute("errorMessage", "Thú cưng không tồn tại");
 			return "error";
