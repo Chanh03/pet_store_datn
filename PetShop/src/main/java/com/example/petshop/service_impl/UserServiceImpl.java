@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Scheduled(fixedRate = 60000)
     public void cleanupInactiveUsers() {
-        List<User> listUser = userRepo.findUserByEnableFalse();
+        List<User> listUser = userRepo.findUserByIsDeleteTrue();
         Instant now = Instant.now();
         
         for (User user : listUser) {

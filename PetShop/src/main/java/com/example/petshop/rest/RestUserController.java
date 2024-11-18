@@ -145,7 +145,7 @@ public class RestUserController {
             String uuidString = uuid.toString();
             user.setActiveToken(uuidString);
             user.setUserPassword(encodedPassword);
-            
+            user.setIsDelete(true);
             user.setDateCreated(LocalDateTime.now());
 
             // Gán vai trò cho người dùng
@@ -211,6 +211,7 @@ public class RestUserController {
         }
 
         // Kích hoạt tài khoản
+        user.setIsDelete(false);
         user.setEnable(true);
         service.update(user);
 

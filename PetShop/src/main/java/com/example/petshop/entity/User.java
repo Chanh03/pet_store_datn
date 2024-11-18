@@ -58,6 +58,9 @@ public class User implements UserDetails {
     @NotNull
     @Column(name = "Enable", nullable = false)
     private Boolean enable = false;
+    @NotNull
+    @Column(name = "IsDelete", nullable = false)
+    private Boolean isDelete = false;
 
     @Size(max = 200)
     @NotNull

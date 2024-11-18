@@ -22,8 +22,8 @@ public interface UserRepo extends JpaRepository<User, String> {
     boolean existsByTempToken(@Param("temp_token") String temp_token);
     @Query("SELECT CASE WHEN COUNT(u) > 0 THEN TRUE ELSE FALSE END FROM User u WHERE u.userName = :userName")
     boolean existsByUsername(@Param("userName") String userName);
-    @Query("SELECT u FROM User u WHERE u.enable = false")
-    List<User> findUserByEnableFalse(); 
+    @Query("SELECT u FROM User u WHERE u.isDelete = true")
+    List<User> findUserByIsDeleteTrue(); 
     @Query("SELECT u FROM User u WHERE u.email = :email")
     List<User> findByEmail(String email);
 }
