@@ -23,6 +23,9 @@ public class RestReviewController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private OrderProductDetailService orderProductDetailService;
+
     @GetMapping
     public List<Review> getAll() {
         return reviewService.getAll();
@@ -35,9 +38,7 @@ public class RestReviewController {
 
     @PostMapping
     public Review addReview(@RequestBody Review review) {
-
-//        review.setReviewDate(LocalDateTime.now());
-
+//        OrderProductDetail orderProductDetail = orderProductDetailService.changeReviewStatusByProductID(review.getProductID().getId());
         return reviewService.save(review);
     }
 }

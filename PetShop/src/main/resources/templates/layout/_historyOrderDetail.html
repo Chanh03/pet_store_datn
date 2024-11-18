@@ -14,7 +14,7 @@
 
 <div class="container mt-5">
     <h2 class="text-center">Chi tiết đơn hàng</h2>
-    <div  class="text-center">
+    <div class="text-center">
         <h4>Không có sản phẩm nào trong đơn hàng này</h4>
     </div>
     <div>
@@ -40,17 +40,23 @@
                     <td th:text="${od.quantity}">{{od.quantity}}</td>
                     <td th:text="${od.quantity * od.price}">{{od.price * od.quantity | number: '0'}}đ</td>
                     <td>
-                        <button th:attr="ng-click=${'review(' + od.productID.id + ')'}"  th:if="${od.orderID.paymentStatusID.id == 2}">
-                            <h5>Đánh giá sản phẩm</h5>
-                        </button>
-                            <h5 th:if="${od.orderID.paymentStatusID.id == 1}">Vui lòng thanh toán</h5>
-<!--                        <h5 th:if="${od.orderID.paymentStatusID.id == 3}">San pham da danh gia</h5>-->
+                        <div th:if="${od.orderID.paymentStatusID.id == 2}">
+                            <button th:attr="ng-click=${'review(' + od.productID.id + ', ' + od.orderID.id +')'}" th:if="${od.reviewStatus == false}">
+                                <h5>Đánh giá sản phẩm</h5>
+                            </button>
+                            <div th:if="${od.reviewStatus == true}">
+                                <h5>Sản phẩm đã đánh giá <i class="fa fa-check-circle" style="color: green; font-size: 20px;"></i></h5>
 
+                            </div>
+                        </div>
+                        <h5 th:if="${od.orderID.paymentStatusID.id == 1}">Vui lòng thanh toán</h5>
                     </td>
+
                 </tr>
                 <div sec:authorize="isAuthenticated()">
                     <span id="username_auth" hidden="hidden" th:text="${#authentication.getName()}"></span>
                 </div>
+
             </table>
         </div>
     </div>
