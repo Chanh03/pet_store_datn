@@ -220,7 +220,7 @@
 
         </div>
         <div class="d-flex justify-content-center mb-3">
-            <a class="btn color py-2 px-4 rounded-5 button-image">
+            <a class="btn color py-2 px-4 rounded-5 button-image" href="/allProduct">
                 <span class="fw-bold">Xem thêm</span>
             </a>
         </div>
@@ -244,103 +244,22 @@
     </div>
     <div class="col-lg-6">
         <!--ITEMS-->
-        <div class="card p-3 mb-3 button-image">
+        <div class="card p-3 mb-3 button-image" th:each="review : ${reviews}">
             <div class="d-flex justify-content-between align-items-center gap-2">
                 <div class="d-flex justify-content-start align-items-center gap-2">
-                    <div class="overflow-hidden rounded-circle" style="width: 50px;height: 50px">
-                        <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                             style="object-fit: cover;">
-                    </div>
-                    <h4 class="color fw-bold m-0">Nguyễn Văn A</h4>
+                    <h4 class="color fw-bold m-0" th:text="${review.userName.username}">Nguyễn Văn A</h4>
                 </div>
                 <div class="d-flex justify-content-center gap-2 my-2">
-                    <i class="fa-solid fa-star text-danger"></i>
-                    <i class="fa-solid fa-star text-danger"></i>
-                    <i class="fa-solid fa-star text-danger"></i>
-                    <i class="fa-solid fa-star text-danger"></i>
-                    <i class="fa-solid fa-star"></i>
+                    <i th:each="i : ${#numbers.sequence(1, 5)}"
+                       th:class="${i <= review.rating} ? 'fa-solid fa-star text-danger' : 'fa-solid fa-star'"></i>
                 </div>
+
             </div>
-            <p class="my-3">
+            <p class="my-3" th:text="${review.comment}">
                 "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng yêu,
                 đồng hành cùng bạn trên mọi chặng đường!"
             </p>
-            <p class="text-body-tertiary m-0">
-                Ngày: 01/01/2022
-            </p>
-        </div>
-        <div class="card p-3 mb-3 button-image">
-            <div class="d-flex justify-content-between align-items-center gap-2">
-                <div class="d-flex justify-content-start align-items-center gap-2">
-                    <div class="overflow-hidden rounded-circle" style="width: 50px;height: 50px">
-                        <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                             style="object-fit: cover;">
-                    </div>
-                    <h4 class="color fw-bold m-0">Nguyễn Văn A</h4>
-                </div>
-                <div class="d-flex justify-content-center gap-2 my-2">
-                    <i class="fa-solid fa-star text-danger"></i>
-                    <i class="fa-solid fa-star text-danger"></i>
-                    <i class="fa-solid fa-star text-danger"></i>
-                    <i class="fa-solid fa-star text-danger"></i>
-                    <i class="fa-solid fa-star"></i>
-                </div>
-            </div>
-            <p class="my-3">
-                "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng yêu,
-                đồng hành cùng bạn trên mọi chặng đường!"
-            </p>
-            <p class="text-body-tertiary m-0">
-                Ngày: 01/01/2022
-            </p>
-        </div>
-        <div class="card p-3 mb-3 button-image">
-            <div class="d-flex justify-content-between align-items-center gap-2">
-                <div class="d-flex justify-content-start align-items-center gap-2">
-                    <div class="overflow-hidden rounded-circle" style="width: 50px;height: 50px">
-                        <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                             style="object-fit: cover;">
-                    </div>
-                    <h4 class="color fw-bold m-0">Nguyễn Văn A</h4>
-                </div>
-                <div class="d-flex justify-content-center gap-2 my-2">
-                    <i class="fa-solid fa-star text-danger"></i>
-                    <i class="fa-solid fa-star text-danger"></i>
-                    <i class="fa-solid fa-star text-danger"></i>
-                    <i class="fa-solid fa-star text-danger"></i>
-                    <i class="fa-solid fa-star"></i>
-                </div>
-            </div>
-            <p class="my-3">
-                "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng yêu,
-                đồng hành cùng bạn trên mọi chặng đường!"
-            </p>
-            <p class="text-body-tertiary m-0">
-                Ngày: 01/01/2022
-            </p>
-        </div>
-        <div class="card p-3 mb-3 button-image">
-            <div class="d-flex justify-content-between align-items-center gap-2">
-                <div class="d-flex justify-content-start align-items-center gap-2">
-                    <div class="overflow-hidden rounded-circle" style="width: 50px;height: 50px">
-                        <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                             style="object-fit: cover;">
-                    </div>
-                    <h4 class="color fw-bold m-0">Nguyễn Văn A</h4>
-                </div>
-                <div class="d-flex justify-content-center gap-2 my-2">
-                    <i class="fa-solid fa-star text-danger"></i>
-                    <i class="fa-solid fa-star text-danger"></i>
-                    <i class="fa-solid fa-star text-danger"></i>
-                    <i class="fa-solid fa-star text-danger"></i>
-                    <i class="fa-solid fa-star"></i>
-                </div>
-            </div>
-            <p class="my-3">
-                "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng yêu,
-                đồng hành cùng bạn trên mọi chặng đường!"
-            </p>
-            <p class="text-body-tertiary m-0">
+            <p class="text-body-tertiary m-0" th:text="${review.reviewDate}">
                 Ngày: 01/01/2022
             </p>
         </div>

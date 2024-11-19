@@ -33,23 +33,32 @@ public class ProductController {
     @Autowired
     private OrderProductDetailService orderProductDetailService;
 
-
     @Autowired
     private ProductCategoryService productCategoryService;
 
     @RequestMapping("/allProduct")
     public String viewProduct(Model model, @RequestParam(defaultValue = "0") int page,
-                              @RequestParam(required = false) String search, @RequestParam(required = false) String sort) {
+                              @RequestParam(required = false) String search, @RequestParam(required = false) String sort,
+                              @RequestParam(required = false) Integer categoryId) {
         int pageSize = 16;
         Page<Product> productPage;
 
-        // Xử lý tìm kiếm
-        if (search != null && !search.isEmpty()) {
-            productPage = productService.searchProduct(search, PageRequest.of(page, pageSize,
-                    Sort.by(sort != null && sort.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, "price")));
+        // Xác định thứ tự sắp xếp
+        Sort.Direction sortDirection = (sort != null && sort.equals("asc")) ? Sort.Direction.ASC : Sort.Direction.DESC;
+
+        // Xử lý kết hợp giữa tìm kiếm, danh mục, và sắp xếp
+        if (search != null && !search.isEmpty() && categoryId != null) {
+            productPage = productService.searchProductWithCategory(search, categoryId,
+                    PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
+        } else if (search != null && !search.isEmpty()) {
+            productPage = productService.searchProduct(search,
+                    PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
+        } else if (categoryId != null) {
+            productPage = productService.getProductsByCategoryId(categoryId,
+                    PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
         } else {
-            productPage = productService.getPaginatedProduct(PageRequest.of(page, pageSize,
-                    Sort.by(sort != null && sort.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, "price")));
+            productPage = productService
+                    .getPaginatedProduct(PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
         }
 
         List<ProductCategory> categories = productCategoryService.getAll();
@@ -57,9 +66,10 @@ public class ProductController {
         model.addAttribute("categories", categories);
         model.addAttribute("search", search);
         model.addAttribute("sort", sort);
+        model.addAttribute("categoryId", categoryId);
+
         return "layout/_allProduct";
     }
-
     @RequestMapping("/product/detail/{id}")
     public String product(Model model, @PathVariable int id) {
         Product product = productService.getById(id);
@@ -69,11 +79,18 @@ public class ProductController {
             List<Product> relatedProducts = productService.getProductsByCategory(product.getProductCategoryID().getId(), id);
             model.addAttribute("relatedProducts", relatedProducts);
 
+            List<Product> otherProducts = productService.getProductsByDifferentCategory(
+                    product.getProductCategoryID().getId(),
+                    product.getId()
+            );
+            model.addAttribute("otherProducts", otherProducts);
 
             List<Review> reviews = reviewService.getReviewsByProductId(id);
-            model.addAttribute("reviews", reviews);
+            model.addAttribute("reviews", reviews != null ? reviews : List.of());
+
             List<Review> ratings = reviewService.getRatingsByProductId(id);
-            model.addAttribute("ratings", ratings);
+            model.addAttribute("ratings", ratings != null ? ratings : List.of());
+
             double averageRating = reviewService.getAverageRatingByProductId(id);
             model.addAttribute("averageRating", averageRating);
         } else {

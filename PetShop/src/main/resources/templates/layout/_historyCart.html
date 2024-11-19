@@ -118,12 +118,11 @@
                                 toán' }}
                             </h5>
                         </div>
-                        <button ng-if="history.paymentStatusID.statusPayment == 2"
+                        <a ng-if="history.paymentStatusID.statusPayment == 2"
                                 class="btn btn-danger"
-                                ng-click="getHistoryOrderDetail(history.id)"
-                                data-bs-toggle="modal" data-bs-target="#historyOrderDetail">
+                                ng-href="/history-detail/{{history.id}}">
                             <h5 class=" m-0 mx-1 my-2">Đánh giá sản phẩm</h5>
-                        </button>
+                        </a>
                         <button ng-if="history.orderStatusID.statusName === 'Đang xử lý'"
                                 class="btn btn-danger"
                                 ng-click="deleteHistory(history.id)">

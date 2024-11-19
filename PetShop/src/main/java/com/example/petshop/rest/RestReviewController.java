@@ -38,7 +38,6 @@ public class RestReviewController {
 
     @PostMapping
     public Review addReview(@RequestBody Review review) {
-//        OrderProductDetail orderProductDetail = orderProductDetailService.changeReviewStatusByProductID(review.getProductID().getId());
         return reviewService.save(review);
     }
 }

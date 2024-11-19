@@ -46,6 +46,9 @@ public class HomeController {
     @Autowired
     private OrderProductDetailService orderProductDetailService;
 
+    @Autowired
+    private ReviewService reviewService;
+
     @ModelAttribute("fullname")
     public void getUser(Model model, HttpServletRequest request) {
         try {
@@ -64,8 +67,15 @@ public class HomeController {
         List<Product> nextSixProducts = productService.getAllByCreatedDate();
         List<Pet> nextSixPet = petService.getAllByCreatedDate();
 
+        List<Review> reviews = reviewService.getAll();
+        List<Review> topReview = reviews.stream()
+                .sorted(Comparator.comparing(Review::getReviewDate).reversed())
+                .limit(6)
+                .collect(Collectors.toList());
+
         model.addAttribute("nextSixProducts", nextSixProducts);
         model.addAttribute("nextSixPet", nextSixPet);
+        model.addAttribute("reviews", topReview);
         model.addAttribute("productCategories", productCategoryService.getAll());
         model.addAttribute("slides", slideBarService.getAll());
 
@@ -163,7 +173,7 @@ public class HomeController {
     }
 
     @RequestMapping("/history-detail/{id}")
-    public String historyDetail(Model model, Principal principal,@PathVariable(name = "id") int id) {
+    public String historyDetail(Model model, Principal principal, @PathVariable(name = "id") int id) {
         Order order = orderService.getByOrderId(id);
         List<OrderProductDetail> orderDetailHistory = orderProductDetailService.getByOrderID(order);
         System.out.println(orderDetailHistory);

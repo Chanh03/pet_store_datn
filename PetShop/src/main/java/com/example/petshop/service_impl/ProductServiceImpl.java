@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -55,5 +56,25 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getAllByCreatedDate() {
         return productRepo.findAllByCreatedDateDesc();
     }
+
+    @Override
+    public Page<Product> getProductsByCategoryId(Integer categoryId, Pageable pageable) {
+        return productRepo.findByProductCategoryID_Id(categoryId, pageable);
+    }
+
+    @Override
+    public Page<Product> searchProductWithCategory(String keyword, Integer categoryId, Pageable pageable) {
+        return productRepo.findByProductCategoryID_IdAndProductDescriptionContainingIgnoreCase(categoryId, keyword, pageable);
+    }
+
+    @Override
+    public List<Product> getProductsByDifferentCategory(int currentCategoryId, int currentProductId) {
+        // Lấy tất cả sản phẩm, sau đó lọc để chỉ giữ sản phẩm khác loại và không trùng ID
+        return productRepo.findAll().stream()
+                .filter(product -> !product.getProductCategoryID().getId().equals(currentCategoryId)) // Khác loại
+                .filter(product -> !product.getId().equals(currentProductId)) // Không trùng ID
+                .collect(Collectors.toList());
+    }
+
 
 }

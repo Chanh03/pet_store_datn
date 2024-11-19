@@ -17,4 +17,10 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 
     @Query("SELECT p FROM Product p ORDER BY p.createDate DESC limit 6")
     List<Product> findAllByCreatedDateDesc();
+
+    Page<Product> findByProductCategoryID_Id(Integer categoryId, Pageable pageable);
+
+    Page<Product> findByProductDescriptionAndProductCategoryID_Id(String keyword, Integer categoryId, Pageable pageable);
+
+    Page<Product> findByProductCategoryID_IdAndProductDescriptionContainingIgnoreCase(Integer categoryId, String keyword, Pageable pageable);
 }
