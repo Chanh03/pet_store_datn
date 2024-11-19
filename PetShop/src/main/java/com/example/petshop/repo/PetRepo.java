@@ -11,4 +11,7 @@ import java.util.List;
 public interface PetRepo extends JpaRepository<Pet, String> {
     @Query("SELECT p FROM Pet p ORDER BY p.createDate DESC limit 6")
     List<Pet> findAllByCreatedDateDesc();
+
+    @Query("SELECT p FROM Pet p ORDER BY p.createDate DESC limit 12")
+    List<Pet> findAllLimit12();
 }

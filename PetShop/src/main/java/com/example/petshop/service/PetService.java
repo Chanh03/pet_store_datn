@@ -18,4 +18,6 @@ public interface PetService {
     boolean existsById(String id);
 
     List<Pet> getAllByCreatedDate();
+
+    List<Pet> getAllLimit12();
 }

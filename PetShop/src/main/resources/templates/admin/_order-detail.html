@@ -171,10 +171,12 @@
                                 <div class="card shadow">
                                     <div class="card-header fw-bold bg-modal-header-color">Trạng thái thanh toán</div>
                                     <div class="card-body bg-white">
-                                        <div class="mx-auto" ng-if="orderDetailAll.paymentStatusID.id === 1" style="width: 200px">
+                                        <div class="mx-auto" ng-if="orderDetailAll.paymentStatusID.id === 1"
+                                             style="width: 200px">
                                             <img class="img-fluid" src="/images/logo/not-paid.webp" alt="">
                                         </div>
-                                        <div class="mx-auto" ng-if="orderDetailAll.paymentStatusID.id === 2" style="width: 200px">
+                                        <div class="mx-auto" ng-if="orderDetailAll.paymentStatusID.id === 2"
+                                             style="width: 200px">
                                             <img class="img-fluid" src="/images/logo/paid-order-status-01.webp" alt="">
                                         </div>
                                     </div>
@@ -231,7 +233,8 @@
             </div>
             <div class="modal-footer">
                 <div class="me-auto shadow border border-1 rounded-3">
-                    <button type="button" class="btn btn-outline-success fw-bold" style="text-transform: uppercase">
+                    <button type="button" ng-click="exportExcelOrderDetail(orderDetailAll.id)" class="btn btn-outline-success fw-bold"
+                            style="text-transform: uppercase">
                         Xuất hóa đơn
                     </button>
                 </div>

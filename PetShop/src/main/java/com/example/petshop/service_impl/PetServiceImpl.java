@@ -42,4 +42,10 @@ public class PetServiceImpl implements PetService {
     public List<Pet> getAllByCreatedDate() {
         return petRepo.findAllByCreatedDateDesc();
     }
+
+    @Override
+    public List<Pet> getAllLimit12() {
+        return petRepo.findAllLimit12();
+    }
+
 }

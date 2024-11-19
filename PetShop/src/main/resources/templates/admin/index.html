@@ -929,7 +929,6 @@
                     }
                 });
             };
-
             $scope.clearOrderFilter = function () {
                 $scope.ordersTable.filter({});
                 $scope.ordersTable.sorting({
@@ -1071,15 +1070,15 @@
             };
             $scope.exportExcelProduct = function () {
                 try {
-                    const data = $scope.productData.map((user, index) => ({
+                    const data = $scope.productData.map((product, index) => ({
                         "STT": index + 1,
-                        "Tên sản phẩm": user.productName,
-                        "Loại": user.productCategoryID.productCategoryName,
-                        "Giá": user.price.toLocaleString("vi-VN") + " đ",
-                        "Số lượng": user.quantity,
-                        "Tình trạng": user.available ? "Còn hàng" : "Hết hàng",
-                        "Hình ảnh": user.photo,
-                        "Mô tả": user.productDescription,
+                        "Tên sản phẩm": product.productName,
+                        "Loại": product.productCategoryID.productCategoryName,
+                        "Giá": product.price.toLocaleString("vi-VN") + " đ",
+                        "Số lượng": product.quantity,
+                        "Tình trạng": product.available ? "Còn hàng" : "Hết hàng",
+                        "Hình ảnh": product.photo,
+                        "Mô tả": product.productDescription,
                     }));
                     const totalProducts = data.length;
                     const totalCost = $scope.productData.reduce((total, product) => total + product.price * product.quantity, 0);
@@ -1198,7 +1197,42 @@
                     });
                 }
             };
-            // Cập nhật tên ảnh khi chọn file
+            $scope.exportExcelOrderDetail = function (id) {
+                $http.get(baseUrl + "order-detail/" + id).then(function (resp) {
+                    $scope.orderDetail = resp.data;
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu order:', error);
+                });
+                try {
+                    const data = $scope.orderDetail.map((order, index) => ({
+                        "STT": index + 1,
+                        "Sản phẩm": order.productID.productName,
+                        "Giá": order.price,
+                        "Số lượng": order.quantity,
+                        "Tổng": order.price * order.quantity,
+                    }));
+                    const wb = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data));
+                    XLSX.writeFile(wb, "Hóa đơn số #" + id + ".xlsx");
+                    Swal.fire({
+                        title: 'Thành công!',
+                        text: 'Đã xuất file Excel',
+                        icon: 'success',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                } catch (error) {
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: 'Có lỗi xảy ra khi xuất file Excel',
+                        icon: 'error',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                    console.error('Lỗi khi xuất file Excel:', error);
+                }
+            };
+            // CHANGE IMAGE WHEN UPLOAD
             $scope.updatePhotoPetName = function (input) {
                 if (input.files && input.files[0]) {
                     var fileName = input.files[0].name;
