@@ -12,7 +12,8 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/quan-tri-he-thong">Trang chủ</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Thú cưng
+                <li class="breadcrumb-item active">Thú cưng</li>
+                <li class="breadcrumb-item active" aria-current="page">Danh sách thú cưng
                 </li>
             </ol>
         </nav>
@@ -101,11 +102,15 @@
                     <img height="100px" width="100px" ng-src="/images/pet/{{ pet.photo }}" alt="{{ pet.photo }}"
                          class="img-thumbnail pet-image">
                 </td>
-                <td sortable="'petID'" class="text-start text-wrap" filter="{ 'petID': 'text' }" data-title="'Pet Id'">{{ pet.petID }}</td>
+                <td sortable="'petID'" class="text-start text-wrap" filter="{ 'petID': 'text' }" data-title="'Pet Id'">
+                    {{ pet.petID }}
+                </td>
+                <td sortable="'breed'" class="text-start" filter="{ 'breed': 'text' }" data-title="'Giống'">{{ pet.breed
+                    }}
+                </td>
                 <td sortable="'petCategoryID.petCategoryName'" filter="{ 'petCategoryID.petCategoryName': 'text' }"
                     data-title="'Loài'" class="text-start text-wrap">{{ pet.petCategoryID.petCategoryName }}
                 </td>
-                <td sortable="'breed'"  class="text-start" filter="{ 'breed': 'text' }" data-title="'Giống'">{{ pet.breed }}</td>
                 <td sortable="'price'" filter="{ 'price': 'number' }" data-title="'Giá'">{{ pet.price | number :
                     '0'}}đ
                 </td>
@@ -131,10 +136,10 @@
                         <i class="fa-solid fa-pen"></i>
                         <span>Sửa</span>
                     </button>
-                    <button class="btn btn-outline-danger" ng-click="deletePet(pet.petID)">
-                        <i class="fa-solid fa-xmark"></i>
-                        <span>Xóa</span>
-                    </button>
+                    <!--                    <button class="btn btn-outline-danger" ng-click="deletePet(pet.petID)">-->
+                    <!--                        <i class="fa-solid fa-xmark"></i>-->
+                    <!--                        <span>Xóa</span>-->
+                    <!--                    </button>-->
                 </td>
             </tr>
         </table>

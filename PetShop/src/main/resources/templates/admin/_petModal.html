@@ -79,18 +79,23 @@
                                 </span>
                             </div>
                             <div class="mb-3">
-                                <label for="petCategory" class="form-label">Chọn loại thú cưng:</label>
-                                <select name="petCategory" class="form-select" id="petCategory"
-                                        ng-model="selectedPet.petCategoryID.id"
-                                        placeholder="Chọn loại thú cưng..." required>
-                                    <option ng-repeat="pc in petCategoryData" ng-value="pc.id">
-                                        {{pc.petCategoryName}}
-                                    </option>
-                                </select>
-                                <span ng-show="editPetForm.petCategory.$touched && editPetForm.petCategory.$invalid"
-                                      class="text-danger fst-italic">
-                                    Vui lòng chọn loại thú cưng.
-                                </span>
+                                <label for="petCategory" class="form-label">Chọn loài:</label>
+                                <div class="d-flex align-items-center">
+                                    <select name="petCategory" class="form-select w-75" id="petCategory"
+                                            ng-model="selectedPet.petCategoryID.id"
+                                            placeholder="Chọn loài..." required>
+                                        <option ng-repeat="pc in petCategoryData" ng-value="pc.id">
+                                            {{pc.petCategoryName}}
+                                        </option>
+                                    </select>
+                                    <span ng-show="editPetForm.petCategory.$touched && editPetForm.petCategory.$invalid"
+                                          class="text-danger fst-italic">
+                                    Vui lòng chọn loài.
+                                    </span>
+                                    <a href="/quan-tri-he-thong/pet-category" type="button" class="btn btn-primary">Thêm
+                                        loài <i class="fa-solid fa-plus"></i>
+                                    </a>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label>Giới tính</label>
@@ -159,9 +164,9 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button ng-disabled="editPetForm.petID.$invalid" type="button" class="btn btn-danger"
-                        ng-click="deletePet(selectedPet.petID)"><span>Xóa</span> <i
-                        class="fa-solid fa-trash"></i></button>
+<!--                <button ng-disabled="editPetForm.petID.$invalid" type="button" class="btn btn-danger"-->
+<!--                        ng-click="deletePet(selectedPet.petID)"><span>Xóa</span> <i-->
+<!--                        class="fa-solid fa-trash"></i></button>-->
                 <button type="button" class="btn btn-primary"
                         ng-click="updatePet(selectedPet.petID)"
                         ng-disabled="editPetForm.$invalid || editPetForm.$pristine">

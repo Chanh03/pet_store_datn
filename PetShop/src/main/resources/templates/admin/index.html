@@ -66,6 +66,7 @@
         }
 
         .nav-pills .nav-link.active {
+            background: #087592;
             background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
             color: white !important;
         }
@@ -215,9 +216,15 @@
 <!-- Modal -->
 <div th:insert="~{/admin/_petModal}"></div>
 <div th:insert="~{/admin/_petAddModal}"></div>
+
+<div th:insert="~{/admin/_pet_category_modal}"></div>
+<div th:insert="~{/admin/_add_pet_category_modal}"></div>
+
 <div th:insert="~{/admin/_productModal}"></div>
 <div th:insert="~{/admin/_productAddModal}"></div>
+
 <div th:insert="~{/admin/_userModal}"></div>
+
 <div th:insert="~{/admin/_order-detail}"></div>
 <!-- MAIN CONTENT -->
 <main class="container-fluid p-0 d-flex">
@@ -233,41 +240,96 @@
         <!-- Navigation -->
         <ul class="nav nav-pills flex-column mb-auto p-4" style="position: sticky;  top: 0;">
             <li class="nav-item mb-2">
-                <a th:href="@{/quan-tri-he-thong}" class="nav-link text-dark">
-                    <i class="fa-regular fa-user me-2"></i>
+                <a th:href="@{/quan-tri-he-thong}" class="nav-link text-dark border shadow-sm">
+                    <i class="fa-solid fa-home"></i>
                     <span>Trang chủ</span>
                 </a>
             </li>
-            <!-- Settings Dropdown -->
-            <li class="nav-item mb-1">
-                <a th:href="@{/quan-tri-he-thong/pet}" class="nav-link text-dark">
-                    <i class="fa-solid fa-paw"></i>
-                    <span>Thú cưng</span>
+            <li class="nav-item mb-2">
+                <a class="nav-link text-dark d-flex justify-content-between align-items-center border shadow-sm"
+                   href="#" role="button"
+                   data-bs-toggle="collapse" data-bs-target="#submenuPet" aria-expanded="true"
+                   aria-controls="submenuPet">
+                    <div>
+                        <i class="fa-solid fa-paw"></i>
+                        <span>Thú cưng</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down"></i>
                 </a>
+                <ul class="collapse list-unstyled ms-3" id="submenuPet" style="border-bottom: 5px solid #087592;">
+                    <li>
+                        <a class="nav-link text-dark" th:href="@{/quan-tri-he-thong/pet}">
+                            <i class="fa-solid fa-paw"></i>
+                            <span>Danh sách thú cưng</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-dark" th:href="@{/quan-tri-he-thong/pet-category}">
+                            <i class="fa-solid fa-list"></i>
+                            <span>Loại thú cưng</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li class="nav-item mb-1">
-                <a th:href="@{/quan-tri-he-thong/product}" class="nav-link text-dark">
-                    <i class="fa-solid fa-box"></i>
-                    <span>Sản phẩm</span>
+            <li class="nav-item mb-2">
+                <a class="nav-link text-dark d-flex justify-content-between align-items-center border shadow-sm"
+                   href="#" role="button"
+                   data-bs-toggle="collapse" data-bs-target="#submenuProduct" aria-expanded="true"
+                   aria-controls="submenuProduct">
+                    <div>
+                        <i class="fa-solid fa-box"></i>
+                        <span>Sản phẩm</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down"></i>
                 </a>
+                <ul class="collapse list-unstyled ms-3" id="submenuProduct"
+                    style="border-bottom: 5px solid #087592;">
+                    <li>
+                        <a th:href="@{/quan-tri-he-thong/product}" class="nav-link text-dark">
+                            <i class="fa-solid fa-box"></i>
+                            <span>Danh sách sản phẩm</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-dark" th:href="@{/quan-tri-he-thong/product-category}">
+                            <i class="fa-solid fa-list"></i>
+                            <span>Loại sản phẩm</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li class="nav-item mb-1">
-                <a th:href="@{/quan-tri-he-thong/order}" class="nav-link text-dark">
+            <li class="nav-item mb-2">
+                <a th:href="@{/quan-tri-he-thong/order}" class="nav-link text-dark  border shadow-sm">
                     <i class="fa-solid fa-shopping-cart"></i>
                     <span>Đơn hàng</span>
                 </a>
             </li>
-            <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item mb-1">
-                <a th:href="@{/quan-tri-he-thong/user}" class="nav-link text-dark">
-                    <i class="fa-solid fa-user"></i>
-                    <span>Người dùng</span>
+            <li sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-item mb-2">
+                <a class="nav-link text-dark d-flex justify-content-between align-items-center border shadow-sm"
+                   href="#" role="button"
+                   data-bs-toggle="collapse" data-bs-target="#submenuUser" aria-expanded="true"
+                   aria-controls="submenuUser">
+                    <div>
+                        <i class="fa-solid fa-user"></i>
+                        <span>Người dùng</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down"></i>
                 </a>
-            </li>
-            <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item mb-1">
-                <a th:href="@{/quan-tri-he-thong/authorization}" class="nav-link text-dark">
-                    <i class="fa-solid fa-user-shield"></i>
-                    <span>Phân quyền</span>
-                </a>
+                <ul class="collapse list-unstyled ms-3" id="submenuUser"
+                    style="border-bottom: 5px solid #087592;">
+                    <li>
+                        <a th:href="@{/quan-tri-he-thong/user}" class="nav-link text-dark">
+                            <i class="fa-solid fa-user"></i>
+                            <span>Danh sách</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/quan-tri-he-thong/authorization}" class="nav-link text-dark">
+                            <i class="fa-solid fa-key"></i>
+                            <span>Phân quyền</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
         <div class="d-flex justify-content-center align-items-center p-4">
@@ -300,14 +362,6 @@
 
 <script type="text/javascript">
     // Lấy ngày giờ hiện tại
-    $(document).ready(function () {
-        $scope.date = new Date().toLocaleString();
-        setInterval(function () {
-            $scope.$apply(function () {
-                $scope.date = new Date().toLocaleString();
-            });
-        }, 1000);
-    });
     var colors = ['#AEC6CF', '#FFB7B2', '#C3B1E1', '#FFDAC1', '#FFB6C1', '#B5EAD7', '#FFDFBA', '#FDFD96', '#B3E5FC', '#FADADD'];
     /* Bôi màu cho menu hiện tại thoôi nhìn gì?*/
     $(document).ready(function () {
@@ -315,12 +369,22 @@
         $('.nav-link').each(function () {
             if (this.href === url) {
                 $(this).addClass('active');
+                $(this).closest('.collapse').addClass('show');
+                $(this).closest('.collapse').prev().addClass('active');
             }
         });
     });
     /* Đây mới là phần chính của AngularJS nè =))*/
     var app = angular.module('myApp', ['ngRoute', 'ngTable']);
     app.controller('myCtrl', function ($scope, $http, NgTableParams) {
+            $(document).ready(function () {
+                $scope.date = new Date().toLocaleString();
+                setInterval(function () {
+                    $scope.$apply(function () {
+                        $scope.date = new Date().toLocaleString();
+                    });
+                }, 1000);
+            });
             var baseUrl = window.location.origin + '/api/';
             /*PET*/
             $scope.getPets = function () {
@@ -711,7 +775,10 @@
                     // PRODUCT TABLE
                     $scope.usersTable = new NgTableParams({
                         page: 1,
-                        count: 10
+                        count: 10,
+                        sorting: {
+                            dateCreated: 'desc'
+                        }
                     }, {
                         counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.userData.length],
                         dataset: $scope.userData
@@ -766,11 +833,92 @@
             $scope.getPetCategories = function () {
                 $http.get(baseUrl + 'pet-category').then(function (response) {
                     $scope.petCategoryData = response.data;
+                    $scope.petCategoryTables = new NgTableParams({
+                        page: 1,
+                        count: 10,
+                        sorting: {
+                            petCategoryName: 'asc'
+                        }
+                    }, {
+                        counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.petCategoryData.length],
+                        dataset: $scope.petCategoryData
+                    });
                 }).catch(function (error) {
                     console.error('Lỗi khi lấy dữ liệu loại thú cưng:', error);
                 });
             };
             $scope.getPetCategories();
+            $scope.petCategoryEdit = function (petCategory) {
+                $scope.selectedPetCategory = angular.copy(petCategory);
+                var editPetCategoryModal = new bootstrap.Modal(document.getElementById('editPetCategoryModal'), {
+                    keyboard: true
+                });
+                editPetCategoryModal.show();
+            };
+            $scope.petCategoryAddModal = function () {
+                $scope.selectedPetCategory = {
+                    photo: null,
+                    petCategoryName: null,
+                };
+                var addPetCategory = new bootstrap.Modal(document.getElementById('addPetCategoryModal'), {
+                    keyboard: true
+                });
+                addPetCategory.show();
+            };
+            $scope.addPetCategory = function () {
+                $http.post(baseUrl + 'pet-category', $scope.selectedPetCategory).then(function (response) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Thêm mới thành công :',
+                        autoclose: true,
+                        status: 'success',
+                        autotimeout: 3000
+                    });
+                    $scope.getPetCategories();
+                }).catch(function (error) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Lỗi khi thêm mới :',
+                        autoclose: true,
+                        status: 'warning',
+                        autotimeout: 3000
+                    });
+                });
+            }
+            $scope.updatePetCategory = function (petCategoryId) {
+                if (petCategoryId == null) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Vui lòng nhập đầy đủ thông tin :',
+                        autoclose: true,
+                        status: 'error',
+                        autotimeout: 3000
+                    });
+                } else {
+                    $http.put(baseUrl + 'pet-category/' + petCategoryId, $scope.selectedPetCategory).then(function (response) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Cập nhật thành công :' + petCategoryId,
+                            autoclose: true,
+                            status: 'success',
+                            autotimeout: 3000
+                        });
+                        $scope.getPetCategories();
+                    }).catch(function (error) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Lỗi khi cập nhật :' + petCategoryId,
+                            autoclose: true,
+                            status: 'warning',
+                            autotimeout: 3000
+                        });
+                    });
+                }
+            };
+            $scope.clearPetCategoryFilter = function () {
+                $scope.petCategoryTables.filter({});
+                $scope.petCategoryTables.sorting({});
+            };
             /*PRODUCT CATEGORY*/
             $scope.getProductCategories = function () {
                 $http.get(baseUrl + 'product-category').then(function (response) {
@@ -780,6 +928,77 @@
                 });
             };
             $scope.getProductCategories();
+            $scope.productCategoryEdit = function (productCategory) {
+                $scope.selectedPetCategory = angular.copy(petCategory);
+                var editPetCategoryModal = new bootstrap.Modal(document.getElementById('editPetCategoryModal'), {
+                    keyboard: true
+                });
+                editPetCategoryModal.show();
+            };
+            $scope.productCategoryAddModal = function () {
+                $scope.selectedPetCategory = {
+                    photo: null,
+                    petCategoryName: null,
+                };
+                var addPetCategory = new bootstrap.Modal(document.getElementById('addPetCategoryModal'), {
+                    keyboard: true
+                });
+                addPetCategory.show();
+            };
+            $scope.addProductCategory = function () {
+                $http.post(baseUrl + 'pet-category', $scope.selectedPetCategory).then(function (response) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Thêm mới thành công :',
+                        autoclose: true,
+                        status: 'success',
+                        autotimeout: 3000
+                    });
+                    $scope.getPetCategories();
+                }).catch(function (error) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Lỗi khi thêm mới :',
+                        autoclose: true,
+                        status: 'warning',
+                        autotimeout: 3000
+                    });
+                });
+            }
+            $scope.updateProductCategory = function (productCategoryId) {
+                if (petCategoryId == null) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Vui lòng nhập đầy đủ thông tin :',
+                        autoclose: true,
+                        status: 'error',
+                        autotimeout: 3000
+                    });
+                } else {
+                    $http.put(baseUrl + 'pet-category/' + petCategoryId, $scope.selectedPetCategory).then(function (response) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Cập nhật thành công :' + petCategoryId,
+                            autoclose: true,
+                            status: 'success',
+                            autotimeout: 3000
+                        });
+                        $scope.getPetCategories();
+                    }).catch(function (error) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Lỗi khi cập nhật :' + petCategoryId,
+                            autoclose: true,
+                            status: 'warning',
+                            autotimeout: 3000
+                        });
+                    });
+                }
+            };
+            $scope.clearProductCategoryFilter = function () {
+                $scope.petCategoryTables.filter({});
+                $scope.petCategoryTables.sorting({});
+            };
             /*ROLE*/
             $scope.getRoles = function () {
                 $http.get(baseUrl + 'role').then(function (response) {
@@ -798,7 +1017,10 @@
                     $scope.count_ROLE_STAFF = $scope.authorityData.filter(authority => authority.authority === 'ROLE_STAFF').length;
                     $scope.authorityTables = new NgTableParams({
                         page: 1,
-                        count: 10
+                        count: 10,
+                        sorting: {
+                            authority: 'asc'
+                        }
                     }, {
                         counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.authorityData.length],
                         dataset: $scope.authorityData
@@ -1247,9 +1469,15 @@
                     $scope.$apply();
                 }
             };
+            $scope.updatePhotoPetCategoryName = function (input) {
+                if (input.files && input.files[0]) {
+                    var fileName = input.files[0].name;
+                    $scope.selectedPetCategory.photo = fileName;
+                    $scope.$apply();
+                }
+            };
         }
     );
 </script>
 </body>
-
 </html>

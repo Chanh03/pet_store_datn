@@ -41,19 +41,6 @@ public class HomeController {
     @Autowired
     private SlideBarService slideBarService;
 
-    @ModelAttribute("fullname")
-    public void getUser(Model model, HttpServletRequest request) {
-        try {
-            User user = userService.findByUsername(request.getUserPrincipal().getName());
-            if (user != null) {
-
-                model.addAttribute("user", user);
-            }
-        } catch (Exception e) {
-            model.addAttribute("user", null);
-        }
-    }
-
     @RequestMapping({"/", "/trang-chu", "/home"})
     public String home(Model model, Authentication authentication) {
         List<Product> nextSixProducts = productService.getAllByCreatedDate();

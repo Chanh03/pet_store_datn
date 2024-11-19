@@ -105,14 +105,14 @@
                          class="img-thumbnail pet-image">
                 </td>
                 <!--                <td sortable="'id'" data-title="'productID'">{{ product.id }}</td>-->
+                <td sortable="'productName'" filter="{ 'productName': 'text' }"
+                    data-title="'Sản phẩm'" class="text-start text-truncate" style="max-width: 100px">{{
+                    product.productName }}
+                </td>
                 <td sortable="'productCategoryID.productCategoryName'"
                     filter="{ 'productCategoryID.productCategoryName': 'text' }"
                     data-title="'Loại'" class="text-start text-truncate">{{
                     product.productCategoryID.productCategoryName }}
-                </td>
-                <td sortable="'productName'" filter="{ 'productName': 'text' }"
-                    data-title="'Sản phẩm'" class="text-start text-truncate" style="max-width: 100px">{{
-                    product.productName }}
                 </td>
                 <td sortable="'price'" data-title="'Giá'">{{ product.price | number : '0'}}đ</td>
                 <td sortable="'quantity'" data-title="'Số lượng'">{{ product.quantity }}
