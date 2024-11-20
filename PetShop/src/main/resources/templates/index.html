@@ -219,6 +219,49 @@
             background: -webkit-linear-gradient(121deg, rgba(71, 74, 255, 0) 0%, #ff8383 50%, rgba(255, 255, 255, 0) 100%);
             background: linear-gradient(121deg, rgba(71, 74, 255, 0) 0%, #ff8383 50%, rgba(255, 255, 255, 0) 100%);
         }
+
+        .link-wrapper {
+            display: flex;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 200%;
+            animation: marquee 20s linear infinite;
+        }
+
+        .link-wrapper:hover {
+            animation-play-state: paused;
+        }
+
+
+        .link {
+            display: inline-block;
+            text-align: center;
+            line-height: 50px;
+            padding: 0 50px;
+            margin: 0 10px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+        }
+
+        .link-wrapper {
+            position: absolute;
+            width: 100%;
+            white-space: nowrap;
+            animation: marquee 15s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                left: 100%;
+            }
+            100% {
+                left: -100%;
+            }
+        }
+
     </style>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">

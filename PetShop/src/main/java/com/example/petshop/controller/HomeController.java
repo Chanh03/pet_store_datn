@@ -1,6 +1,7 @@
 package com.example.petshop.controller;
 
 import com.example.petshop.entity.Pet;
+import com.example.petshop.entity.PetCategory;
 import com.example.petshop.entity.Product;
 import com.example.petshop.entity.User;
 import com.example.petshop.service.*;
@@ -41,16 +42,20 @@ public class HomeController {
     @Autowired
     private SlideBarService slideBarService;
 
+    @Autowired
+    private PetCategoryService petCategoryService;
+
     @RequestMapping({"/", "/trang-chu", "/home"})
     public String home(Model model, Authentication authentication) {
         List<Product> nextSixProducts = productService.getAllByCreatedDate();
         List<Pet> nextSixPet = petService.getAllByCreatedDate();
+        List<PetCategory> petCategories = petCategoryService.getAll();
 
         model.addAttribute("nextSixProducts", nextSixProducts);
         model.addAttribute("nextSixPet", nextSixPet);
         model.addAttribute("productCategories", productCategoryService.getAll());
         model.addAttribute("slides", slideBarService.getAll());
-
+        model.addAttribute("petCategories", petCategories);
         return "/layout/_main";
     }
 
