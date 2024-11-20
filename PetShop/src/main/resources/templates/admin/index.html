@@ -62,13 +62,18 @@
 
         .nav-pills .nav-link {
             padding: 20px 25px;
-            border-radius: 15px;
+            background: white;
+            /*border-radius: 15px;*/
+            border-radius: 0;
         }
 
         .nav-pills .nav-link.active {
-            background: #087592;
-            background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
-            color: white !important;
+            /*background: #087592;*/
+            /*background: linear-gradient(90deg, #ffffff 0%, #087592 100%);*/
+            border-left: 5px solid #087592 !important;
+            background: #eefdff;
+            font-weight: bold;
+            color: black !important;
         }
 
         .insert-btn {
@@ -256,7 +261,7 @@
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
                 </a>
-                <ul class="collapse list-unstyled ms-3" id="submenuPet" style="border-bottom: 5px solid #087592;">
+                <ul class="collapse list-unstyled ms-3" id="submenuPet" >
                     <li>
                         <a class="nav-link text-dark" th:href="@{/quan-tri-he-thong/pet}">
                             <i class="fa-solid fa-paw"></i>
@@ -283,7 +288,7 @@
                     <i class="fa-solid fa-chevron-down"></i>
                 </a>
                 <ul class="collapse list-unstyled ms-3" id="submenuProduct"
-                    style="border-bottom: 5px solid #087592;">
+                    >
                     <li>
                         <a th:href="@{/quan-tri-he-thong/product}" class="nav-link text-dark">
                             <i class="fa-solid fa-box"></i>
@@ -316,7 +321,7 @@
                     <i class="fa-solid fa-chevron-down"></i>
                 </a>
                 <ul class="collapse list-unstyled ms-3" id="submenuUser"
-                    style="border-bottom: 5px solid #087592;">
+                    >
                     <li>
                         <a th:href="@{/quan-tri-he-thong/user}" class="nav-link text-dark">
                             <i class="fa-solid fa-user"></i>
@@ -330,6 +335,12 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+            <li class="nav-item mb-2">
+                <a th:href="@{/quan-tri-he-thong/banner}" class="nav-link text-dark  border shadow-sm">
+                    <i class="fa-solid fa-image"></i>
+                    <span>Banner</span>
+                </a>
             </li>
         </ul>
         <div class="d-flex justify-content-center align-items-center p-4">
