@@ -76,7 +76,7 @@
     <div class="link-wrapper m-0">
         <h3>
             <a href="#cho" class="link button-image rounded-3 text-danger" th:each="pc : ${petCategories}">
-                <div class="d-flex justify-content-center align-items-center gap-2">
+                <div class="d-flex justify-content-center align-items-center gap-2 fs-5">
                     <span th:text="${pc.petCategoryName}">Chó</span>
                     <div class="overflow-hidden rounded-5" style="width: 50px; height: 50px;">
                         <img th:src="@{/images/pet_category/{photo}(photo=${pc.photo})}"
@@ -264,8 +264,9 @@
     </div>
     <div class="col-lg-7">
         <!--ITEMS-->
-        <div th:each="r:${reviews}" class="card p-3 mb-3 button-image"
-             style="background-size: contain;background-position: right;">
+        <a th:href="@{http://localhost:8080/product/detail/{id}(id=${r.productID.id})}" th:each="r:${reviews}"
+           class="card p-3 mb-3 button-image"
+           style="background-size: contain;background-position: right;">
             <div class="row overflow-hidden">
                 <div class="col-10">
                     <div class="d-flex justify-content-between align-items-center gap-2">
@@ -287,8 +288,13 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-start gap-2 my-2 fs-4 align-items-center">
-                        <h4 class="m-0" th:text="${r.rating}"></h4>
-                        ⭐⭐⭐⭐
+                        <div class="d-flex justify-content-center gap-2 my-2">
+                            <i th:each="i : ${#numbers.sequence(1, 5)}"
+                               th:class="${i <= r.rating} ? 'fa-solid fa-star text-warning' : 'fa-solid fa-star'">
+                            </i>
+                        </div>
+                        <!--                        <h4 class="m-0" th:text="${r.rating}"></h4>-->
+                        <!--                        ⭐⭐⭐⭐-->
                     </div>
                     <div>
                         <h5 th:text="${r.comment}" class="my-3">
@@ -309,7 +315,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
 </div>
 <!--FEEDBACK END-->

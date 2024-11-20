@@ -132,14 +132,16 @@
                     </div>
                 </td>
                 <td data-title="'Tool'" class="text-center">
-                    <button ng-click="petEdit(pet)" class="btn btn-outline-secondary">
-                        <i class="fa-solid fa-pen"></i>
-                        <span>Sửa</span>
-                    </button>
-                    <!--                    <button class="btn btn-outline-danger" ng-click="deletePet(pet.petID)">-->
-                    <!--                        <i class="fa-solid fa-xmark"></i>-->
-                    <!--                        <span>Xóa</span>-->
-                    <!--                    </button>-->
+                    <div>
+                        <button ng-click="petEdit(pet)" class="btn btn-outline-secondary">
+                            <i class="fa-solid fa-pen"></i>
+                            <span>Sửa</span>
+                        </button>
+                        <button class="btn btn-outline-danger" ng-click="deletePet(pet.petID)">
+                        <i class="fa-solid fa-xmark"></i>
+                        <span>Xóa</span>
+                        </button>
+                    </div>
                 </td>
             </tr>
         </table>

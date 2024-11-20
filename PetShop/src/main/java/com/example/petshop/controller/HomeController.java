@@ -45,6 +45,12 @@ public class HomeController {
     @Autowired
     private ReviewService reviewService;
 
+    @ModelAttribute("user")
+    public User user(Authentication authentication, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        return user;
+    }
+
     @RequestMapping({"/", "/trang-chu", "/home"})
     public String home(Model model, Authentication authentication) {
         List<Product> nextSixProducts = productService.getAllByCreatedDateAndEnable();
@@ -131,7 +137,7 @@ public class HomeController {
     }
 
     @RequestMapping("/cart-payMent")
-    public String cartPayMent(Model model) {
+    public String cartPayMent(Model model, Principal principal) {
         return "layout/_payMent";
     }
 

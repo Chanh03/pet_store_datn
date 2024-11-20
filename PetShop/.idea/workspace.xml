@@ -4,15 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update index x3 pet category">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update index cart">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/ProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/ProductRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/ProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_petModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_petModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_pets.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_pets.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/module/_loadingSpinner.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/module/_loadingSpinner.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -231,15 +231,8 @@
       <workItem from="1731907887159" duration="1159000" />
       <workItem from="1731944929733" duration="1236000" />
       <workItem from="1732023117279" duration="8989000" />
-      <workItem from="1732096504379" duration="7172000" />
-    </task>
-    <task id="LOCAL-00018" summary="update voucher, user">
-      <option name="closed" value="true" />
-      <created>1730647179772</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1730647179772</updated>
+      <workItem from="1732096504379" duration="7725000" />
+      <workItem from="1732112098206" duration="4073000" />
     </task>
     <task id="LOCAL-00019" summary="update register form">
       <option name="closed" value="true" />
@@ -625,7 +618,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732103251540</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="update index menu search (fixed)">
+      <option name="closed" value="true" />
+      <created>1732107505940</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1732107505940</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -655,7 +656,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update bla bla bla bla x2" />
     <MESSAGE value="update bla bla bla bla x3" />
     <MESSAGE value="update order detail form" />
     <MESSAGE value="update nhieu cai hahah" />
@@ -680,7 +680,8 @@
     <MESSAGE value="update index x1" />
     <MESSAGE value="update index x2 (add rating &gt;= 4 newest)" />
     <MESSAGE value="update index x3 pet category" />
-    <option name="LAST_COMMIT_MESSAGE" value="update index x3 pet category" />
+    <MESSAGE value="update index menu search (fixed)" />
+    <option name="LAST_COMMIT_MESSAGE" value="update index menu search (fixed)" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

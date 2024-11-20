@@ -286,7 +286,7 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <!--    JS-->
 <script>
     const socket = new SockJS('http://172.16.72.83:8080/ws');
@@ -446,8 +446,6 @@
     });
 
 </script>
-<!--    Angular add to cart-->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script>
     const app = angular.module('myApp', []);
     app.controller('myCtrl', function ($scope, $http) {
