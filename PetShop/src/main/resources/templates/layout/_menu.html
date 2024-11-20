@@ -308,48 +308,7 @@
         })
     }
 
-    $(document).ready(function () {
-        $("#search-box").autocomplete({
-            source: function (request, response) {
-                const category = $("#searchCategory").val();
-                const apiURL = category === "pet" ? 'http://localhost:8080/api/pet' : 'http://localhost:8080/api/product';
 
-                fetch(apiURL)
-                    .then(res => res.json())
-                    .then(data => {
-                        const results = $.map(data, item => {
-                            const itemName = category === "pet" ? item.breed : item.productName;
-
-                            // Kiểm tra điều kiện tên và lấy đường dẫn hình ảnh tương ứng
-                            if (itemName.toLowerCase().includes(request.term.toLowerCase())) {
-                                const imageUrl = category === "pet"
-                                    ? `/images/pet/${item.photo}`
-                                    : `/images/product/${item.photo}`;
-
-                                return {
-                                    label: `
-                                    <div class="autocomplete-item" style="display: flex; align-items: center;">
-                                        <strong style="flex: 1;">${itemName}</strong>
-                                        <p style="margin: 0; flex-shrink: 0;">Giá: ${item.price.toLocaleString()}đ</p>
-                                        <img src="${imageUrl}" alt="${itemName}" style="width: 50px; height: 50px; margin-left: 10px; object-fit: cover;">
-                                    </div>`,
-                                    value: itemName,
-                                    id: item.id
-                                };
-                            }
-                        });
-                        response(results);
-                    })
-                    .catch(error => console.error(`Error fetching ${category}:`, error));
-            },
-        })
-            .data("ui-autocomplete")._renderItem = function (ul, item) {
-            return $("<li>")
-                .data("item.autocomplete", item)
-                .append(item.label)
-                .appendTo(ul);
-        };
-    });
 </script>
 </body>
 </html>

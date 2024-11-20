@@ -56,4 +56,9 @@ public class ProductServiceImpl implements ProductService {
         return productRepo.findAllByCreatedDateDesc();
     }
 
+    @Override
+    public List<Product> getAllByCreatedDateAndEnable() {
+        return productRepo.findAllByCreatedDateDescAndAvailable();
+    }
+
 }

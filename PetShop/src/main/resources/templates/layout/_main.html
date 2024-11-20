@@ -72,11 +72,18 @@
     </div>
 </div>
 <!--TIEN ICH END-->
-<div class="my-3 overflow-hidden" style="height: 100px; position: relative;">
+<div class="my-3 overflow-hidden align-middle" style="height: 80px; position: relative;background: snow">
     <div class="link-wrapper m-0">
         <h3>
-            <a href="#cho" class="link button-image rounded-3 text-danger" th:each="pc : ${petCategories}"
-               th:text="${pc.petCategoryName}">Chó</a>
+            <a href="#cho" class="link button-image rounded-3 text-danger" th:each="pc : ${petCategories}">
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                    <span th:text="${pc.petCategoryName}">Chó</span>
+                    <div class="overflow-hidden rounded-5" style="width: 50px; height: 50px;">
+                        <img th:src="@{/images/pet_category/{photo}(photo=${pc.photo})}"
+                             class="w-100" style="object-fit: cover;">
+                    </div>
+                </div>
+            </a>
         </h3>
     </div>
 </div>
@@ -134,7 +141,7 @@
 <!--BANNER END-->
 <!--LOAI SP DANH CHO THU CUNG-->
 <div class="container my-5 overflow-hidden ">
-    <h1 class="color fw-bold text-center mb-4">LOẠI SẢN PHẨM DÀNH CHO THÚ CƯNG</h1>
+    <h1 class="color fw-bold text-center mb-4">CÁC LOẠI SẢN PHẨM DÀNH CHO THÚ CƯNG</h1>
     <!-- Swiper -->
     <div class="swiper-container position-relative">
         <div class="swiper-wrapper">
@@ -279,16 +286,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-start gap-2 my-2 fs-2 align-items-center">
-                        <h2 class="m-0" th:text="${r.rating}"></h2>
+                    <div class="d-flex justify-content-start gap-2 my-2 fs-4 align-items-center">
+                        <h4 class="m-0" th:text="${r.rating}"></h4>
                         ⭐⭐⭐⭐
                     </div>
                     <div>
-                        <h4 th:text="${r.comment}" class="my-3">
+                        <h5 th:text="${r.comment}" class="my-3">
                             "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng
                             yêu,
                             đồng hành cùng bạn trên mọi chặng đường!"
-                        </h4>
+                        </h5>
                     </div>
                     <p class="text-body-tertiary">
                         <span>Đã đánh giá vào : </span>

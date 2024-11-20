@@ -47,7 +47,7 @@ public class HomeController {
 
     @RequestMapping({"/", "/trang-chu", "/home"})
     public String home(Model model, Authentication authentication) {
-        List<Product> nextSixProducts = productService.getAllByCreatedDate();
+        List<Product> nextSixProducts = productService.getAllByCreatedDateAndEnable();
         List<Pet> nextSixPet = petService.getAllByCreatedDate();
         List<PetCategory> petCategories = petCategoryService.getAll();
         List<Review> reviewsMoiNhatVaTren4 = reviewService.getReviewsMoiNhatVaTren4();

@@ -24,4 +24,6 @@ public interface ProductService {
     List<Product> getProductsByCategory(Integer id, int id1);
 
     List<Product> getAllByCreatedDate();
+
+    List<Product> getAllByCreatedDateAndEnable();
 }

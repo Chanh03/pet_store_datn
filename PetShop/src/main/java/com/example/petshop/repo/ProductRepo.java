@@ -17,4 +17,7 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 
     @Query("SELECT p FROM Product p ORDER BY p.createDate DESC limit 8")
     List<Product> findAllByCreatedDateDesc();
+
+    @Query("SELECT p FROM Product p WHERE p.available = true ORDER BY p.createDate DESC limit 8")
+    List<Product> findAllByCreatedDateDescAndAvailable();
 }
