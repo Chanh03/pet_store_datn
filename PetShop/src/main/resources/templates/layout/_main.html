@@ -75,7 +75,8 @@
 <div class="my-3 overflow-hidden" style="height: 100px; position: relative;">
     <div class="link-wrapper m-0">
         <h3>
-            <a href="#cho" class="link button-image rounded-3 text-danger" th:each="pc : ${petCategories}" th:text="${pc.petCategoryName}">Chó</a>
+            <a href="#cho" class="link button-image rounded-3 text-danger" th:each="pc : ${petCategories}"
+               th:text="${pc.petCategoryName}">Chó</a>
         </h3>
     </div>
 </div>
@@ -241,9 +242,9 @@
 <!--FEEDBACK-->
 <div class="row my-3 g-4 d-flex align-items-center px-2 ">
     <h1 class="color fw-bold text-center">Phản hồi của khách hàng</h1>
-    <div class="col-lg-4">
+    <div class="col-lg-5">
         <div class="card position-relative button-image" style="cursor: unset">
-            <img loading="lazy" src="/images/banner/feedback.webp" class="" alt="feedback">
+            <img loading="lazy" src="/images/banner/feedback.webp" class="sticky-top" alt="feedback">
             <!--<div class="card-body text-center position-absolute"
                  style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
                 <h1 class="color fw-bold">Phản hồi của khách hàng</h1>
@@ -254,32 +255,53 @@
             </div>-->
         </div>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-7">
         <!--ITEMS-->
-        <div class="card p-3 mb-3 button-image" style="background-size: contain;background-position: right;">
-            <div class="d-flex justify-content-between align-items-center gap-2">
-                <div class="d-flex justify-content-start align-items-center gap-2">
-                    <div class="overflow-hidden rounded-circle" style="width: 50px;height: 50px">
-                        <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                             style="object-fit: cover;">
+        <div th:each="r:${reviews}" class="card p-3 mb-3 button-image"
+             style="background-size: contain;background-position: right;">
+            <div class="row overflow-hidden">
+                <div class="col-10">
+                    <div class="d-flex justify-content-between align-items-center gap-2">
+                        <div class="d-flex justify-content-start align-items-center gap-2">
+                            <div class="overflow-hidden rounded-circle" style="width: 50px;height: 50px">
+                                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
+                                     style="object-fit: cover;">
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <h3 th:text="${r.userName.fullName}" class="color fw-bold m-0 text-truncate">Nguyễn Văn
+                                    A</h3>
+                                <h6 class="m-0 text-muted">
+                                    đã mua sản phẩm
+                                </h6>
+                                <h5 th:text="${r.productID.productName}" class="color fw-bold m-0 text-truncate"
+                                    style="text-decoration: underline">
+                                </h5>
+                            </div>
+                        </div>
                     </div>
-                    <h4 class="color fw-bold m-0">Nguyễn Văn A</h4>
+                    <div class="d-flex justify-content-start gap-2 my-2 fs-2 align-items-center">
+                        <h2 class="m-0" th:text="${r.rating}"></h2>
+                        ⭐⭐⭐⭐
+                    </div>
+                    <div>
+                        <h4 th:text="${r.comment}" class="my-3">
+                            "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng
+                            yêu,
+                            đồng hành cùng bạn trên mọi chặng đường!"
+                        </h4>
+                    </div>
+                    <p class="text-body-tertiary">
+                        <span>Đã đánh giá vào : </span>
+                        <span th:text="${#temporals.format(r.reviewDate, 'dd/MM/yyyy')}"></span>
+                    </p>
                 </div>
-                <div class="d-flex justify-content-center gap-2 my-2 fs-3">
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-solid fa-star"></i>
+                <div class="col-2 d-flex justify-content-center align-items-center">
+                    <div class="overflow-hidden rounded-5 border border-2 border-dark" style="width: 100%;">
+                        <img th:src="@{/images/product/{photo}(photo=${r.productID.photo})}"
+                             th:alt="${r.productID.photo}" class="w-100" style="object-fit: cover;">
+                    </div>
                 </div>
             </div>
-            <p class="my-3">
-                "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng yêu,
-                đồng hành cùng bạn trên mọi chặng đường!"
-            </p>
-            <p class="text-body-tertiary m-0">
-                Ngày: 01/01/2022
-            </p>
         </div>
     </div>
 </div>

@@ -1,9 +1,6 @@
 package com.example.petshop.controller;
 
-import com.example.petshop.entity.Pet;
-import com.example.petshop.entity.PetCategory;
-import com.example.petshop.entity.Product;
-import com.example.petshop.entity.User;
+import com.example.petshop.entity.*;
 import com.example.petshop.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -45,17 +42,22 @@ public class HomeController {
     @Autowired
     private PetCategoryService petCategoryService;
 
+    @Autowired
+    private ReviewService reviewService;
+
     @RequestMapping({"/", "/trang-chu", "/home"})
     public String home(Model model, Authentication authentication) {
         List<Product> nextSixProducts = productService.getAllByCreatedDate();
         List<Pet> nextSixPet = petService.getAllByCreatedDate();
         List<PetCategory> petCategories = petCategoryService.getAll();
+        List<Review> reviewsMoiNhatVaTren4 = reviewService.getReviewsMoiNhatVaTren4();
 
         model.addAttribute("nextSixProducts", nextSixProducts);
         model.addAttribute("nextSixPet", nextSixPet);
         model.addAttribute("productCategories", productCategoryService.getAll());
         model.addAttribute("slides", slideBarService.getAll());
         model.addAttribute("petCategories", petCategories);
+        model.addAttribute("reviews", reviewsMoiNhatVaTren4);
         return "/layout/_main";
     }
 
