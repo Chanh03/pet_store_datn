@@ -455,34 +455,55 @@
             items: JSON.parse(localStorage.getItem('cart')) || [],
 
             add(id) {
-                const item = this.items.find(item => item.id === id);
-                if (item) {
-                    item.quantity++;
-                    if (item.quantity > 10) {
-                        item.quantity = 10;
+                $http.get(`/api/product/${id}`).then(response => {
+                    const product = response.data;
+                    const productQuantity = product.quantity;
+
+                    if (productQuantity === 0) {
                         new Notify({
-                            title: `Số lượng sản phẩm: ${item.productName} đã đạt giới hạn`,
-                            status: 'warning',
+                            title: `Sản phẩm ${product.productName} đã hết hàng`,
+                            status: 'error',
                             autoclose: true,
                             autotimeout: 2000
-                        })
+                        });
+                        return;
                     }
-                    this.saveToLocalStorage();
-                } else {
-                    $http.get(`/api/product/${id}`).then(response => {
-                        response.data.quantity = 1;
-                        this.items.push(response.data);
+                    const item = this.items.find(item => item.id === id);
+
+                    if (item) {
+                        if (item.quantity < productQuantity) {
+                            item.quantity++;
+                        } else {
+                            item.quantity = productQuantity
+                            new Notify({
+                                title: `Số lượng sản phẩm: ${item.productName} đã đạt giới hạn`,
+                                status: 'warning',
+                                autoclose: true,
+                                autotimeout: 2000
+                            });
+                        }
+                        this.saveToLocalStorage();
+
+                    } else {
+                        product.quantity = 1;
+                        this.items.push(product);
                         this.saveToLocalStorage();
                         new Notify({
                             title: 'Sản phẩm đã được thêm vào giỏ hàng',
                             status: 'success',
                             autoclose: true,
                             autotimeout: 2000
-                        })
-                    }).catch(error => {
-                        console.error("Lỗi khi lấy sản phẩm:", error);
+                        });
+                    }
+                }).catch(error => {
+                    console.error("Lỗi khi lấy sản phẩm:", error);
+                    new Notify({
+                        title: 'Lỗi khi thêm sản phẩm',
+                        status: 'error',
+                        autoclose: true,
+                        autotimeout: 2000
                     });
-                }
+                });
             },
 
             remove(id) {
