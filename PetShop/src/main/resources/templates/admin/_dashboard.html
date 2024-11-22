@@ -25,7 +25,8 @@
                     <h4 class="fw-bold text-center">Bảng thống kê số lượng thú cưng theo loài</h4>
                 </div>
                 <canvas style="height: 400px" id="petChart-Bar"></canvas>
-                <code class="text-center">Hiện có {{labels.length}} loài thú cưng khác nhau với tổng số {{petData.length}}
+                <code class="text-center">Hiện có {{labels.length}} loài thú cưng khác nhau với tổng số
+                    {{petData.length}}
                     thú cưng</code>
             </div>
         </div>
@@ -36,40 +37,10 @@
                 <div>
                     <h4 class="fw-bold text-center">DEMO CHART</h4>
                 </div>
-                <canvas style="height: 400px" id="bestSelling-Product"></canvas>
+                <canvas style="height: 400px" id="orderChart"></canvas>
             </div>
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const productTrendData = {
-        labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],
-        datasets: [{
-            label: 'Số lượng sản phẩm',
-            data: [10, 15, 9, 20, 17, 25],
-            borderColor: 'rgba(75, 192, 192, 1)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            tension: 0.4 // Độ cong của đường
-        }]
-    };
-    const bestSelling = new Chart(
-        document.getElementById('bestSelling-Product'),
-        {
-            type: 'line',
-            data: productTrendData,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {position: 'top'}
-                },
-                scales: {
-                    x: {title: {display: true, text: 'Thời gian'}},
-                    y: {title: {display: true, text: 'Số lượng'}}
-                }
-            }
-        }
-    );
-</script>
 </body>
 </html>

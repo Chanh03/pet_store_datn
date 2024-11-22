@@ -59,7 +59,7 @@
                                 <label for="petdes">Thông tin chi tiết:</label>
                                 <textarea ng-model="selectedPet.petDescription" class="form-control"
                                           placeholder="Thông tin chi tiết" id="petdes" name="petdes"
-                                          required ng-minlength="10" ng-maxlength="255">
+                                          required ng-minlength="10" ng-maxlength="255" style="height: 150px;">
                                 </textarea>
                                 <span ng-show="editPetForm.petdes.$touched && editPetForm.petdes.$invalid"
                                       class="text-danger fst-italic">
@@ -79,18 +79,23 @@
                                 </span>
                             </div>
                             <div class="mb-3">
-                                <label for="petCategory" class="form-label">Chọn loại thú cưng:</label>
-                                <select name="petCategory" class="form-select" id="petCategory"
-                                        ng-model="selectedPet.petCategoryID.id"
-                                        placeholder="Chọn loại thú cưng..." required>
-                                    <option ng-repeat="pc in petCategoryData" ng-value="pc.id">
-                                        {{pc.petCategoryName}}
-                                    </option>
-                                </select>
-                                <span ng-show="editPetForm.petCategory.$touched && editPetForm.petCategory.$invalid"
-                                      class="text-danger fst-italic">
-                                    Vui lòng chọn loại thú cưng.
-                                </span>
+                                <label for="petCategory" class="form-label">Chọn loài:</label>
+                                <div class="d-flex align-items-center">
+                                    <select name="petCategory" class="form-select w-75" id="petCategory"
+                                            ng-model="selectedPet.petCategoryID.id"
+                                            placeholder="Chọn loài..." required>
+                                        <option ng-repeat="pc in petCategoryData" ng-value="pc.id">
+                                            {{pc.petCategoryName}}
+                                        </option>
+                                    </select>
+                                    <span ng-show="editPetForm.petCategory.$touched && editPetForm.petCategory.$invalid"
+                                          class="text-danger fst-italic">
+                                    Vui lòng chọn loài.
+                                    </span>
+                                    <a href="/quan-tri-he-thong/pet-category" type="button" class="btn btn-primary">Thêm
+                                        loài <i class="fa-solid fa-plus"></i>
+                                    </a>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label>Giới tính</label>
@@ -164,10 +169,9 @@
                         class="fa-solid fa-trash"></i></button>
                 <button type="button" class="btn btn-primary"
                         ng-click="updatePet(selectedPet.petID)"
-                        ng-disabled="editPetForm.$invalid">
+                        ng-disabled="editPetForm.$invalid || editPetForm.$pristine">
                     <span>Lưu thay đổi</span> <i class="fa-solid fa-floppy-disk"></i>
                 </button>
-
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
             </div>
         </div>

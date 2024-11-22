@@ -76,88 +76,59 @@
         </div>
 
     </div>
-
-    <hr style="background-color: red; height: 2px; border: none;">
-
-    <!-- Thú cưng cùng loại -->
-    <div>
-        <h2 class="text-center mb-4">Thú cưng cùng loài</h2>
-        <div class="row g-4">
-            <div th:each="pet : ${pets}"
-                 class="col-lg-2 col-md-4 col-sm-4 col-4">
-                <a class="nav-link" th:href="@{/pet/detail/{id}(id=${pet.petID})}">
-                    <div class="card card-hover border-0 position-relative">
-                        <div class="overflow-hidden rounded-5 button-image"
-                             style="background-color: #f7f7f5; display: flex; align-items: center; justify-content: center;">
-                            <img loading="lazy"
-                                 th:src="@{/images/pet/{photo}(photo=${pet.photo})}"
-                                 class="card-img-top card-image" alt="pet"
-                                 style="max-width: 300px; max-height: 300px; object-fit: cover;">
-                        </div>
-                        <!-- <div class="badge bg-warning position-absolute"
-                            style="top: 0; right: 0; z-index: 1000;">
-                            <h5 class="m-0">New</h5>
-                        </div> -->
-                        <div class="card-body text-center">
-                            <h5
-                                    th:text="${pet.petCategoryID.petCategoryName + ' ' + pet.breed + ' ' + pet.hair}"
-                                    class="">ten thu cung</h5>
-                            <span th:text="${'ID : '+pet.petID}">ID</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- 	<!-- Thú cưng khác -->
-    <div>
-        <h2 class="text-center mb-4" style="font-size: 2rem; font-weight: bold; color: #333;">Thú cưng khác</h2>
-        <div class="row g-4">
-            <div th:each="p : ${petCates}" class="col-lg-2 col-md-4 col-sm-4 col-4">
-                <a class="nav-link" th:href="@{/pet/detail/{id}(id=${p.petID})}" style="text-decoration: none;">
-                    <div class="card card-hover border-0 position-relative">
-                        <div class="overflow-hidden rounded-5 button-image"
-                             style="background-color: #f7f7f5; display: flex; align-items: center; justify-content: center;">
-                            <img loading="lazy"
-                                 th:src="@{/images/pet/{photo}(photo=${p.photo})}"
-                                 alt="Ảnh thú cưng ${p.breed}"
-                                 class="card-img-top card-image"
-                                 style="max-width: 300px; max-height: 300px; object-fit: cover;">
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 th:text="${p.petCategoryID.petCategoryName + ' ' + p.breed + ' ' + p.hair}"
-                                class="mb-2" style="font-size: 1.5rem; font-weight: 600; color: #555;">Tên thú cưng</h5>
-                            <span th:text="${'ID : '+p.petID}" style="font-size: 0.9rem; color: #888;">ID</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- <div class="row g-4">
-<div th:each="p, iterStat : ${petCates}" class="col-lg-2 col-md-4 col-sm-4 col-4">
-    <a class="nav-link" th:href="@{/pet/detail/{id}(id=${pet.petID})}">
-        <div class="card card-hover border-0 position-relative">
-            <div class="overflow-hidden rounded-5 button-image"
-                style="background-color: #f7f7f5; display: flex; align-items: center; justify-content: center;">
-                <img loading="lazy" th:src="@{/images/pet/{photo}(photo=${pet.photo})}" class="card-img-top card-image"
-                    alt="pet" style="max-width: 300px; max-height: 300px; object-fit: cover;">
-            </div>
-            <div class="card-body text-center">
-                <h5 th:text="${pet.petCategoryID.petCategoryName + ' ' + pet.breed + ' ' + pet.hair}">
-                    ten thu cung
-                </h5>
-                <span th:text="${'ID : '+pet.petID}">ID</span>
-            </div>
-        </div>
-    </a>
 </div>
-</div> -->
 
+<hr style="background-color: red; height: 2px; border: none;">
+
+<!-- Thú cưng khác -->
+<div class="row g-4 p-2">
+    <h2 class="text-center mb-4">Thú cưng cùng loài</h2>
+    <div th:each="pet : ${pets}" class="col-lg-2 col-md-4 col-sm-4 col-4">
+        <a class="nav-link" th:href="@{/pet/detail/{id}(id=${pet.petID})}">
+            <div class="card card-hover border-0 position-relative">
+                <div class="overflow-hidden rounded-5 button-image"
+                     style="background-color: #f7f7f5; display: flex; align-items: center; justify-content: center;">
+                    <img loading="lazy"
+                         th:src="@{/images/pet/{photo}(photo=${pet.photo})}"
+                         class="card-img-top card-image" alt="pet"
+                         style="max-width: 300px; max-height: 300px; object-fit: cover;">
+                </div>
+                <div class="badge bg-warning position-absolute"
+                     style="top: 0; right: 0; z-index: 1000;">
+                    <h5 class="m-0">New</h5>
+                </div>
+                <div class="card-body text-center">
+                    <h5
+                            th:text="${pet.petCategoryID.petCategoryName + ' ' + pet.breed + ' ' + pet.hair}"
+                            class="">ten thu cung</h5>
+                    <span th:text="${'ID : '+pet.petID}">ID</span>
+                </div>
+            </div>
+        </a>
+    </div>
 </div>
+<div class="row g-4 p-2">
+    <h2 class="text-center mb-4">Thú cưng khác</h2>
+    <div th:each="pet : ${pets}" class="col-lg-2 col-md-4 col-sm-4 col-4">
+        <a class="nav-link" th:href="@{/pet/detail/{id}(id=${pet.petID})}">
+            <div class="card card-hover border-0 position-relative">
+                <div class="overflow-hidden rounded-5 button-image"
+                     style="background-color: #f7f7f5; display: flex; align-items: center; justify-content: center;">
+                    <img loading="lazy" th:src="@{/images/pet/{photo}(photo=${pet.photo})}"
+                         class="card-img-top card-image"
+                         alt="pet" style="max-width: 300px; max-height: 300px; object-fit: cover;">
+                </div>
+                <div class="card-body text-center">
+                    <h5 th:text="${pet.petCategoryID.petCategoryName + ' ' + pet.breed + ' ' + pet.hair}">
+                        ten thu cung
+                    </h5>
+                    <span th:text="${'ID : '+pet.petID}">ID</span>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

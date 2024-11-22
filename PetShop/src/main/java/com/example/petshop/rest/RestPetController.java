@@ -38,7 +38,6 @@ public class RestPetController {
 
     @PutMapping("/{id}")
     public void updatePet(@PathVariable("id") String id, @RequestBody Pet pet) {
-        pet.setPetID(id);
         petService.save(pet);
     }
 

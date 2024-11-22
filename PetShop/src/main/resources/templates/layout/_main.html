@@ -33,7 +33,7 @@
 </div>
 <!--BANNER END-->
 <!--TIEN ICH-->
-<div class="row my-3 g-4">
+<div class="row my-3 g-4 p-2 ">
     <div class="col-lg-3 col-6">
         <div class="d-flex justify-content-center align-items-center gap-2">
             <i class="fas fa-paw fa-3x color"></i>
@@ -72,8 +72,23 @@
     </div>
 </div>
 <!--TIEN ICH END-->
+<div class="my-3 overflow-hidden align-middle" style="height: 80px; position: relative;background: snow">
+    <div class="link-wrapper m-0">
+        <h3>
+            <a href="#cho" class="link button-image rounded-3 text-danger" th:each="pc : ${petCategories}">
+                <div class="d-flex justify-content-center align-items-center gap-2 fs-5">
+                    <span th:text="${pc.petCategoryName}">Chó</span>
+                    <div class="overflow-hidden rounded-5" style="width: 50px; height: 50px;">
+                        <img th:src="@{/images/pet_category/{photo}(photo=${pc.photo})}"
+                             class="w-100" style="object-fit: cover;">
+                    </div>
+                </div>
+            </a>
+        </h3>
+    </div>
+</div>
 <!--THU CUNG MOI-->
-<div class="row my-3 g-3 d-flex align-items-center px-2">
+<div class="row my-3 g-3 d-flex align-items-center px-2 ">
     <h1 class="color fw-bold text-center">THÚ CƯNG MỚI</h1>
     <div class="col-lg-5 col-md-5 position-relative">
         <div class="d-flex justify-content-center position-relative overflow-hidden rounded-5 shadow">
@@ -119,14 +134,14 @@
 </div>
 <!--THU CUNG MOI END-->
 <!--BANNER-->
-<div class="my-3">
+<div class="my-3 ">
     <img loading="lazy" src="/images/banner/long-banner-placeholder.png" class="w-100" alt="banner"
          style="object-fit: cover;">
 </div>
 <!--BANNER END-->
 <!--LOAI SP DANH CHO THU CUNG-->
-<div class="container my-5 overflow-hidden">
-    <h1 class="color fw-bold text-center mb-4">LOẠI SẢN PHẨM DÀNH CHO THÚ CƯNG</h1>
+<div class="container my-5 overflow-hidden ">
+    <h1 class="color fw-bold text-center mb-4">CÁC LOẠI SẢN PHẨM DÀNH CHO THÚ CƯNG</h1>
     <!-- Swiper -->
     <div class="swiper-container position-relative">
         <div class="swiper-wrapper">
@@ -155,31 +170,31 @@
 </div>
 <!--LOAI SP DANH CHO THU CUNG END-->
 <!--SP NOI BAT-->
-<div class="row my-3 g-3 d-flex align-items-center px-2">
+<div class="row my-3 g-3 d-flex align-items-center px-2 ">
     <h1 class="color fw-bold text-center">SẢN PHẨM MỚI</h1>
-    <div class="col-lg-5 col-md-5 position-relative sticky-top sticky-element">
-        <div class=" d-flex justify-content-center position-relative overflow-hidden shadow p-3 ">
-            <div class="position-absolute text-center d-flex justify-content-center align-items-center gap-2"
-                 style="top: 0; left: 50%; transform: translateX(-50%);z-index: 1000">
-                <h1 class="color fw-bold m-0">Giảm giá</h1>
-                <h1 class="text-white background-color fw-bold py-2 m-0 w-50">50%</h1>
-            </div>
-            <img loading="lazy" class="w-100 card-image" src="/images/background/best-selling-coming.png"
+    <div class="col-lg-4 col-md-5 position-relative sticky-top sticky-element">
+        <div class=" d-flex justify-content-center position-relative shadow">
+            <!--            <div class="position-absolute text-center d-flex justify-content-center align-items-center gap-2"-->
+            <!--                 style="top: 0; left: 50%; transform: translateX(-50%);z-index: 1000">-->
+            <!--                <h1 class="color fw-bold m-0">Giảm giá</h1>-->
+            <!--                <h1 class="text-white background-color fw-bold py-2 m-0 w-50">50%</h1>-->
+            <!--            </div>-->
+            <img loading="lazy" class="button-image w-100" src="/images/banner/sale-banner-1.webp"
                  alt="best-selling">
-            <button class="btn rounded-2 px-4 py-2 position-absolute button-image-white"
-                    style="background-color: #f04336;bottom: 50%; left: 50%; transform: translateX(-50%)">
-                <span class="fw-bold m-0 text-white">Xem ngay</span>
-            </button>
-            <div class="position-absolute w-100 px-5 text-center"
-                 style="bottom: 5%; left: 50%; transform: translateX(-50%);z-index: 1000">
-                <h5>Chỉ còn 100.000đ - 200.000đ, số lượng có hạn !</h5>
-            </div>
+            <!--            <button class="btn rounded-2 px-4 py-2 position-absolute button-image-white"-->
+            <!--                    style="background-color: #f04336;bottom: 50%; left: 50%; transform: translateX(-50%)">-->
+            <!--                <span class="fw-bold m-0 text-white">Xem ngay</span>-->
+            <!--            </button>-->
+            <!--            <div class="position-absolute w-100 px-5 text-center"-->
+            <!--                 style="bottom: 5%; left: 50%; transform: translateX(-50%);z-index: 1000">-->
+            <!--                <h5>Chỉ còn 100.000đ - 200.000đ, số lượng có hạn !</h5>-->
+            <!--            </div>-->
         </div>
     </div>
-    <div class="col-lg-7 col-md-7">
+    <div class="col-lg-8 col-md-7">
         <div class="row g-2">
             <!--ITEMS-->
-            <div th:each="product : ${nextSixProducts}" class="col-lg-4 col-md-6 col-sm-6 col-6">
+            <div th:each="product : ${nextSixProducts}" class="col-lg-3 col-md-4 col-sm-4 col-4">
                 <div class="card card-hover border-0">
                     <div class="position-relative button-image add-to-cart-container"
                          style="background-color: #f7f7f5">
@@ -216,107 +231,167 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
         <div class="d-flex justify-content-center mb-3">
-            <a class="btn color py-2 px-4 rounded-5 button-image" href="/allProduct">
+            <a class="btn color py-2 px-4 rounded-5 button-image">
                 <span class="fw-bold">Xem thêm</span>
             </a>
         </div>
     </div>
 </div>
 <!--SP NOI BAT END-->
+<!--BANNER-->
+<div class="my-3 ">
+    <img loading="lazy" src="/images/banner/long-banner-placeholder.png" class="w-100" alt="banner"
+         style="object-fit: cover;">
+</div>
+<!--BANNER END-->
 <!--FEEDBACK-->
-<div class="row my-3 g-4 d-flex align-items-center px-2">
-    <div class="col-lg-6">
-        <div class="card position-relative">
-            <img loading="lazy" src="/images/banner/vertical-banner-placeholder.png" class="" alt="feedback">
-            <div class="card-body text-center position-absolute"
+<div class="row my-3 g-4 d-flex align-items-center px-2 ">
+    <h1 class="color fw-bold text-center">Phản hồi của khách hàng</h1>
+    <div class="col-lg-5">
+        <div class="card position-relative button-image" style="cursor: unset">
+            <img loading="lazy" src="/images/banner/feedback.webp" class="sticky-top" alt="feedback">
+            <!--<div class="card-body text-center position-absolute"
                  style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
                 <h1 class="color fw-bold">Phản hồi của khách hàng</h1>
                 <p>
                     "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng yêu,
                     đồng hành cùng bạn trên mọi chặng đường!"
                 </p>
-            </div>
+            </div>-->
         </div>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-7">
         <!--ITEMS-->
-        <div class="card p-3 mb-3 button-image" th:each="review : ${reviews}">
-            <div class="d-flex justify-content-between align-items-center gap-2">
-                <div class="d-flex justify-content-start align-items-center gap-2">
-                    <h4 class="color fw-bold m-0" th:text="${review.userName.username}">Nguyễn Văn A</h4>
+        <a th:href="@{http://localhost:8080/product/detail/{id}(id=${r.productID.id})}" th:each="r:${reviews}"
+           class="card p-3 mb-3 button-image"
+           style="background-size: contain;background-position: right;">
+            <div class="row overflow-hidden">
+                <div class="col-10">
+                    <div class="d-flex justify-content-between align-items-center gap-2">
+                        <div class="d-flex justify-content-start align-items-center gap-2">
+                            <div class="overflow-hidden rounded-circle" style="width: 50px;height: 50px">
+                                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
+                                     style="object-fit: cover;">
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <h3 th:text="${r.userName.fullName}" class="color fw-bold m-0 text-truncate">Nguyễn Văn
+                                    A</h3>
+                                <h6 class="m-0 text-muted">
+                                    đã mua sản phẩm
+                                </h6>
+                                <h5 th:text="${r.productID.productName}" class="color fw-bold m-0 text-truncate"
+                                    style="text-decoration: underline">
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start gap-2 my-2 fs-4 align-items-center">
+                        <div class="d-flex justify-content-center gap-2 my-2">
+                            <i th:each="i : ${#numbers.sequence(1, 5)}"
+                               th:class="${i <= r.rating} ? 'fa-solid fa-star text-warning' : 'fa-solid fa-star'">
+                            </i>
+                        </div>
+                        <!--                        <h4 class="m-0" th:text="${r.rating}"></h4>-->
+                        <!--                        ⭐⭐⭐⭐-->
+                    </div>
+                    <div>
+                        <h5 th:text="${r.comment}" class="my-3">
+                            "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng
+                            yêu,
+                            đồng hành cùng bạn trên mọi chặng đường!"
+                        </h5>
+                    </div>
+                    <p class="text-body-tertiary">
+                        <span>Đã đánh giá vào : </span>
+                        <span th:text="${#temporals.format(r.reviewDate, 'dd/MM/yyyy')}"></span>
+                    </p>
                 </div>
-                <div class="d-flex justify-content-center gap-2 my-2">
-                    <i th:each="i : ${#numbers.sequence(1, 5)}"
-                       th:class="${i <= review.rating} ? 'fa-solid fa-star text-danger' : 'fa-solid fa-star'"></i>
+                <div class="col-2 d-flex justify-content-center align-items-center">
+                    <div class="overflow-hidden rounded-5 border border-2 border-dark" style="width: 100%;">
+                        <img th:src="@{/images/product/{photo}(photo=${r.productID.photo})}"
+                             th:alt="${r.productID.photo}" class="w-100" style="object-fit: cover;">
+                    </div>
                 </div>
-
             </div>
-            <p class="my-3" th:text="${review.comment}">
-                "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng yêu,
-                đồng hành cùng bạn trên mọi chặng đường!"
-            </p>
-            <p class="text-body-tertiary m-0" th:text="${review.reviewDate}">
-                Ngày: 01/01/2022
-            </p>
-        </div>
+        </a>
     </div>
 </div>
 <!--FEEDBACK END-->
 
-<!-- DỊCH VỤ -->
-<div class="row justify-content-center g-3 px-2">
-    <div class="my-3">
-        <h1 class="m-0 color fw-bold">Dịch vụ của chúng tôi</h1>
-        <div class="line background-color" style="height: 5px;"></div>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6">
+<div class="row">
+    <!-- Service 1 -->
+    <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card border-0 shadow p-3">
             <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
-                <img loading="lazy" src="/images/service/service1.png" class="w-100" alt="Dịch vụ 1"
+                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
                      style="object-fit: cover;">
             </div>
             <div class="card-body text-center p-2">
-                <h5 class="color fw-bold">Hỗ trợ kỹ thuật</h5>
-                <p class="text-body-tertiary">Chúng tôi cung cấp dịch vụ hỗ trợ kỹ thuật 24/7 cho mọi khách hàng.
-                </p>
-                <a href="/dich-vu/ho-tro-ky-thuat" class="btn btn-primary">Xem chi tiết</a>
+                <h5 class="color fw-bold">Spa - Grooming</h5>
+                <p class="text-body-tertiary"
+                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">Chúng
+                    tôi cung cấp dịch vụ spa và grooming cho thú cưng của bạn, mang
+                    lại trải nghiệm tốt nhất.</p>
+                <a href="/service" class="btn btn-primary">Xem chi tiết</a>
             </div>
         </div>
     </div>
-
-    <div class="col-lg-4 col-md-6 col-sm-6">
+    <!-- Service 2 -->
+    <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card border-0 shadow p-3">
             <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
-                <img loading="lazy" src="/images/service/service2.png" class="w-100" alt="Dịch vụ 2"
+                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
                      style="object-fit: cover;">
             </div>
             <div class="card-body text-center p-2">
-                <h5 class="color fw-bold">Tư vấn sản phẩm</h5>
-                <p class="text-body-tertiary">Chúng tôi sẵn sàng tư vấn cho bạn lựa chọn sản phẩm phù hợp nhất.</p>
-                <a href="/dich-vu/tu-van-san-pham" class="btn btn-primary">Xem chi tiết</a>
+                <h5 class="color fw-bold">Huấn luyện thú cưng</h5>
+                <p class="text-body-tertiary"
+                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">Chúng
+                    tôi cung cấp dịch vụ huấn luyện chuyên nghiệp, giúp thú cưng của
+                    bạn học hỏi và phát triển.</p>
+                <a href="/service" class="btn btn-primary">Xem chi tiết</a>
             </div>
         </div>
     </div>
-
-    <div class="col-lg-4 col-md-6 col-sm-6">
+    <!-- Service 3 -->
+    <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card border-0 shadow p-3">
             <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
-                <img loading="lazy" src="/images/service/service3.png" class="w-100" alt="Dịch vụ 3"
+                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
                      style="object-fit: cover;">
             </div>
             <div class="card-body text-center p-2">
-                <h5 class="color fw-bold">Chăm sóc khách hàng</h5>
-                <p class="text-body-tertiary">Đội ngũ chăm sóc khách hàng của chúng tôi luôn sẵn sàng lắng nghe và
-                    hỗ trợ bạn.</p>
-                <a href="/dich-vu/cham-soc-khach-hang" class="btn btn-primary">Xem chi tiết</a>
+                <h5 class="color fw-bold">Cắt tỉa lông thú cưng</h5>
+                <p class="text-body-tertiary"
+                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">Dịch
+                    vụ cắt tỉa lông chuyên nghiệp, giúp thú cưng của bạn trông gọn
+                    gàng và đáng yêu hơn.</p>
+                <a href="/service" class="btn btn-primary">Xem chi tiết</a>
+            </div>
+        </div>
+    </div>
+    <!-- Service 4 -->
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card border-0 shadow p-3">
+            <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
+                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
+                     style="object-fit: cover;">
+            </div>
+            <div class="card-body text-center p-2">
+                <h5 class="color fw-bold">Khách sạn thú cưng</h5>
+                <p class="text-body-tertiary"
+                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">Dịch
+                    vụ khách sạn mang đến không gian thoải mái và tiện nghi cho thú
+                    cưng của bạn nếu bạn không có thời gian chăm sóc .</p>
+                <a href="/service" class="btn btn-primary">Xem chi tiết</a>
             </div>
         </div>
     </div>
 </div>
+</div>
+
 <!-- <DỊCH VỤ END> -->
 <!--DANG KY NHAN THONG TIN MOI NHAT-->
 <div class="row g-0 py-3">
@@ -326,39 +401,33 @@
     </div>
     <div class="col-lg-6">
         <div class="card position-relative">
-            <img loading="lazy" src="/images/banner/vertical-banner-placeholder.png" class="" alt="feedback"
-                 style="height: 400px;">
-            <div class="card-body text-center position-absolute w-100"
-                 style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                <h3 class="color fw-bold w-100">Đăng ký để nhận tin tức về các sản phẩm mới nhất, sớm nhất!</h3>
-                <p>
-                    "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng yêu,
-                    đồng hành cùng bạn trên mọi chặng đường!"
-                </p>
-            </div>
+            <img loading="lazy"
+                 src="https://i.pinimg.com/736x/89/c2/b6/89c2b6a63cacbd3f0d777fc7b8fa3f34.jpg"
+                 class="img-fluid rounded"
+                 alt="feedback"
+                 style="object-fit: fill;">
         </div>
     </div>
-    <div class="col-lg-6 background-color">
-        <div class="border-0 p-5">
-            <form>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label text-white">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label text-white">Họ và tên</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1">
 
+    <div class="col-lg-6" style="background-color: #cc382e;">
+        <div class="border-0 p-5">
+            <form action="/subscribe" method="post">
+                <div class="mb-3">
+                    <label for="email" class="form-label text-white">Email</label> <input
+                        type="email" name="email" class="form-control" id="email"
+                        required>
                 </div>
                 <div class="mb-3">
-                    <label for="sdt" class="form-label text-white">Số điện thoại</label>
-                    <input type="text" class="form-control" id="sdt">
+                    <label for="name" class="form-label text-white">Họ và Tên</label>
+                    <input type="text" name="name" class="form-control" id="name"
+                           required>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <button type="submit" class="rounded-5 py-2 px-4 button-image">
-                        <span class="color fw-bold">Đăng ký</span>
-                    </button>
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label text-white">Số
+                        Điện Thoại</label> <input type="text" name="phoneNumber"
+                                                  class="form-control" id="phoneNumber">
                 </div>
+                <button type="submit" class="btn btn-danger ">Đăng ký</button>
             </form>
         </div>
     </div>
@@ -366,7 +435,7 @@
 <!--DANG KY NHAN THONG TIN MOI NHAT END-->
 
 <!-- Nhân viên chăm sóc khách hàng -->
-<div class="row justify-content-center g-3 px-2 mb-3">
+<div class="row justify-content-center g-3 px-2 mb-3 ">
     <div class="my-3">
         <h1 class="m-0 color fw-bold">Nhân sự</h1>
         <div class="line background-color" style="height: 5px;"></div>

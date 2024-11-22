@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,44 +40,39 @@ public class HomeController {
     private SlideBarService slideBarService;
 
     @Autowired
+    private PetCategoryService petCategoryService;
+
+    @Autowired
+    private ReviewService reviewService;
+
+    @Autowired
     private OrderService orderService;
 
     @Autowired
     private OrderProductDetailService orderProductDetailService;
 
-    @Autowired
-    private ReviewService reviewService;
-
-    @ModelAttribute("fullname")
-    public void getUser(Model model, HttpServletRequest request) {
-        try {
-            User user = userService.findByUsername(request.getUserPrincipal().getName());
-            if (user != null) {
-
-                model.addAttribute("user", user);
-            }
-        } catch (Exception e) {
-            model.addAttribute("user", null);
+    @ModelAttribute("user")
+    public User user(Authentication authentication, Principal principal) {
+        if (principal == null) {
+            return null;
+        } else {
+            return userService.findByUsername(principal.getName());
         }
     }
 
     @RequestMapping({"/", "/trang-chu", "/home"})
     public String home(Model model, Authentication authentication) {
-        List<Product> nextSixProducts = productService.getAllByCreatedDate();
+        List<Product> nextSixProducts = productService.getAllByCreatedDateAndEnable();
         List<Pet> nextSixPet = petService.getAllByCreatedDate();
-
-        List<Review> reviews = reviewService.getAll();
-        List<Review> topReview = reviews.stream()
-                .sorted(Comparator.comparing(Review::getReviewDate).reversed())
-                .limit(6)
-                .collect(Collectors.toList());
+        List<PetCategory> petCategories = petCategoryService.getAll();
+        List<Review> reviewsMoiNhatVaTren4 = reviewService.getReviewsMoiNhatVaTren4();
 
         model.addAttribute("nextSixProducts", nextSixProducts);
         model.addAttribute("nextSixPet", nextSixPet);
-        model.addAttribute("reviews", topReview);
         model.addAttribute("productCategories", productCategoryService.getAll());
         model.addAttribute("slides", slideBarService.getAll());
-
+        model.addAttribute("petCategories", petCategories);
+        model.addAttribute("reviews", reviewsMoiNhatVaTren4);
         return "/layout/_main";
     }
 
@@ -152,7 +146,7 @@ public class HomeController {
     }
 
     @RequestMapping("/cart-payMent")
-    public String cartPayMent(Model model) {
+    public String cartPayMent(Model model, Principal principal) {
         return "layout/_payMent";
     }
 
@@ -181,5 +175,4 @@ public class HomeController {
         model.addAttribute("orderDetailHistory", orderDetailHistory);
         return "/layout/_historyOrderDetail";
     }
-
 }

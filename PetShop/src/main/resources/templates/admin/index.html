@@ -19,14 +19,16 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet"/>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
           rel="stylesheet">
 
     <style>
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            background-color: #f1f6fc;
             overflow: scroll;
+            scroll-behavior: smooth;
         }
 
         .sidebar {
@@ -60,12 +62,18 @@
 
         .nav-pills .nav-link {
             padding: 20px 25px;
-            border-radius: 15px;
+            background: white;
+            /*border-radius: 15px;*/
+            border-radius: 0;
         }
 
         .nav-pills .nav-link.active {
-            background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
-            color: white !important;
+            /*background: #087592;*/
+            /*background: linear-gradient(90deg, #ffffff 0%, #087592 100%);*/
+            border-left: 5px solid #087592 !important;
+            background: #eefdff;
+            font-weight: bold;
+            color: black !important;
         }
 
         .insert-btn {
@@ -192,6 +200,20 @@
         .container {
             max-width: 1600px;
         }
+
+        .open-order-detail-button {
+            background-color: #e0f7fa; /* Màu nền xanh nhạt */
+            color: #00796b; /* Màu chữ xanh đậm */
+            border: 1px solid #00796b; /* Đường viền xanh đậm */
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển đổi mượt */
+        }
+
+        .open-order-detail-button:hover {
+            background-color: #00796b; /* Màu nền xanh đậm khi hover */
+            color: #ffffff; /* Màu chữ trắng khi hover */
+        }
+
     </style>
 </head>
 
@@ -199,9 +221,15 @@
 <!-- Modal -->
 <div th:insert="~{/admin/_petModal}"></div>
 <div th:insert="~{/admin/_petAddModal}"></div>
+
+<div th:insert="~{/admin/_pet_category_modal}"></div>
+<div th:insert="~{/admin/_add_pet_category_modal}"></div>
+
 <div th:insert="~{/admin/_productModal}"></div>
 <div th:insert="~{/admin/_productAddModal}"></div>
+
 <div th:insert="~{/admin/_userModal}"></div>
+
 <div th:insert="~{/admin/_order-detail}"></div>
 <!-- MAIN CONTENT -->
 <main class="container-fluid p-0 d-flex">
@@ -217,40 +245,101 @@
         <!-- Navigation -->
         <ul class="nav nav-pills flex-column mb-auto p-4" style="position: sticky;  top: 0;">
             <li class="nav-item mb-2">
-                <a th:href="@{/quan-tri-he-thong}" class="nav-link text-dark">
-                    <i class="fa-regular fa-user me-2"></i>
+                <a th:href="@{/quan-tri-he-thong}" class="nav-link text-dark border shadow-sm">
+                    <i class="fa-solid fa-home"></i>
                     <span>Trang chủ</span>
                 </a>
             </li>
-            <!-- Settings Dropdown -->
-            <li class="nav-item mb-1">
-                <a th:href="@{/quan-tri-he-thong/pet}" class="nav-link text-dark">
-                    <i class="fa-solid fa-paw"></i>
-                    <span>Thú cưng</span>
+            <li class="nav-item mb-2">
+                <a class="nav-link text-dark d-flex justify-content-between align-items-center border shadow-sm"
+                   href="#" role="button"
+                   data-bs-toggle="collapse" data-bs-target="#submenuPet" aria-expanded="true"
+                   aria-controls="submenuPet">
+                    <div>
+                        <i class="fa-solid fa-paw"></i>
+                        <span>Thú cưng</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down"></i>
                 </a>
+                <ul class="collapse list-unstyled ms-3" id="submenuPet">
+                    <li>
+                        <a class="nav-link text-dark" th:href="@{/quan-tri-he-thong/pet}">
+                            <i class="fa-solid fa-paw"></i>
+                            <span>Danh sách thú cưng</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-dark" th:href="@{/quan-tri-he-thong/pet-category}">
+                            <i class="fa-solid fa-list"></i>
+                            <span>Loại thú cưng</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li class="nav-item mb-1">
-                <a th:href="@{/quan-tri-he-thong/product}" class="nav-link text-dark">
-                    <i class="fa-solid fa-box"></i>
-                    <span>Sản phẩm</span>
+            <li class="nav-item mb-2">
+                <a class="nav-link text-dark d-flex justify-content-between align-items-center border shadow-sm"
+                   href="#" role="button"
+                   data-bs-toggle="collapse" data-bs-target="#submenuProduct" aria-expanded="true"
+                   aria-controls="submenuProduct">
+                    <div>
+                        <i class="fa-solid fa-box"></i>
+                        <span>Sản phẩm</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down"></i>
                 </a>
+                <ul class="collapse list-unstyled ms-3" id="submenuProduct"
+                >
+                    <li>
+                        <a th:href="@{/quan-tri-he-thong/product}" class="nav-link text-dark">
+                            <i class="fa-solid fa-box"></i>
+                            <span>Danh sách sản phẩm</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-dark" th:href="@{/quan-tri-he-thong/product-category}">
+                            <i class="fa-solid fa-list"></i>
+                            <span>Loại sản phẩm</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li class="nav-item mb-1">
-                <a th:href="@{/quan-tri-he-thong/order}" class="nav-link text-dark">
+            <li class="nav-item mb-2">
+                <a th:href="@{/quan-tri-he-thong/order}" class="nav-link text-dark  border shadow-sm">
                     <i class="fa-solid fa-shopping-cart"></i>
                     <span>Đơn hàng</span>
                 </a>
             </li>
-            <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item mb-1">
-                <a th:href="@{/quan-tri-he-thong/user}" class="nav-link text-dark">
-                    <i class="fa-solid fa-user"></i>
-                    <span>Người dùng</span>
+            <li sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-item mb-2">
+                <a class="nav-link text-dark d-flex justify-content-between align-items-center border shadow-sm"
+                   href="#" role="button"
+                   data-bs-toggle="collapse" data-bs-target="#submenuUser" aria-expanded="true"
+                   aria-controls="submenuUser">
+                    <div>
+                        <i class="fa-solid fa-user"></i>
+                        <span>Người dùng</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down"></i>
                 </a>
+                <ul class="collapse list-unstyled ms-3" id="submenuUser"
+                >
+                    <li>
+                        <a th:href="@{/quan-tri-he-thong/user}" class="nav-link text-dark">
+                            <i class="fa-solid fa-user"></i>
+                            <span>Danh sách</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/quan-tri-he-thong/authorization}" class="nav-link text-dark">
+                            <i class="fa-solid fa-key"></i>
+                            <span>Phân quyền</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item mb-1">
-                <a th:href="@{/quan-tri-he-thong/authorization}" class="nav-link text-dark">
-                    <i class="fa-solid fa-user-shield"></i>
-                    <span>Phân quyền</span>
+            <li class="nav-item mb-2">
+                <a th:href="@{/quan-tri-he-thong/banner}" class="nav-link text-dark  border shadow-sm">
+                    <i class="fa-solid fa-image"></i>
+                    <span>Banner</span>
                 </a>
             </li>
         </ul>
@@ -280,28 +369,33 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- Thư viện XLSX -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-
 
 <script type="text/javascript">
+    // Lấy ngày giờ hiện tại
     var colors = ['#AEC6CF', '#FFB7B2', '#C3B1E1', '#FFDAC1', '#FFB6C1', '#B5EAD7', '#FFDFBA', '#FDFD96', '#B3E5FC', '#FADADD'];
     /* Bôi màu cho menu hiện tại thoôi nhìn gì?*/
-    const currentUrl = window.location.pathname;
-    const links = document.querySelectorAll('.nav-link');
-    links.forEach(link => {
-        if (link.getAttribute('href') === currentUrl) {
-            link.classList.add('active', 'fw-bold');
-        }
+    $(document).ready(function () {
+        var url = window.location.href;
+        $('.nav-link').each(function () {
+            if (this.href === url) {
+                $(this).addClass('active');
+                $(this).closest('.collapse').addClass('show');
+                $(this).closest('.collapse').prev().addClass('active');
+            }
+        });
     });
     /* Đây mới là phần chính của AngularJS nè =))*/
     var app = angular.module('myApp', ['ngRoute', 'ngTable']);
     app.controller('myCtrl', function ($scope, $http, NgTableParams) {
-            $scope.selectedPet = {};
-            $scope.petData = [];
-            $scope.petCategoryData = [];
-            $scope.productData = [];
+            $(document).ready(function () {
+                $scope.date = new Date().toLocaleString();
+                setInterval(function () {
+                    $scope.$apply(function () {
+                        $scope.date = new Date().toLocaleString();
+                    });
+                }, 1000);
+            });
             var baseUrl = window.location.origin + '/api/';
             /*PET*/
             $scope.getPets = function () {
@@ -692,7 +786,10 @@
                     // PRODUCT TABLE
                     $scope.usersTable = new NgTableParams({
                         page: 1,
-                        count: 5
+                        count: 10,
+                        sorting: {
+                            dateCreated: 'desc'
+                        }
                     }, {
                         counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.userData.length],
                         dataset: $scope.userData
@@ -747,11 +844,92 @@
             $scope.getPetCategories = function () {
                 $http.get(baseUrl + 'pet-category').then(function (response) {
                     $scope.petCategoryData = response.data;
+                    $scope.petCategoryTables = new NgTableParams({
+                        page: 1,
+                        count: 10,
+                        sorting: {
+                            petCategoryName: 'asc'
+                        }
+                    }, {
+                        counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.petCategoryData.length],
+                        dataset: $scope.petCategoryData
+                    });
                 }).catch(function (error) {
                     console.error('Lỗi khi lấy dữ liệu loại thú cưng:', error);
                 });
             };
             $scope.getPetCategories();
+            $scope.petCategoryEdit = function (petCategory) {
+                $scope.selectedPetCategory = angular.copy(petCategory);
+                var editPetCategoryModal = new bootstrap.Modal(document.getElementById('editPetCategoryModal'), {
+                    keyboard: true
+                });
+                editPetCategoryModal.show();
+            };
+            $scope.petCategoryAddModal = function () {
+                $scope.selectedPetCategory = {
+                    photo: null,
+                    petCategoryName: null,
+                };
+                var addPetCategory = new bootstrap.Modal(document.getElementById('addPetCategoryModal'), {
+                    keyboard: true
+                });
+                addPetCategory.show();
+            };
+            $scope.addPetCategory = function () {
+                $http.post(baseUrl + 'pet-category', $scope.selectedPetCategory).then(function (response) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Thêm mới thành công :',
+                        autoclose: true,
+                        status: 'success',
+                        autotimeout: 3000
+                    });
+                    $scope.getPetCategories();
+                }).catch(function (error) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Lỗi khi thêm mới :',
+                        autoclose: true,
+                        status: 'warning',
+                        autotimeout: 3000
+                    });
+                });
+            }
+            $scope.updatePetCategory = function (petCategoryId) {
+                if (petCategoryId == null) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Vui lòng nhập đầy đủ thông tin :',
+                        autoclose: true,
+                        status: 'error',
+                        autotimeout: 3000
+                    });
+                } else {
+                    $http.put(baseUrl + 'pet-category/' + petCategoryId, $scope.selectedPetCategory).then(function (response) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Cập nhật thành công :' + petCategoryId,
+                            autoclose: true,
+                            status: 'success',
+                            autotimeout: 3000
+                        });
+                        $scope.getPetCategories();
+                    }).catch(function (error) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Lỗi khi cập nhật :' + petCategoryId,
+                            autoclose: true,
+                            status: 'warning',
+                            autotimeout: 3000
+                        });
+                    });
+                }
+            };
+            $scope.clearPetCategoryFilter = function () {
+                $scope.petCategoryTables.filter({});
+                $scope.petCategoryTables.sorting({});
+            };
             /*PRODUCT CATEGORY*/
             $scope.getProductCategories = function () {
                 $http.get(baseUrl + 'product-category').then(function (response) {
@@ -761,6 +939,77 @@
                 });
             };
             $scope.getProductCategories();
+            $scope.productCategoryEdit = function (productCategory) {
+                $scope.selectedPetCategory = angular.copy(petCategory);
+                var editPetCategoryModal = new bootstrap.Modal(document.getElementById('editPetCategoryModal'), {
+                    keyboard: true
+                });
+                editPetCategoryModal.show();
+            };
+            $scope.productCategoryAddModal = function () {
+                $scope.selectedPetCategory = {
+                    photo: null,
+                    petCategoryName: null,
+                };
+                var addPetCategory = new bootstrap.Modal(document.getElementById('addPetCategoryModal'), {
+                    keyboard: true
+                });
+                addPetCategory.show();
+            };
+            $scope.addProductCategory = function () {
+                $http.post(baseUrl + 'pet-category', $scope.selectedPetCategory).then(function (response) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Thêm mới thành công :',
+                        autoclose: true,
+                        status: 'success',
+                        autotimeout: 3000
+                    });
+                    $scope.getPetCategories();
+                }).catch(function (error) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Lỗi khi thêm mới :',
+                        autoclose: true,
+                        status: 'warning',
+                        autotimeout: 3000
+                    });
+                });
+            }
+            $scope.updateProductCategory = function (productCategoryId) {
+                if (petCategoryId == null) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Vui lòng nhập đầy đủ thông tin :',
+                        autoclose: true,
+                        status: 'error',
+                        autotimeout: 3000
+                    });
+                } else {
+                    $http.put(baseUrl + 'pet-category/' + petCategoryId, $scope.selectedPetCategory).then(function (response) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Cập nhật thành công :' + petCategoryId,
+                            autoclose: true,
+                            status: 'success',
+                            autotimeout: 3000
+                        });
+                        $scope.getPetCategories();
+                    }).catch(function (error) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Lỗi khi cập nhật :' + petCategoryId,
+                            autoclose: true,
+                            status: 'warning',
+                            autotimeout: 3000
+                        });
+                    });
+                }
+            };
+            $scope.clearProductCategoryFilter = function () {
+                $scope.petCategoryTables.filter({});
+                $scope.petCategoryTables.sorting({});
+            };
             /*ROLE*/
             $scope.getRoles = function () {
                 $http.get(baseUrl + 'role').then(function (response) {
@@ -779,7 +1028,10 @@
                     $scope.count_ROLE_STAFF = $scope.authorityData.filter(authority => authority.authority === 'ROLE_STAFF').length;
                     $scope.authorityTables = new NgTableParams({
                         page: 1,
-                        count: 5
+                        count: 10,
+                        sorting: {
+                            authority: 'asc'
+                        }
                     }, {
                         counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.authorityData.length],
                         dataset: $scope.authorityData
@@ -833,8 +1085,11 @@
             $scope.getOrders = function () {
                 $http.get(baseUrl + 'order').then(function (response) {
                     $scope.orderData = response.data;
-                    $scope.orderStatusTrueLength = $scope.orderData.filter(order => order.status === true).length;
-                    $scope.orderStatusFalseLength = $scope.orderData.filter(order => order.status === false).length;
+                    $scope.dangXuLiLength = $scope.orderData.filter(order => order.orderStatusID.id === 1).length;
+                    $scope.daXacNhanLength = $scope.orderData.filter(order => order.orderStatusID.id === 2).length;
+                    $scope.dangVanChuyenLength = $scope.orderData.filter(order => order.orderStatusID.id === 3).length;
+                    $scope.daGiaoLength = $scope.orderData.filter(order => order.orderStatusID.id === 4).length;
+                    $scope.daHuyLength = $scope.orderData.filter(order => order.orderStatusID.id === 5).length;
                     $scope.orderEnableTrueLength = $scope.orderData.filter(order => order.enable === true).length;
                     $scope.orderEnableFalseLength = $scope.orderData.filter(order => order.enable === false).length;
                     // ORDER TABLE
@@ -855,15 +1110,26 @@
             $scope.getOrders();
             $scope.changeOrderStatus = function (orderId, status) {
                 Swal.fire({
-                    title: 'Bạn có chắc chắn muôn thay đổi?',
-                    text: 'Thay đổi trạng thái',
+                    title: 'Bạn có chắc chắn muốn thay đổi?',
+                    text: 'Thay đổi trạng thái đơn hàng',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Xác nhận!',
                     cancelButtonText: 'Hủy bỏ'
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Đang xử lý...',
+                            text: 'Vui lòng chờ...',
+                            icon: 'info',
+                            showConfirmButton: false,
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
                         $http.put(baseUrl + 'order/' + orderId + '/' + status).then(function (response) {
+                            Swal.close();
                             Swal.fire({
                                 title: 'Thành công!',
                                 text: 'Cập nhật trạng thái đơn hàng thành công',
@@ -872,30 +1138,42 @@
                                 showConfirmButton: false
                             });
                             $scope.getOrders();
+                            $scope.getOrderById(orderId);
                         }).catch(function (error) {
-                            new Notify({
-                                title: 'Thông báo',
-                                text: 'Lỗi khi cập nhật trạng thái đơn hàng',
-                                autoclose: true,
-                                status: 'warning',
-                                autotimeout: 3000
+                            Swal.close();
+                            Swal.fire({
+                                title: 'Lỗi',
+                                text: 'Không thể cập nhật trạng thái đơn hàng',
+                                icon: 'error',
+                                timer: 3000,
+                                showConfirmButton: false
                             });
                         });
                     } else {
-                        new Notify({
-                            title: 'Thông báo',
-                            text: 'Đã hủy',
-                            autoclose: true,
-                            status: 'info',
-                            autotimeout: 3000
+                        Swal.fire({
+                            title: 'Đã hủy',
+                            text: 'Thay đổi trạng thái đã bị hủy.',
+                            icon: 'info',
+                            timer: 3000,
+                            showConfirmButton: false
                         });
                         $scope.getOrders();
+                        $scope.getOrderById(orderId);
                     }
                 });
-            }
+            };
             $scope.clearOrderFilter = function () {
                 $scope.ordersTable.filter({});
-                $scope.ordersTable.sorting({});
+                $scope.ordersTable.sorting({
+                    orderDate: 'desc'
+                });
+            };
+            $scope.getOrderById = function (orderId) {
+                $http.get(baseUrl + 'order/' + orderId).then(function (response) {
+                    $scope.orderDetailAll = response.data;
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu order:', error);
+                });
             };
             $scope.openOrderDetailModal = function (orderId) {
                 $http.get(baseUrl + 'order-detail/' + orderId).then(function (response) {
@@ -906,11 +1184,7 @@
                 }).catch(function (error) {
                     console.error('Lỗi khi lấy dữ liệu order:', error);
                 });
-                $http.get(baseUrl + 'order/' + orderId).then(function (response) {
-                    $scope.orderDetailAll = response.data;
-                }).catch(function (error) {
-                    console.error('Lỗi khi lấy dữ liệu order:', error);
-                });
+                $scope.getOrderById(orderId);
                 var orderDetailModal = new bootstrap.Modal(document.getElementById('orderDetailModal'), {
                     keyboard: true
                 });
@@ -921,6 +1195,27 @@
                     return true;
                 }
             };
+            $scope.orderChart = function () {
+                $http.get(baseUrl + 'order').then(function (response) {
+                    $scope.orderData = response.data;
+                    new Chart(document.getElementById('orderChart'), {
+                        type: 'line',
+                        data: {
+                            labels: $scope.orderData.map(order => order.orderDate.split('T')[0]),
+                            datasets: [{
+                                label: 'Tổng tiền đơn hàng',
+                                data: $scope.orderData.map(order => order.totalAmount),
+                                fill: true,
+                                borderColor: 'rgb(75, 192, 192)',
+                                tension: 0.3
+                            }]
+                        },
+                    });
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu order:', error);
+                });
+            }
+            $scope.orderChart();
             /*ORDER STATUS*/
             $scope.getOrderStatus = function () {
                 $http.get(baseUrl + 'orderStatus').then(function (response) {
@@ -1008,15 +1303,15 @@
             };
             $scope.exportExcelProduct = function () {
                 try {
-                    const data = $scope.productData.map((user, index) => ({
+                    const data = $scope.productData.map((product, index) => ({
                         "STT": index + 1,
-                        "Tên sản phẩm": user.productName,
-                        "Loại": user.productCategoryID.productCategoryName,
-                        "Giá": user.price.toLocaleString("vi-VN") + " đ",
-                        "Số lượng": user.quantity,
-                        "Tình trạng": user.available ? "Còn hàng" : "Hết hàng",
-                        "Hình ảnh": user.photo,
-                        "Mô tả": user.productDescription,
+                        "Tên sản phẩm": product.productName,
+                        "Loại": product.productCategoryID.productCategoryName,
+                        "Giá": product.price.toLocaleString("vi-VN") + " đ",
+                        "Số lượng": product.quantity,
+                        "Tình trạng": product.available ? "Còn hàng" : "Hết hàng",
+                        "Hình ảnh": product.photo,
+                        "Mô tả": product.productDescription,
                     }));
                     const totalProducts = data.length;
                     const totalCost = $scope.productData.reduce((total, product) => total + product.price * product.quantity, 0);
@@ -1112,15 +1407,65 @@
                     });
                 }
             };
-            // Lấy ngày giờ hiện tại
-            $scope.date = new Date().toLocaleString();
-            setInterval(function () {
-                $scope.$apply(function () {
-                    $scope.date = new Date().toLocaleString();
+            $scope.exportExcelOrder = function () {
+                try {
+                    // đang làm
+                    const wb = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet($scope.orderData));
+                    XLSX.writeFile(wb, "Danh sách đơn hàng.xlsx");
+                    Swal.fire({
+                        title: 'Thành công!',
+                        text: 'Đã xuất file Excel',
+                        icon: 'success',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                } catch (error) {
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: 'Có lỗi xảy ra khi xuất file Excel',
+                        icon: 'error',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                }
+            };
+            $scope.exportExcelOrderDetail = function (id) {
+                $http.get(baseUrl + "order-detail/" + id).then(function (resp) {
+                    $scope.orderDetail = resp.data;
+                }).catch(function (error) {
+                    console.error('Lỗi khi lấy dữ liệu order:', error);
                 });
-            }, 1000);
-
-            // Cập nhật tên ảnh khi chọn file
+                try {
+                    const data = $scope.orderDetail.map((order, index) => ({
+                        "STT": index + 1,
+                        "Sản phẩm": order.productID.productName,
+                        "Giá": order.price,
+                        "Số lượng": order.quantity,
+                        "Tổng": order.price * order.quantity,
+                    }));
+                    const wb = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data));
+                    XLSX.writeFile(wb, "Hóa đơn số #" + id + ".xlsx");
+                    Swal.fire({
+                        title: 'Thành công!',
+                        text: 'Đã xuất file Excel',
+                        icon: 'success',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                } catch (error) {
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: 'Có lỗi xảy ra khi xuất file Excel',
+                        icon: 'error',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                    console.error('Lỗi khi xuất file Excel:', error);
+                }
+            };
+            // CHANGE IMAGE WHEN UPLOAD
             $scope.updatePhotoPetName = function (input) {
                 if (input.files && input.files[0]) {
                     var fileName = input.files[0].name;
@@ -1135,9 +1480,15 @@
                     $scope.$apply();
                 }
             };
+            $scope.updatePhotoPetCategoryName = function (input) {
+                if (input.files && input.files[0]) {
+                    var fileName = input.files[0].name;
+                    $scope.selectedPetCategory.photo = fileName;
+                    $scope.$apply();
+                }
+            };
         }
     );
 </script>
 </body>
-
 </html>

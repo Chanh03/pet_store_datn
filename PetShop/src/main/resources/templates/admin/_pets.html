@@ -12,7 +12,8 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/quan-tri-he-thong">Trang chủ</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Thú cưng
+                <li class="breadcrumb-item active">Thú cưng</li>
+                <li class="breadcrumb-item active" aria-current="page">Danh sách thú cưng
                 </li>
             </ol>
         </nav>
@@ -88,13 +89,12 @@
         </div>
     </div>
     <div class="text-center mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
-        <div class="d-flex position-absolute gap-4" style="right: 40px;top: 80px">
+        <div class="d-flex position-absolute gap-4" style="right: 25px;top: 80px">
             <button ng-click="clearPetFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
         </div>
         <table ng-table="petsTable" class="table table-responsive text-truncate rounded-3 table-hover table-sm  p-5"
                show-filter="true">
             <tr ng-repeat="pet in $data" class="align-middle">
-                <!-- STT tính toán dựa trên trang hiện tại -->
                 <td data-title="'#'" class="p-2 px-3 text-center">
                     <b>{{ (petsTable.page() - 1) * petsTable.count() + $index + 1 }}</b>
                 </td>
@@ -102,11 +102,15 @@
                     <img height="100px" width="100px" ng-src="/images/pet/{{ pet.photo }}" alt="{{ pet.photo }}"
                          class="img-thumbnail pet-image">
                 </td>
-                <td sortable="'petID'" filter="{ 'petID': 'text' }" data-title="'Pet Id'">{{ pet.petID }}</td>
-                <td sortable="'petCategoryID.petCategoryName'" filter="{ 'petCategoryID.petCategoryName': 'text' }"
-                    data-title="'Loài'" class="text-center">{{ pet.petCategoryID.petCategoryName }}
+                <td sortable="'petID'" class="text-start text-wrap" filter="{ 'petID': 'text' }" data-title="'Pet Id'">
+                    {{ pet.petID }}
                 </td>
-                <td sortable="'breed'" filter="{ 'breed': 'text' }" data-title="'Giống'">{{ pet.breed }}</td>
+                <td sortable="'breed'" class="text-start" filter="{ 'breed': 'text' }" data-title="'Giống'">{{ pet.breed
+                    }}
+                </td>
+                <td sortable="'petCategoryID.petCategoryName'" filter="{ 'petCategoryID.petCategoryName': 'text' }"
+                    data-title="'Loài'" class="text-start text-wrap">{{ pet.petCategoryID.petCategoryName }}
+                </td>
                 <td sortable="'price'" filter="{ 'price': 'number' }" data-title="'Giá'">{{ pet.price | number :
                     '0'}}đ
                 </td>
@@ -128,14 +132,16 @@
                     </div>
                 </td>
                 <td data-title="'Tool'" class="text-center">
-                    <button ng-click="petEdit(pet)" class="btn btn-outline-secondary">
-                        <i class="fa-solid fa-pen"></i>
-                        <span>Sửa</span>
-                    </button>
-                    <button class="btn btn-outline-danger" ng-click="deletePet(pet.petID)">
+                    <div>
+                        <button ng-click="petEdit(pet)" class="btn btn-outline-secondary">
+                            <i class="fa-solid fa-pen"></i>
+                            <span>Sửa</span>
+                        </button>
+                        <button class="btn btn-outline-danger" ng-click="deletePet(pet.petID)">
                         <i class="fa-solid fa-xmark"></i>
                         <span>Xóa</span>
-                    </button>
+                        </button>
+                    </div>
                 </td>
             </tr>
         </table>

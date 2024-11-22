@@ -33,6 +33,19 @@
 
 <body>
 <div class="container bg-white p-4 rounded shadow">
+    <div class="form-floating mb-3" style="display: none">
+        <!-- Kiểm tra giá trị sub -->
+        <input
+                class="form-control"
+                id="username"
+                name="username"
+                placeholder="Tên đăng nhập"
+                required
+                type="text"
+                th:value="${user.username}"
+                readonly disabled
+        />
+    </div>
     <div class="row">
         <div class="col-md-7">
             <div class="">
@@ -58,15 +71,17 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="text-center align-middle" ng-repeat="item in cart.items track by item.id">
+                    <tr class="text-center align-middle" ng-repeat="item in cart.items track by item.id"
+                        data-product-id="{{item.id}}">
+
                         <td>{{$index + 1}}</td>
                         <td>
                             <img ng-src="/images/product/{{item.photo}}" alt="product" style="width: 100px;">
                         </td>
-                        <td class="fw-bold text-truncate" style="max-width: 200px">{{item.productName}}</td>
-                        <td>{{item.price | number}}₫</td>
+                        <td class="fw-bold">{{item.productName}}</td>
+                        <td>{{item.price | currency:'':0 }}₫</td>
                         <td>{{item.quantity}}</td>
-                        <td>{{item.price * item.quantity | number}}₫</td>
+                        <td>{{item.price * item.quantity | currency:'':0 }}₫</td>
                     </tr>
                     </tbody>
                 </table>
@@ -99,7 +114,7 @@
                         <div class="d-flex justify-content-between">
                             <span>Tổng tiền:</span>
                             <h2 class="fw-bold border">
-                                <span>{{cart.cartTotalAll() | currency:'':0}}₫</span>
+                                <span id="cartTotalAll" data-cart-total="{{cart.cartTotalAll()}}">{{cart.cartTotalAll() | currency:'':0 }}₫</span>
                             </h2>
                         </div>
                     </div>
@@ -129,7 +144,7 @@
                     </div>
                     <div class="form-group">
                         <label for="userAddress">Địa chỉ</label>
-                        <textarea type="text" id="userAddress" class="form-control" placeholder="Dia chi"
+                        <textarea type="text" id="userAddress" class="form-control" placeholder="Địa chỉ"
                                   th:text="${user.userAddress}" th:value="${user.userAddress}">
                         </textarea>
                     </div>
@@ -142,13 +157,24 @@
                         <input class="form-check-input" checked type="radio" name="payment" id="cod">
                         <label class="form-check-label" for="cod">Tiền mặt (COD)</label>
                     </div>
+                    <!--                    <div class="form-check mb-2">-->
+                    <!--                        <input class="form-check-input" type="radio" name="payment" id="bank">-->
+                    <!--                        <label class="form-check-label" for="bank">Quét mã QR (Online)</label>-->
+                    <!--                    </div>-->
                     <div class="form-check mb-2">
-                        <input class="form-check-input" type="radio" name="payment" id="bank">
-                        <label class="form-check-label" for="bank">Quét mã QR (Online)</label>
+                        <input class="form-check-input" type="radio" name="payment" id="bank"
+                               onclick="toggleQRCodeDiv()">
+                        <label class="form-check-label" for="bank">Thanh toán ngân hàng</label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="radio" name="payment" id="online">
-                        <label class="form-check-label" for="online">Thanh toán Momo (Online)</label>
+                    <div id="qrCodeDiv" style="display: none; text-align: center;">
+                        <!-- Nội dung của div hiện ra khi chọn Quét mã QR -->
+                        <img src="https://vnpay.vn/s1/statics.vnpay.vn/2023/9/06ncktiwd6dc1694418196384.png" alt="VNPAY"
+                             style="width: 300px; height: 300px; display: block; margin: 0 auto;">
+
+                        <a href="javascript:void(0)" onclick="information2()"
+                           class="btn btn-primary d-flex align-items-center justify-content-center mx-auto mt-3">
+                            <i class="fa fa-credit-card mr-2"></i> Thanh toán bằng ngân hàng
+                        </a>
                     </div>
                 </div>
                 <div class="form-check mb-2">
@@ -188,6 +214,92 @@
                 existingFields.style.display = 'none';
                 newFields.style.display = 'block';
             }
+        }
+
+        function toggleQRCodeDiv() {
+            const qrCodeDiv = document.getElementById("qrCodeDiv");
+            const bankRadio = document.getElementById("bank");
+
+            // Hiển thị div nếu radio được chọn, ẩn nếu bỏ chọn
+            if (bankRadio.checked) {
+                qrCodeDiv.style.display = "block";
+            } else {
+                qrCodeDiv.style.display = "none";
+            }
+        }
+
+        function information2() {
+            // Lấy tất cả thông tin giỏ hàng từ AngularJS (hoặc framework bạn dùng)
+            const cartItems = [];
+            document.querySelectorAll("tr[ng-repeat]").forEach((row) => {
+                const item = {
+                    productID: row.getAttribute("data-product-id"), // Giả sử bạn có đặt ID sản phẩm ở đây
+                    productName: row.querySelector("td:nth-child(3)").innerText,
+                    price: parseFloat(row.querySelector("td:nth-child(4)").innerText.replace(/[^0-9.-]+/g, "")),
+                    quantity: parseInt(row.querySelector("td:nth-child(5)").innerText),
+                };
+                cartItems.push(item);
+            });
+
+            const cartTotalElement = document.getElementById("cartTotalAll");
+            const cartTotalValue = cartTotalElement.getAttribute('data-cart-total');
+            const username = document.getElementById("username").value;
+
+            let addressData = [];
+            const existingAddressOption = document.getElementById("existing-address").checked;
+            if (existingAddressOption) {
+                // Nếu là địa chỉ cũ
+                addressData = [
+                    document.getElementById("userAddress").value,
+                ];
+            } else {
+                // Nếu là địa chỉ mới
+                addressData = [
+                    document.querySelector("input[placeholder='Địa chỉ']").value,
+                    document.querySelector("select[placeholder='Tỉnh/thành phố']").value,
+                    document.querySelector("select[placeholder='Quận/huyện']").value,
+                    document.querySelector("select[placeholder='Phường/xã']").value,
+                    document.querySelector("textarea[placeholder='Yêu cầu khác (không bắt buộc)']").value,
+                ];
+            }
+
+            // Chuyển addressData thành chuỗi
+            const addressString = encodeURIComponent(addressData.join(", "));
+
+            // Chuẩn bị dữ liệu gửi
+            const requestData = {
+                    userName: username,
+                    amount:
+                    cartTotalValue,
+                    productDetails:
+                    cartItems,
+                    shippingAddress:
+                    addressString,
+                }
+            ;
+            console.log("Dữ liệu gửi đi:", requestData);
+
+            // Gửi dữ liệu qua POST
+            fetch("/api/v1/payment/vn-pay", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestData),
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json(); // Chuyển đổi phản hồi thành JSON
+                })
+                .then((data) => {
+                    console.log("Payment URL:", data);
+                    window.location.href = data.paymentUrl; // Điều hướng đến URL thanh toán
+                })
+                .catch((error) => {
+                    console.error("Error during fetch:", error);
+                });
         }
     </script>
 </div>

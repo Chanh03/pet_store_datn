@@ -79,13 +79,19 @@
                                 </span>
                             </div>
                             <div class="mb-3">
-                                <label for="petCategory" class="form-label">Chọn loại thú cưng:</label>
-                                <select class="form-select" id="petCategory" ng-model="selectedPet.petCategoryID.id"
-                                        placeholder="Chọn loại thú cưng..." required>
-                                    <option ng-repeat="pc in petCategoryData" ng-value="pc.id">
-                                        {{pc.petCategoryName}}
-                                    </option>
-                                </select>
+                                <label for="petCategory" class="form-label">Chọn loài:</label>
+                                <div class="d-flex align-items-center">
+                                    <select class="form-select w-75" id="petCategory" ng-model="selectedPet.petCategoryID.id"
+                                            placeholder="Chọn loài..." required>
+                                        <option ng-repeat="pc in petCategoryData" ng-value="pc.id">
+                                            {{pc.petCategoryName}}
+                                        </option>
+                                    </select>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#addPetCategoryModal">
+                                        <span>Thêm loài</span> <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label>Giới tính</label>

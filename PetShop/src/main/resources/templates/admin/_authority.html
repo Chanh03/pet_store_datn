@@ -30,9 +30,12 @@
                     <div class="d-flex justify-content-start align-items-end">
                         <div ng-repeat="role in roleData" class="d-flex justify-content-start align-items-end">
                             <h4>
-                                <span style="background-color: #dc3545" class="badge me-2" ng-if="role.name === 'ROLE_ADMIN'">ADMIN</span>
-                                <span style="background-color: #17a2b8" class="badge me-2" ng-if="role.name === 'ROLE_STAFF'">STAFF</span>
-                                <span style="background-color: #6c757d" class="badge me-2" ng-if="role.name === 'ROLE_USER'">USER</span>
+                                <span style="background-color: #dc3545" class="badge me-2"
+                                      ng-if="role.name === 'ROLE_ADMIN'">ADMIN</span>
+                                <span style="background-color: #17a2b8" class="badge me-2"
+                                      ng-if="role.name === 'ROLE_STAFF'">STAFF</span>
+                                <span style="background-color: #6c757d" class="badge me-2"
+                                      ng-if="role.name === 'ROLE_USER'">USER</span>
                             </h4>
                         </div>
                     </div>
@@ -80,10 +83,11 @@
         </div>
     </div>
     <div class="text-center mt-1 mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
-        <div class="d-flex position-absolute gap-4" style="right: 30px;top: 83px">
+        <div class="d-flex position-absolute gap-4" style="right: 25px;top: 83px">
             <button ng-click="clearUserFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
         </div>
-        <table ng-table="authorityTables" class="table text-truncate table-responsive rounded-3 table-hover table-sm  p-5"
+        <table ng-table="authorityTables"
+               class="table text-truncate table-responsive rounded-3 table-hover table-sm  p-5"
                show-filter="true">
             <tr ng-repeat="userAuthor in $data" class="align-middle">
                 <!-- STT tính toán dựa trên trang hiện tại -->
@@ -107,8 +111,12 @@
                     <select
                             ng-model="userAuthor.authority"
                             ng-change="changeRole(userAuthor.id, userAuthor.authority)"
-                            class="form-select form-select-sm">
-                        <option ng-repeat="role in roleData" ng-value="role.name">{{role.name.replace('ROLE_', '')}}
+                            class="form-select"
+                            ng-class="{'text-danger fw-bold': userAuthor.authority === 'ROLE_ADMIN',
+                                       'text-info fw-bold': userAuthor.authority === 'ROLE_STAFF',
+                                       'text-secondary fw-bold': userAuthor.authority === 'ROLE_USER'}">
+                        <option class="bg-white text-dark" ng-repeat=" role in roleData" ng-value="role.name">
+                            {{role.name.replace('ROLE_', '')}}
                         </option>
                     </select>
                 </td>
