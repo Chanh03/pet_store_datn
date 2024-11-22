@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="méo chạy đc nhưng vẫn up :v">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update fix all">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/HomeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/entity/OrderProductDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/entity/OrderProductDetail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderProductDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderProductDetailController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/OrderStatusServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/OrderStatusServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyCart.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyCart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyOrderDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyOrderDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_petDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_petDetail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -239,15 +230,7 @@
       <workItem from="1732179896995" duration="313000" />
       <workItem from="1732241890639" duration="40000" />
       <workItem from="1732242268909" duration="674000" />
-      <workItem from="1732268567012" duration="2435000" />
-    </task>
-    <task id="LOCAL-00021" summary="update go to top">
-      <option name="closed" value="true" />
-      <created>1730653099606</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1730653099606</updated>
+      <workItem from="1732268567012" duration="3711000" />
     </task>
     <task id="LOCAL-00022" summary="update loading">
       <option name="closed" value="true" />
@@ -633,7 +616,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732241920882</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="update fix all">
+      <option name="closed" value="true" />
+      <created>1732271067995</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1732271067995</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -663,7 +654,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update nhieu cai hahah" />
     <MESSAGE value="update pet (remove input id for update), order" />
     <MESSAGE value="add export excel (order)" />
     <MESSAGE value="add order chart" />
@@ -688,7 +678,8 @@
     <MESSAGE value="update index menu search (fixed)" />
     <MESSAGE value="update index x3" />
     <MESSAGE value="méo chạy đc nhưng vẫn up :v" />
-    <option name="LAST_COMMIT_MESSAGE" value="méo chạy đc nhưng vẫn up :v" />
+    <MESSAGE value="update fix all" />
+    <option name="LAST_COMMIT_MESSAGE" value="update fix all" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
