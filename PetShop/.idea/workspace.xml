@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update fix all">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="fix fix fix payment status">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyCart.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyCart.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -230,15 +230,7 @@
       <workItem from="1732179896995" duration="313000" />
       <workItem from="1732241890639" duration="40000" />
       <workItem from="1732242268909" duration="674000" />
-      <workItem from="1732268567012" duration="3711000" />
-    </task>
-    <task id="LOCAL-00022" summary="update loading">
-      <option name="closed" value="true" />
-      <created>1730653732085</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1730653732085</updated>
+      <workItem from="1732268567012" duration="4152000" />
     </task>
     <task id="LOCAL-00023" summary="update form">
       <option name="closed" value="true" />
@@ -624,7 +616,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732271067995</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="fix fix fix payment status">
+      <option name="closed" value="true" />
+      <created>1732272426383</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1732272426383</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -654,7 +654,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update pet (remove input id for update), order" />
     <MESSAGE value="add export excel (order)" />
     <MESSAGE value="add order chart" />
     <MESSAGE value="update all akldkaj" />
@@ -679,7 +678,8 @@
     <MESSAGE value="update index x3" />
     <MESSAGE value="méo chạy đc nhưng vẫn up :v" />
     <MESSAGE value="update fix all" />
-    <option name="LAST_COMMIT_MESSAGE" value="update fix all" />
+    <MESSAGE value="fix fix fix payment status" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix fix fix payment status" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

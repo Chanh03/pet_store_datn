@@ -109,14 +109,12 @@
                 </a>
                 <div class="row mt-5 mb-2">
                     <div class="col-12 d-flex align-items-center justify-content-end gap-3">
-                        <div class="btn btn-outline-dark disabled">
-                            <h5 ng-init="updatePaymentStatus(history)" ng-class="{
-                                'text-success': history.paymentStatusID.statusPayment == 2,
-                                'text-danger': history.paymentStatusID.statusPayment == 1
-                            }">
-                                {{ history.paymentStatusID.statusPayment == 2 ? 'Thanh toán thành công' : 'Chưa thanh
-                                toán' }}
-                            </h5>
+                        <div class="btn  disabled">
+                            <span ng-init="updatePaymentStatus(history)" ng-class="{
+                                'text-success btn-outline-success fw-bold': history.paymentStatusID.id == 2,
+                                'text-danger btn-outline-danger fw-bold': history.paymentStatusID.id == 1}">
+                                {{history.paymentStatusID.statusPayment}}
+                            </span>
                         </div>
                         <a ng-if="history.paymentStatusID.statusPayment == 2"
                            class="btn btn-danger"
