@@ -4,28 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9790aa60-bce0-4f0d-b6f2-58f7e1899297" name="Changes" comment="11/18 rating 80%">
+    <list default="true" id="9790aa60-bce0-4f0d-b6f2-58f7e1899297" name="Changes" comment="11/19 80%">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/PetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/PetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/PetRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/PetRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/ProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/ProductRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestReviewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/PetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/PetService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestPetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestPetController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/PetServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/PetServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/ReviewService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/ProductServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_ReviewModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_ReviewModal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_allPet.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_allPet.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/ReviewServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/ReviewServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_allProduct.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_allProduct.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyCart.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyCart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_petDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_petDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_productDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_productDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/config/SecurityConfig.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +131,9 @@
       <workItem from="1731859070298" duration="9911000" />
       <workItem from="1731918427290" duration="3001000" />
       <workItem from="1731942805709" duration="5376000" />
-      <workItem from="1732028732127" duration="6259000" />
+      <workItem from="1732028732127" duration="7797000" />
+      <workItem from="1732112215790" duration="2646000" />
+      <workItem from="1732193774365" duration="94000" />
     </task>
     <task id="LOCAL-00001" summary="history 0.1">
       <option name="closed" value="true" />
@@ -202,7 +191,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731948076022</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="11/19 80%">
+      <option name="closed" value="true" />
+      <created>1732035157051</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1732035157051</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,6 +224,7 @@
     <MESSAGE value="11/16 bug backdrop khong fix dc :)" />
     <MESSAGE value="11/18 rating 50%" />
     <MESSAGE value="11/18 rating 80%" />
-    <option name="LAST_COMMIT_MESSAGE" value="11/18 rating 80%" />
+    <MESSAGE value="11/19 80%" />
+    <option name="LAST_COMMIT_MESSAGE" value="11/19 80%" />
   </component>
 </project>

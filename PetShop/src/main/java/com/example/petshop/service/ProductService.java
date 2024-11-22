@@ -30,4 +30,6 @@ public interface ProductService {
     Page<Product> getProductsByCategoryId(Integer categoryId, Pageable pageable);
 
     Page<Product> searchProductWithCategory(String keyword, Integer categoryId, Pageable pageable);
+
+    List<Product> getAllByCreatedDateAndEnable();
 }

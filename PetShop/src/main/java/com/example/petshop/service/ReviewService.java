@@ -18,4 +18,6 @@ public interface ReviewService {
     boolean isOrdered(String username, int id);
 
     Review save(Review review);
+
+    List<Review> getReviewsMoiNhatVaTren4();
 }
