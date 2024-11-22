@@ -45,10 +45,19 @@ public class HomeController {
     @Autowired
     private ReviewService reviewService;
 
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private OrderProductDetailService orderProductDetailService;
+
     @ModelAttribute("user")
     public User user(Authentication authentication, Principal principal) {
-        User user = userService.findByUsername(principal.getName());
-        return user;
+        if (principal == null) {
+            return null;
+        } else {
+            return userService.findByUsername(principal.getName());
+        }
     }
 
     @RequestMapping({"/", "/trang-chu", "/home"})
@@ -157,10 +166,13 @@ public class HomeController {
         }
     }
 
-    @RequestMapping("/history-detail")
-    public String historyCartDetail(Model model, Principal principal) {
-        User userHistoryDetail = userService.findByUsername(principal.getName());
-        model.addAttribute("userHistoryDetail", userHistoryDetail);
-        return "layout/_historyCartDetail";
+    @RequestMapping("/history-detail/{id}")
+    public String historyDetail(Model model, Principal principal, @PathVariable(name = "id") int id) {
+        Order order = orderService.getByOrderId(id);
+        List<OrderProductDetail> orderDetailHistory = orderProductDetailService.getByOrderID(order);
+        System.out.println(orderDetailHistory);
+        model.addAttribute("order", order);
+        model.addAttribute("orderDetailHistory", orderDetailHistory);
+        return "/layout/_historyOrderDetail";
     }
 }

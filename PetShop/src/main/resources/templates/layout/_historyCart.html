@@ -75,39 +75,54 @@
         <div ng-repeat="history in orderHistory | orderBy: '-orderDate'"
              class="row card shadow p-3 mb-3 nav-link order-history-hover">
             <div class="col-12">
-                <div class="row" type="button" ng-click="getHistoryOrderDetail(history.id)">
-                    <div class="col-8">
-                        <div class="flex-grow-1">
-                            <span class="text-danger fw-bold">ID: {{history.id}}</span>
-                            <p class="fw-bold mb-1">Thời gian: {{ history.orderDate | date:'dd-MM-yyyy'}}</p>
-                            <p class="mb-1">Địa chỉ: {{ history.shippingAddress}}</p>
+                <a ng-href="/history-detail/{{history.id}}" class="nav-link">
+                    <div class="row" type="button">
+                        <div class="col-8">
+                            <div class="flex-grow-1">
+                                <span class="text-danger fw-bold">ID: {{history.id}}</span>
+                                <p class="fw-bold mb-1">Thời gian: {{ history.orderDate | date:'dd-MM-yyyy'}}</p>
+                                <p class="mb-1">Địa chỉ: {{ history.shippingAddress}}</p>
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="text-end">
-                            <h5 class="badge"
-                                ng-class="{
+                        <div class="col-4">
+                            <div class="text-end">
+                                <h5 class="badge" id="statusName"
+                                    ng-class="{
                                     'bg-info': history.orderStatusID.statusName === 'Đang xử lý',
                                     'bg-primary': history.orderStatusID.statusName === 'Đã xác nhận',
                                     'bg-warning': history.orderStatusID.statusName === 'Đang vận chuyển',
                                     'bg-success': history.orderStatusID.statusName === 'Đã giao',
                                     'bg-danger': history.orderStatusID.statusName === 'Hủy đơn'
                                   }">
-                                {{history.orderStatusID.statusName}}
-                            </h5>
-                        </div>
-                        <div class="text-end">
-                            <p class="text-secondary mb-0"><img src="/gifs/icons8-money.gif" alt=""> Tổng số tiền: <span
-                                    class="fs-3 text-danger">{{ history.totalAmount | currency:'':0 }}₫</span></p>
+                                    {{history.orderStatusID.statusName}}
+                                </h5>
+                            </div>
+                            <div class="text-end">
+                                <p class="text-secondary mb-0"><img src="/gifs/icons8-money.gif" alt=""> Tổng số tiền:
+                                    <span
+                                            class="fs-3 text-danger">{{ history.totalAmount | currency:'':0 }}₫</span>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
                 <div class="row mt-5 mb-2">
                     <div class="col-12 d-flex align-items-center justify-content-end gap-3">
                         <div class="btn btn-outline-dark disabled">
-                            <h5 class=" m-0 mx-1 my-2">{{history.paymentStatusID.statusPayment}}</h5>
+                            <h5 ng-init="updatePaymentStatus(history)" ng-class="{
+                                'text-success': history.paymentStatusID.statusPayment == 2,
+                                'text-danger': history.paymentStatusID.statusPayment == 1
+                            }">
+                                {{ history.paymentStatusID.statusPayment == 2 ? 'Thanh toán thành công' : 'Chưa thanh
+                                toán' }}
+                            </h5>
                         </div>
+                        <a ng-if="history.paymentStatusID.statusPayment == 2"
+                           class="btn btn-danger"
+                           ng-href="/history-detail/{{history.id}}">
+                            <h5 class=" m-0 mx-1 my-2">Đánh giá sản phẩm</h5>
+                        </a>
                         <button ng-if="history.orderStatusID.statusName === 'Đang xử lý'"
                                 class="btn btn-danger"
                                 ng-click="deleteHistory(history.id)">
