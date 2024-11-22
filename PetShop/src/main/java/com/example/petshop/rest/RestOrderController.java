@@ -101,4 +101,11 @@ public class RestOrderController {
             return orderService.getHistory(user.getUsername());
         }
     }
+
+    @PutMapping("/status/{id}")
+    public Order updateOrderStatus(@PathVariable int id) {
+        Order order = orderService.getById(id);
+        order.setOrderStatusID(orderStatusService.getByStatus(5)); // Hủy đơn hàng
+        return orderService.save(order);
+    }
 }

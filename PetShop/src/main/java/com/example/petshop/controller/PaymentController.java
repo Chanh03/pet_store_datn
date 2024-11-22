@@ -194,7 +194,7 @@ public class PaymentController {
 
             }
 
-            return ResponseEntity.ok(dto);
+            return ResponseEntity.ok(order);
         } else {
             // Trường hợp thanh toán thất bại
             dto.setCode("400");
