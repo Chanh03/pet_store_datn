@@ -1,5 +1,6 @@
 package com.example.petshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class Role {
     @Column(name = "Name", length = 50)
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "role")
     private Set<Authority> authorities = new LinkedHashSet<>();
 

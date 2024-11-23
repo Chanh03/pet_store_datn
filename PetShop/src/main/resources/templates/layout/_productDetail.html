@@ -1,175 +1,299 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/index.html::home(~{::body})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/index.html::home(~{::body})}"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
-
-    <style>
-        .rounded-image {
-            width: 60px;
-            /* Đặt kích thước nhỏ cho ảnh */
-            height: 60px;
-            /* Đặt chiều cao phù hợp để ảnh có tỷ lệ 1:1 */
-            object-fit: cover;
-            /* Đảm bảo ảnh không bị méo khi cắt */
-            border-radius: 50%;
-            /* Làm ảnh tròn */
-            border: 2px solid #ddd;
-            /* Thêm viền xung quanh nếu cần */
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trang chi tiết Sản phẩm</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
 <body>
+	<div class="container my-3">
+		<div class="row mb-5">
+			<!-- BREADCRUMB -->
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/quan-tri-he-thong">Trang
+							chủ</a></li>
+					<li th:text="${product.productName}" class="breadcrumb-item active"
+						aria-current="page">Tên sản phẩm</li>
+				</ol>
+			</nav>
 
-<div class="container my-5">
-    <!-- Pet details -->
-    <div class="row mb-5" th:each="p : ${detailProducts}">
-        <div class="col-md-6">
-            <img th:src="@{/images/product/{photo}(photo=${p.photo})}" class="img-fluid" alt="Thú cưng ABC">
-        </div>
-        <div class="col-md-6">
-            <h1 th:text="${p.productName}">TÊN Sản </h1>
-            <p class="fs-4">Giá: <span class="text-danger">400.000đ</span></p>
-            <label for="quantity" class="form-label">Số lượng</label>
-            <div class="input-group">
-                <button class="btn btn-outline-secondary">-</button>
-                <input type="text" id="quantity" class="text-center" style="width: 50px;" value="1">
-                <button class="btn btn-outline-secondary">+</button>
-            </div>
+			<!-- Product Image on the left -->
+			<div class="col-md-6">
+				<img th:src="@{/images/product/{photo}(photo=${product.photo})}"
+					class="img-fluid sticky-top" alt="Sản phẩm ${product.productName}"
+					style="z-index: 1; top: 10%; object-fit: cover; width: 100%; max-height: 800px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+			</div>
 
-            <div class="mt-3">
-                <button class="btn btn-danger me-3">Mua ngay</button>
-                <button class="btn btn-white me-3" style="border-color: red;">Thêm vào giỏ</button>
+			<!-- Product Details on the right -->
+			<div class="col-md-6">
+				<div class="card shadow p-4">
+					<h1 class="display-5 fw-bold mb-3" th:text="${product.productName}">Tên
+						sản phẩm</h1>
 
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            not thing
-        </div>
-        <!-- Pet description -->
+					<p class="fs-4">
+						<span class="text-black fw-bold" style="font-size: 3rem;">Giá:</span>
+						<span class="text-danger" style="font-size: 3rem;"
+							th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">400.000đ</span>
+					</p>
 
-        <div class="col-md-6 mb-5">
-            <div>
-                <h3>Chi tiết thú cưng</h3>
-                <hr style="color: red;">
-                <p>
-                    Tên: Milo, giống Golden Retriever 2 tuổi, vui tính, thân thiện, đặc biệt là với trẻ em và người
-                    già.
-                    <br>Với bản tính hiền lành, Milo là thú cưng lý tưởng cho mọi gia đình.
-                </p>
-                <ul>
-                    <li>Nghe lời, thân thiện với trẻ em</li>
-                    <li>Dễ dạy bảo</li>
-                    <li>Chơi đùa và bảo vệ</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Đánh giá</h3>
-                <hr style="color: red;">
-                <div class="card text-center mt-2">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-9 d-flex align-items-center">
-                                <img src="/images/logo/logo.png" alt="" class="rounded-image">
-                                <h5 class="card-title">Special title treatment</h5>
-                            </div>
-                            <div class="col-md-3 d-flex align-items-center">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="mt-2">
-                            <p class="card-text">With supporting text below as a natural lead-in to additional
-                                content.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card-footer text-body-secondary">
-                        2 days ago
-                    </div>
-                </div>
-                <div class="card text-center mt-2">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-9 d-flex align-items-center">
-                                <img src="/images/logo/logo.png" alt="" class="rounded-image">
-                                <h5 class="card-title">Special title treatment</h5>
-                            </div>
-                            <div class="col-md-3 d-flex align-items-center">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="mt-2">
-                            <p class="card-text">With supporting text below as a natural lead-in to additional
-                                content.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card-footer text-body-secondary">
-                        2 days ago
-                    </div>
-                </div>
-                <div class="card text-center mt-2">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-9 d-flex align-items-center">
-                                <img src="/images/logo/logo.png" alt="" class="rounded-image">
-                                <h5 class="card-title">Special title treatment</h5>
-                            </div>
-                            <div class="col-md-3 d-flex align-items-center">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="mt-2">
-                            <p class="card-text">With supporting text below as a natural lead-in to additional
-                                content.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card-footer text-body-secondary">
-                        2 days ago
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Thú cưng khác -->
-    <div>
-        <h2 class="text-center">Thú cưng khác</h2>
-        <hr style="color: red;">
-        <div class="row">
-            <div class="col-sm-6 col-md-4 mb-4" th:each="product : ${products}">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <p class="card-text" th:text="${product.productName}">Tên thú cưng 1</p>
-                        <p class="text-danger" th:text="${product.price}">400.000đ</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+					<p class="mt-3 text-muted fs-5" style="font-size: 2rem;">
+						<span class="fw-bold" style="font-size: 1.5rem;">Số lượng
+							có sẵn:</span> <span th:text="${product.quantity}"
+							style="font-size: 1.5rem;">10</span>
+					</p>
+
+					<p class="mt-3 text-muted fs-5" style="font-size: 2rem;">
+						Trạng thái: <span
+							th:text="${product.available ? 'Còn hàng' : 'Hết hàng'}"
+							th:classappend="${product.available ? 'text-success' : 'text-danger'}">
+							Còn hàng </span>
+					</p>
+
+
+					<a th:attr="ng-click=${'cart.add(' + product.id + ')'}"
+						class="btn button-image w-100 py-3 rounded-0"
+						style="background-color: red; color: white;"> Thêm vào giỏ </a>
+
+					<!--        <div class="mt-3">
+                <i class="bi bi-telephone me-1"></i> <span>Contact</span> 
+                <a href="#" class="ms-3"><i class="bi bi-facebook"></i> Message</a>
+            </div> -->
+					<!-- Product Description -->
+					<div class="mt-4">
+						<h3 class="mb-3" style="font-size: 2.5rem; font-weight: bold;">Chi
+							tiết sản phẩm</h3>
+						<hr style="background-color: red; height: 2px; border: none;">
+						<p class="fs-5" th:text="${product.productDescription}"
+							style="font-weight: bold;">Mô tả sản phẩm</p>
+
+					</div>
+
+
+
+					<!-- Product Reviews -->
+					<h3 class="mb-3"
+						style="font-size: 1.5rem; font-weight: bold; color: #333; margin-bottom: 1rem;">Đánh
+						giá sản phẩm</h3>
+					<hr
+						style="background-color: red; height: 2px; border: none; margin-bottom: 1rem;">
+
+					<div
+						style="max-height: 400px; overflow-y: auto; padding-right: 10px; scrollbar-width: thin; scrollbar-color: #c4c4c4 #f1f1f1;">
+						<!-- Nếu không có đánh giá -->
+						<div th:if="${reviews.isEmpty()}"
+							style="font-size: 1rem; color: #555; margin-bottom: 1rem;">
+							<h2 style="font-size: 1rem; margin: 0;">Chưa có đánh giá nào
+								cho sản phẩm này.</h2>
+						</div>
+
+						<!-- Hiển thị danh sách đánh giá -->
+						<div th:each="review : ${reviews}" style="margin-bottom: 15px;">
+							<div
+								style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 15px; background-color: #fff;">
+								<div th:if="${!ratings.isEmpty()}"
+									class="d-flex justify-content-start align-items-center">
+									<!-- Icon người dùng bên trái -->
+									<i class="fas fa-user"
+										style="font-size: 2rem; color: #444; margin-right: 10px;"></i>
+
+									<!-- Tên người dùng -->
+									<span
+										style="font-size: 1.6rem; color: #444; font-weight: bold;"
+										th:text="${review.userName.username}">Người dùng</span>
+
+									<!-- Ngôi sao đánh giá -->
+									<div class="star-rating"
+										style="font-size: 2rem; margin-left: 15px; text-align: left;">
+										<!-- Full stars -->
+										<span th:if="${averageRating >= 1}" style="color: #FFD700;">&#9733;</span>
+										<span th:if="${averageRating >= 2}" style="color: #FFD700;">&#9733;</span>
+										<span th:if="${averageRating >= 3}" style="color: #FFD700;">&#9733;</span>
+										<span th:if="${averageRating >= 4}" style="color: #FFD700;">&#9733;</span>
+										<span th:if="${averageRating >= 5}" style="color: #FFD700;">&#9733;</span>
+
+										<!-- Half star -->
+										<span th:if="${averageRating % 1 >= 0.5 && averageRating < 5}"
+											style="color: #FFD700;">&#9734;</span>
+
+										<!-- Empty stars -->
+										<span th:if="${averageRating < 1}" style="color: #E0E0E0;">&#9733;</span>
+										<span th:if="${averageRating < 2}" style="color: #E0E0E0;">&#9733;</span>
+										<span th:if="${averageRating < 3}" style="color: #E0E0E0;">&#9733;</span>
+										<span th:if="${averageRating < 4}" style="color: #E0E0E0;">&#9733;</span>
+										<span th:if="${averageRating < 5 && averageRating % 1 < 0.5}"
+											style="color: #E0E0E0;">&#9733;</span>
+									</div>
+								</div>
+
+								<p
+									style="font-size: 3.2rem; color: #666; margin-bottom: 0.5rem;"
+									th:text="${#temporals.format(review.reviewDate, 'dd/MM/yyyy HH:mm')}">Ngày
+									đánh giá</p>
+								<p style="font-size: 4.2rem; color: #444; margin: 0;"
+									th:text="${review.comment}">Bình luận của người dùng</p>
+							</div>
+						</div>
+
+
+					</div>
+
+					<!-- CSS Thanh Cuộn -->
+					<div
+						style="max-height: 400px; overflow-y: auto; padding-right: 10px; scrollbar-width: thin; scrollbar-color: #c4c4c4 #f1f1f1;">
+						<style>
+div[style*="overflow-y: auto"]::-webkit-scrollbar {
+	width: 8px;
+}
+
+div[style*="overflow-y: auto"]::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	border-radius: 5px;
+}
+
+div[style*="overflow-y: auto"]::-webkit-scrollbar-thumb {
+	background: #c4c4c4;
+	border-radius: 5px;
+}
+
+div[style*="overflow-y: auto"]::-webkit-scrollbar-thumb:hover {
+	background: #888;
+}
+</style>
+					</div>
+
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+					</div>
+
+	<div th:if="${not #lists.isEmpty(relatedProducts)}" class="row g-4">
+		<div class="text-center">
+			<h2 class="text-center mb-4 font-weight-bold">Sản phẩm cùng loại</h2>
+			<div class="row">
+				<div th:each="product, iterStat : ${relatedProducts}"
+					th:if="${iterStat.index < 6}"
+					class="col-lg-2 col-md-4 col-sm-4 col-6 mb-4">
+					<div class="card card-hover border-0">
+						<div class="position-relative button-image add-to-cart-container"
+							style="background-color: #f7f7f5; border-radius: 32px;">
+							<div class="overflow-hidden p-0 position-relative"
+								style="border-radius: 15px;">
+								<!-- Link chi tiết sản phẩm -->
+								<a class="nav-link"
+									th:href="@{/product/detail/{id}(id=${product.id})}">
+									<div class="overflow-hidden rounded-5 button-image"
+										style="background-color: #f7f7f5; display: flex; align-items: center; justify-content: center; border-radius: 15px;">
+										<img loading="lazy"
+											th:src="@{/images/product/{photo}(photo=${product.photo})}"
+											class="card-img-top card-image" alt="product"
+											style="max-width: 300px; max-height: 300px; object-fit: cover; border-radius: 15px;">
+									</div>
+								</a>
+							</div>
+
+							<!-- Nút thêm vào giỏ hàng -->
+							<button th:attr="ng-click=${'cart.add(' + product.id + ')'}"
+								class="btn background-color button-image-white add-to-cart w-100 py-3 position-absolute"
+								style="bottom: 0; left: 0; z-index: 1001; border-radius: 15px;">
+								<h5 class="text-white m-0">
+									<span>Thêm vào giỏ</span> <i class="fas fa-cart-plus"></i>
+								</h5>
+							</button>
+						</div>
+
+						<div class="card-body text-center">
+							<!-- Tên sản phẩm -->
+							<h5 th:text="${product.productName}" class="product-name">Tên
+								sản phẩm</h5>
+							<!-- Giá sản phẩm -->
+							<h4 class="color fw-bold"
+								th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">100.000đ</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<div>
+	<!-- Other Products -->
+	<h2 class="text-center mb-4 font-weight-bold">Sản phẩm khác</h2>
+
+	<hr>
+	<div class="row">
+		<div th:each="product, iterStat : ${otherProducts}"
+			th:if="${iterStat.index < 12}"
+			class="col-lg-2 col-md-4 col-sm-4 col-6 mb-4">
+			<div class="card card-hover border-0">
+				<div class="position-relative button-image add-to-cart-container"
+					style="background-color: #f7f7f5; border-radius: 32px;">
+					<div class="overflow-hidden p-0 position-relative"
+						style="border-radius: 25px;">
+						<!-- Link chi tiết sản phẩm -->
+						<a class="nav-link"
+							th:href="@{/product/detail/{id}(id=${product.id})}">
+							<div class="overflow-hidden rounded-5 button-image"
+								style="border-radius: 15px;">
+								<img loading="lazy"
+									th:src="@{/images/product/{photo}(photo=${product.photo})}"
+									class="card-img-top card-image" alt="product"
+									style="max-width: 300px; max-height: 300px; object-fit: cover; border-radius: 15px;">
+							</div>
+						</a>
+					</div>
+
+					<!-- Nút thêm vào giỏ hàng -->
+					<button th:attr="ng-click=${'cart.add(' + product.id + ')'}"
+						class="btn background-color button-image-white add-to-cart w-100 py-3 position-absolute"
+						style="bottom: 0; left: 0; z-index: 1001; border-radius: 15px;">
+						<h5 class="text-white m-0">
+							<span>Thêm vào giỏ</span> <i class="fas fa-cart-plus"></i>
+						</h5>
+					</button>
+				</div>
+
+				<div class="card-body text-center">
+					<!-- Tên sản phẩm -->
+					<h5 th:text="${product.productName}"
+						class="product-name text-truncate">Tên sản phẩm</h5>
+					<!-- Giá sản phẩm -->
+					<h4 class="color fw-bold"
+						th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">100.000đ</h4>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 
+
+	<hr>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN6jIeHz"
+		crossorigin="anonymous"></script>
 </body>
 
 </html>

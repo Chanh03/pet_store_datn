@@ -1,6 +1,8 @@
 package com.example.petshop.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -13,14 +15,9 @@ import java.time.LocalDate;
 @Entity
 public class Voucher {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "VoucherID", nullable = false)
-    private Integer id;
-
     @Size(max = 50)
-    @NotNull
-    @Column(name = "Code", nullable = false, length = 50)
-    private String code;
+    @Column(name = "VoucherID", nullable = false, length = 50)
+    private String voucherID;
 
     @NotNull
     @Column(name = "Discount", nullable = false)
@@ -31,11 +28,7 @@ public class Voucher {
     private LocalDate expiryDate;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "UserName", nullable = false)
-    private User userName;
+    @Column(name = "Enable", nullable = false)
+    private Boolean enable = false;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "OrderID")
-    private Order orderID;
 }

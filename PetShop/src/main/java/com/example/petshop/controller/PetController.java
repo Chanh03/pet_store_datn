@@ -3,40 +3,90 @@ package com.example.petshop.controller;
 import com.example.petshop.entity.Pet;
 import com.example.petshop.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
 public class PetController {
+
     @Autowired
     private PetService petService;
 
-    @GetMapping("/pet/detail/{id}")
-    public String getPetDetail(@PathVariable("id") String id, Model model) {
-        // Lấy tất cả thú cưng
-        List<Pet> allPets = petService.getAll();
-
-        // Giới hạn danh sách chỉ lấy 6 thú cưng
-        List<Pet> limitPets = allPets.stream()
-                .limit(6)
-                .collect(Collectors.toList());
-
-        // Lấy chi tiết thú cưng theo ID, nếu không có thì ném ngoại lệ
-        Pet petDetail = petService.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Pet not found"));
-
-        // Đưa dữ liệu vào model
-        model.addAttribute("pets", limitPets);
-        model.addAttribute("petDetail", petDetail);
-
-        // Trả về view hiển thị chi tiết thú cưng
-        return "/layout/_petDetail";
+    @RequestMapping("/pet")
+    public String viewAllPets(Model model) {
+        List<Pet> list = petService.getAll();
+        model.addAttribute("list", list);
+        return "layout/_allPet";
     }
 
+    @RequestMapping("/allPet")
+    public String viewPaginatedPets(Model model,
+                                     @RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(required = false) String keyword,
+                                     @RequestParam(defaultValue = "desc") String priceOrder) {
+
+        int pageSize = 24; // Number of pets per page
+        Page<Pet> petPage;
+
+        // Sort by price (default descending)
+        Sort sort = Sort.by("price").descending();
+        if ("asc".equalsIgnoreCase(priceOrder)) {
+            sort = Sort.by("price").ascending();
+        }
+
+        // Handle search functionality
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            petPage = petService.searchPets(keyword.trim(), PageRequest.of(page, pageSize, sort));
+        } else {
+            petPage = petService.getPaginatedPets(PageRequest.of(page, pageSize, sort));
+        }
+
+        // Add data to model
+        model.addAttribute("pets", petPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", petPage.getTotalPages());
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("sort", priceOrder);
+
+        return "layout/_allPet";
+    }
+
+    @RequestMapping("/pet/detail/{id}")
+    public String viewPetDetail(Model model, @PathVariable String id) {
+        Optional<Pet> optionalPet = Optional.ofNullable(petService.findById(id));
+
+        if (optionalPet.isPresent()) {
+            Pet pet = optionalPet.get();
+            model.addAttribute("pet", pet);
+
+            // Filter list of pets of the same category but different pet ID
+            List<Pet> sameCategoryPets = petService.getAll().stream()
+                    .filter(p -> !p.getPetID().equals(pet.getPetID()) && p.getPetCategoryID().equals(pet.getPetCategoryID()))
+                    .limit(12).collect(Collectors.toList());
+
+            // Filter list of pets from different categories
+            List<Pet> differentCategoryPets = petService.getAll().stream()
+                    .filter(p -> !p.getPetCategoryID().equals(pet.getPetCategoryID()))
+                    .limit(12).collect(Collectors.toList());
+
+            model.addAttribute("pets", sameCategoryPets);
+            model.addAttribute("petCates", differentCategoryPets);
+        } else {
+            model.addAttribute("errorMessage", "Thú cưng không tồn tại");
+            return "error";
+        }
+
+        return "layout/_petDetail";
+    }
 }

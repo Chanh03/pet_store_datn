@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" th:fragment="home(view)" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
 <head>
     <meta charset="UTF-8">
-    <title>Anh Ngô</title>
+    <title>Cửa hàng Ninja Pet - Rất hân hạnh phục vụ quý khách</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/images/logo/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/logo/logo-1.png" type="image/x-icon">
     <!--    BOOTSTRAP5-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -16,20 +17,21 @@
           rel="stylesheet">
     <!--    FONTAWESOME-->
     <script src="https://kit.fontawesome.com/246169b37f.js" crossorigin="anonymous"></script>
+    <!--    ANIMATE.CSS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+    <!--   notify-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css"/>
+    <!--    JQUERY-->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
     <style>
         body {
-            background: url("/images/background/bg.png");
+            background: url("/images/background/bg.webp");
             font-family: 'Grandstander', cursive;
             background-size: cover;
             background-attachment: fixed;
-        }
-
-        .logo-center {
-            transition: 0.5s;
-        }
-
-        .logo-center:hover {
-            transform: scale(1.1);
+            scroll-behavior: smooth;
         }
 
         .color {
@@ -40,31 +42,64 @@
             background-color: #f04336;
         }
 
-        .menu-item {
-            display: inline-block;
-            color: black;
-            text-align: center;
-            border-radius: 4px;
-            position: relative;
-            transition: color 0.3s ease;
+        .container {
+            max-width: 1600px;
         }
 
-        .menu-item::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 5px;
-            border-radius: 4px;
-            background-color: #f04336;
-            transition: width 0.3s ease, left 0.3s ease;
-            transform-origin: center;
+        #menu {
+            transition: 0.5s;
         }
 
-        .menu-item:hover::after {
-            width: 100%;
-            left: 0;
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .button-image {
+            background-color: white;
+            border: 2px solid black;
+            background-image: url("/images/background/button-2.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            cursor: pointer;
+            transition: 0.5s all;
+        }
+
+        .button-image:hover {
+            border: 2px solid black;
+            transform: translate(-5px, -5px);
+            box-shadow: 1px 1px 0px #000,
+            2px 2px 0px #000,
+            3px 3px 0px #000,
+            4px 4px 0px #000,
+            5px 5px 0px #000,
+            6px 6px 0px #000;
+        }
+
+        .button-image-white {
+            border: 2px solid black;
+            text-shadow: 0 0 10px rgb(0, 0, 0);
+            background-image: url("/images/background/button-white.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            cursor: pointer;
+            transition: 0.5s;
+        }
+
+        .button-image-white:hover {
+            transform: translate(-5px, -5px);
+            box-shadow: 1px 1px 0px #000,
+            2px 2px 0px #000,
+            3px 3px 0px #000,
+            4px 4px 0px #000,
+            5px 5px 0px #000,
+            6px 6px 0px #000;
         }
 
         .card-image {
@@ -72,7 +107,7 @@
         }
 
         .card-image:hover {
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.05);
         }
 
         h1 {
@@ -153,7 +188,7 @@
 
         .add-to-cart {
             opacity: 0;
-            transition: opacity 0.5s;
+            transition: all 0.5s;
         }
 
         .add-to-cart-container:hover .add-to-cart {
@@ -165,970 +200,714 @@
         }
 
         .sticky-element {
-            position: -webkit-sticky;
+            /*position: -webkit-sticky;*/
             position: sticky;
             top: 0;
             z-index: 999;
         }
+
+        .order-history-hover {
+            transition: 0.5s;
+        }
+
+        .order-history-hover:hover {
+            border-left: 10px solid #f04336;
+        }
+
+        .hover-animation {
+            background: rgba(71, 74, 255, 0);
+            background: -webkit-linear-gradient(121deg, rgba(71, 74, 255, 0) 0%, #ff8383 50%, rgba(255, 255, 255, 0) 100%);
+            background: linear-gradient(121deg, rgba(71, 74, 255, 0) 0%, #ff8383 50%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .link-wrapper {
+            display: flex;
+            position: absolute;
+            left: 0;
+            bottom: 45%;
+            transform: translateY(50%);
+            width: 200%;
+            animation: marquee 20s linear infinite;
+        }
+
+        .link-wrapper:hover {
+            animation-play-state: paused;
+        }
+
+
+        .link {
+            display: inline-block;
+            text-align: center;
+            line-height: 50px;
+            padding: 0 50px;
+            margin: 0 10px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+        }
+
+        .link-wrapper {
+            position: absolute;
+            width: 100%;
+            white-space: nowrap;
+            animation: marquee 15s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                left: 100%;
+            }
+            100% {
+                left: -100%;
+            }
+        }
+
     </style>
 </head>
-
-<body>
-<nav class="navbar navbar-expand-xl navbar-light sticky-top shadow p-0 bg-white">
-    <div class="container">
-        <!-- BRAND -->
-        <a class="navbar-brand" href="#">
-            <img loading="lazy" alt="brand" src="/images/logo/logo-2.png" class="logo-center" style="width: 250px;">
-        </a>
-        <!--        button toggle-->
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!--        offcanvas-->
-        <div aria-labelledby="offcanvasNavbarLabel" class="offcanvas offcanvas-end w-100" data-bs-backdrop="true"
-             data-bs-scroll="true" id="offcanvasNavbar" tabindex="-1" style="background: white">
-            <!--            sidebar-header-->
-            <div class="offcanvas-header border-top font-color">
-                <button aria-label="Close" class=" btn-close shadow-0" data-bs-dismiss="offcanvas"
-                        type="button">
-                </button>
-            </div>
-            <div class="offcanvas-body">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item text-center">
-                        <a class="nav-link active background-color text-white fw-bold" aria-current="page" href="#">Trang
-                            chủ</a>
-                    </li>
-                    <li class="nav-item text-center">
-                        <a class="nav-link menu-item" href="#">Cửa hàng</a>
-                    </li>
-                    <li class="nav-item text-center">
-                        <a class="nav-link menu-item" href="#">Thú cưng</a>
-                    </li>
-                    <li class="nav-item text-center">
-                        <a class="nav-link menu-item" href="#">Dịch vụ</a>
-                    </li>
-                    <!--<li class="nav-item">
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
-                    </li>-->
-                </ul>
-                <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
-                    <li class="nav-item text-center">
-                        <a class="nav-link menu-item" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item text-center">
-                        <a class="nav-link menu-item" href="/register">Register</a>
-                    </li>
-                    <li class="nav-item text-center">
-                        <a class="nav-link menu-item" href="/admin">Admin</a>
-                    </li>
-                    <li class="nav-item text-center">
-                        <a class="nav-link menu-item" href="/user">User</a>
-                    </li>
-                    <li class="nav-item text-center">
-                        <a class="nav-link menu-item" href="/cart">Giỏ hàng</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav>
-<main class="container py-3 bg-white">
-    <!--SLIDE-->
-    <div class="row g-0">
-        <div class="col-lg-8">
-            <div id="carouselExampleCaptions" class="carousel slide">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
-                            class="active"
-                            aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img loading="lazy" src="/images/slide/placeholder-slide.png" class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>First slide label</h5>
-                            <p>Some representative placeholder content for the first slide.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img loading="lazy" src="/images/slide/placeholder-slide.png" class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Second slide label</h5>
-                            <p>Some representative placeholder content for the second slide.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img loading="lazy" src="/images/slide/placeholder-slide.png" class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Third slide label</h5>
-                            <p>Some representative placeholder content for the third slide.</p>
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                        data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                        data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="background-color text-white text-center p-5" style="height: 100%; position: relative;">
-                <h1 class="fw-bold color"
-                    style="background-color: white; display: inline-block; padding: 10px 20px; border-radius: 10px;">
-                    Giảm giá
-                </h1>
-                <h2 class="mt-4">Lên tới 50%</h2>
-                <p class="mt-3">Chỉ còn 100.000đ - 200.000đ, số lượng có hạn !</p>
-                <button class="btn btn-light mt-4 py-2 px-4 color"
-                        style="position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%);">
-                    Xem ngay
-                </button>
-            </div>
-        </div>
-    </div>
-    <!--SLIDE END-->
-    <!--BANNER-->
-    <div class="d-flex justify-content-center">
-        <img loading="lazy" class="w-100" src="/images/banner/advertise.png" alt="banner" style="object-fit: cover;">
-    </div>
-    <!--BANNER END-->
-    <!--TIEN ICH-->
-    <div class="row my-3 g-4">
-        <div class="col-lg-3 col-6">
-            <div class="d-flex justify-content-center align-items-center gap-2">
-                <i class="fas fa-truck fa-3x color"></i>
-                <h5 class="text-center">
-                    Giao hỏa tốc
-                    Nội thành TP. HCM trong 4h
-                </h5>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="d-flex justify-content-center align-items-center gap-2">
-                <i class="fas fa-truck fa-3x color"></i>
-                <h5 class="text-center">
-                    Giao hỏa tốc
-                    Nội thành TP. HCM trong 4h
-                </h5>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="d-flex justify-content-center align-items-center gap-2">
-                <i class="fas fa-truck fa-3x color"></i>
-                <h5 class="text-center">
-                    Giao hỏa tốc
-                    Nội thành TP. HCM trong 4h
-                </h5>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="d-flex justify-content-center align-items-center gap-2">
-                <i class="fas fa-truck fa-3x color"></i>
-                <h5 class="text-center">
-                    Giao hỏa tốc
-                    Nội thành TP. HCM trong 4h
-                </h5>
-            </div>
-        </div>
-    </div>
-    <!--TIEN ICH END-->
-    <!--THU CUNG MOI-->
-    <div class="row my-3 g-4 d-flex align-items-center">
-        <h1 class="color fw-bold text-center">THÚ CƯNG MỚI</h1>
-        <div class="col-lg-5 col-md-5 position-relative">
-            <div class="d-flex justify-content-center position-relative overflow-hidden rounded-5 shadow p-3">
-                <img loading="lazy" class="w-100 card-image" src="/images/pet/pet-placeholder.png" alt="pet">
-                <button class="btn rounded-5 px-4 btn-outline-danger position-absolute"
-                        style="bottom: 10%; left: 50%; transform: translateX(-50%)">
-                    <h5 class="fw-bold m-0">Xem thêm</h5>
-                </button>
-            </div>
-        </div>
-        <div class="col-lg-7 col-md-7">
-            <div class="row g-3">
-                <!--ITEMS-->
-                <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                    <a class=" nav-link" href="/chi-tiet">
-                        <div class="card card-hover  border-0 position-relative">
-                            <div class="overflow-hidden rounded-5 p-3 p-0 "
-                                 style="background-color: #f7f7f5">
-                                <img loading="lazy" src="/images/pet/pet-placeholder.png"
-                                     class="card-img-top card-image"
-                                     alt="product">
-                            </div>
-                            <div class="badge bg-warning position-absolute"
-                                 style="top: 0; right: 0; z-index: 1000;">
-                                <h5 class="m-0">New</h5>
-                            </div>
-                            <div class="card-body text-center">
-                                <h5 class="">ten thu cung</h5>
-                                <h4 class="color fw-bold">100.000đ</h4>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                    <a class=" nav-link" href="/chi-tiet">
-                        <div class="card card-hover  border-0 position-relative">
-                            <div class="overflow-hidden rounded-5 p-3 p-0 "
-                                 style="background-color: #f7f7f5">
-                                <img loading="lazy" src="/images/pet/pet-placeholder.png"
-                                     class="card-img-top card-image"
-                                     alt="product">
-                            </div>
-                            <div class="badge bg-warning position-absolute"
-                                 style="top: 0; right: 0; z-index: 1000;">
-                                <h5 class="m-0">New</h5>
-                            </div>
-                            <div class="card-body text-center">
-                                <h5 class="">ten thu cung</h5>
-                                <h4 class="color fw-bold">100.000đ</h4>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                    <a class=" nav-link" href="/chi-tiet">
-                        <div class="card card-hover  border-0 position-relative">
-                            <div class="overflow-hidden rounded-5 p-3 p-0 "
-                                 style="background-color: #f7f7f5">
-                                <img loading="lazy" src="/images/pet/pet-placeholder.png"
-                                     class="card-img-top card-image"
-                                     alt="product">
-                            </div>
-                            <div class="badge bg-warning position-absolute"
-                                 style="top: 0; right: 0; z-index: 1000;">
-                                <h5 class="m-0">New</h5>
-                            </div>
-                            <div class="card-body text-center">
-                                <h5 class="">ten thu cung</h5>
-                                <h4 class="color fw-bold">100.000đ</h4>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                    <a class=" nav-link" href="/chi-tiet">
-                        <div class="card card-hover  border-0 position-relative">
-                            <div class="overflow-hidden rounded-5 p-3 p-0 "
-                                 style="background-color: #f7f7f5">
-                                <img loading="lazy" src="/images/pet/pet-placeholder.png"
-                                     class="card-img-top card-image"
-                                     alt="product">
-                            </div>
-                            <div class="badge bg-warning position-absolute"
-                                 style="top: 0; right: 0; z-index: 1000;">
-                                <h5 class="m-0">New</h5>
-                            </div>
-                            <div class="card-body text-center">
-                                <h5 class="">ten thu cung</h5>
-                                <h4 class="color fw-bold">100.000đ</h4>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                    <a class=" nav-link" href="/chi-tiet">
-                        <div class="card card-hover  border-0 position-relative">
-                            <div class="overflow-hidden rounded-5 p-3 p-0 "
-                                 style="background-color: #f7f7f5">
-                                <img loading="lazy" src="/images/pet/pet-placeholder.png"
-                                     class="card-img-top card-image"
-                                     alt="product">
-                            </div>
-                            <div class="badge bg-warning position-absolute"
-                                 style="top: 0; right: 0; z-index: 1000;">
-                                <h5 class="m-0">New</h5>
-                            </div>
-                            <div class="card-body text-center">
-                                <h5 class="">ten thu cung</h5>
-                                <h4 class="color fw-bold">100.000đ</h4>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                    <a class=" nav-link" href="/chi-tiet">
-                        <div class="card card-hover  border-0 position-relative">
-                            <div class="overflow-hidden rounded-5 p-3 p-0 "
-                                 style="background-color: #f7f7f5">
-                                <img loading="lazy" src="/images/pet/pet-placeholder.png"
-                                     class="card-img-top card-image"
-                                     alt="product">
-                            </div>
-                            <div class="badge bg-warning position-absolute"
-                                 style="top: 0; right: 0; z-index: 1000;">
-                                <h5 class="m-0">New</h5>
-                            </div>
-                            <div class="card-body text-center">
-                                <h5 class="">ten thu cung</h5>
-                                <h4 class="color fw-bold">100.000đ</h4>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="d-flex justify-content-center mb-3">
-                <button class="btn color py-2 px-4 rounded-5" style="border: 1px solid #f04336;">
-                    Xem thêm
-                </button>
-            </div>
-        </div>
-    </div>
-    <!--THU CUNG MOI END-->
-    <!--BANNER-->
-    <div class="my-3">
-        <img loading="lazy" src="/images/banner/long-banner-placeholder.png" class="w-100" alt="banner"
-             style="object-fit: cover;">
-    </div>
-    <!--BANNER END-->
-    <!--SP NOI BAT-->
-    <div class="row my-3 g-4 d-flex align-items-center">
-        <h1 class="color fw-bold text-center">SẢN PHẨM NỔI BẬT</h1>
-        <div class="col-lg-5 col-md-5 position-relative sticky-top sticky-element">
-            <div class="d-flex justify-content-center position-relative overflow-hidden shadow p-3 ">
-                <div class="position-absolute text-center d-flex justify-content-center align-items-center flex-column"
-                     style="top: 0; left: 50%; transform: translateX(-50%);z-index: 1000">
-                    <h1 class="color fw-bold py-2 m-0">Giảm giá</h1>
-                    <h1 class="text-white background-color fw-bold py-2 m-0 w-50">50%</h1>
-                </div>
-                <img loading="lazy" class="w-100 card-image" src="/images/pet/pet-placeholder.png" alt="pet">
-                <button class="btn rounded-5 px-4 py-2 position-absolute"
-                        style="background-color: #f04336;bottom: 50%; left: 50%; transform: translateX(-50%)">
-                    <h5 class="fw-bold m-0 text-white">Xem ngay</h5>
-                </button>
-                <div class="position-absolute w-100 px-5 text-center"
-                     style="bottom: 5%; left: 50%; transform: translateX(-50%);z-index: 1000">
-                    <h5>Chỉ còn 100.000đ - 200.000đ, số lượng có hạn !</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-7 col-md-7">
-            <div class="row g-3">
-                <!--ITEMS-->
-                <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                    <div class="card card-hover border-0">
-                        <div class="p-3 position-relative" style="background-color: #f7f7f5">
-                            <div class="overflow-hidden p-0 position-relative add-to-cart-container">
-                                <a href="/chi-tiet" class="nav-link">
-                                    <img loading="lazy" src="/images/pet/pet-placeholder.png"
-                                         class="card-img-top card-image"
-                                         alt="product">
-                                </a>
-                                <a href="/them-gio-hang"
-                                   class="btn background-color add-to-cart w-100 py-3 rounded-0 position-absolute"
-                                   style="bottom: 0; left: 0;">
-                                    <h5 class="text-white m-0">
-                                        Add to cart <i class="fas fa-cart-plus"></i>
-                                    </h5>
-                                </a>
-                            </div>
-                            <div class="badge bg-success position-absolute"
-                                 style="top: 0; right: 0; z-index: 1000;">
-                                <h5 class="m-0">HOT</h5>
-                            </div>
-                        </div>
-                        <div class="card-body text-center">
-                            <div class="d-flex justify-content-center gap-2 my-2">
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <h5 class="">ten sp</h5>
-                            <h4 class="color fw-bold">100.000đ</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                    <div class="card card-hover border-0">
-                        <div class="p-3 position-relative" style="background-color: #f7f7f5">
-                            <div class="overflow-hidden p-0 position-relative add-to-cart-container">
-                                <a href="/chi-tiet" class="nav-link">
-                                    <img loading="lazy" src="/images/pet/pet-placeholder.png"
-                                         class="card-img-top card-image"
-                                         alt="product">
-                                </a>
-                                <a href="/them-gio-hang"
-                                   class="btn background-color add-to-cart w-100 py-3 rounded-0 position-absolute"
-                                   style="bottom: 0; left: 0;">
-                                    <h5 class="text-white m-0">
-                                        Add to cart <i class="fas fa-cart-plus"></i>
-                                    </h5>
-                                </a>
-                            </div>
-                            <div class="badge bg-success position-absolute"
-                                 style="top: 0; right: 0; z-index: 1000;">
-                                <h5 class="m-0">HOT</h5>
-                            </div>
-                        </div>
-                        <div class="card-body text-center">
-                            <div class="d-flex justify-content-center gap-2 my-2">
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <h5 class="">ten sp</h5>
-                            <h4 class="color fw-bold">100.000đ</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                    <div class="card card-hover border-0">
-                        <div class="p-3 position-relative" style="background-color: #f7f7f5">
-                            <div class="overflow-hidden p-0 position-relative add-to-cart-container">
-                                <a href="/chi-tiet" class="nav-link">
-                                    <img loading="lazy" src="/images/pet/pet-placeholder.png"
-                                         class="card-img-top card-image"
-                                         alt="product">
-                                </a>
-                                <a href="/them-gio-hang"
-                                   class="btn background-color add-to-cart w-100 py-3 rounded-0 position-absolute"
-                                   style="bottom: 0; left: 0;">
-                                    <h5 class="text-white m-0">
-                                        Add to cart <i class="fas fa-cart-plus"></i>
-                                    </h5>
-                                </a>
-                            </div>
-                            <div class="badge bg-success position-absolute"
-                                 style="top: 0; right: 0; z-index: 1000;">
-                                <h5 class="m-0">HOT</h5>
-                            </div>
-                        </div>
-                        <div class="card-body text-center">
-                            <div class="d-flex justify-content-center gap-2 my-2">
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <h5 class="">ten sp</h5>
-                            <h4 class="color fw-bold">100.000đ</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                    <div class="card card-hover border-0">
-                        <div class="p-3 position-relative" style="background-color: #f7f7f5">
-                            <div class="overflow-hidden p-0 position-relative add-to-cart-container">
-                                <a href="/chi-tiet" class="nav-link">
-                                    <img loading="lazy" src="/images/pet/pet-placeholder.png"
-                                         class="card-img-top card-image"
-                                         alt="product">
-                                </a>
-                                <a href="/them-gio-hang"
-                                   class="btn background-color add-to-cart w-100 py-3 rounded-0 position-absolute"
-                                   style="bottom: 0; left: 0;">
-                                    <h5 class="text-white m-0">
-                                        Add to cart <i class="fas fa-cart-plus"></i>
-                                    </h5>
-                                </a>
-                            </div>
-                            <div class="badge bg-success position-absolute"
-                                 style="top: 0; right: 0; z-index: 1000;">
-                                <h5 class="m-0">HOT</h5>
-                            </div>
-                        </div>
-                        <div class="card-body text-center">
-                            <div class="d-flex justify-content-center gap-2 my-2">
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <h5 class="">ten sp</h5>
-                            <h4 class="color fw-bold">100.000đ</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                    <div class="card card-hover border-0">
-                        <div class="p-3 position-relative" style="background-color: #f7f7f5">
-                            <div class="overflow-hidden p-0 position-relative add-to-cart-container">
-                                <a href="/chi-tiet" class="nav-link">
-                                    <img loading="lazy" src="/images/pet/pet-placeholder.png"
-                                         class="card-img-top card-image"
-                                         alt="product">
-                                </a>
-                                <a href="/them-gio-hang"
-                                   class="btn background-color add-to-cart w-100 py-3 rounded-0 position-absolute"
-                                   style="bottom: 0; left: 0;">
-                                    <h5 class="text-white m-0">
-                                        Add to cart <i class="fas fa-cart-plus"></i>
-                                    </h5>
-                                </a>
-                            </div>
-                            <div class="badge bg-success position-absolute"
-                                 style="top: 0; right: 0; z-index: 1000;">
-                                <h5 class="m-0">HOT</h5>
-                            </div>
-                        </div>
-                        <div class="card-body text-center">
-                            <div class="d-flex justify-content-center gap-2 my-2">
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <h5 class="">ten sp</h5>
-                            <h4 class="color fw-bold">100.000đ</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-6">
-                    <div class="card card-hover border-0">
-                        <div class="p-3 position-relative" style="background-color: #f7f7f5">
-                            <div class="overflow-hidden p-0 position-relative add-to-cart-container">
-                                <a href="/chi-tiet" class="nav-link">
-                                    <img loading="lazy" src="/images/pet/pet-placeholder.png"
-                                         class="card-img-top card-image"
-                                         alt="product">
-                                </a>
-                                <a href="/them-gio-hang"
-                                   class="btn background-color add-to-cart w-100 py-3 rounded-0 position-absolute"
-                                   style="bottom: 0; left: 0;">
-                                    <h5 class="text-white m-0">
-                                        Add to cart <i class="fas fa-cart-plus"></i>
-                                    </h5>
-                                </a>
-                            </div>
-                            <div class="badge bg-success position-absolute"
-                                 style="top: 0; right: 0; z-index: 1000;">
-                                <h5 class="m-0">HOT</h5>
-                            </div>
-                        </div>
-                        <div class="card-body text-center">
-                            <div class="d-flex justify-content-center gap-2 my-2">
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <h5 class="">ten sp</h5>
-                            <h4 class="color fw-bold">100.000đ</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex justify-content-center mb-3">
-                <a class="btn color py-2 px-4 rounded-5" style="border: 1px solid #f04336;">
-                    Xem thêm
-                </a>
-            </div>
-        </div>
-    </div>
-    <!--SP NOI BAT END-->
-    <!--LOAI SP DANH CHO THU CUNG-->
-    <div class="row my-3 g-2 d-flex align-items-center justify-content-center">
-        <h1 class="color fw-bold text-center">LOẠI SẢN PHẨM DÀNH CHO THÚ CƯNG</h1>
-        <!--ITEMS-->
-        <div class="col-lg-2 col-md-4 col-sm-4 col-3">
-            <a href="/filter" class="nav-link">
-                <div class="card card-hover border-0 d-flex justify-content-center align-items-center">
-                    <div class="overflow-hidden p-3"
-                         style="background-color: #f7f7f5;border-radius: 50%;width: 100%;height: 100%;">
-                        <img loading="lazy" src="/images/pet/pet-placeholder.png" class="card-img-top card-image"
-                             alt="product">
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="">ten loai sp</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-2 col-md-4 col-sm-4 col-3">
-            <a href="/filter" class="nav-link">
-                <div class="card card-hover border-0 d-flex justify-content-center align-items-center">
-                    <div class="overflow-hidden p-3"
-                         style="background-color: #f7f7f5;border-radius: 50%;width: 100%;height: 100%;">
-                        <img loading="lazy" src="/images/pet/pet-placeholder.png" class="card-img-top card-image"
-                             alt="product">
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="">ten loai sp</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-2 col-md-4 col-sm-4 col-3">
-            <a href="/filter" class="nav-link">
-                <div class="card card-hover border-0 d-flex justify-content-center align-items-center">
-                    <div class="overflow-hidden p-3"
-                         style="background-color: #f7f7f5;border-radius: 50%;width: 100%;height: 100%;">
-                        <img loading="lazy" src="/images/pet/pet-placeholder.png" class="card-img-top card-image"
-                             alt="product">
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="">ten loai sp</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-2 col-md-4 col-sm-4 col-3">
-            <a href="/filter" class="nav-link">
-                <div class="card card-hover border-0 d-flex justify-content-center align-items-center">
-                    <div class="overflow-hidden p-3"
-                         style="background-color: #f7f7f5;border-radius: 50%;width: 100%;height: 100%;">
-                        <img loading="lazy" src="/images/pet/pet-placeholder.png" class="card-img-top card-image"
-                             alt="product">
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="">ten loai sp</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-2 col-md-4 col-sm-4 col-3">
-            <a href="/filter" class="nav-link">
-                <div class="card card-hover border-0 d-flex justify-content-center align-items-center">
-                    <div class="overflow-hidden p-3"
-                         style="background-color: #f7f7f5;border-radius: 50%;width: 100%;height: 100%;">
-                        <img loading="lazy" src="/images/pet/pet-placeholder.png" class="card-img-top card-image"
-                             alt="product">
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="">ten loai sp</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-2 col-md-4 col-sm-4 col-3">
-            <a href="/filter" class="nav-link">
-                <div class="card card-hover border-0 d-flex justify-content-center align-items-center">
-                    <div class="overflow-hidden p-3"
-                         style="background-color: #f7f7f5;border-radius: 50%;width: 100%;height: 100%;">
-                        <img loading="lazy" src="/images/pet/pet-placeholder.png" class="card-img-top card-image"
-                             alt="product">
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="">ten loai sp</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-    <!--LOAI SP DANH CHO THU CUNG END-->
-    <!--FEEDBACK-->
-    <div class="row my-3 g-4 d-flex align-items-center">
-        <div class="col-lg-6">
-            <div class="card position-relative">
-                <img loading="lazy" src="/images/banner/vertical-banner-placeholder.png" class="" alt="feedback">
-                <div class="card-body text-center position-absolute"
-                     style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                    <h1 class="color fw-bold">Phản hồi của khách hàng</h1>
-                    <p>
-                        "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng yêu,
-                        đồng hành cùng bạn trên mọi chặng đường!"
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <!--ITEMS-->
-            <div class="card border-0 shadow p-3 mb-3">
-                <div class="d-flex justify-content-between align-items-center gap-2">
-                    <div class="d-flex justify-content-start align-items-center gap-2">
-                        <div class="overflow-hidden rounded-circle"
-                             style="width: 50px;height: 50px">
-                            <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                                 style="object-fit: cover;">
-                        </div>
-                        <h4 class="color fw-bold m-0">Nguyễn Văn A</h4>
-                    </div>
-                    <div class="d-flex justify-content-center gap-2 my-2">
-                        <i class="fa-solid fa-star text-danger"></i>
-                        <i class="fa-solid fa-star text-danger"></i>
-                        <i class="fa-solid fa-star text-danger"></i>
-                        <i class="fa-solid fa-star text-danger"></i>
-                        <i class="fa-solid fa-star"></i>
-                    </div>
-                </div>
-                <p class="my-3">
-                    "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng yêu,
-                    đồng hành cùng bạn trên mọi chặng đường!"
-                </p>
-                <p class="text-body-tertiary m-0">
-                    Ngày: 01/01/2022
-                </p>
-            </div>
-            <div class="card border-0 shadow p-3 mb-3">
-                <div class="d-flex justify-content-between align-items-center gap-2">
-                    <div class="d-flex justify-content-start align-items-center gap-2">
-                        <div class="overflow-hidden rounded-circle"
-                             style="width: 50px;height: 50px">
-                            <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                                 style="object-fit: cover;">
-                        </div>
-                        <h4 class="color fw-bold m-0">Nguyễn Văn A</h4>
-                    </div>
-                    <div class="d-flex justify-content-center gap-2 my-2">
-                        <i class="fa-solid fa-star text-danger"></i>
-                        <i class="fa-solid fa-star text-danger"></i>
-                        <i class="fa-solid fa-star text-danger"></i>
-                        <i class="fa-solid fa-star text-danger"></i>
-                        <i class="fa-solid fa-star"></i>
-                    </div>
-                </div>
-                <p class="my-3">
-                    "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng yêu,
-                    đồng hành cùng bạn trên mọi chặng đường!"
-                </p>
-                <p class="text-body-tertiary m-0">
-                    Ngày: 01/01/2022
-                </p>
-            </div>
-            <div class="card border-0 shadow p-3 mb-3">
-                <div class="d-flex justify-content-between align-items-center gap-2">
-                    <div class="d-flex justify-content-start align-items-center gap-2">
-                        <div class="overflow-hidden rounded-circle"
-                             style="width: 50px;height: 50px">
-                            <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                                 style="object-fit: cover;">
-                        </div>
-                        <h4 class="color fw-bold m-0">Nguyễn Văn A</h4>
-                    </div>
-                    <div class="d-flex justify-content-center gap-2 my-2">
-                        <i class="fa-solid fa-star text-danger"></i>
-                        <i class="fa-solid fa-star text-danger"></i>
-                        <i class="fa-solid fa-star text-danger"></i>
-                        <i class="fa-solid fa-star text-danger"></i>
-                        <i class="fa-solid fa-star"></i>
-                    </div>
-                </div>
-                <p class="my-3">
-                    "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng yêu,
-                    đồng hành cùng bạn trên mọi chặng đường!"
-                </p>
-                <p class="text-body-tertiary m-0">
-                    Ngày: 01/01/2022
-                </p>
-            </div>
-            <div class="card border-0 shadow p-3 mb-3">
-                <div class="d-flex justify-content-between align-items-center gap-2">
-                    <div class="d-flex justify-content-start align-items-center gap-2">
-                        <div class="overflow-hidden rounded-circle"
-                             style="width: 50px;height: 50px">
-                            <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                                 style="object-fit: cover;">
-                        </div>
-                        <h4 class="color fw-bold m-0">Nguyễn Văn A</h4>
-                    </div>
-                    <div class="d-flex justify-content-center gap-2 my-2">
-                        <i class="fa-solid fa-star text-danger"></i>
-                        <i class="fa-solid fa-star text-danger"></i>
-                        <i class="fa-solid fa-star text-danger"></i>
-                        <i class="fa-solid fa-star text-danger"></i>
-                        <i class="fa-solid fa-star"></i>
-                    </div>
-                </div>
-                <p class="my-3">
-                    "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng yêu,
-                    đồng hành cùng bạn trên mọi chặng đường!"
-                </p>
-                <p class="text-body-tertiary m-0">
-                    Ngày: 01/01/2022
-                </p>
-            </div>
-        </div>
-    </div>
-    <!--FEEDBACK END-->
-    <!--DANG KY NHAN THONG TIN MOI NHAT-->
-    <div class="row g-0 py-3">
-        <div class="my-3">
-            <h1 class="m-0 color fw-bold">Đăng ký nhận thông tin mới nhất</h1>
-            <div class="line background-color" style="height: 5px;"></div>
-        </div>
-        <div class="col-lg-6">
-            <div class="card position-relative">
-                <img loading="lazy" src="/images/banner/vertical-banner-placeholder.png" class="" alt="feedback"
-                     style="height: 400px;">
-                <div class="card-body text-center position-absolute w-100"
-                     style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                    <h3 class="color fw-bold w-100">Đăng ký để nhận tin tức về các sản phẩm mới nhất, sớm nhất!</h3>
-                    <p>
-                        "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng yêu,
-                        đồng hành cùng bạn trên mọi chặng đường!"
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 background-color">
-            <div class="border-0 p-5">
-                <form>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label text-white">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label text-white">Họ và tên</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1">
-
-                    </div>
-                    <div class="mb-3">
-                        <label for="sdt" class="form-label text-white">Số điện thoại</label>
-                        <input type="text" class="form-control" id="sdt">
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button style="border: 1px solid white" type="submit"
-                                class="btn text-white rounded-5 py-2 px-4">Đăng ký
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!--DANG KY NHAN THONG TIN MOI NHAT END-->
-    <!--NHAN VIEN CHAM SOC KHACH HANG-->
-    <div class="my-3">
-        <h1 class="m-0 color fw-bold">Nhân viên chăm sóc khách hàng</h1>
-        <div class="line background-color" style="height: 5px;"></div>
-    </div>
-    <div class="row g-2 justify-content-center">
-        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-            <div class="card border-0 shadow p-3">
-                <div class="overflow-hidden rounded-circle mx-auto"
-                     style="width: 5rem;height: 5rem">
-                    <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                         style="object-fit: cover;">
-                </div>
-                <div class="card-body text-center p-2">
-                    <h5 class="color fw-bold">Nguyễn Văn A</h5>
-                    <p class="text-body-tertiary">Chăm sóc khách hàng</p>
-                    <p class="text-body-tertiary">Email: anc@gmail.com</p>
-                    <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-            <div class="card border-0 shadow p-3">
-                <div class="overflow-hidden rounded-circle mx-auto"
-                     style="width: 5rem;height: 5rem">
-                    <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                         style="object-fit: cover;">
-                </div>
-                <div class="card-body text-center p-2">
-                    <h5 class="color fw-bold">Nguyễn Văn A</h5>
-                    <p class="text-body-tertiary">Chăm sóc khách hàng</p>
-                    <p class="text-body-tertiary">Email: anc@gmail.com</p>
-                    <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-            <div class="card border-0 shadow p-3">
-                <div class="overflow-hidden rounded-circle mx-auto"
-                     style="width: 5rem;height: 5rem">
-                    <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                         style="object-fit: cover;">
-                </div>
-                <div class="card-body text-center p-2">
-                    <h5 class="color fw-bold">Nguyễn Văn A</h5>
-                    <p class="text-body-tertiary">Chăm sóc khách hàng</p>
-                    <p class="text-body-tertiary">Email: anc@gmail.com</p>
-                    <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-            <div class="card border-0 shadow p-3">
-                <div class="overflow-hidden rounded-circle mx-auto"
-                     style="width: 5rem;height: 5rem">
-                    <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                         style="object-fit: cover;">
-                </div>
-                <div class="card-body text-center p-2">
-                    <h5 class="color fw-bold">Nguyễn Văn A</h5>
-                    <p class="text-body-tertiary">Chăm sóc khách hàng</p>
-                    <p class="text-body-tertiary">Email: anc@gmail.com</p>
-                    <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-            <div class="card border-0 shadow p-3">
-                <div class="overflow-hidden rounded-circle mx-auto"
-                     style="width: 5rem;height: 5rem">
-                    <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
-                         style="object-fit: cover;">
-                </div>
-                <div class="card-body text-center p-2">
-                    <h5 class="color fw-bold">Nguyễn Văn A</h5>
-                    <p class="text-body-tertiary">Chăm sóc khách hàng</p>
-                    <p class="text-body-tertiary">Email: anc@gmail.com</p>
-                    <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-<footer class="bg-white py-4 container">
-    <div class="container">
-        <div class="row">
-            <!-- Logo -->
-            <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center flex-column">
-                <img loading="lazy" src="/images/logo/logo-2.png" alt="Pet Ninja Logo" class="img-fluid"
-                     style="min-width: 300px;">
-                <h1 class="mt-2 color fw-bold">PET NINJA</h1>
-            </div>
-            <!-- Contact Information -->
-            <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
-                <h5 class="fw-bold">Cửa hàng Thú Cưng <span class="text-danger">PET NINJA</span></h5>
-                <p>Địa chỉ: 123 Đường ABC, Phường XYZ, Quận 1, TP Hồ Chí Minh</p>
-                <p>Điện thoại: (028) 1234 5678</p>
-                <p>Email: contact@petzone.vn</p>
-                <p>Giờ mở cửa:</p>
-                <ul class="list-unstyled">
-                    <li>
-                        <h4>Thứ 2 - Thứ 7: 8:00 - 20:00</h4>
-                    </li>
-                    <li>
-                        <h4>Chủ Nhật: 9:00 - 18:00</h4>
-                    </li>
-                </ul>
-                <div>
-                    <a href="#"><i class="fab fa-facebook fa-2x me-2"></i></a>
-                    <a href="#"><i class="fab fa-zalo fa-2x me-2"></i></a>
-                    <a href="#"><i class="fab fa-tiktok fa-2x"></i></a>
-                </div>
-            </div>
-
-            <!-- Google Map -->
-            <div class="col-md-4 text-center text-md-end">
-                <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="100%" style="border:0;"
-                        allowfullscreen="" loading="lazy"></iframe>
-            </div>
-        </div>
-    </div>
-</footer>
+<body ng-app="myApp" ng-controller="myCtrl">
+<header id="menu" class="sticky-top" th:insert="~{/layout/_menu}"></header>
+<main class="container p-0 bg-white rounded-3 border border-2 border-dark animate__animated animate__fadeIn animate__faster"
+      th:insert="${view}"></main>
+<footer th:insert="~{/layout/_footer}"
+        class="bg-white rounded-3 container overflow-hidden my-3 p-0 border border-2 border-dark"></footer>
+<!--MODULE-->
 <div th:insert=" ~{/module/_backToTop}"></div>
 <div th:insert=" ~{/module/_loadingSpinner}"></div>
+<div th:insert=" ~{/layout/_ReviewModal}"></div>
 </body>
 <!--    BOOTSTRAP5-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <!--    JS-->
+<script>
+    const socket = new SockJS('http://172.16.72.83:8080/ws');
+    const stompClient = Stomp.over(socket);
 
+    stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/', function (response) {
+            Swal.fire({
+                title: 'Thông báo mới',
+                text: response.body,
+                icon: 'info',
+                confirmButtonText: 'OK',
+                autoclose: true,
+                autotimeout: 2000
+            });
+        });
+    });
+    var prevScrollpos = window.scrollY;
+    let goToTop = document.getElementById('goToTop');
+
+    window.onscroll = function () {
+        // Điều khiển menu khi cuộn
+        var currentScrollPos = window.scrollY;
+        if (prevScrollpos > currentScrollPos) {
+            document.getElementById("menu").style.top = "0";
+        } else {
+            document.getElementById("menu").style.top = "-100px";
+        }
+        prevScrollpos = currentScrollPos;
+
+        // Điều khiển nút "Go to Top"
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            goToTop.style.display = 'block';
+        } else {
+            goToTop.style.display = 'none';
+        }
+    };
+
+    // Hàm để cuộn lên đầu trang
+    function goTop() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+
+    // Swiper
+    const swiper = new Swiper('.swiper-container', {
+        slidesPerView: 2,
+        spaceBetween: 20,
+        // Phản hồi (responsive)
+        breakpoints: {
+            576: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+            },
+            768: {
+                slidesPerView: 4,
+                spaceBetween: 40,
+            },
+            992: {
+                slidesPerView: 5,
+                spaceBetween: 50,
+            },
+            1200: {
+                slidesPerView: 6,
+                spaceBetween: 60,
+            },
+        },
+        autoplay: {
+            delay: 3000, // 3 giây
+            disableOnInteraction: false,
+        },
+        loop: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        }
+    });
+    const swiper_banner = new Swiper('.swiper-container-banner', {
+        slidesPerView: 1,
+        loop: true,
+        autoplay: {
+            delay: 3000, // 3 giây
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next-banner',
+            prevEl: '.swiper-button-prev-banner',
+        },
+        pagination: {
+            el: '.swiper-pagination-banner',
+            clickable: true,
+        },
+        crossFade: true,
+    });
+    document.addEventListener("scroll", () => {
+        const elements = document.querySelectorAll(".fade-in");
+        const windowHeight = window.innerHeight;
+
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementBottom = element.getBoundingClientRect().bottom;
+
+            // Kiểm tra nếu thẻ nằm trong vùng hiển thị
+            if (elementTop < windowHeight - 100 && elementBottom > 100) {
+                element.classList.add("show");
+            } else {
+                element.classList.remove("show");
+            }
+        });
+    });
+    $(document).ready(function () {
+        $("#search-box").autocomplete({
+            source: function (request, response) {
+                const category = $("#searchCategory").val();
+                const apiURL = category === "pet" ? 'http://localhost:8080/api/pet' : 'http://localhost:8080/api/product';
+
+                fetch(apiURL)
+                    .then(res => res.json())
+                    .then(data => {
+                        const results = $.map(data, item => {
+                            const itemName = category === "pet" ? item.breed : item.productName;
+
+                            // Kiểm tra điều kiện tên và lấy đường dẫn hình ảnh tương ứng
+                            if (itemName.toLowerCase().includes(request.term.toLowerCase())) {
+                                const imageUrl = category === "pet"
+                                    ? `/images/pet/${item.photo}`
+                                    : `/images/product/${item.photo}`;
+
+                                return {
+                                    label: `
+                                    <div class="autocomplete-item" style="display: flex; align-items: center;">
+                                        <strong style="flex: 1;">${itemName}</strong>
+                                        <p style="margin: 0; flex-shrink: 0;">Giá: ${item.price.toLocaleString()}đ</p>
+                                        <img src="${imageUrl}" alt="${itemName}" style="width: 50px; height: 50px; margin-left: 10px; object-fit: cover;">
+                                    </div>`,
+                                    value: itemName,
+                                    id: item.id
+                                };
+                            }
+                        });
+                        response(results);
+                    })
+                    .catch(error => console.error(`Error fetching ${category}:`, error));
+            },
+        })
+            .data("ui-autocomplete")._renderItem = function (ul, item) {
+            return $("<li>")
+                .data("item.autocomplete", item)
+                .append(item.label)
+                .appendTo(ul);
+        };
+    });
+
+</script>
+<script>
+    const app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        // Giỏ hàng
+        $scope.cart = {
+            items: JSON.parse(localStorage.getItem('cart')) || [],
+
+            add(id) {
+                $http.get(`/api/product/${id}`).then(response => {
+                    const product = response.data;
+                    const productQuantity = product.quantity;
+
+                    if (productQuantity === 0) {
+                        new Notify({
+                            title: `Sản phẩm ${product.productName} đã hết hàng`,
+                            status: 'error',
+                            autoclose: true,
+                            autotimeout: 2000
+                        });
+                        return;
+                    }
+                    const item = this.items.find(item => item.id === id);
+
+                    if (item) {
+                        if (item.quantity < productQuantity) {
+                            item.quantity++;
+                        } else {
+                            item.quantity = productQuantity
+                            new Notify({
+                                title: `Số lượng sản phẩm: ${item.productName} đã đạt giới hạn`,
+                                status: 'warning',
+                                autoclose: true,
+                                autotimeout: 2000
+                            });
+                        }
+                        this.saveToLocalStorage();
+
+                    } else {
+                        product.quantity = 1;
+                        this.items.push(product);
+                        this.saveToLocalStorage();
+                        new Notify({
+                            title: 'Sản phẩm đã được thêm vào giỏ hàng',
+                            status: 'success',
+                            autoclose: true,
+                            autotimeout: 2000
+                        });
+                    }
+                }).catch(error => {
+                    console.error("Lỗi khi lấy sản phẩm:", error);
+                    new Notify({
+                        title: 'Lỗi khi thêm sản phẩm',
+                        status: 'error',
+                        autoclose: true,
+                        autotimeout: 2000
+                    });
+                });
+            },
+
+            remove(id) {
+                const index = this.items.findIndex(item => item.id === id);
+                if (index !== -1) {
+                    this.items.splice(index, 1);
+                    this.saveToLocalStorage();
+                    this.loadFromLocalStorage();
+                    new Notify({
+                        title: 'Sản phẩm đã được xóa khỏi giỏ hàng',
+                        status: 'success',
+                        autoclose: true,
+                        autotimeout: 2000
+                    })
+                }
+            },
+
+            updateQuantity(item) {
+                $http.get(`/api/product/${item.id}`)
+                    .then(response => {
+                        const productQuantity = response.data.quantity;
+
+                        if (item.quantity > productQuantity) {
+                            alert("Số lượng yêu cầu vượt quá số lượng có sẵn!");
+                            item.quantity = productQuantity;
+                        } else if (item.quantity < 1) {
+                            item.quantity = 1;
+                        }
+
+                        this.updateTotal();
+                        this.saveToLocalStorage();
+                    })
+                    .catch(error => {
+                        console.error("Lỗi khi lấy số lượng sản phẩm từ API:", error);
+                    });
+            },
+
+            cartTotal() {
+                return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+            },
+
+            cartTotalAll() {
+                return $scope.cart.total - ($scope.discountAmount || 0) + 50000;
+            },
+
+            updateTotal() {
+                this.total = this.cartTotal();
+                localStorage.setItem('cartTotal', this.total);
+            },
+
+            saveToLocalStorage() {
+                localStorage.setItem('cart', JSON.stringify(this.items));
+                this.updateTotal(); // Cập nhật tổng khi lưu
+            },
+
+            loadFromLocalStorage() {
+                const storedItems = JSON.parse(localStorage.getItem('cart'));
+                if (storedItems) {
+                    this.items = storedItems;
+                }
+                this.updateTotal();
+            },
+
+            // Hàm để lấy detailItems từ items
+            getDetailItems() {
+                return this.items;
+            },
+
+            //
+            getPayMent() {
+                return this.getDetailItems()
+            }
+        };
+
+        // Tải giỏ hàng từ localStorage khi khởi động ứng dụng
+        $scope.cart.loadFromLocalStorage();
+
+
+        // Voucher
+        $scope.vouchers = []
+        $scope.voucherCode = '';
+        $scope.discountAmount = 0;
+        $scope.successMessage = '';
+        $scope.errorMessage = '';
+
+        $http.get("/api/voucher").then(function (response) {
+            $scope.vouchers = response.data;
+        }).catch(function (error) {
+            console.error("Error fetching vouchers", error);
+        });
+
+        $scope.applyVoucher = function (voucherCode) {
+            if (!$scope.cart.items || $scope.cart.items.length === 0) {
+                $scope.errorMessage = "Giỏ hàng trống. Không thể áp dụng voucher!";
+                $scope.successMessage = '';
+                $scope.discountAmount = '';
+                return;
+            }
+            $http.get("/api/voucher/" + voucherCode)
+                .then(function (response) {
+                    if (response.data) {
+                        $scope.successMessage = "Voucher đã được áp dụng thành công!";
+                        $scope.discountAmount = response.data.discount;
+                        $scope.errorMessage = '';
+
+                        localStorage.setItem('voucherCode', voucherCode);
+                        localStorage.setItem('discountAmount', response.data.discount);
+                    } else {
+                        $scope.errorMessage = "Voucher không hợp lệ!";
+                        $scope.discountAmount = "";
+                        $scope.successMessage = '';
+                    }
+                })
+                .catch(function (error) {
+                    $scope.errorMessage = "Có lỗi xảy ra khi áp dụng mã giảm giá!";
+                    console.error("Lỗi áp dụng voucher", error);
+                });
+        };
+        $scope.loadVoucherFromLocalStorage = function () {
+            $scope.voucherCode = localStorage.getItem('voucherCode');
+            $scope.discountAmount = parseFloat(localStorage.getItem('discountAmount')) || 0;
+        };
+
+        $scope.loadVoucherFromLocalStorage();
+
+
+        //checkout
+        $scope.checkout = function () {
+            Swal.fire({
+                title: 'Xác nhận thanh toán',
+                icon: 'info',
+                cancelButtonText: 'Hủy',
+                showConfirmButton: true,
+                showCancelButton: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const username = document.getElementById("username_auth").textContent;
+                    const cartTotal = JSON.parse(localStorage.getItem('cartTotal'));
+                    const cartItems = JSON.parse(localStorage.getItem('cart'));
+                    const userAddress = document.getElementById("userAddress").value;
+                    const currentDate = new Date();
+
+                    if (cartItems != null) {
+                        Promise.all([
+                            $http.get("/api/user/" + username),
+                            $http.get("/api/orderStatus/1"),
+                            $http.get("/api/paymentStatus/1")
+                            // $http.get("/api/product")
+                        ])
+                            .then(function (responses) {
+                                const userResponse = responses[0].data;
+                                const orderStatusResponse = responses[1].data;
+                                const paymentStatusResponse = responses[2].data;
+                                const order = {
+                                    totalAmount: cartTotal + 50000 - $scope.discountAmount,
+                                    userName: {userName: userResponse.username,},
+                                    shippingAddress: userAddress,
+                                    enable: true,
+                                    orderStatusID: {id: orderStatusResponse.id},
+                                    paymentStatusID: {id: paymentStatusResponse.id},
+                                    orderDate: currentDate
+                                };
+                                return $http.post("/api/order", order);
+                            })
+                            .then(function (response) {
+                                const orderID = response.data.id; // Lấy OrderID từ phản hồi
+                                const orderDetailPromises = cartItems.map((item) => {
+                                    const orderDetail = {
+                                        orderID: {id: orderID},
+                                        productID: {id: item.id},
+                                        quantity: item.quantity,
+                                        price: item.price
+                                    };
+                                    return $http.post("/api/order-detail", orderDetail);
+                                });
+
+                                return Promise.all(orderDetailPromises);
+                            })
+                            // .then(function (response) {/-strong/-heart:>:o:-((:-h //     const product = response.data
+                            //     const quantityCart = cartItems.cart.quantity
+                            //     const newQuantity = product.quantity - quantityCart
+                            //
+                            //
+                            // })
+                            .then(function () {
+
+                                console.log("Order và OrderDetail thành công");
+
+                                localStorage.removeItem('cart');
+                                localStorage.removeItem('voucherCode');
+                                localStorage.removeItem('discountAmount');
+
+                                Swal.fire({
+                                    title: 'Thanh toán thành công',
+                                    icon: 'success',
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                    willClose: () => {
+                                        window.location.href = "http://localhost:8080/cart-payMent";
+                                    }
+                                });
+                            })
+                            .catch(function (error) {
+                                console.error("Lỗi khi order", error);
+                                Swal.fire({
+                                    title: 'Có lỗi xảy ra!',
+                                    text: 'Không thể hoàn tất thanh toán. Vui lòng thử lại.',
+                                    icon: 'error'
+                                });
+                            });
+                    } else {
+                        Swal.fire({
+                            title: 'Chua co don hang',
+                            icon: 'info',
+                        })
+                    }
+                }
+            });
+        };
+        // $scope.checkout = function () {
+        //     const username = document.getElementById("username_auth").textContent;
+        //     $http.get("/api/user/" + username).then(function (response) {
+        //         $scope.usernameData = response.data;  // Sửa ở đây
+        //     }).catch(function (error) {
+        //         console.log("Lỗi lấy thông tin người dùng", error);
+        //     });
+        //
+        //
+        //     $http.get("/api/orderStatus/1").then(function (response) {
+        //         $scope.orderStatusData = response.data;
+        //     }).catch(function (error) {
+        //         console.log("Lỗi lấy trạng thái đơn hàng", error);
+        //     });
+        //
+        //
+        //     $http.get("/api/paymentStatus/1").then(function (response) {
+        //         $scope.paymentStatusData = response.data;
+        //     }).catch(function (error) {
+        //         console.log("Lỗi lấy trạng thái thanh toán", error);
+        //     });
+        //
+        //     const cartTotal = JSON.parse(localStorage.getItem('cartTotal'));
+        //     const userAddress = document.getElementById("userAddress").value;
+        //     const currentDate = new Date();
+        //
+        //     console.log(cartTotal);
+        //     console.log(userAddress);
+        //     console.log(currentDate);
+        //     console.log($scope.usernameData.username);
+        //     console.log($scope.orderStatusData);
+        //     console.log($scope.paymentStatusData);
+        //
+        //     const order = {
+        //         totalAmount: cartTotal,
+        //         userName: {
+        //             userName: $scope.usernameData.username,
+        //         },
+        //         shippingAddress: userAddress,
+        //         enable: true,
+        //         orderStatusID: {
+        //           id : $scope.orderStatusData.id
+        //         },
+        //         paymentStatusID: {
+        //             id :  $scope.paymentStatusData.id
+        //         },
+        //         orderDate: currentDate
+        //     };
+        //
+        //
+        //     $http.post("/api/order", order).then(function (response) {
+        //         console.log("Order thành công");
+        //     }).catch(function (error) {
+        //         console.log("Lỗi khi order", error);
+        //     });
+        // }
+//history
+        $scope.getOrderHistory = function () {
+            $http.get("/api/order/history")
+                .then(function (response) {
+                    $scope.orderHistory = response.data;
+                })
+                .catch(function (error) {
+                    console.error("Lỗi khi lấy lịch sử đơn hàng", error);
+                });
+        };
+
+        $scope.getOrderHistory();
+        /*HISTORY ORDER DETAIL*/
+        $scope.getHistoryOrderDetail = function (orderId) {
+            $http.get("/api/order-detail/" + orderId)
+                .then(function (response) {
+                    $scope.historyOrderDetail = response.data;
+                    $scope.totalHistoryOrderPrice = $scope.historyOrderDetail.reduce((total, od) => total + (od.price * od.quantity), 0);
+                })
+                .catch(function (error) {
+                    console.error("Lỗi khi lấy chi tiết đơn hàng", error);
+                });
+        };
+        //huy don hang
+        $scope.deleteHistory = function (id) {
+            Swal.fire({
+                title: 'Bạn có chắc chắn muốn hủy đơn hàng này?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $http.put("/api/order/status/" + id)
+                        .then(function (response) {
+                            $scope.orderHistory = $scope.orderHistory.filter(history => history.id !== id);
+                            Swal.fire({
+                                title: 'Hủy đơn hàng thành công',
+                                icon: 'success',
+                                timer: 2000,
+                                timerProgressBar: true
+                            });
+                            $scope.getOrderHistory();
+                        })
+                        .catch(function (error) {
+                            Swal.fire({
+                                title: 'Hủy đơn hàng thất bại',
+                                icon: 'error',
+                                timer: 2000,
+                                timerProgressBar: true
+                            });
+                        });
+                }
+            });
+        };
+
+        $scope.reviewData = {};
+
+        $scope.review = function (productId, orderID) {
+            const username = document.getElementById("username_auth").textContent;
+            Promise.all([
+                $http.get("/api/user/" + username),
+                $http.get("/api/product/" + productId),
+                $http.get("/api/order/" + orderID)
+            ])
+                .then(function (response) {
+                    $scope.reviewData.username = response[0].data;
+                    $scope.reviewData.productID = response[1].data;
+                    $scope.reviewData.orderID = response[2].data;
+                })
+                .catch(function (error) {
+                    console.error("Loi khong lay duoc product user", error);
+                });
+            const reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'), {
+                keyboard: true
+            });
+            reviewModal.show();
+        };
+
+        $scope.submitReview = function () {
+            const date = new Date()
+            const review = {
+                comment: $scope.reviewData.comment,
+                userName: $scope.reviewData.username,
+                productID: $scope.reviewData.productID,
+                rating: $scope.reviewData.rating,
+                reviewDate: date
+            };
+
+            $http.post("/api/review", review)
+                .then(function (response) {
+                    Swal.fire({
+                        title: 'Review thành công',
+                        icon: 'success',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        willClose: () => {
+                            window.location.reload();
+                        }
+                    });
+                })
+                .catch(function (error) {
+                    console.error("Loi review", error);
+                });
+            $http.put("/api/order-detail/" + $scope.reviewData.orderID.id + '/' + $scope.reviewData.productID.id)
+                .then(function (response) {
+
+                }).catch(function (error) {
+                console.log("loi" + error)
+            })
+
+
+        };
+
+        $scope.reviewData = {
+            rating: 0,
+            comment: ''
+        };
+
+        $scope.setRating = function (star) {
+            $scope.reviewData.rating = star;
+        };
+
+        $scope.closeReview = function () {
+            $scope.reviewData.rating = 0;
+            $scope.reviewData.comment = '';
+        };
+
+
+    });
+</script>
 </html>

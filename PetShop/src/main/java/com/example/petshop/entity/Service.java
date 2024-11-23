@@ -1,41 +1,41 @@
 package com.example.petshop.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
-@Table(name = "Service")
-@Entity
-@Data
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 @Getter
 @Setter
+@Entity
 public class Service {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ServiceID", nullable = false)
-    private Integer serviceID;
+    private Integer id;
 
+    @Size(max = 255)
+    @NotNull
     @Nationalized
-    @Column(name = "ServiceName", nullable = false, length = 255)
+    @Column(name = "ServiceName", nullable = false)
     private String serviceName;
 
+    @NotNull
     @Column(name = "Price", nullable = false)
-    private int price;
+    private Integer price;
 
+    @Size(max = 255)
+    @NotNull
     @Nationalized
-    @Column(name = "Description", nullable = false, length = 255)
+    @Column(name = "Description", nullable = false)
     private String description;
 
-    // Constructors, getters, setters
-    public Service() {
-    }
+    @OneToMany(mappedBy = "serviceID")
+    private Set<BookingService> bookingServices = new LinkedHashSet<>();
 
-    public Service(String serviceName, int price, String description) {
-        this.serviceName = serviceName;
-        this.price = price;
-        this.description = description;
-    }
 }

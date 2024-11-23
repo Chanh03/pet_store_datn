@@ -1,13 +1,7 @@
 package com.example.petshop.service;
 
-import com.example.petshop.entity.Service;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
+@Service
 public interface ServiceService {
-    List<Service> getAll();
-    Optional<Service> getByServiceName(String serviceName);
-    void saveService(Service service);
-    void deleteByServiceName(String serviceName);
 }

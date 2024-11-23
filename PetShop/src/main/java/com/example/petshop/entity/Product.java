@@ -1,5 +1,6 @@
 package com.example.petshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -7,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -43,6 +45,9 @@ public class Product {
     @Column(name = "Quantity", nullable = false)
     private Integer quantity;
 
+    @Column(name = "CreateDate", nullable = false)
+    private LocalDateTime createDate;
+
     @Size(max = 255)
     @NotNull
     @Nationalized
@@ -50,16 +55,15 @@ public class Product {
     private String productDescription;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "ProductCategoryID", nullable = false)
     private ProductCategory productCategoryID;
 
     @OneToMany(mappedBy = "productID")
+    @JsonIgnore
     private Set<OrderProductDetail> orderProductDetails = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "productID")
-    private Set<Rating> ratings = new LinkedHashSet<>();
-
+    @JsonIgnore
     @OneToMany(mappedBy = "productID")
     private Set<Review> reviews = new LinkedHashSet<>();
 

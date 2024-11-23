@@ -1,23 +1,15 @@
 package com.example.petshop.rest;
 
 import com.example.petshop.entity.Pet;
-import com.example.petshop.entity.PetCategory;
 import com.example.petshop.service.PetCategoryService;
 import com.example.petshop.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @CrossOrigin("*")
 @RequestMapping("/api/pet")
@@ -34,20 +26,18 @@ public class RestPetController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Pet> getPetId(@PathVariable("id") String id) {
+    public Pet getPetId(@PathVariable("id") String id) {
         return petService.findById(id);
     }
 
     @PostMapping
     public void save(@RequestBody Pet pet) {
-        PetCategory category = petCategoryService.findById(pet.getPetCategoryID().getId());
-        pet.setPetCategoryID(category);
+        pet.setCreateDate(LocalDateTime.now());
         petService.save(pet);
     }
 
     @PutMapping("/{id}")
     public void updatePet(@PathVariable("id") String id, @RequestBody Pet pet) {
-        pet.setPetID(id);
         petService.save(pet);
     }
 
@@ -55,5 +45,4 @@ public class RestPetController {
     public void deletePet(@PathVariable("id") String id) {
         petService.deleteById(id);
     }
-
 }

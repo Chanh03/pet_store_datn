@@ -4,6 +4,9 @@ import com.example.petshop.entity.Product;
 import com.example.petshop.repo.ProductRepo;
 import com.example.petshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,4 +25,64 @@ public class ProductServiceImpl implements ProductService {
     public Product getById(int id) {
         return productRepo.findById(id).orElse(null);
     }
+
+    @Override
+    public Product save(Product product) {
+        return productRepo.save(product);
+    }
+
+    @Override
+    public void deleteById(int id) {
+        productRepo.deleteById(id);
+    }
+
+    @Override
+    public Page<Product> searchProduct(String search, PageRequest of) {
+        return productRepo.findByProductDescriptionContainingIgnoreCase(search, of);
+    }
+
+    @Override
+    public Page<Product> getPaginatedProduct(PageRequest of) {
+        return productRepo.findAll(of);
+    }
+
+    @Override
+    public List<Product> getProductsByCategory(Integer id, int id1) {
+        return productRepo.findByProductCategoryID_IdAndIdNot(id, id1);
+    }
+
+    @Override
+    public List<Product> getAllByCreatedDate() {
+        return productRepo.findAllByCreatedDateDesc();
+    }
+
+    @Override
+    public List<Product> getAllByCreatedDateAndEnable() {
+        return productRepo.findAllByCreatedDateDescAndAvailable();
+    }
+
+	@Override
+	public Page<Product> getProductsByCategoryId(Integer categoryId, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<Product> searchProductWithCategory(String keyword, Integer categoryId, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Product> getProductsByDifferentCategory(int currentCategoryId, int currentProductId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Product> getTopNewProducts(int limit) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

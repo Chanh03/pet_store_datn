@@ -9,32 +9,74 @@
     <script crossorigin="anonymous"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!--    FONT-GOOGLE-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         body {
-            background: url("/webImg/giphy.gif") no-repeat center center fixed;
-            background-size: cover;
+            font-family: 'Grandstander', cursive;
+        }
+
+        .btn-decor {
+            width: 160px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            cursor: pointer;
+            text-align: center;
+            text-transform: uppercase;
+            padding: 20px;
+            border: none;
+            background-size: 300% 100%;
+            border-radius: 50px;
+            -o-transition: all 0.4s ease-in-out;
+            -webkit-transition: all 0.4s ease-in-out;
+            transition: all 0.4s ease-in-out;
+        }
+
+        .btn-decor:hover {
+            background-position: 100% 0;
+            moz-transition: all .4s ease-in-out;
+            -o-transition: all .4s ease-in-out;
+            -webkit-transition: all .4s ease-in-out;
+            transition: all .4s ease-in-out;
+            color: #fff;
+        }
+
+        .btn-decor:focus {
+            outline: none;
+        }
+
+        .btn-decor.btn-link {
+            background-image: linear-gradient(
+                    to right,
+                    #6253e1,
+                    #852d91,
+                    #a3a1ff,
+                    #f24645
+            );
+            box-shadow: 0 4px 15px 0 rgba(126, 52, 161, 0.75);
         }
     </style>
 </head>
-<body class="bg-light text-center">
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-4">
-            <div class="card border-danger">
-                <div class="card-body">
-                    <h1 class="card-title text-danger">Access Denied</h1>
-                    <p class="card-text">Sorry, you don't have permission to access this page.</p>
-                    <div class="d-flex justify-content-center gap-3 mt-4">
-                        <a class="btn btn-outline-secondary" href="javascript:window.history.back();">Go Back</a>
-                        <a sec:authorize="isAuthenticated()" class="btn btn-outline-danger" href="/logout">Logout</a>
-                        <a sec:authorize="isAnonymous()" class="btn btn-outline-primary" href="/login">Login</a>
-                        <a sec:authorize="isAnonymous()" class="btn btn-outline-primary" href="/sign-in">Sign In</a>
-                    </div>
+<body class="bg-light text-center animate__animated animate__lightSpeedInLeft">
+<div class="position-relative">
+    <img loading="lazy" class="w-100" src="/images/background/access-denied.png" alt="">
+    <div class="container mt-5 position-absolute" style="top: 55%; left: 50%; transform: translate(-50%, -50%);">
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <h1 class="card-title text-danger">BẠN KHÔNG CÓ QUYỀN TRUY CẬP</h1>
+                <p class="card-text">Vui lòng liên hệ với quản trị viên để biết thêm thông tin</p>
+                <div class="d-flex justify-content-center gap-3 mt-4">
+                    <a class="btn-decor btn-link" href="javascript:window.history.back();">Trở lại</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

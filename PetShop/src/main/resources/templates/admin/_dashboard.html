@@ -6,45 +6,41 @@
     <title>Document</title>
 </head>
 <body>
-<body>
-<div class="header">
-    <h1>Trang chủ quản trị</h1>
-</div>
-<!-- Dashboard Content -->
-<div class="row mb-4">
-    <div th:text="${request}"></div>
-    <div class="col-sm-6 col-lg-3">
-        <div class="card bg-primary text-white text-center">
-            <div class="card-body">
-                <h5 class="card-title">Tổng số thú cưng</h5>
-                <p class="card-text">{{petData.length}}</p>
+<div class="mt-3">
+    <div class="row">
+        <div class="col-6">
+            <div class="card shadow bg-white border-0 p-4">
+                <div>
+                    <h4 class="fw-bold text-center">Bảng thống kê số lượng sản phẩm theo loại</h4>
+                </div>
+                <canvas style="height: 400px" id="productChart-Bar"></canvas>
+                <code class="text-center">Hiện có {{productLabelsChart.length}} loại sản phẩm khác nhau với tổng số
+                    {{productData.length}}
+                    sản phẩm</code>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card shadow bg-white border-0 p-4">
+                <div>
+                    <h4 class="fw-bold text-center">Bảng thống kê số lượng thú cưng theo loài</h4>
+                </div>
+                <canvas style="height: 400px" id="petChart-Bar"></canvas>
+                <code class="text-center">Hiện có {{labels.length}} loài thú cưng khác nhau với tổng số
+                    {{petData.length}}
+                    thú cưng</code>
             </div>
         </div>
     </div>
-    <div class="col-sm-6 col-lg-3">
-        <div class="card bg-success text-white text-center">
-            <div class="card-body">
-                <h5 class="card-title">Tổng số sản phẩm</h5>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6 col-lg-3">
-        <div class="card bg-warning text-white text-center">
-            <div class="card-body">
-                <h5 class="card-title">Tổng số đơn hàng</h5>
-                <p class="card-text">120</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6 col-lg-3">
-        <div class="card bg-danger text-white text-center">
-            <div class="card-body">
-                <h5 class="card-title">Tổng số người dùng</h5>
-                <p class="card-text">75</p>
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="card shadow bg-white border-0 p-4">
+                <div>
+                    <h4 class="fw-bold text-center">DEMO CHART</h4>
+                </div>
+                <canvas style="height: 400px" id="orderChart"></canvas>
             </div>
         </div>
     </div>
 </div>
-</body>
 </body>
 </html>
