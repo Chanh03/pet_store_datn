@@ -233,7 +233,8 @@
             </div>
             <div class="modal-footer">
                 <div class="me-auto shadow border border-1 rounded-3">
-                    <button type="button" ng-click="exportExcelOrderDetail(orderDetailAll.id)" class="btn btn-outline-success fw-bold"
+                    <button type="button" ng-click="exportExcelOrderDetail(orderDetailAll.id)"
+                            class="btn btn-outline-success fw-bold"
                             style="text-transform: uppercase">
                         Xuất hóa đơn
                     </button>
@@ -270,7 +271,7 @@
                     <button type="button" class="btn btn-danger"
                             ng-click="changeOrderStatus(orderDetailAll.id, 5)"
                             ng-class="orderDetailAll.orderStatusID.id === 5 ? 'button-checked-outline' : ''"
-                            ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, 5) || orderDetailAll.orderStatusID.id === 4">
+                            ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, 5) || orderDetailAll.orderStatusID.id === 4 || orderDetailAll.orderStatusID.id === 3">
                         Hủy đơn
                         <i class="fas fa-times-circle"></i>
                     </button>

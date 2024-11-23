@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update history">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update history cart, review">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyCart.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyCart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/PetRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/PetRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_order-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_order-detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_orders.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -233,15 +233,7 @@
       <workItem from="1732241890639" duration="40000" />
       <workItem from="1732242268909" duration="674000" />
       <workItem from="1732268567012" duration="6277000" />
-      <workItem from="1732360905764" duration="3285000" />
-    </task>
-    <task id="LOCAL-00025" summary="update authority">
-      <option name="closed" value="true" />
-      <created>1730717794517</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1730717794517</updated>
+      <workItem from="1732360905764" duration="8753000" />
     </task>
     <task id="LOCAL-00026" summary="update order">
       <option name="closed" value="true" />
@@ -627,7 +619,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732274011563</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="update history cart, review">
+      <option name="closed" value="true" />
+      <created>1732364941537</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1732364941537</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -657,7 +657,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update all akldkaj" />
     <MESSAGE value="add gif payment success" />
     <MESSAGE value="update index" />
     <MESSAGE value="add fade-in on scroll" />
@@ -682,7 +681,8 @@
     <MESSAGE value="fix fix fix payment status" />
     <MESSAGE value="bug add quantity" />
     <MESSAGE value="update history" />
-    <option name="LAST_COMMIT_MESSAGE" value="update history" />
+    <MESSAGE value="update history cart, review" />
+    <option name="LAST_COMMIT_MESSAGE" value="update history cart, review" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
