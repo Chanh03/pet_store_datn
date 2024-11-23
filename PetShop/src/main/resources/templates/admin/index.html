@@ -1,303 +1,313 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="myApp" ng-cloak th:fragment="admin(view)" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="en" ng-app="myApp" ng-cloak th:fragment="admin(view)"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Animate CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <!--NG TABLE-->
-    <link rel="stylesheet" href="https://unpkg.com/ng-table@4.0.0/bundles/ng-table.css">
-    <!-- notify -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css"/>
-    <!-- Calendar -->
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Animate CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<!--NG TABLE-->
+<link rel="stylesheet"
+	href="https://unpkg.com/ng-table@4.0.0/bundles/ng-table.css">
+<!-- notify -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+<!-- Calendar -->
+<link
+	href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css"
+	rel="stylesheet" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-          rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+	rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            font-size: 16px;
-            background-color: #f1f6fc;
-            overflow: scroll;
-        }
+<style>
+body {
+	font-family: 'Inter', sans-serif;
+	font-size: 16px;
+	background-color: #f1f6fc;
+	overflow: scroll;
+}
 
-        .sidebar {
-            min-height: 100vh;
-            width: 300px;
-            min-width: 250px;
-        }
+.sidebar {
+	min-height: 100vh;
+	width: 300px;
+	min-width: 250px;
+}
 
-        .sidebar a:hover {
-            background: #087592;
-            background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
-            color: white !important;
-        }
+.sidebar a:hover {
+	background: #087592;
+	background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
+	color: white !important;
+}
 
-        .body-bg-color {
-            /*background-color: #f1f6fc !important;*/
-            background: url("/images/background/admin-bg.jpg") no-repeat center center fixed;
-            background-size: cover;
-        }
+.body-bg-color {
+	/*background-color: #f1f6fc !important;*/
+	background: url("/images/background/admin-bg.jpg") no-repeat center
+		center fixed;
+	background-size: cover;
+}
 
-        .bg-color {
-            background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
-            color: white;
-        }
+.bg-color {
+	background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
+	color: white;
+}
 
-        .brand-text-color {
-            background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
-            -webkit-background-clip: text;
-            color: transparent; /* Đặt màu văn bản thành trong suốt */
-        }
+.brand-text-color {
+	background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
+	-webkit-background-clip: text;
+	color: transparent; /* Đặt màu văn bản thành trong suốt */
+}
 
-        .nav-pills .nav-link {
-            padding: 20px 25px;
-            border-radius: 15px;
-        }
+.nav-pills .nav-link {
+	padding: 20px 25px;
+	border-radius: 15px;
+}
 
-        .nav-pills .nav-link.active {
-            background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
-            color: white !important;
-        }
+.nav-pills .nav-link.active {
+	background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
+	color: white !important;
+}
 
-        .insert-btn {
-            background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
-            color: white;
-            border: none;
-        }
+.insert-btn {
+	background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
+	color: white;
+	border: none;
+}
 
-        .insert-btn:hover {
-            background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
-            color: white;
-        }
+.insert-btn:hover {
+	background: linear-gradient(90deg, #087592 0%, #2494b1 100%);
+	color: white;
+}
 
-        /*NG TABLE*/
-        .ng-table th.sortable.sort-desc, .ng-table th.sortable.sort-asc {
-            background: #c1d3ff;
-            border-radius: 10px;
-            color: white;
-        }
+/*NG TABLE*/
+.ng-table th.sortable.sort-desc, .ng-table th.sortable.sort-asc {
+	background: #c1d3ff;
+	border-radius: 10px;
+	color: white;
+}
 
-        /*.ng-table th.sortable {*/
-        /*    background: #1781ff;*/
-        /*    border-radius: 10px;*/
-        /*    color: #3259ff;*/
-        /*}*/
-        .ng-table-pager {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+/*.ng-table th.sortable {*/
+/*    background: #1781ff;*/
+/*    border-radius: 10px;*/
+/*    color: #3259ff;*/
+/*}*/
+.ng-table-pager {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 
-        .ng-table-filters {
-            width: 100%;
-        }
+.ng-table-filters {
+	width: 100%;
+}
 
-        .ng-table-filters input {
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width=''><text x='10' y='50%' fill='gray' font-size='15'>Tìm kiếm</text></svg>");
-            background-repeat: no-repeat;
-            background-position-x: center;
-        }
+.ng-table-filters input {
+	background-image:
+		url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width=''><text x='10' y='50%' fill='gray' font-size='15'>Tìm kiếm</text></svg>");
+	background-repeat: no-repeat;
+	background-position-x: center;
+}
 
-        .ng-table-filters input:focus,
-        .ng-table-filters input:active,
-        .ng-table-filters input:not(:placeholder-shown) {
-            background-image: none;
-        }
+.ng-table-filters input:focus, .ng-table-filters input:active,
+	.ng-table-filters input:not(:placeholder-shown) {
+	background-image: none;
+}
 
-        .header {
-            padding: 0;
-        }
+.header {
+	padding: 0;
+}
 
-        .ng-table-header {
-            color: #414450;
-            font-weight: bold;
-            background-color: #f1f6fc;
-            border: 1px solid #6057cd;
-            border-radius: 10px;
-            padding: 10px;
-            margin: 0;
-        }
+.ng-table-header {
+	color: #414450;
+	font-weight: bold;
+	background-color: #f1f6fc;
+	border: 1px solid #6057cd;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 0;
+}
 
-        /*HIỂN THỊ SỐ LƯỢNG PET*/
-        .ng-table-counts {
-            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.28);
-            border: 1px solid #6057cd;
-        }
+/*HIỂN THỊ SỐ LƯỢNG PET*/
+.ng-table-counts {
+	box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.28);
+	border: 1px solid #6057cd;
+}
 
-        .ng-table-counts .btn-default {
-            white-space: nowrap; /* Ngăn văn bản xuống dòng */
-            overflow: hidden; /* Ẩn văn bản vượt quá vùng chứa */
-            text-overflow: ellipsis; /* Thêm dấu ... cho văn bản bị cắt */
-            max-width: 150px; /* Đặt chiều rộng tối đa cho ô */
-            padding: 10px 20px;
-            background-color: white;
-            color: #6057cd;
-            border: 1px solid #6057cd;
-        }
+.ng-table-counts .btn-default {
+	white-space: nowrap; /* Ngăn văn bản xuống dòng */
+	overflow: hidden; /* Ẩn văn bản vượt quá vùng chứa */
+	text-overflow: ellipsis; /* Thêm dấu ... cho văn bản bị cắt */
+	max-width: 150px; /* Đặt chiều rộng tối đa cho ô */
+	padding: 10px 20px;
+	background-color: white;
+	color: #6057cd;
+	border: 1px solid #6057cd;
+}
 
-        .ng-table-counts .active {
-            background-color: #6057cd;
-            color: white;
-        }
+.ng-table-counts .active {
+	background-color: #6057cd;
+	color: white;
+}
 
-        .ng-table-pagination .page-item .ng-scope {
-            border-radius: 0;
-            padding: 10px 20px;
-            font-weight: lighter;
-            color: black;
-            cursor: pointer;
-            transition: color 0.3s;
-            position: relative;
-        }
+.ng-table-pagination .page-item .ng-scope {
+	border-radius: 0;
+	padding: 10px 20px;
+	font-weight: lighter;
+	color: black;
+	cursor: pointer;
+	transition: color 0.3s;
+	position: relative;
+}
 
-        /*PHÂN TRANG*/
-        .ng-table-pagination {
-            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.28);
-            margin: 0;
-            background: white;
-        }
+/*PHÂN TRANG*/
+.ng-table-pagination {
+	box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.28);
+	margin: 0;
+	background: white;
+}
 
-        .ng-table-pagination .page-item .ng-scope::after {
-            content: '';
-            display: block;
-            height: 2px;
-            background: black;
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            transform: scaleX(0);
-            transition: transform 0.3s;
-        }
+.ng-table-pagination .page-item .ng-scope::after {
+	content: '';
+	display: block;
+	height: 2px;
+	background: black;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	transform: scaleX(0);
+	transition: transform 0.3s;
+}
 
-        .ng-table-pagination .page-item .ng-scope:hover::after {
-            transform: scaleX(1);
-        }
+.ng-table-pagination .page-item .ng-scope:hover::after {
+	transform: scaleX(1);
+}
 
-        .ng-table-pagination .active .page-link {
-            background-color: #6057cd;
-            font-weight: bold;
-            color: white;
-        }
+.ng-table-pagination .active .page-link {
+	background-color: #6057cd;
+	font-weight: bold;
+	color: white;
+}
 
-        .container {
-            max-width: 1600px;
-        }
+.container {
+	max-width: 1600px;
+}
 
-        .open-order-detail-button {
-            background-color: #e0f7fa; /* Màu nền xanh nhạt */
-            color: #00796b; /* Màu chữ xanh đậm */
-            border: 1px solid #00796b; /* Đường viền xanh đậm */
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển đổi mượt */
-        }
+.open-order-detail-button {
+	background-color: #e0f7fa; /* Màu nền xanh nhạt */
+	color: #00796b; /* Màu chữ xanh đậm */
+	border: 1px solid #00796b; /* Đường viền xanh đậm */
+	cursor: pointer;
+	transition: background-color 0.3s ease, color 0.3s ease;
+	/* Hiệu ứng chuyển đổi mượt */
+}
 
-        .open-order-detail-button:hover {
-            background-color: #00796b; /* Màu nền xanh đậm khi hover */
-            color: #ffffff; /* Màu chữ trắng khi hover */
-        }
-
-    </style>
+.open-order-detail-button:hover {
+	background-color: #00796b; /* Màu nền xanh đậm khi hover */
+	color: #ffffff; /* Màu chữ trắng khi hover */
+}
+</style>
 </head>
 
 <body ng-controller="myCtrl" ng-cloak>
-<!-- Modal -->
-<div th:insert="~{/admin/_petModal}"></div>
-<div th:insert="~{/admin/_petAddModal}"></div>
-<div th:insert="~{/admin/_productModal}"></div>
-<div th:insert="~{/admin/_productAddModal}"></div>
-<div th:insert="~{/admin/_userModal}"></div>
-<div th:insert="~{/admin/_order-detail}"></div>
-<!-- MAIN CONTENT -->
-<main class="container-fluid p-0 d-flex">
-    <div id="bdSidebar"
-         class="sidebar d-flex flex-column flex-shrink-0 text-dark offcanvas-md offcanvas-start">
-        <!-- Brand -->
-        <div class="navbar-brand p-1 text-center">
-            <h1 th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? 'ADMIN' : 'STAFF'}"
-                class="fw-bold brand-text-color" style="font-size: 60px">ADMIN</h1>
-            <span class="fw-bold">{{date}}</span>
-        </div>
-        <hr class="m-0">
-        <!-- Navigation -->
-        <ul class="nav nav-pills flex-column mb-auto p-4" style="position: sticky;  top: 0;">
-            <li class="nav-item mb-2">
-                <a th:href="@{/quan-tri-he-thong}" class="nav-link text-dark">
-                    <i class="fa-regular fa-user me-2"></i>
-                    <span>Trang chủ</span>
-                </a>
-            </li>
-            <!-- Settings Dropdown -->
-            <li class="nav-item mb-1">
-                <a th:href="@{/quan-tri-he-thong/pet}" class="nav-link text-dark">
-                    <i class="fa-solid fa-paw"></i>
-                    <span>Thú cưng</span>
-                </a>
-            </li>
-            <li class="nav-item mb-1">
-                <a th:href="@{/quan-tri-he-thong/product}" class="nav-link text-dark">
-                    <i class="fa-solid fa-box"></i>
-                    <span>Sản phẩm</span>
-                </a>
-            </li>
-            <li class="nav-item mb-1">
-                <a th:href="@{/quan-tri-he-thong/order}" class="nav-link text-dark">
-                    <i class="fa-solid fa-shopping-cart"></i>
-                    <span>Đơn hàng</span>
-                </a>
-            </li>
-            <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item mb-1">
-                <a th:href="@{/quan-tri-he-thong/user}" class="nav-link text-dark">
-                    <i class="fa-solid fa-user"></i>
-                    <span>Người dùng</span>
-                </a>
-            </li>
-            <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item mb-1">
-                <a th:href="@{/quan-tri-he-thong/authorization}" class="nav-link text-dark">
-                    <i class="fa-solid fa-user-shield"></i>
-                    <span>Phân quyền</span>
-                </a>
-            </li>
-        </ul>
-        <div class="d-flex justify-content-center align-items-center p-4">
-            <button class="btn d-md-none rounded-pill bg-light p-3 btn-close" type="button"
-                    data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar"
-                    aria-label="Mở menu">
-            </button>
-        </div>
-    </div>
-    <div class="body-bg-color flex-fill">
-        <!-- MINI MENU -->
-        <div th:insert="~{/admin/_miniMenu.html}"></div>
-        <!-- TOP MENU -->
-        <div class="" th:insert="~{/admin/_menu}"></div>
-        <!-- MAIN CONTENT -->
-        <!--SPA-->
-        <div class="container animate__animated animate__fadeIn" th:insert="${view}"></div>
-    </div>
-</main>
-<div th:insert=" ~{/admin/_loadingSpinner}"></div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.js"></script>
-<script src="https://unpkg.com/ng-table@4.0.0/bundles/ng-table.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+	<!-- Modal -->
+	<div th:insert="~{/admin/_petModal}"></div>
+	<div th:insert="~{/admin/_petAddModal}"></div>
+	<div th:insert="~{/admin/_productModal}"></div>
+	<div th:insert="~{/admin/_productAddModal}"></div>
+	<div th:insert="~{/admin/_userModal}"></div>
+	<div th:insert="~{/admin/_order-detail}"></div>
+	<!-- MAIN CONTENT -->
+	<main class="container-fluid p-0 d-flex">
+		<div id="bdSidebar"
+			class="sidebar d-flex flex-column flex-shrink-0 text-dark offcanvas-md offcanvas-start">
+			<!-- Brand -->
+			<div class="navbar-brand p-1 text-center">
+				<h1
+					th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? 'ADMIN' : 'STAFF'}"
+					class="fw-bold brand-text-color" style="font-size: 60px">ADMIN</h1>
+				<span class="fw-bold">{{date}}</span>
+			</div>
+			<hr class="m-0">
+			<!-- Navigation -->
+			<ul class="nav nav-pills flex-column mb-auto p-4"
+				style="position: sticky; top: 0;">
+				<li class="nav-item mb-2"><a th:href="@{/quan-tri-he-thong}"
+					class="nav-link text-dark"> <i class="fa-regular fa-user me-2"></i>
+						<span>Trang chủ</span>
+				</a></li>
+				<!-- Settings Dropdown -->
+				<li class="nav-item mb-1"><a
+					th:href="@{/quan-tri-he-thong/pet}" class="nav-link text-dark">
+						<i class="fa-solid fa-paw"></i> <span>Thú cưng</span>
+				</a></li>
+				<li class="nav-item mb-1"><a
+					th:href="@{/quan-tri-he-thong/product}" class="nav-link text-dark">
+						<i class="fa-solid fa-box"></i> <span>Sản phẩm</span>
+				</a></li>
+				<li class="nav-item mb-1"><a
+					th:href="@{/quan-tri-he-thong/order}" class="nav-link text-dark">
+						<i class="fa-solid fa-shopping-cart"></i> <span>Đơn hàng</span>
+				</a></li>
+				<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item mb-1">
+					<a th:href="@{/quan-tri-he-thong/user}" class="nav-link text-dark">
+						<i class="fa-solid fa-user"></i> <span>Người dùng</span>
+				</a>
+				</li>
+				<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item mb-1">
+					<a th:href="@{/quan-tri-he-thong/authorization}"
+					class="nav-link text-dark"> <i class="fa-solid fa-user-shield"></i>
+						<span>Phân quyền</span>
+				</a>
+				</li>
+			</ul>
+			<div class="d-flex justify-content-center align-items-center p-4">
+				<button class="btn d-md-none rounded-pill bg-light p-3 btn-close"
+					type="button" data-bs-toggle="offcanvas"
+					data-bs-target="#bdSidebar" aria-controls="bdSidebar"
+					aria-label="Mở menu"></button>
+			</div>
+		</div>
+		<div class="body-bg-color flex-fill">
+			<!-- MINI MENU -->
+			<div th:insert="~{/admin/_miniMenu.html}"></div>
+			<!-- TOP MENU -->
+			<div class="" th:insert="~{/admin/_menu}"></div>
+			<!-- MAIN CONTENT -->
+			<!--SPA-->
+			<div class="container animate__animated animate__fadeIn"
+				th:insert="${view}"></div>
+		</div>
+	</main>
+	<div th:insert=" ~{/admin/_loadingSpinner}"></div>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.js"></script>
+	<script src="https://unpkg.com/ng-table@4.0.0/bundles/ng-table.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
-<script type="text/javascript">
+	<script type="text/javascript">
     var colors = ['#AEC6CF', '#FFB7B2', '#C3B1E1', '#FFDAC1', '#FFB6C1', '#B5EAD7', '#FFDFBA', '#FDFD96', '#B3E5FC', '#FADADD'];
     /* Bôi màu cho menu hiện tại thoôi nhìn gì?*/
     $(document).ready(function () {
@@ -1199,9 +1209,32 @@
                     $scope.$apply();
                 }
             };
+            
+          //Gửi Email cho KH đã đăng ký nhận tin
+            try {
+            	const isSuccessA = "[[${messageAdmin}]]";
+                if (isSuccessA) {
+                    console.log(isSuccessA)
+                    Swal.fire({
+                        title: 'Gửi Email thành thông',
+                        text: 'Đã gửi email cho khách hàng',
+                        icon: 'success'
+                    })
+                } else {
+                    
+                }
+            } catch (error) {
+                Swal.fire({
+                        title: 'Error',
+                        text: 'Lỗi hệ thống',
+                        icon: 'error'
+                    })
+                console.log(error)
+            }
         }
     );
 </script>
+
 </body>
 
 </html>
