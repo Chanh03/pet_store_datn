@@ -20,4 +20,5 @@ public interface OrderService {
     Order getByOrderId(Integer id);
 
     Order getByOrderIdAndUser(int id, User user);
+
 }

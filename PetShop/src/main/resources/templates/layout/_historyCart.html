@@ -122,7 +122,7 @@
                                 ng-href="/history-detail/{{history.id}}">
                             <h5 class=" m-0 mx-1 my-2">Đánh giá sản phẩm</h5>
                         </a>
-                        <button ng-if="history.orderStatusID.id = 1 && history.paymentStatusID.id != 2"
+                        <button ng-if="history.orderStatusID.id == 1 && history.paymentStatusID.id != 2"
                                 class="btn btn-danger"
                                 ng-click="deleteHistory(history.id)">
                             <h5 class=" m-0 mx-1 my-2">Hủy</h5>

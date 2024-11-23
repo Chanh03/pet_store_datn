@@ -729,7 +729,6 @@
             $http.get("/api/order-detail/" + orderId)
                 .then(function (response) {
                     $scope.historyOrderDetail = response.data;
-                    $scope.totalHistoryOrderPrice = $scope.historyOrderDetail.reduce((total, od) => total + (od.price * od.quantity), 0);
                 })
                 .catch(function (error) {
                     console.error("Lỗi khi lấy chi tiết đơn hàng", error);
@@ -766,7 +765,6 @@
                 }
             });
         };
-        $scope.reviewData = {};
 
         $scope.review = function (productId, orderID) {
             const username = document.getElementById("username_auth").textContent;
