@@ -835,6 +835,79 @@
             });
         };
 
+        $scope.reviewData = {};
+
+        $scope.review = function (productId, orderID) {
+            const username = document.getElementById("username_auth").textContent;
+            Promise.all([
+                $http.get("/api/user/" + username),
+                $http.get("/api/product/" + productId),
+                $http.get("/api/order/" + orderID)
+            ])
+                .then(function (response) {
+                    $scope.reviewData.username = response[0].data;
+                    $scope.reviewData.productID = response[1].data;
+                    $scope.reviewData.orderID = response[2].data;
+                })
+                .catch(function (error) {
+                    console.error("Loi khong lay duoc product user", error);
+                });
+            const reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'), {
+                keyboard: true
+            });
+            reviewModal.show();
+        };
+
+        $scope.submitReview = function () {
+            const date = new Date()
+            const review = {
+                comment: $scope.reviewData.comment,
+                userName: $scope.reviewData.username,
+                productID: $scope.reviewData.productID,
+                rating: $scope.reviewData.rating,
+                reviewDate: date
+            };
+
+            $http.post("/api/review", review)
+                .then(function (response) {
+                    Swal.fire({
+                        title: 'Review thành công',
+                        icon: 'success',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        willClose: () => {
+                            window.location.reload();
+                        }
+                    });
+                })
+                .catch(function (error) {
+                    console.error("Loi review", error);
+                });
+            $http.put("/api/order-detail/" + $scope.reviewData.orderID.id + '/' + $scope.reviewData.productID.id)
+                .then(function (response) {
+
+                }).catch(function (error) {
+                console.log("loi" + error)
+            })
+
+
+        };
+
+        $scope.reviewData = {
+            rating: 0,
+            comment: ''
+        };
+
+        $scope.setRating = function (star) {
+            $scope.reviewData.rating = star;
+        };
+
+        $scope.closeReview = function () {
+            $scope.reviewData.rating = 0;
+            $scope.reviewData.comment = '';
+        };
+
+
     });
 </script>
 </html>
