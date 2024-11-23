@@ -77,9 +77,9 @@ public class RestOrderController {
     @PutMapping("/status/{id}")
     public Order updateStatus(@PathVariable("id") Integer id) {
         Order order = orderService.getByOrderId(id);
-        List<OrderProductDetail> orderProductDetails = orderProductDetailService.getByOrderID(order);
         OrderStatus orderStatus = orderStatusService.getById(5);
         order.setOrderStatusID(orderStatus);
         return orderService.save(order);
+
     }
 }

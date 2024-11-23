@@ -418,7 +418,7 @@
                         title: 'Sản phẩm đã được xóa khỏi giỏ hàng',
                         status: 'success',
                         autoclose: true,
-                        autotimeout: 2000
+                        autotimeout: 2000,
                     })
                 }
             },
@@ -485,11 +485,9 @@
                 this.updateTotal();
             },
 
-
             getDetailItems() {
                 return this.items;
             },
-
 
             getPayMent() {
                 return this.getDetailItems()
@@ -498,7 +496,6 @@
 
         // Tải giỏ hàng từ localStorage khi khởi động ứng dụng
         $scope.cart.loadFromLocalStorage();
-
 
         // Voucher
         $scope.vouchers = []
@@ -518,6 +515,8 @@
                 $scope.errorMessage = "Giỏ hàng trống. Không thể áp dụng voucher!";
                 $scope.successMessage = '';
                 $scope.discountAmount = '';
+                localStorage.removeItem('voucherCode')
+                localStorage.removeItem('discountAmount')
                 return;
             }
             $http.get("/api/voucher/" + voucherCode)
@@ -715,9 +714,11 @@
 
         $scope.updatePaymentStatus = function (history) {
             if (history.orderStatusID.statusName === 'Đã giao') {
-                history.paymentStatusID = {statusPayment: 2};
+                history.paymentStatusID = { id: 2 };
+            } else if (history.paymentStatusID.id === 2) {
+                history.paymentStatusID = { id: 2 };
             } else {
-                history.paymentStatusID = {statusPayment: 1};
+                history.paymentStatusID = { id: 1 };
             }
         };
 
@@ -746,7 +747,6 @@
                 if (result.isConfirmed) {
                     $http.put("/api/order/status/" + id)
                         .then(function (response) {
-                            $scope.orderHistory = $scope.orderHistory.filter(history => history.id !== id);
                             Swal.fire({
                                 title: 'Hủy đơn hàng thành công',
                                 icon: 'success',
