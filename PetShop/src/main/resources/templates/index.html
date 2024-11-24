@@ -745,6 +745,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $http.put("/api/order/status/" + id)
+
                         .then(function (response) {
                             Swal.fire({
                                 title: 'Hủy đơn hàng thành công',

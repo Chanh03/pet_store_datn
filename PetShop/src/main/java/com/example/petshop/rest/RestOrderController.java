@@ -3,6 +3,7 @@ package com.example.petshop.rest;
 import com.example.petshop.entity.*;
 import com.example.petshop.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.relational.core.sql.In;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,9 @@ public class RestOrderController {
 
     @Autowired
     private OrderProductDetailService orderProductDetailService;
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping
     public List<Order> getAll() {
@@ -77,6 +81,12 @@ public class RestOrderController {
     @PutMapping("/status/{id}")
     public Order updateStatus(@PathVariable("id") Integer id) {
         Order order = orderService.getByOrderId(id);
+        List<OrderProductDetail> orderProductDetails = orderProductDetailService.getByOrderID(order);
+        for (OrderProductDetail detail : orderProductDetails) {
+            Product product = detail.getProductID();
+            product.setQuantity(detail.getQuantity() + product.getQuantity());
+            productService.save(product);
+        }
         OrderStatus orderStatus = orderStatusService.getById(5);
         order.setOrderStatusID(orderStatus);
         return orderService.save(order);
