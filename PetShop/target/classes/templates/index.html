@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css"/>
     <!--    JQUERY-->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
     <style>
         body {
             background: url("/images/background/bg.webp");
@@ -263,6 +265,19 @@
             }
         }
 
+        .star-rating {
+            font-size: 2rem;
+            color: #ddd; /* Default color for unselected stars */
+            display: flex;
+            gap: 0.2rem;
+            cursor: pointer;
+        }
+
+        .star-rating .selected {
+            color: #f4c150; /* Yellow for selected stars */
+        }
+
+
     </style>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
@@ -289,6 +304,8 @@
 <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <!--    JS-->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 <script>
     const socket = new SockJS('http://172.16.72.83:8080/ws');
     const stompClient = Stomp.over(socket);
@@ -521,6 +538,22 @@
                 }
             },
 
+            removeAll() {
+                Swal.fire({
+                    title: 'Xóa tất cả',
+                    text: 'Xóa tất cả sản phẩm trong giỏ?',
+                    icon: 'info',
+                    cancelButtonText: 'Hủy',
+                    showConfirmButton: true,
+                    showCancelButton: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        localStorage.removeItem('cart');
+                        window.location.href = "http://localhost:8080/cart-detail";
+                    }
+                })
+            },
+
             updateQuantity(item) {
                 $http.get(`/api/product/${item.id}`)
                     .then(response => {
@@ -600,6 +633,8 @@
                 $scope.errorMessage = "Giỏ hàng trống. Không thể áp dụng voucher!";
                 $scope.successMessage = '';
                 $scope.discountAmount = '';
+                localStorage.removeItem('voucherCode')
+                localStorage.removeItem('discountAmount')
                 return;
             }
             $http.get("/api/voucher/" + voucherCode)
@@ -651,7 +686,6 @@
                             $http.get("/api/user/" + username),
                             $http.get("/api/orderStatus/1"),
                             $http.get("/api/paymentStatus/1")
-                            // $http.get("/api/product")
                         ])
                             .then(function (responses) {
                                 const userResponse = responses[0].data;
@@ -677,17 +711,21 @@
                                         quantity: item.quantity,
                                         price: item.price
                                     };
-                                    return $http.post("/api/order-detail", orderDetail);
+                                    //update lai quantity khi checkout
+                                    const updateQuantityPromise = $http.put(
+                                        `/api/product/${item.id}/updateQuantity`,
+                                        {quantity: item.quantity}
+                                    );
+
+                                    return Promise.all([
+                                        $http.post("/api/order-detail", orderDetail),
+                                        updateQuantityPromise
+                                    ]);
                                 });
 
                                 return Promise.all(orderDetailPromises);
+
                             })
-                            // .then(function (response) {/-strong/-heart:>:o:-((:-h //     const product = response.data
-                            //     const quantityCart = cartItems.cart.quantity
-                            //     const newQuantity = product.quantity - quantityCart
-                            //
-                            //
-                            // })
                             .then(function () {
 
                                 console.log("Order và OrderDetail thành công");
@@ -779,7 +817,7 @@
         //         console.log("Lỗi khi order", error);
         //     });
         // }
-//history
+        //history
         $scope.getOrderHistory = function () {
             $http.get("/api/order/history")
                 .then(function (response) {
@@ -790,13 +828,23 @@
                 });
         };
 
+        $scope.updatePaymentStatus = function (history) {
+            if (history.orderStatusID.statusName === 'Đã giao') {
+                history.paymentStatusID = {id: 2};
+            } else if (history.paymentStatusID.id === 2) {
+                history.paymentStatusID = {id: 2};
+            } else {
+                history.paymentStatusID = {id: 1};
+            }
+        };
+
         $scope.getOrderHistory();
+
         /*HISTORY ORDER DETAIL*/
         $scope.getHistoryOrderDetail = function (orderId) {
             $http.get("/api/order-detail/" + orderId)
                 .then(function (response) {
                     $scope.historyOrderDetail = response.data;
-                    $scope.totalHistoryOrderPrice = $scope.historyOrderDetail.reduce((total, od) => total + (od.price * od.quantity), 0);
                 })
                 .catch(function (error) {
                     console.error("Lỗi khi lấy chi tiết đơn hàng", error);
@@ -813,8 +861,8 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $http.put("/api/order/status/" + id)
+
                         .then(function (response) {
-                            $scope.orderHistory = $scope.orderHistory.filter(history => history.id !== id);
                             Swal.fire({
                                 title: 'Hủy đơn hàng thành công',
                                 icon: 'success',
@@ -834,8 +882,6 @@
                 }
             });
         };
-
-        $scope.reviewData = {};
 
         $scope.review = function (productId, orderID) {
             const username = document.getElementById("username_auth").textContent;
@@ -906,8 +952,6 @@
             $scope.reviewData.rating = 0;
             $scope.reviewData.comment = '';
         };
-
-
     });
 </script>
 </html>

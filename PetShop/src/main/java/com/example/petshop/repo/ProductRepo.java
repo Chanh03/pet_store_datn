@@ -24,6 +24,6 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 
     Page<Product> findByProductCategoryID_IdAndProductDescriptionContainingIgnoreCase(Integer categoryId, String keyword, Pageable pageable);
 
-    @Query("SELECT p FROM Product p WHERE p.available = true ORDER BY p.createDate DESC limit 8")
+    @Query("SELECT p,r FROM Product p, Review r WHERE p.id = r.productID.id and p.available = true ORDER BY p.createDate DESC limit 8")
     List<Product> findAllByCreatedDateDescAndAvailable();
 }

@@ -142,11 +142,11 @@
                         <div class="row mt-5 mb-2">
                             <div class="col-12 d-flex align-items-center justify-content-end gap-3">
                                 <div class="btn  disabled">
-                            <span ng-init="updatePaymentStatus(history)" ng-class="{
-                                'text-success btn-outline-success fw-bold': history.paymentStatusID.id == 2,
-                                'text-danger btn-outline-danger fw-bold': history.paymentStatusID.id == 1}">
-                                {{history.paymentStatusID.statusPayment}}
-                            </span>
+                                    <span ng-init="updatePaymentStatus(history)" ng-class="{
+                                        'text-success btn-outline-success fw-bold': history.paymentStatusID.id == 2,
+                                        'text-danger btn-outline-danger fw-bold': history.paymentStatusID.id == 1}">
+                                        {{ history.paymentStatusID.id == 2 ? 'Thanh toán thành công' : 'Đang chờ thanh toán' }}
+                                    </span>
                                 </div>
                                 <a ng-if="history.paymentStatusID.statusPayment == 2"
                                    class="btn btn-danger"
@@ -208,7 +208,8 @@
                             <span ng-init="updatePaymentStatus(history)" ng-class="{
                                 'text-success btn-outline-success fw-bold': history.paymentStatusID.id == 2,
                                 'text-danger btn-outline-danger fw-bold': history.paymentStatusID.id == 1}">
-                                {{history.paymentStatusID.statusPayment}}
+                                                                        {{ history.paymentStatusID.id == 2 ? 'Thanh toán thành công' : 'Đang chờ thanh toán' }}
+
                             </span>
                                 </div>
                                 <a ng-if="history.paymentStatusID.statusPayment == 2"
@@ -271,7 +272,8 @@
                             <span ng-init="updatePaymentStatus(history)" ng-class="{
                                 'text-success btn-outline-success fw-bold': history.paymentStatusID.id == 2,
                                 'text-danger btn-outline-danger fw-bold': history.paymentStatusID.id == 1}">
-                                {{history.paymentStatusID.statusPayment}}
+                                                                        {{ history.paymentStatusID.id == 2 ? 'Thanh toán thành công' : 'Đang chờ thanh toán' }}
+
                             </span>
                                 </div>
                                 <a ng-if="history.paymentStatusID.statusPayment == 2"
@@ -334,7 +336,8 @@
                             <span ng-init="updatePaymentStatus(history)" ng-class="{
                                 'text-success btn-outline-success fw-bold': history.paymentStatusID.id == 2,
                                 'text-danger btn-outline-danger fw-bold': history.paymentStatusID.id == 1}">
-                                {{history.paymentStatusID.statusPayment}}
+                                                                        {{ history.paymentStatusID.id == 2 ? 'Thanh toán thành công' : 'Đang chờ thanh toán' }}
+
                             </span>
                                 </div>
                                 <a ng-if="history.paymentStatusID.statusPayment == 2"
@@ -397,7 +400,8 @@
                             <span ng-init="updatePaymentStatus(history)" ng-class="{
                                 'text-success btn-outline-success fw-bold': history.paymentStatusID.id == 2,
                                 'text-danger btn-outline-danger fw-bold': history.paymentStatusID.id == 1}">
-                                {{history.paymentStatusID.statusPayment}}
+                                                                        {{ history.paymentStatusID.id == 2 ? 'Thanh toán thành công' : 'Đang chờ thanh toán' }}
+
                             </span>
                                 </div>
                                 <a ng-if="history.paymentStatusID.statusPayment == 2"
@@ -460,7 +464,8 @@
                             <span ng-init="updatePaymentStatus(history)" ng-class="{
                                 'text-success btn-outline-success fw-bold': history.paymentStatusID.id == 2,
                                 'text-danger btn-outline-danger fw-bold': history.paymentStatusID.id == 1}">
-                                {{history.paymentStatusID.statusPayment}}
+                                                                        {{ history.paymentStatusID.id == 2 ? 'Thanh toán thành công' : 'Đang chờ thanh toán' }}
+
                             </span>
                                 </div>
                                 <a ng-if="history.paymentStatusID.statusPayment == 2"

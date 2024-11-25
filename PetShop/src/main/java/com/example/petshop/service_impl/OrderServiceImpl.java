@@ -41,7 +41,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getByOrderIdAndUser(int id, User user) {
-        return orderRepo.findByIdAndUser(id , user);
+        return orderRepo.findByIdAndUser(id, user);
+    }
+
+    @Override
+    public Order getById(Integer id) {
+        return orderRepo.findById(id).orElse(null);
     }
 
 }
