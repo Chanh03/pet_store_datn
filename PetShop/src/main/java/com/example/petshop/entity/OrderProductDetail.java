@@ -36,7 +36,4 @@ public class OrderProductDetail {
     @Column(name = "Price", nullable = false)
     private Integer price;
 
-    @Column(name = "reviewStatus")
-    private boolean reviewStatus;
-
 }
