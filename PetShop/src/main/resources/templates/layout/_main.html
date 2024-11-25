@@ -216,11 +216,11 @@
                         </a>
                     </div>
                     <div class="card-body text-center">
-<!--                        <div class="d-flex justify-content-center gap-2 my-2">-->
-<!--                            <i th:each="i : ${#numbers.sequence(1, 5)}"-->
-<!--                               th:class="${i <= product.rating} ? 'fa-solid fa-star text-warning' : 'fa-solid fa-star'">-->
-<!--                            </i>-->
-<!--                        </div>-->
+                        <!--                        <div class="d-flex justify-content-center gap-2 my-2">-->
+                        <!--                            <i th:each="i : ${#numbers.sequence(1, 5)}"-->
+                        <!--                               th:class="${i <= product.rating} ? 'fa-solid fa-star text-warning' : 'fa-solid fa-star'">-->
+                        <!--                            </i>-->
+                        <!--                        </div>-->
                         <h5 class="" th:text="${product.productName}">ten sp</h5>
                         <h4 class="color fw-bold"
                             th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">
@@ -262,7 +262,7 @@
     <div class="col-lg-7">
         <!--ITEMS-->
         <a th:href="@{http://localhost:8080/product/detail/{id}(id=${r.productID.id})}" th:each="r:${reviews}"
-           class="card p-3 mb-3 button-image"
+           class="card p-3 mb-3 nav-link button-image"
            style="background-size: contain;background-position: right;">
             <div class="row overflow-hidden">
                 <div class="col-10">
@@ -272,10 +272,10 @@
                                 <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
                                      style="object-fit: cover;">
                             </div>
-                            <div class="d-flex align-items-center gap-2">
+                            <div class="d-flex align-items-center gap-2 text-truncate">
                                 <h3 th:text="${r.userName.fullName}" class="color fw-bold m-0 text-truncate">Nguyễn Văn
                                     A</h3>
-                                <h6 class="m-0 text-muted">
+                                <h6 class="m-0 text-muted text-truncate">
                                     đã mua sản phẩm
                                 </h6>
                                 <h5 th:text="${r.productID.productName}" class="color fw-bold m-0 text-truncate"
@@ -328,7 +328,8 @@
             <div class="card-body text-center p-2">
                 <h5 class="color fw-bold">Spa - Grooming</h5>
                 <p class="text-body-tertiary"
-                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">Chúng
+                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">
+                    Chúng
                     tôi cung cấp dịch vụ spa và grooming cho thú cưng của bạn, mang
                     lại trải nghiệm tốt nhất.</p>
                 <a href="/service" class="btn btn-primary">Xem chi tiết</a>
@@ -345,7 +346,8 @@
             <div class="card-body text-center p-2">
                 <h5 class="color fw-bold">Huấn luyện thú cưng</h5>
                 <p class="text-body-tertiary"
-                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">Chúng
+                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">
+                    Chúng
                     tôi cung cấp dịch vụ huấn luyện chuyên nghiệp, giúp thú cưng của
                     bạn học hỏi và phát triển.</p>
                 <a href="/service" class="btn btn-primary">Xem chi tiết</a>
@@ -362,7 +364,8 @@
             <div class="card-body text-center p-2">
                 <h5 class="color fw-bold">Cắt tỉa lông thú cưng</h5>
                 <p class="text-body-tertiary"
-                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">Dịch
+                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">
+                    Dịch
                     vụ cắt tỉa lông chuyên nghiệp, giúp thú cưng của bạn trông gọn
                     gàng và đáng yêu hơn.</p>
                 <a href="/service" class="btn btn-primary">Xem chi tiết</a>
@@ -379,7 +382,8 @@
             <div class="card-body text-center p-2">
                 <h5 class="color fw-bold">Khách sạn thú cưng</h5>
                 <p class="text-body-tertiary"
-                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">Dịch
+                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">
+                    Dịch
                     vụ khách sạn mang đến không gian thoải mái và tiện nghi cho thú
                     cưng của bạn nếu bạn không có thời gian chăm sóc .</p>
                 <a href="/service" class="btn btn-primary">Xem chi tiết</a>
