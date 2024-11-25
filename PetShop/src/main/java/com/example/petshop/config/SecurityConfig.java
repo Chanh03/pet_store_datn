@@ -43,6 +43,7 @@ public class SecurityConfig {
                         .requestMatchers("/quan-tri-he-thong/**").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers("/thanh-toan/**").authenticated()
                         .requestMatchers("/cart-payMent/**").authenticated()
+                        .requestMatchers("/history-detail/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .exceptionHandling(ex -> ex
