@@ -37,38 +37,35 @@ public class ProductController {
 	private ProductCategoryService productCategoryService;
 
 	@RequestMapping("/allProduct")
-	public String viewProduct(Model model, @RequestParam(defaultValue = "0") int page,
-			@RequestParam(required = false) String search, @RequestParam(required = false) String sort,
-			@RequestParam(required = false) Integer categoryId) {
-		int pageSize = 16;
-		Page<Product> productPage;
+	public String viewProduct(
+	        Model model,
+	        @RequestParam(defaultValue = "0") int page,
+	        @RequestParam(required = false) String search,
+	        @RequestParam(required = false) String sort,
+	        @RequestParam(required = false) Integer categoryId) {
 
-		// Xác định thứ tự sắp xếp
-		Sort.Direction sortDirection = (sort != null && sort.equals("asc")) ? Sort.Direction.ASC : Sort.Direction.DESC;
+	    int pageSize = 16;
+	    Sort.Direction sortDirection = (sort != null && sort.equals("asc")) ? Sort.Direction.ASC : Sort.Direction.DESC;
 
-		// Xử lý kết hợp giữa tìm kiếm, danh mục, và sắp xếp
-		if (search != null && !search.isEmpty() && categoryId != null) {
-			productPage = productService.searchProductWithCategory(search, categoryId,
-					PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
-		} else if (search != null && !search.isEmpty()) {
-			productPage = productService.searchProduct(search,
-					PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
-		} else if (categoryId != null) {
-			productPage = productService.getProductsByCategoryId(categoryId,
-					PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
-		} else {
-			productPage = productService
-					.getPaginatedProduct(PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
-		}
+	    Page<Product> productPage;
 
-		List<ProductCategory> categories = productCategoryService.getAll();
-		model.addAttribute("productPage", productPage);
-		model.addAttribute("categories", categories);
-		model.addAttribute("search", search);
-		model.addAttribute("sort", sort);
-		model.addAttribute("categoryId", categoryId);
+	    if ((search != null && !search.isEmpty()) || categoryId != null) {
+	        productPage = productService.searchFlexible(
+	                search != null ? search : "",
+	                categoryId,
+	                PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
+	    } else {
+	        productPage = productService.getPaginatedProduct(PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
+	    }
 
-		return "layout/_allProduct";
+	    List<ProductCategory> categories = productCategoryService.getAll();
+	    model.addAttribute("productPage", productPage);
+	    model.addAttribute("categories", categories);
+	    model.addAttribute("search", search);
+	    model.addAttribute("sort", sort);
+	    model.addAttribute("categoryId", categoryId);
+
+	    return "layout/_allProduct";
 	}
 
 	@RequestMapping("/product/detail/{id}")

@@ -2,9 +2,8 @@ package com.example.petshop.service;
 
 import com.example.petshop.entity.Product;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -18,15 +17,13 @@ public interface ProductService {
 
     void deleteById(int id);
 
-    Page<Product> searchProduct(String search, PageRequest of);
+    Page<Product> searchProduct(String keyword, Pageable pageable);
 
-    Page<Product> getPaginatedProduct(PageRequest of);
+    Page<Product> getPaginatedProduct(Pageable pageable);
 
-    List<Product> getProductsByCategory(Integer id, int id1);
+    List<Product> getProductsByCategory(Integer categoryId, int excludeId);
 
     List<Product> getAllByCreatedDate();
-    
-    Page<Product> getProductsByCategoryId(Integer categoryId, Pageable pageable);
 
-	Page<Product> searchProductWithCategory(String keyword, Integer categoryId, Pageable pageable);
+    Page<Product> searchFlexible(String keyword, Integer categoryId, Pageable pageable);
 }

@@ -11,8 +11,14 @@ import java.util.List;
 
 @Repository
 public interface PetRepo extends JpaRepository<Pet, String> {
-    @Query("SELECT p FROM Pet p ORDER BY p.createDate DESC limit 6")
-    List<Pet> findAllByCreatedDateDesc();
-    
-	Page<Pet> findByPetDescriptionContainingIgnoreCase(String keyword, Pageable pageable);
+
+	// Lấy danh sách Pet mới nhất
+	@Query("SELECT p FROM Pet p ORDER BY p.createDate DESC")
+	List<Pet> findAllByCreatedDateDesc();
+
+	// Tìm kiếm linh hoạt với keyword
+	@Query("SELECT p FROM Pet p WHERE " + "p.breed LIKE CONCAT('%', :keyword, '%') OR "
+			+ "p.famous LIKE CONCAT('%', :keyword, '%') OR " + "p.hair LIKE CONCAT('%', :keyword, '%')")
+	Page<Pet> searchByKeyword(@org.springframework.data.repository.query.Param("keyword") String keyword,
+			Pageable pageable);
 }

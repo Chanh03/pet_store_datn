@@ -9,19 +9,19 @@ import java.util.List;
 
 @Service
 public interface PetService {
-    List<Pet> getAll();
+	List<Pet> getAll();
 
-    Pet findById(String id);
+	Pet findById(String id);
 
-    void save(Pet pet);
+	void save(Pet pet);
 
-    void deleteById(String id);
+	void deleteById(String id);
 
-    boolean existsById(String id);
+	boolean existsById(String id);
 
-    List<Pet> getAllByCreatedDate();
-    
-	Page<Pet> getPaginatedPets(Pageable pageable);
+	List<Pet> getAllByCreatedDate(); // Lấy danh sách theo ngày tạo
 
-	Page<Pet> searchPets(String keyword, Pageable pageable);
+	Page<Pet> getPaginatedPets(Pageable pageable); // Phân trang Pet
+
+	Page<Pet> searchPets(String keyword, Pageable pageable); // Tìm kiếm Pet
 }

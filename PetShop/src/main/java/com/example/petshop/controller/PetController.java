@@ -30,20 +30,20 @@ public class PetController {
 		int pageSize = 24; // Số thú cưng trên mỗi trang
 		Page<Pet> petPage;
 
-		// Sắp xếp theo giá (mặc định giảm dần)
+		// Sắp xếp theo giá
 		Sort sort = Sort.by("price").descending();
 		if ("asc".equalsIgnoreCase(priceOrder)) {
 			sort = Sort.by("price").ascending();
 		}
 
-		// Xử lý tìm kiếm
+		// Tìm kiếm theo keyword nếu có
 		if (keyword != null && !keyword.trim().isEmpty()) {
 			petPage = petService.searchPets(keyword.trim(), PageRequest.of(page, pageSize, sort));
 		} else {
 			petPage = petService.getPaginatedPets(PageRequest.of(page, pageSize, sort));
 		}
 
-		// Thêm dữ liệu vào model
+		// Gắn dữ liệu vào model
 		model.addAttribute("pets", petPage.getContent());
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", petPage.getTotalPages());
@@ -55,17 +55,14 @@ public class PetController {
 
 	@RequestMapping("/pet/detail/{id}")
 	public String petDetail(Model model, @PathVariable String id) {
-		Optional<Pet> optionalPet = Optional.ofNullable(petService.findById(id));
-
-		if (optionalPet.isPresent()) {
-			Pet pet = optionalPet.get();
+		Pet pet = petService.findById(id);
+		if (pet != null) {
 			model.addAttribute("pet", pet);
 
-			// Lọc danh sách thú cưng cùng loại (cùng `petCategoryID`) nhưng không trùng
-			// `petID`
+			// Lấy danh sách các thú cưng liên quan
 			List<Pet> otherPets = petService.getAll().stream().filter(
 					p -> !p.getPetID().equals(pet.getPetID()) && p.getPetCategoryID().equals(pet.getPetCategoryID()))
-					.limit(12).collect(Collectors.toList());
+					.limit(12).toList();
 			model.addAttribute("pets", otherPets);
 		} else {
 			model.addAttribute("errorMessage", "Thú cưng không tồn tại");

@@ -8,27 +8,26 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@CrossOrigin("*")
-@RequestMapping("/api/pet")
 @RestController
+@RequestMapping("/api/pet")
+@CrossOrigin("*")
 public class RestPetController {
+
 	@Autowired
 	private PetService petService;
 
-	@Autowired
-
 	@GetMapping
-	public List<Pet> getPet() {
+	public List<Pet> getPets() {
 		return petService.getAll();
 	}
 
 	@GetMapping("/{id}")
-	public Pet getPetId(@PathVariable("id") String id) {
+	public Pet getPetById(@PathVariable("id") String id) {
 		return petService.findById(id);
 	}
 
 	@PostMapping
-	public void save(@RequestBody Pet pet) {
+	public void savePet(@RequestBody Pet pet) {
 		pet.setCreateDate(LocalDateTime.now());
 		petService.save(pet);
 	}

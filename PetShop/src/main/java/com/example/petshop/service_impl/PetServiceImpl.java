@@ -12,46 +12,47 @@ import java.util.List;
 
 @Service
 public class PetServiceImpl implements PetService {
-    @Autowired
-    private PetRepo petRepo;
+	@Autowired
+	private PetRepo petRepo;
 
-    @Override
-    public List<Pet> getAll() {
-        return petRepo.findAll();
-    }
+	@Override
+	public List<Pet> getAll() {
+		return petRepo.findAll();
+	}
 
-    @Override
-    public Pet findById(String id) {
-        return petRepo.findById(id).orElse(null);
-    }
+	@Override
+	public Pet findById(String id) {
+		return petRepo.findById(id).orElse(null);
+	}
 
-    @Override
-    public void save(Pet pet) {
-        petRepo.save(pet);
-    }
+	@Override
+	public void save(Pet pet) {
+		petRepo.save(pet);
+	}
 
-    @Override
-    public void deleteById(String id) {
-        petRepo.deleteById(id);
-    }
+	@Override
+	public void deleteById(String id) {
+		petRepo.deleteById(id);
+	}
 
-    @Override
-    public boolean existsById(String id) {
-        return petRepo.existsById(id);
-    }
+	@Override
+	public boolean existsById(String id) {
+		return petRepo.existsById(id);
+	}
 
-    @Override
-    public List<Pet> getAllByCreatedDate() {
-        return petRepo.findAllByCreatedDateDesc();
-    }
+	@Override
+	public List<Pet> getAllByCreatedDate() {
+		// Giới hạn trên Service (6 thú cưng mới nhất)
+		return petRepo.findAllByCreatedDateDesc().stream().limit(6).toList();
+	}
 
-    @Override
+	@Override
 	public Page<Pet> getPaginatedPets(Pageable pageable) {
 		return petRepo.findAll(pageable);
 	}
 
 	@Override
 	public Page<Pet> searchPets(String keyword, Pageable pageable) {
-		return petRepo.findByPetDescriptionContainingIgnoreCase(keyword, pageable);
+		return petRepo.searchByKeyword(keyword, pageable);
 	}
 }

@@ -5,7 +5,6 @@ import com.example.petshop.repo.ProductRepo;
 import com.example.petshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -37,18 +36,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> searchProduct(String search, PageRequest of) {
-        return productRepo.findByProductDescriptionContainingIgnoreCase(search, of);
+    public Page<Product> searchProduct(String keyword, Pageable pageable) {
+        return productRepo.findByProductDescriptionContainingIgnoreCase(keyword, pageable);
     }
 
     @Override
-    public Page<Product> getPaginatedProduct(PageRequest of) {
-        return productRepo.findAll(of);
+    public Page<Product> getPaginatedProduct(Pageable pageable) {
+        return productRepo.findAll(pageable);
     }
 
     @Override
-    public List<Product> getProductsByCategory(Integer id, int id1) {
-        return productRepo.findByProductCategoryID_IdAndIdNot(id, id1);
+    public List<Product> getProductsByCategory(Integer categoryId, int excludeId) {
+        return productRepo.findByProductCategoryID_IdAndIdNot(categoryId, excludeId);
     }
 
     @Override
@@ -57,13 +56,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-	public Page<Product> getProductsByCategoryId(Integer categoryId, Pageable pageable) {
-	    return productRepo.findByProductCategoryID_Id(categoryId, pageable);
-	}
-
-	@Override
-	public Page<Product> searchProductWithCategory(String keyword, Integer categoryId, Pageable pageable) {
-	    return productRepo.findByProductCategoryID_IdAndProductDescriptionContainingIgnoreCase(categoryId, keyword, pageable);
-	}
-
+    public Page<Product> searchFlexible(String keyword, Integer categoryId, Pageable pageable) {
+        return productRepo.searchProducts(keyword, categoryId, pageable);
+    }
 }
