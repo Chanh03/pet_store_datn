@@ -7,6 +7,8 @@ import com.example.petshop.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -47,6 +49,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order getById(Integer id) {
         return orderRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Order> findOrdersByDate(Date from, Date to) {
+        return orderRepo.findByOrderDate(from, to);
     }
 
 }

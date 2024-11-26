@@ -214,6 +214,47 @@
             color: #ffffff; /* Màu chữ trắng khi hover */
         }
 
+        .chart-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 400px;
+            width: 100%;
+        }
+
+        .chart-bar {
+            width: 30px;
+            margin: 0 10px;
+            position: relative;
+            text-align: center;
+        }
+
+        .bar {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            background-color: rgba(75, 192, 192, 0.5);
+            border-radius: 4px;
+        }
+
+        .bar.increase {
+            background-color: rgba(75, 192, 192, 1);
+        }
+
+        .bar.decrease {
+            background-color: rgba(255, 99, 132, 1);
+        }
+
+        .bar i {
+            font-size: 20px;
+            color: white;
+        }
+
+        p {
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
     </style>
 </head>
 
@@ -369,6 +410,7 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 <script type="text/javascript">
@@ -387,7 +429,7 @@
     });
     /* Đây mới là phần chính của AngularJS nè =))*/
     var app = angular.module('myApp', ['ngRoute', 'ngTable']);
-    app.controller('myCtrl', function ($scope, $http, NgTableParams) {
+    app.controller('myCtrl', function ($scope, $http, NgTableParams, $filter) {
             $(document).ready(function () {
                 $scope.date = new Date().toLocaleString();
                 setInterval(function () {
@@ -396,6 +438,12 @@
                     });
                 }, 1000);
             });
+            $scope.getCurrentDate = function (date) {
+                if (date) {
+                    return $filter('date')(new Date() - 7 * 24 * 60 * 60 * 1000, 'yyyy-MM-dd');
+                }
+                return $filter('date')(new Date(), 'yyyy-MM-dd');
+            };
             var baseUrl = window.location.origin + '/api/';
             /*PET*/
             $scope.getPets = function () {
@@ -1195,27 +1243,106 @@
                     return true;
                 }
             };
-            $scope.orderChart = function () {
-                $http.get(baseUrl + 'order').then(function (response) {
-                    $scope.orderData = response.data;
-                    new Chart(document.getElementById('orderChart'), {
-                        type: 'line',
-                        data: {
-                            labels: $scope.orderData.map(order => order.orderDate.split('T')[0]),
-                            datasets: [{
-                                label: 'Tổng tiền đơn hàng',
-                                data: $scope.orderData.map(order => order.totalAmount),
-                                fill: true,
-                                borderColor: 'rgb(75, 192, 192)',
-                                tension: 0.3
-                            }]
-                        },
+            // var ColorBackground = [
+            //     'rgba(255, 99, 132, 0.2)',
+            //     'rgba(255, 159, 64, 0.2)',
+            //     'rgba(255, 205, 86, 0.2)',
+            //     'rgba(75, 192, 192, 0.2)',
+            //     'rgba(54, 162, 235, 0.2)',
+            //     'rgba(153, 102, 255, 0.2)',
+            //     'rgba(201, 203, 207, 0.2)',
+            //     'rgba(203, 67, 53, 0.2)',
+            //     'rgba(233, 30, 99, 0.2)',
+            //     'rgba(156, 39, 176, 0.2)',
+            //     'rgba(103, 58, 183, 0.2)',
+            //     'rgba(63, 81, 181, 0.2)',
+            //     'rgba(33, 150, 243, 0.2)',
+            // ];
+            // var orderColorOutline = [
+            //     'rgb(255, 99, 132)',
+            //     'rgb(255, 159, 64)',
+            //     'rgb(255, 205, 86)',
+            //     'rgb(75, 192, 192)',
+            //     'rgb(54, 162, 235)',
+            //     'rgb(153, 102, 255)',
+            //     'rgb(201, 203, 207)',
+            //     'rgb(203, 67, 53)',
+            //     'rgb(233, 30, 99)',
+            //     'rgb(156, 39, 176)',
+            //     'rgb(103, 58, 183)',
+            //     'rgb(63, 81, 181)',
+            //     'rgb(33, 150, 243)',
+            // ]
+            $scope.getOrdersByDate = function (from, to) {
+                const fromDate = $filter('date')(from, 'yyyy-MM-dd');
+                const toDate = $filter('date')(to, 'yyyy-MM-dd');
+                $http.get('/api/order/filter', {params: {from: fromDate, to: toDate}})
+                    .then(function (response) {
+                        const ordersByDate = response.data;
+                        const dailyTotals = {};
+                        ordersByDate.forEach(order => {
+                            const orderDate = $filter('date')(order.orderDate, 'yyyy-MM-dd');
+                            if (!dailyTotals[orderDate]) {
+                                dailyTotals[orderDate] = 0;
+                            }
+                            dailyTotals[orderDate] += order.totalAmount;
+                        });
+                        const labels = Object.keys(dailyTotals);
+                        console.log(labels);
+                        const data = Object.values(dailyTotals);
+                        console.log(data);
+
+                        if (!$scope.orderChart) {
+                            $scope.orderChart = new Chart(document.getElementById('orderChart-Line').getContext('2d'), {
+                                type: 'bar',
+                                data: {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: 'Tổng tiền ngày',
+                                        data: data,
+                                        backgroundColor: colors,
+                                        borderColor: colors,
+                                    }]
+                                },
+                                options: {
+                                    plugins: {
+                                        title: {
+                                            display: true,
+                                            text: 'Biểu đồ doanh thu theo ngày trong khoảng từ ' + fromDate + ' đến ' + toDate,
+                                            font: {
+                                                size: 20
+                                            }
+                                        },
+                                        legend: {
+                                            display: false
+                                        },
+                                        datalabels: {
+                                            display: true,
+                                            color: '#000',
+                                            font: {
+                                                weight: 'bold',
+                                                size: 14
+                                            },
+                                            anchor: 'end',
+                                            align: 'top',
+                                            formatter: function (value) {
+                                                return value.toLocaleString();
+                                            }
+                                        }
+                                    }
+                                },
+                                plugins: [ChartDataLabels]
+                            });
+                        } else {
+                            $scope.orderChart.data.labels = labels;
+                            $scope.orderChart.data.datasets[0].data = data;
+                            $scope.orderChart.update();
+                        }
+                    }, function (error) {
+                        console.error('Lỗi khi lấy dữ liệu đơn hàng theo ngày:', error);
                     });
-                }).catch(function (error) {
-                    console.error('Lỗi khi lấy dữ liệu order:', error);
-                });
-            }
-            $scope.orderChart();
+            };
+            $scope.getOrdersByDate($scope.getCurrentDate(true), $scope.getCurrentDate());
             /*ORDER STATUS*/
             $scope.getOrderStatus = function () {
                 $http.get(baseUrl + 'orderStatus').then(function (response) {
@@ -1488,7 +1615,8 @@
                 }
             };
         }
-    );
+    )
+    ;
 </script>
 </body>
 </html>

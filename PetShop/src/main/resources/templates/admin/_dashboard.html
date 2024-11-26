@@ -34,10 +34,27 @@
     <div class="row mt-3">
         <div class="col-12">
             <div class="card shadow bg-white border-0 p-4">
-                <div>
-                    <h4 class="fw-bold text-center">DEMO CHART</h4>
+                <div class="col-3">
+                    <div class="card shadow bg-white border-0 p-4">
+                        <div>
+                            <h4 class="fw-bold text-center">Lọc doanh thu theo ngày</h4>
+                        </div>
+                        <div>
+                            <label class="floating-label" for="fromDate">Ngày bắt đầu:</label>
+                            <input type="date" id="fromDate" ng-model="fromDate" class="form-control"
+                                   ng-change="getOrdersByDate(fromDate, toDate)"
+                                   ng-init="fromDate = getCurrentDate(true)">
+                        </div>
+                        <div>
+                            <label for="toDate">Ngày kết thúc:</label>
+                            <input type="date" id="toDate" ng-model="toDate" class="form-control"
+                                   ng-change="getOrdersByDate(fromDate, toDate)" ng-init="toDate = getCurrentDate()">
+                        </div>
+                    </div>
                 </div>
-                <canvas style="height: 400px" id="orderChart"></canvas>
+                <div>
+                    <canvas style="height: 300px !important;" id="orderChart-Line"></canvas>
+                </div>
             </div>
         </div>
     </div>
