@@ -1243,36 +1243,6 @@
                     return true;
                 }
             };
-            // var ColorBackground = [
-            //     'rgba(255, 99, 132, 0.2)',
-            //     'rgba(255, 159, 64, 0.2)',
-            //     'rgba(255, 205, 86, 0.2)',
-            //     'rgba(75, 192, 192, 0.2)',
-            //     'rgba(54, 162, 235, 0.2)',
-            //     'rgba(153, 102, 255, 0.2)',
-            //     'rgba(201, 203, 207, 0.2)',
-            //     'rgba(203, 67, 53, 0.2)',
-            //     'rgba(233, 30, 99, 0.2)',
-            //     'rgba(156, 39, 176, 0.2)',
-            //     'rgba(103, 58, 183, 0.2)',
-            //     'rgba(63, 81, 181, 0.2)',
-            //     'rgba(33, 150, 243, 0.2)',
-            // ];
-            // var orderColorOutline = [
-            //     'rgb(255, 99, 132)',
-            //     'rgb(255, 159, 64)',
-            //     'rgb(255, 205, 86)',
-            //     'rgb(75, 192, 192)',
-            //     'rgb(54, 162, 235)',
-            //     'rgb(153, 102, 255)',
-            //     'rgb(201, 203, 207)',
-            //     'rgb(203, 67, 53)',
-            //     'rgb(233, 30, 99)',
-            //     'rgb(156, 39, 176)',
-            //     'rgb(103, 58, 183)',
-            //     'rgb(63, 81, 181)',
-            //     'rgb(33, 150, 243)',
-            // ]
             $scope.getOrdersByDate = function (from, to) {
                 const fromDate = $filter('date')(from, 'yyyy-MM-dd');
                 const toDate = $filter('date')(to, 'yyyy-MM-dd');
@@ -1287,11 +1257,8 @@
                             }
                             dailyTotals[orderDate] += order.totalAmount;
                         });
-                        const labels = Object.keys(dailyTotals);
-                        console.log(labels);
+                        const labels = Object.keys(dailyTotals)
                         const data = Object.values(dailyTotals);
-                        console.log(data);
-
                         if (!$scope.orderChart) {
                             $scope.orderChart = new Chart(document.getElementById('orderChart-Line').getContext('2d'), {
                                 type: 'bar',
