@@ -452,6 +452,15 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<!-- Thêm jsPDF từ CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<!-- Thêm html2canvas từ CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<!-- Thêm html2pdf từ CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 <script type="text/javascript">
     // Lấy ngày giờ hiện tại
@@ -469,7 +478,7 @@
     });
     /* Đây mới là phần chính của AngularJS nè =))*/
     var app = angular.module('myApp', ['ngRoute', 'ngTable']);
-    app.controller('myCtrl', function ($scope, $http, NgTableParams, $filter) {
+    app.controller('myCtrl', function ($scope, $http, NgTableParams, $filter, $timeout) {
         $(document).ready(function () {
             $scope.date = new Date().toLocaleString();
             setInterval(function () {
@@ -1566,63 +1575,35 @@
                 });
             }
         };
-        $scope.exportExcelOrder = function () {
-            try {
-                // đang làm
-                const wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet($scope.orderData));
-                XLSX.writeFile(wb, "Danh sách đơn hàng.xlsx");
-                Swal.fire({
-                    title: 'Thành công!',
-                    text: 'Đã xuất file Excel',
-                    icon: 'success',
-                    timer: 3000,
-                    showConfirmButton: false
-                });
-            } catch (error) {
-                Swal.fire({
-                    title: 'Lỗi!',
-                    text: 'Có lỗi xảy ra khi xuất file Excel',
-                    icon: 'error',
-                    timer: 3000,
-                    showConfirmButton: false
-                });
-            }
-        };
-        $scope.exportExcelOrderDetail = function (id) {
-            $http.get(baseUrl + "order-detail/" + id).then(function (resp) {
-                $scope.orderDetail = resp.data;
-            }).catch(function (error) {
-                console.error('Lỗi khi lấy dữ liệu order:', error);
+        $scope.exportOrderDetailPDF = function (id) {
+            Swal.fire({
+                title: 'Đang xử lý...',
+                text: 'Vui lòng chờ...',
+                icon: 'info',
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
             });
-            try {
-                const data = $scope.orderDetail.map((order, index) => ({
-                    "STT": index + 1,
-                    "Sản phẩm": order.productID.productName,
-                    "Giá": order.price,
-                    "Số lượng": order.quantity,
-                    "Tổng": order.price * order.quantity,
-                }));
-                const wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data));
-                XLSX.writeFile(wb, "Hóa đơn số #" + id + ".xlsx");
-                Swal.fire({
-                    title: 'Thành công!',
-                    text: 'Đã xuất file Excel',
-                    icon: 'success',
-                    timer: 3000,
-                    showConfirmButton: false
-                });
-            } catch (error) {
-                Swal.fire({
-                    title: 'Lỗi!',
-                    text: 'Có lỗi xảy ra khi xuất file Excel',
-                    icon: 'error',
-                    timer: 3000,
-                    showConfirmButton: false
-                });
-                console.error('Lỗi khi xuất file Excel:', error);
-            }
+            $timeout(function () {
+                var element = document.getElementById('orderDetailExportForm');
+                var opt = {
+                    margin: 1,
+                    filename: 'Hóa đơn ' + id + '.pdf',
+                    html2canvas: {scale: 2, logging: true, dpi: 300, letterRendering: true},
+                    jsPDF: {unit: 'in', format: 'letter', orientation: 'portrait'}
+                };
+                html2pdf().set(opt).from(element).save();
+                Swal.close();
+            }, 2000);
+        };
+        $scope.exportOrderDetailExcel = function (id) {
+            var element = document.getElementById('orderDetailExportExcelForm');
+            var ws = XLSX.utils.table_to_sheet(element);
+            var wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            XLSX.writeFile(wb, 'Hóa đơn' + id + '.xlsx');
         };
         // CHANGE IMAGE WHEN UPLOAD
         $scope.updatePhotoPetName = function (input) {
