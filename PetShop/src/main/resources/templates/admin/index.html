@@ -43,6 +43,10 @@
             color: white !important;
         }
 
+        .sidebar a:hover span {
+            color: white !important;
+        }
+
         .body-bg-color {
             /*background-color: #f1f6fc !important;*/
             background: url("/images/background/admin-bg.jpg") no-repeat center center fixed;
@@ -406,6 +410,12 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+            <li class="nav-item mb-2">
+                <a th:href="@{/quan-tri-he-thong/send-notification}" class="nav-link text-dark  border shadow-sm">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="text-muted"><strong>Gửi thông báo</strong></span>
+                </a>
             </li>
             <li class="nav-item mb-2">
                 <a th:href="@{/quan-tri-he-thong/slide-bar}" class="nav-link text-dark  border shadow-sm">
