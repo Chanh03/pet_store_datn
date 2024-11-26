@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9790aa60-bce0-4f0d-b6f2-58f7e1899297" name="Changes" comment="11/23 history update 2">
+    <list default="true" id="9790aa60-bce0-4f0d-b6f2-58f7e1899297" name="Changes" comment="11/24 history done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyCart.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyCart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +133,10 @@
       <workItem from="1732193774365" duration="94000" />
       <workItem from="1732359773211" duration="15844000" />
       <workItem from="1732378164149" duration="53000" />
-      <workItem from="1732428857473" duration="2817000" />
+      <workItem from="1732428857473" duration="2855000" />
+      <workItem from="1732531418515" duration="2045000" />
+      <workItem from="1732548676282" duration="1928000" />
+      <workItem from="1732595119169" duration="351000" />
     </task>
     <task id="LOCAL-00001" summary="history 0.1">
       <option name="closed" value="true" />
@@ -222,7 +226,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732378200809</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="11/24 history done">
+      <option name="closed" value="true" />
+      <created>1732431714118</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1732431714118</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -251,6 +263,7 @@
     <MESSAGE value="11/22 latest" />
     <MESSAGE value="11/23 history update" />
     <MESSAGE value="11/23 history update 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="11/23 history update 2" />
+    <MESSAGE value="11/24 history done" />
+    <option name="LAST_COMMIT_MESSAGE" value="11/24 history done" />
   </component>
 </project>
