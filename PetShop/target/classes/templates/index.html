@@ -467,7 +467,7 @@
 <script>
     const app = angular.module('myApp', []);
     app.controller('myCtrl', function ($scope, $http) {
-        // Giỏ hàng
+        // Cart
         $scope.cart = {
             items: JSON.parse(localStorage.getItem('cart')) || [],
 
@@ -861,7 +861,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $http.put("/api/order/status/" + id)
-
                         .then(function (response) {
                             Swal.fire({
                                 title: 'Hủy đơn hàng thành công',
