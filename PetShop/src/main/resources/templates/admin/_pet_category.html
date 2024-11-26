@@ -64,10 +64,14 @@
                     data-title="'Tên loài'" class="text-start text-truncate" style="max-width: 100px">{{
                     pc.petCategoryName }}
                 </td>
-                <td data-title="'Tool'" class="text-center">
+                <td data-title="'Tool'" class="text-center" style="width: 200px">
                     <button ng-click="petCategoryEdit(pc)" class="btn btn-outline-secondary">
                         <i class="fa-solid fa-pen"></i>
                         <span>Sửa</span>
+                    </button>
+                    <button ng-click="petCategoryViewAllPet(pc)" class="btn btn-success">
+                        <i class="fa-solid fa-eye"></i>
+                        <span>Xem</span>
                     </button>
                 </td>
             </tr>
