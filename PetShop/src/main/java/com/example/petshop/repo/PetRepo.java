@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface PetRepo extends JpaRepository<Pet, String> {
-    @Query("SELECT p FROM Pet p ORDER BY p.createDate DESC limit 6")
+    @Query("SELECT p FROM Pet p where p.available = true ORDER BY p.createDate DESC limit 6")
     List<Pet> findAllByCreatedDateDesc();
 
     Page<Pet> findByPetDescriptionContainingIgnoreCase(String keyword, Pageable pageable);

@@ -29,11 +29,10 @@ public class OrderProductDetail {
     @Column(name = "Quantity", nullable = false)
     private Integer quantity;
 
+    @Column(name = "ReviewStatus", nullable = false)
+    private Boolean reviewStatus;
+
     @NotNull
     @Column(name = "Price", nullable = false)
     private Integer price;
-
-    @Column(name = "reviewStatus")
-    private boolean reviewStatus;
-
 }

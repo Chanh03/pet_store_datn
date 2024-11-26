@@ -170,6 +170,9 @@ public class HomeController {
     public String historyDetail(Model model, Principal principal, @PathVariable(name = "id") int id) {
         Order order = orderService.getByOrderId(id);
         List<OrderProductDetail> orderDetailHistory = orderProductDetailService.getByOrderID(order);
+        if (order == null) {
+            return "redirect:/access-denied";
+        }
         System.out.println(orderDetailHistory);
         model.addAttribute("order", order);
         model.addAttribute("orderDetailHistory", orderDetailHistory);

@@ -4,11 +4,13 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +37,7 @@ import com.example.petshop.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/payment")
 public class PaymentController {
@@ -93,18 +96,14 @@ public class PaymentController {
     }
 
     @GetMapping("/vn-pay-callback")
-    public ResponseEntity<Object> payCallbackHandler(HttpServletRequest request) {
+    public ResponseEntity<Object> payCallbackHandler(HttpServletRequest request) throws ParseException {
         // Lấy các tham số từ VNPay gửi về
         String status = request.getParameter("vnp_ResponseCode");
         String maDonHang = request.getParameter("vnp_TxnRef");
         String amount = request.getParameter("vnp_Amount");
         String date = request.getParameter("vnp_PayDate");
-        Date formatDate = new Date();
-        try {
-            formatDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        SimpleDateFormat originalFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date parsedDate = originalFormat.parse(date);
         String orderInfo = request.getParameter("vnp_OrderInfo");
 
         Order order = new Order();
@@ -123,7 +122,7 @@ public class PaymentController {
             dto.setAmount(String.valueOf(amountInt));
             dto.setMessage("Success");
             dto.setMaDonHang(maDonHang);
-            dto.setOrderDate(formatDate);
+            dto.setOrderDate(parsedDate);
             dto.setShippingAddress(extractAddressFromOrderInfo(orderInfo));
             order.setOrderDate(dto.getOrderDate());
             order.setShippingAddress(extractAddressFromOrderInfo(orderInfo));
@@ -132,6 +131,7 @@ public class PaymentController {
             order.setEnable(true);
             order.setOrderStatusID(orderStatusService.findById(1));
             order.setPaymentStatusID(paymentStatusService.findById(2));
+            System.out.println("HELOOOOOOOOOOOOOOOO" + order.getPaymentStatusID().getStatusPayment());
             orderService.save(order);
             // Xử lý thêm nếu có thông tin sản phẩm trong orderInfo
             if (orderInfo != null && !orderInfo.isEmpty()) {
@@ -194,7 +194,7 @@ public class PaymentController {
 
             }
 
-            return ResponseEntity.ok(dto);
+            return ResponseEntity.ok(order);
         } else {
             // Trường hợp thanh toán thất bại
             dto.setCode("400");
