@@ -1,169 +1,160 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/index.html::home(~{::body})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/index.html::home(~{::body})}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang sản phẩm</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <meta name="description"
+          content="Danh sách thú cưng tại cửa hàng, tìm kiếm và sắp xếp dễ dàng.">
+    <title>Danh sách thú cưng</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        .card-hover:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+
+        .button-image {
+            background-color: #f7f7f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .banner-image {
+            height: 250px;
+            object-fit: cover;
+        }
+    </style>
 </head>
 
+<body style="background-color: #f8f9fa;">
+<div class="container py-5">
 
-<body>
-<div class="container">
-    <!--Banner-->
-    <div class="row my-4">
-        <div class="col py-2">
-            <div class="d-flex justify-content-center align-items-center bg-light"
-                 style="height: 200px; width: auto; overflow: hidden;">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOfDDoO35kpsmzeYx9-dm7CX3wA0kJ-44a6A&s"
-                     class="img-fluid" style="object-fit: cover; height: 100%; width: 100%;" alt="Buldog Anh">
-            </div>
+    <!-- Form tìm kiếm và sắp xếp -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <!-- Nút tìm giá tăng dần -->
+    <form action="/allPet" method="get" class="d-flex mb-3">
+        <button type="submit" name="priceOrder" value="asc"
+                class="btn btn-danger ms-2"
+                style="border-radius: 5px; padding: 8px 10px; display: flex; align-items: center; justify-content: center;">
+            <span th:if="${priceOrder == 'asc'}">Giá ↑</span>
+            <span th:if="${priceOrder != 'asc'}">Giá ↑</span>
+        </button>
+
+        <!-- Nút tìm giá giảm dần -->
+        <button type="submit" name="priceOrder" value="desc"
+                class="btn btn-danger ms-2"
+                style="border-radius: 5px; padding: 8px 10px; display: flex; align-items: center; justify-content: center;">
+            <span th:if="${priceOrder == 'desc'}">Giá ↓</span>
+            <span th:if="${priceOrder != 'desc'}">Giá ↓</span>
+        </button>
+
+        <!-- Tìm kiếm theo giá -->
+        <input type="number" class="form-control ms-2" name="minPrice"
+               placeholder="Giá từ" th:value="${minPrice}"
+               style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
+        <input type="number" class="form-control ms-2" name="maxPrice"
+               placeholder="Giá đến" th:value="${maxPrice}"
+               style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
+
+        <!-- Nút tìm kiếm -->
+        <button type="submit" class="btn btn-danger ms-2"
+                style="border-radius: 5px;">Tìm kiếm</button>
+    </form>
+
+    <!-- Form tìm kiếm thú cưng -->
+    <form action="/allPet" method="get" class="d-flex col-md-4 ms-auto">
+        <input type="text" name="keyword" class="form-control form-control-lg me-2"
+               placeholder="Tìm kiếm thú cưng..." th:value="${keyword}"
+               style="border: 2px solid #dc3545; font-size: 16px; height: 45px; padding-left: 12px;">
+        <button type="submit" class="btn btn-danger d-flex align-items-center"
+                style="border-radius: 5px; padding: 8px 20px; font-size: 16px;">
+            Tìm kiếm <i class="bi bi-search ms-2"></i>
+        </button>
+    </form>
+</div>
+
+    <hr>
+
+    <!-- Hiển thị danh sách thú cưng -->
+    <div class="row">
+        <div th:if="${#lists.isEmpty(pets)}" class="text-center py-5">
+            <h4 class="text-danger">Không có thú cưng nào!</h4>
+        </div>
+
+        <div th:each="pet : ${pets}" class="col-lg-2 col-md-4 col-sm-4 col-6">
+            <a class="nav-link" th:href="@{/pet/detail/{id}(id=${pet.petID})}">
+                <div class="card card-hover border-0 position-relative">
+                    <div class="button-image">
+                        <img loading="lazy"
+                             th:src="@{/images/pet/{photo}(photo=${pet.photo != null ? pet.photo : 'placeholder.jpg'})}"
+                             class="card-img-top card-image" alt="pet">
+                    </div>
+                    <div class="card-body text-center">
+                        <h5
+                                th:text="${pet.petCategoryID.petCategoryName + ' ' + pet.breed + ' ' + pet.hair}"></h5>
+                        <span th:text="${'ID: ' + pet.petID}"></span>
+                        <p class="text-danger fw-bold" th:text="${pet.price + ' VND'}"></p>
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
-    <!--End banner-->
 
-    <!--Product Section-->
-    <div class="row">
-        <!--Title-->
-        <div class="row">
-            <div class="title-list">
-                <h3 class="text-danger">Tất cả thú cưng</h3>
-                <hr/>
-            </div>
+    <!-- Phân trang -->
+    <div class="row py-3" th:if="${pets.size() > 8}">
+        <div class="col">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <!-- Trang trước -->
+                    <li class="page-item"
+                        th:classappend="${currentPage == 1} ? 'disabled' : ''">
+                        <a class="page-link text-white bg-danger"
+                           th:href="@{/allPet(page=${currentPage - 1}, keyword=${keyword}, priceOrder=${sort})}"
+                           aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    <!-- Các trang giữa -->
+                    <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                        th:classappend="${i == currentPage - 1} ? 'active' : ''"
+                        class="page-item">
+                        <a class="page-link"
+                           th:href="@{/allPet(page=${i}, keyword=${keyword}, priceOrder=${sort})}"
+                           th:text="${i + 1}"></a>
+                    </li>
+
+                    <!-- Trang sau -->
+                    <li class="page-item"
+                        th:classappend="${currentPage == totalPages} ? 'disabled' : ''">
+                        <a class="page-link text-white bg-danger"
+                           th:href="@{/allPet(page=${currentPage + 1}, keyword=${keyword}, priceOrder=${sort})}"
+                           aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
+    </div>
+    <!-- End Phân trang -->
 
-        <!--Product Filter and List-->
-        <div class="col-3">
+</div>
 
-            <div class="row">
-                <div class="col" style="border-radius: 5px; padding: 10px; box-shadow: 0 4px 15px grey;">
-                    <div class="title-category">
-                        <h6 class="text-white text-center bg-danger p-2" style="margin-right: 200px">Danh mục</h6>
-                    </div>
-                    <ul class="list-group category-list">
-                        <li class="list-group-item ps-0" style="border: none;">CHÓ NGAO TÂY TẠN</li>
-                        <li class="list-group-item ps-0" style="border: none;">CHÓ NGAO TÂY TẠN</li>
-                        <li class="list-group-item ps-0" style="border: none;">CHÓ NGAO TÂY TẠN</li>
-                        <li class="list-group-item ps-0" style="border: none;">CHÓ NGAO TÂY TẠN</li>
-                        <li class="list-group-item ps-0" style="border: none;">CHÓ NGAO TÂY TẠN</li>
-                        <li class="list-group-item ps-0" style="border: none;">CHÓ NGAO TÂY TẠN</li>
-                        <li class="list-group-item ps-0" style="border: none;">CHÓ NGAO TÂY TẠN</li>
-                        <li class="list-group-item ps-0" style="border: none;">CHÓ NGAO TÂY TẠN</li>
-                        <li class="list-group-item ps-0" style="border: none;">CHÓ NGAO TÂY TẠN</li>
-                        <li class="list-group-item ps-0" style="border: none;">CHÓ NGAO TÂY TẠN</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-9">
-            <!--Filter-->
-            <div class="row py-2">
-                <div class="col-6">
-                    <select class="form-select form-select-lg mb-3">
-                        <option selected>Chọn theo giá</option>
-                        <option value="1">Tăng dần</option>
-                        <option value="2">Giảm dần</option>
-                    </select>
-                </div>
-                <div class="col-6">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg" placeholder="Tìm kiếm sản phẩm...">
-                        <button type="button" class="btn btn-outline-danger">Tìm kiếm <i
-                                class="bi bi-search"></i></button>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row py-3">
-                <div class="col-4 mb-4" th:each="p : ${listPet}">
-                    <div class="card" style="width: 18rem;height: 100%; position: relative;">
-                        <div
-                                style="position: absolute; top: 10px; left: 10px; background-color: green; color: white; padding: 5px; width: 80px; text-align: center; font-size: 14px;">
-                            Còn hàng
-                        </div>
-                        <img th:src="@{/images/pet/{photo}(photo=${p.photo})}"
-                             class="card-img-top" style="height: 18rem; object-fit:cover" alt="Khay thức ăn cho chó">
-                        <div class="card-body my-0 px-0" style="margin-top: 0; padding-top: 0;">
-                            <a href="#" class="btn btn-block btn-danger w-100 "
-                               style="border-radius: 0; margin-bottom: 15px;">Add to cart</a>
-                            <p class="card-text text-center mb-0" th:text="${p.breed}">CHÓ BICHON</p>
-                            <p class="card-text text-center mt-0"><span class="text-danger" th:text="${p.price}">400.000đ</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row py-3">
-                <div class="col">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item">
-                                <a class="page-link text-white bg-danger mx-1" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link text-danger mx-1" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link text-danger mx-1" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link text-danger mx-1" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link text-white bg-danger mx-1" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-
-
-
-
-        <h2 class="text-center text-danger">Các dịch vụ khuyến khích</h2>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="img/dichvu2.jpg" class="card-img-top" alt="Dịch vụ 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Dịch vụ chăm sóc thú cưng</h5>
-                        <p class="card-text">Mô tả chi tiết về dịch vụ chăm sóc thú cưng của bạn.</p>
-                        <a href="#" class="btn btn-primary">Tìm hiểu thêm</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="img/dichvu2.jpg" class="card-img-top" alt="Dịch vụ 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Dịch vụ tắm và cắt tỉa</h5>
-                        <p class="card-text">Mô tả chi tiết về dịch vụ tắm và cắt tỉa.</p>
-                        <a href="#" class="btn btn-primary">Tìm hiểu thêm</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="img/dichvu2.jpg" class="card-img-top" alt="Dịch vụ 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Dịch vụ khám bệnh</h5>
-                        <p class="card-text">Mô tả chi tiết về dịch vụ khám bệnh.</p>
-                        <a href="#" class="btn btn-primary">Tìm hiểu thêm</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-</body>
+<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-<script src="service.js"></script>
+</body>
 
 </html>

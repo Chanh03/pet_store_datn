@@ -14,6 +14,6 @@ public interface ReviewRepo extends JpaRepository<Review, Integer> {
 
     List<Review> findByProductIDAndRatingGreaterThan(Product product, int i);
 
-    @Query("SELECT r FROM Review r WHERE r.rating >= 4  ORDER BY r.reviewDate DESC limit 5")
+    @Query("SELECT r FROM Review r WHERE r.rating >= 1  ORDER BY r.reviewDate DESC limit 5")
     List<Review> findTop4ByOrderByCreatedDateDesc();
 }
