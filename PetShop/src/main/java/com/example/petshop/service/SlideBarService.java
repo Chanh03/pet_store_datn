@@ -14,4 +14,6 @@ public interface SlideBarService {
     SliderBar getById(Integer id);
 
     void delete(Integer id);
+
+    void deleteAll();
 }

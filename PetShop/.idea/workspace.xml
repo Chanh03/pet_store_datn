@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update order chart">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestSlideBarController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_sildeBar.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_slideBarModal.html" afterDir="false" />
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="add slide 99%">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_slideBarAddModal.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestSlideBarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestSlideBarController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/SlideBarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/SlideBarService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/SlideBarServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/SlideBarServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_sildeBar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_sildeBar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -240,15 +239,7 @@
       <workItem from="1732360905764" duration="8753000" />
       <workItem from="1732543498108" duration="6728000" />
       <workItem from="1732611532905" duration="9971000" />
-      <workItem from="1732623882448" duration="3704000" />
-    </task>
-    <task id="LOCAL-00031" summary="up">
-      <option name="closed" value="true" />
-      <created>1730906479493</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1730906479493</updated>
+      <workItem from="1732623882448" duration="10093000" />
     </task>
     <task id="LOCAL-00032" summary="update product form">
       <option name="closed" value="true" />
@@ -634,7 +625,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732621572680</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="add slide 99%">
+      <option name="closed" value="true" />
+      <created>1732627749155</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1732627749155</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -664,7 +663,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update fade-in scroll up" />
     <MESSAGE value="change order status send mail to customer" />
     <MESSAGE value="update order status send mail" />
     <MESSAGE value="update send mail order status" />
@@ -689,7 +687,8 @@
     <MESSAGE value="update main" />
     <MESSAGE value="add filter date order chart" />
     <MESSAGE value="update order chart" />
-    <option name="LAST_COMMIT_MESSAGE" value="update order chart" />
+    <MESSAGE value="add slide 99%" />
+    <option name="LAST_COMMIT_MESSAGE" value="add slide 99%" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

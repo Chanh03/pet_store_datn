@@ -227,6 +227,63 @@
         .hover-opacity-visible {
             opacity: 0;
         }
+
+        /*SLIDE BAR FULL SCREEN*/
+        .fullscreen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            text-align: center;
+            flex-direction: column;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        #fullscreenImage {
+            max-width: 90%;
+            max-height: 80vh;
+            margin-bottom: 20px;
+            border: 5px solid transparent;
+            transition: border 0.3s ease;
+        }
+
+        .image-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .thumb-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: border 0.3s ease;
+        }
+
+        .current-image {
+            border: 5px solid #8bb4ff;
+        }
+
+        .image-thumbnail:hover .thumb-image {
+            border: 5px solid #8bb4ff;
+        }
+
+        .selected-thumbnail {
+            border: 5px solid #8bb4ff;
+        }
+
+
     </style>
 </head>
 
@@ -246,6 +303,7 @@
 <div th:insert="~{/admin/_order-detail}"></div>
 
 <div th:insert="~{/admin/_slideBarModal}"></div>
+<div th:insert="~{/admin/_slideBarAddModal}"></div>
 <!-- MAIN CONTENT -->
 <main class="container-fluid p-0 d-flex">
     <div id="bdSidebar"
@@ -272,7 +330,7 @@
                    aria-controls="submenuPet">
                     <div>
                         <i class="fa-solid fa-paw"></i>
-                        <span>Thú cưng</span>
+                        <span class="text-muted">Quản lý <strong>Thú cưng</strong></span>
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
                 </a>
@@ -298,12 +356,11 @@
                    aria-controls="submenuProduct">
                     <div>
                         <i class="fa-solid fa-box"></i>
-                        <span>Sản phẩm</span>
+                        <span class="text-muted">Quản lý <strong>Sản phẩm</strong></span>
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
                 </a>
-                <ul class="collapse list-unstyled ms-3" id="submenuProduct"
-                >
+                <ul class="collapse list-unstyled ms-3" id="submenuProduct">
                     <li>
                         <a th:href="@{/quan-tri-he-thong/product}" class="nav-link text-dark">
                             <i class="fa-solid fa-box"></i>
@@ -321,7 +378,7 @@
             <li class="nav-item mb-2">
                 <a th:href="@{/quan-tri-he-thong/order}" class="nav-link text-dark  border shadow-sm">
                     <i class="fa-solid fa-shopping-cart"></i>
-                    <span>Đơn hàng</span>
+                    <span class="text-muted">Quản lý <strong>Đơn hàng</strong></span>
                 </a>
             </li>
             <li sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-item mb-2">
@@ -331,12 +388,11 @@
                    aria-controls="submenuUser">
                     <div>
                         <i class="fa-solid fa-user"></i>
-                        <span>Người dùng</span>
+                        <span class="text-muted">Quản lý <strong>Người dùng</strong></span>
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
                 </a>
-                <ul class="collapse list-unstyled ms-3" id="submenuUser"
-                >
+                <ul class="collapse list-unstyled ms-3" id="submenuUser">
                     <li>
                         <a th:href="@{/quan-tri-he-thong/user}" class="nav-link text-dark">
                             <i class="fa-solid fa-user"></i>
@@ -354,7 +410,7 @@
             <li class="nav-item mb-2">
                 <a th:href="@{/quan-tri-he-thong/slide-bar}" class="nav-link text-dark  border shadow-sm">
                     <i class="fa-solid fa-image"></i>
-                    <span>Banner</span>
+                    <span class="text-muted">Quản lý ảnh <strong>Slide</strong></span>
                 </a>
             </li>
         </ul>
@@ -411,6 +467,31 @@
                     $scope.date = new Date().toLocaleString();
                 });
             }, 1000);
+        });
+        $(document).ready(function () {
+            $scope.currentImageIndex = null;
+            $scope.viewFullImage = function (imageName, index) {
+                $scope.currentImageIndex = index;
+                var imageSrc = '/images/slide/' + imageName;
+                document.getElementById("fullscreenImage").src = imageSrc;
+                document.getElementById("fullscreenOverlay").style.display = "flex";
+                var thumbnails = document.querySelectorAll('.image-thumbnail');
+                thumbnails.forEach(function (thumbnail, i) {
+                    if (i === index) {
+                        thumbnail.classList.add('selected-thumbnail');
+                    } else {
+                        thumbnail.classList.remove('selected-thumbnail');
+                    }
+                });
+            };
+            document.getElementById("closeFullscreen").onclick = function () {
+                document.getElementById("fullscreenOverlay").style.display = "none";
+            };
+            document.getElementById("fullscreenOverlay").onclick = function (event) {
+                if (event.target === document.getElementById("fullscreenOverlay")) {
+                    document.getElementById("fullscreenOverlay").style.display = "none";
+                }
+            };
         });
         $scope.getCurrentDate = function (date) {
             if (date) {
@@ -1592,6 +1673,38 @@
                 });
             });
         };
+        $scope.addSlideBar = function () {
+            $http.post(baseUrl + 'slide-bar', $scope.selectedSlideBar).then(function (response) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Thêm mới thành công :',
+                    autoclose: true,
+                    status: 'success',
+                    autotimeout: 3000
+                });
+                $scope.getSlideBar();
+            }).catch(function (error) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Lỗi khi thêm mới :',
+                    autoclose: true,
+                    status: 'warning',
+                    autotimeout: 3000
+                });
+            });
+        };
+        $scope.slideBarAddModal = function () {
+            $scope.selectedSlideBar = {
+                sliderImage: null,
+                sliderTitle: null,
+                sliderDescription: null,
+                sliderLink: null,
+            };
+            var addSlideBarModal = new bootstrap.Modal(document.getElementById('addSlideBarModal'), {
+                keyboard: true
+            });
+            addSlideBarModal.show();
+        };
         $scope.deleteSlideBar = function (slideBarId) {
             Swal.fire({
                 title: 'Bạn có chắc chắn muôn xóa?',
@@ -1623,6 +1736,37 @@
                 }
             });
         };
+        $scope.deleteSlideBarALL = function (slideBarId) {
+            Swal.fire({
+                title: 'Bạn có chắc chắn muôn xóa toàn bộ ảnh?',
+                text: "Bạn sẽ không thể khôi phục hành động này!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận!',
+                cancelButtonText: 'Hủy bỏ'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $http.delete(baseUrl + 'slide-bar').then(function (response) {
+                        Swal.fire({
+                            title: 'Đã xóa!',
+                            text: ' Slide bar đã được xóa thành công.',
+                            icon: 'success',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                        $scope.getSlideBar();
+                    }).catch(function (error) {
+                        Swal.fire({
+                            title: 'Lỗi!',
+                            text: 'Lỗi khi xóa slide bar',
+                            icon: 'error',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    });
+                }
+            });
+        };
         $scope.slideBarEditModal = function (slideBar) {
             $scope.selectedSlideBar = angular.copy(slideBar);
             var editSlideBarModal = new bootstrap.Modal(document.getElementById('editSlideBarModal'), {
@@ -1630,26 +1774,6 @@
             });
             editSlideBarModal.show();
         };
-        // $scope.updatePhotoPetName = function (input) {
-        //     // Xóa mảng ảnh đã chọn cũ
-        //     $scope.selectedImages = [];
-        //
-        //     // Lấy các tệp ảnh đã chọn
-        //     var files = input.files;
-        //
-        //     // Duyệt qua các tệp ảnh và thêm vào mảng selectedImages
-        //     for (var i = 0; i < files.length; i++) {
-        //         var reader = new FileReader();
-        //
-        //         reader.onload = function (e) {
-        //             $scope.$apply(function () {
-        //                 $scope.selectedImages.push(e.target.result); // Lưu đường dẫn của ảnh
-        //             });
-        //         };
-        //
-        //         reader.readAsDataURL(files[i]); // Đọc tệp ảnh và chuyển đổi thành URL
-        //     }
-        // };
     });
 </script>
 </body>

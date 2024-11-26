@@ -32,4 +32,9 @@ public class SlideBarServiceImpl implements SlideBarService {
     public void delete(Integer id) {
         slideBarRepo.deleteById(id);
     }
+
+    @Override
+    public void deleteAll() {
+        slideBarRepo.deleteAll();
+    }
 }
