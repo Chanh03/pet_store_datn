@@ -17,4 +17,19 @@ public class SlideBarServiceImpl implements SlideBarService {
     public List<SliderBar> getAll() {
         return slideBarRepo.findAll();
     }
+
+    @Override
+    public SliderBar save(SliderBar sliderBar) {
+        return slideBarRepo.save(sliderBar);
+    }
+
+    @Override
+    public SliderBar getById(Integer id) {
+        return slideBarRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        slideBarRepo.deleteById(id);
+    }
 }

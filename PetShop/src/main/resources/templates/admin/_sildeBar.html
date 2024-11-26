@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/index.html::admin(~{::body})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+<div class="mt-3">
+    <div class="mt-1 mb-3 rounded-3 overflow-hidden shadow p-4 bg-white">
+        <!--BREADCRUMB-->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/quan-tri-he-thong">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">SlideBar</li>
+            </ol>
+        </nav>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>
+                <span>Quản lý SlideBar</span>
+                <i class="fa-solid fa-images"></i>
+            </h1>
+            <div>
+                <button ng-click="productAddModal()" class="insert-btn btn px-4 py-3">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Thêm slide mới</span>
+                </button>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="text-center mt-1 mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
+        <div class="row g-3">
+            <div class="col-4" ng-repeat="slide in slideBarData track by $index">
+                <div class="slide-container card shadow position-relative">
+                    <img ng-src="/images/slide/{{slide.sliderImage}}" alt="{{slide.sliderImage}}"
+                         class="slide-image w-100">
+                    <div class="slide-controls rounded-3 position-absolute top-50 start-50 translate-middle bg-white p-2 opacity-hidden hover-opacity-visible">
+                        <button ng-click="slideBarEditModal(slide)" class="btn btn-primary">
+                            <i class="fa-solid fa-edit"></i>
+                        </button>
+                        <button ng-click="deleteSlideBar(slide.id)" class="btn btn-danger">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                    <div class="slide-index position-absolute bg-white px-3 py-2 rounded-start-3 fw-bold "
+                         style="bottom: 10%; right: 0;transform: translateY(50%);">
+                        <div>
+                            <span>{{$index + 1}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 card shadow d-flex justify-content-center align-items-center" style="height: 300px;">
+                <button ng-click="slideAddModal()" class="insert-btn btn px-4 py-3">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Thêm slide mới</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

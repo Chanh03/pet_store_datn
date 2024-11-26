@@ -48,4 +48,9 @@ public class AdminController {
         return "admin/_authority";
     }
 
+    @RequestMapping("/slide-bar")
+    public String adminSlideBar(Model model) {
+        return "admin/_sildeBar";
+    }
+
 }

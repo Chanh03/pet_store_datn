@@ -202,59 +202,31 @@
         }
 
         .open-order-detail-button {
-            background-color: #e0f7fa; /* Màu nền xanh nhạt */
-            color: #00796b; /* Màu chữ xanh đậm */
-            border: 1px solid #00796b; /* Đường viền xanh đậm */
+            background-color: #e0f7fa;
+            color: #00796b;
+            border: 1px solid #00796b;
             cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển đổi mượt */
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .open-order-detail-button:hover {
-            background-color: #00796b; /* Màu nền xanh đậm khi hover */
-            color: #ffffff; /* Màu chữ trắng khi hover */
+            background-color: #00796b;
+            color: #ffffff;
         }
 
-        .chart-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-end;
-            height: 400px;
-            width: 100%;
+        .slide-container:hover .slide-image {
+            filter: brightness(0.5);
+            transition: filter 0.3s;
         }
 
-        .chart-bar {
-            width: 30px;
-            margin: 0 10px;
-            position: relative;
-            text-align: center;
+        .slide-container:hover .hover-opacity-visible {
+            opacity: 1;
+            transition: opacity 0.3s;
         }
 
-        .bar {
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-            background-color: rgba(75, 192, 192, 0.5);
-            border-radius: 4px;
+        .hover-opacity-visible {
+            opacity: 0;
         }
-
-        .bar.increase {
-            background-color: rgba(75, 192, 192, 1);
-        }
-
-        .bar.decrease {
-            background-color: rgba(255, 99, 132, 1);
-        }
-
-        .bar i {
-            font-size: 20px;
-            color: white;
-        }
-
-        p {
-            margin-top: 10px;
-            font-size: 12px;
-        }
-
     </style>
 </head>
 
@@ -272,6 +244,8 @@
 <div th:insert="~{/admin/_userModal}"></div>
 
 <div th:insert="~{/admin/_order-detail}"></div>
+
+<div th:insert="~{/admin/_slideBarModal}"></div>
 <!-- MAIN CONTENT -->
 <main class="container-fluid p-0 d-flex">
     <div id="bdSidebar"
@@ -378,7 +352,7 @@
                 </ul>
             </li>
             <li class="nav-item mb-2">
-                <a th:href="@{/quan-tri-he-thong/banner}" class="nav-link text-dark  border shadow-sm">
+                <a th:href="@{/quan-tri-he-thong/slide-bar}" class="nav-link text-dark  border shadow-sm">
                     <i class="fa-solid fa-image"></i>
                     <span>Banner</span>
                 </a>
@@ -430,321 +404,350 @@
     /* Đây mới là phần chính của AngularJS nè =))*/
     var app = angular.module('myApp', ['ngRoute', 'ngTable']);
     app.controller('myCtrl', function ($scope, $http, NgTableParams, $filter) {
-            $(document).ready(function () {
-                $scope.date = new Date().toLocaleString();
-                setInterval(function () {
-                    $scope.$apply(function () {
-                        $scope.date = new Date().toLocaleString();
-                    });
-                }, 1000);
-            });
-            $scope.getCurrentDate = function (date) {
-                if (date) {
-                    return $filter('date')(new Date() - 7 * 24 * 60 * 60 * 1000, 'yyyy-MM-dd');
-                }
-                return $filter('date')(new Date(), 'yyyy-MM-dd');
-            };
-            var baseUrl = window.location.origin + '/api/';
-            /*PET*/
-            $scope.getPets = function () {
-                $http.get(baseUrl + 'pet').then(function (response) {
-                    $scope.petData = response.data;
-                    $scope.petAvailableTrueLength = $scope.petData.filter(pet => pet.available === true).length;
-                    $scope.petAvailableFalseLength = $scope.petData.filter(pet => pet.available === false).length;
-                    $scope.petEnableTrueLength = $scope.petData.filter(pet => pet.enable === true).length;
-                    $scope.petEnableFalseLength = $scope.petData.filter(pet => pet.enable === false).length;
-                    // PET TABLE
-                    $scope.petsTable = new NgTableParams({
-                        page: 1,
-                        count: 5
-                    }, {
-                        counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.petData.length],
-                        dataset: $scope.petData
-                    });
-                    const petCounts = $scope.petData.reduce((petTemp, currentPet) => {
-                        const categoryName = currentPet.petCategoryID.petCategoryName;
-                        petTemp[categoryName] = (petTemp[categoryName] || 0) + 1;
-                        return petTemp;
-                    }, {});
-                    $scope.petLabelsChart = Object.keys(petCounts);
-                    $scope.petDataChart = Object.values(petCounts);
-                    // Tạo biểu đồ
-                    new Chart(document.getElementById('petChart-Bar').getContext('2d'), {
-                        type: 'bar',
-                        data: {
-                            labels: $scope.petLabelsChart,
-                            datasets: [{
-                                label: 'Số lượng từng loài',
-                                data: $scope.petDataChart,
-                                backgroundColor: colors.slice(0, $scope.petLabelsChart.length),
-                                borderColor: colors.slice(0, $scope.petLabelsChart.length),
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            plugins: {
-                                legend: {
-                                    display: true,
-                                    labels: {
-                                        generateLabels: function (chart) {
-                                            return chart.data.labels.map((label, index) => {
-                                                return {
-                                                    text: label,
-                                                    fillStyle: colors[index],
-                                                    strokeStyle: colors[index],
-                                                    lineWidth: 1,
-                                                    index: index
-                                                };
-                                            });
-                                        }
+        $(document).ready(function () {
+            $scope.date = new Date().toLocaleString();
+            setInterval(function () {
+                $scope.$apply(function () {
+                    $scope.date = new Date().toLocaleString();
+                });
+            }, 1000);
+        });
+        $scope.getCurrentDate = function (date) {
+            if (date) {
+                return $filter('date')(new Date() - 7 * 24 * 60 * 60 * 1000, 'yyyy-MM-dd');
+            }
+            return $filter('date')(new Date(), 'yyyy-MM-dd');
+        };
+        var baseUrl = window.location.origin + '/api/';
+        /*PET*/
+        $scope.getPets = function () {
+            $http.get(baseUrl + 'pet').then(function (response) {
+                $scope.petData = response.data;
+                $scope.petAvailableTrueLength = $scope.petData.filter(pet => pet.available === true).length;
+                $scope.petAvailableFalseLength = $scope.petData.filter(pet => pet.available === false).length;
+                $scope.petEnableTrueLength = $scope.petData.filter(pet => pet.enable === true).length;
+                $scope.petEnableFalseLength = $scope.petData.filter(pet => pet.enable === false).length;
+                // PET TABLE
+                $scope.petsTable = new NgTableParams({
+                    page: 1,
+                    count: 5
+                }, {
+                    counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.petData.length],
+                    dataset: $scope.petData
+                });
+                const petCounts = $scope.petData.reduce((petTemp, currentPet) => {
+                    const categoryName = currentPet.petCategoryID.petCategoryName;
+                    petTemp[categoryName] = (petTemp[categoryName] || 0) + 1;
+                    return petTemp;
+                }, {});
+                $scope.petLabelsChart = Object.keys(petCounts);
+                $scope.petDataChart = Object.values(petCounts);
+                // Tạo biểu đồ
+                new Chart(document.getElementById('petChart-Bar').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: $scope.petLabelsChart,
+                        datasets: [{
+                            label: 'Số lượng từng loài',
+                            data: $scope.petDataChart,
+                            backgroundColor: colors.slice(0, $scope.petLabelsChart.length),
+                            borderColor: colors.slice(0, $scope.petLabelsChart.length),
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                display: true,
+                                labels: {
+                                    generateLabels: function (chart) {
+                                        return chart.data.labels.map((label, index) => {
+                                            return {
+                                                text: label,
+                                                fillStyle: colors[index],
+                                                strokeStyle: colors[index],
+                                                lineWidth: 1,
+                                                index: index
+                                            };
+                                        });
                                     }
                                 }
                             }
                         }
-                    });
-                }).catch(function (error) {
-                    console.error('Lỗi khi lấy dữ liệu thú cưng:', error);
-                });
-            };
-            $scope.getPets();
-            $scope.petEdit = function (pet) {
-                $scope.selectedPet = angular.copy(pet);
-                var editPetModal = new bootstrap.Modal(document.getElementById('editPetModal'), {
-                    keyboard: true
-                });
-                editPetModal.show();
-            };
-            $scope.addPetModal = function () {
-                $scope.selectedPet = {
-                    petID: null,
-                    breed: null,
-                    age: null,
-                    hair: null,
-                    famous: null,
-                    petDescription: null,
-                    gender: true,
-                    available: false,
-                    photo: 'pet-placeholder.png',
-                    enable: true,
-                    petCategoryID: {
-                        id: 1
                     }
-                };
-                var addPetModal = new bootstrap.Modal(document.getElementById('addPetModal'), {
-                    keyboard: true
                 });
-                addPetModal.show();
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu thú cưng:', error);
+            });
+        };
+        $scope.getPets();
+        $scope.petEdit = function (pet) {
+            $scope.selectedPet = angular.copy(pet);
+            var editPetModal = new bootstrap.Modal(document.getElementById('editPetModal'), {
+                keyboard: true
+            });
+            editPetModal.show();
+        };
+        $scope.addPetModal = function () {
+            $scope.selectedPet = {
+                petID: null,
+                breed: null,
+                age: null,
+                hair: null,
+                famous: null,
+                petDescription: null,
+                gender: true,
+                available: false,
+                photo: 'pet-placeholder.png',
+                enable: true,
+                petCategoryID: {
+                    id: 1
+                }
             };
-            $scope.addPet = function (petID) {
-                if ($scope.selectedPet.petID == null) {
-                    new Notify({
-                        title: 'Thông báo',
-                        text: 'Vui lòng nhập đầy đủ thông tin :',
-                        autoclose: true,
-                        status: 'error',
-                        autotimeout: 3000
-                    });
-                } else {
-                    $http.get(baseUrl + 'pet/' + petID).then(function (response) {
-                        if (response.data) { // Kiểm tra nếu có dữ liệu trả về
-                            new Notify({
-                                title: 'Thông báo',
-                                text: 'ID pet đã tồn tại!',
-                                autoclose: true,
-                                status: 'error',
-                                autotimeout: 3000
-                            });
-                        } else {
-                            $http.post(baseUrl + 'pet', $scope.selectedPet).then(function (response) {
-                                new Notify({
-                                    title: 'Thông báo',
-                                    text: 'Thêm mới thành công :' + petID,
-                                    autoclose: true,
-                                    status: 'success',
-                                    autotimeout: 3000
-                                });
-                                $scope.getPets();
-                            }).catch(function (error) {
-                                new Notify({
-                                    title: 'Thông báo',
-                                    text: 'Lỗi khi thêm mới :' + petID,
-                                    autoclose: true,
-                                    status: 'warning',
-                                    autotimeout: 3000
-                                });
-                            });
-                        }
-                    }).catch(function (error) {
-                        // Xử lý lỗi nếu có
+            var addPetModal = new bootstrap.Modal(document.getElementById('addPetModal'), {
+                keyboard: true
+            });
+            addPetModal.show();
+        };
+        $scope.addPet = function (petID) {
+            if ($scope.selectedPet.petID == null) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Vui lòng nhập đầy đủ thông tin :',
+                    autoclose: true,
+                    status: 'error',
+                    autotimeout: 3000
+                });
+            } else {
+                $http.get(baseUrl + 'pet/' + petID).then(function (response) {
+                    if (response.data) { // Kiểm tra nếu có dữ liệu trả về
                         new Notify({
                             title: 'Thông báo',
-                            text: 'Có lỗi xảy ra khi kiểm tra ID pet.',
+                            text: 'ID pet đã tồn tại!',
                             autoclose: true,
                             status: 'error',
                             autotimeout: 3000
                         });
-                    });
-                }
-            };
-            $scope.updatePet = function (petId) {
-                if (petId == null) {
+                    } else {
+                        $http.post(baseUrl + 'pet', $scope.selectedPet).then(function (response) {
+                            new Notify({
+                                title: 'Thông báo',
+                                text: 'Thêm mới thành công :' + petID,
+                                autoclose: true,
+                                status: 'success',
+                                autotimeout: 3000
+                            });
+                            $scope.getPets();
+                        }).catch(function (error) {
+                            new Notify({
+                                title: 'Thông báo',
+                                text: 'Lỗi khi thêm mới :' + petID,
+                                autoclose: true,
+                                status: 'warning',
+                                autotimeout: 3000
+                            });
+                        });
+                    }
+                }).catch(function (error) {
+                    // Xử lý lỗi nếu có
                     new Notify({
                         title: 'Thông báo',
-                        text: 'Vui lòng nhập đầy đủ thông tin :',
+                        text: 'Có lỗi xảy ra khi kiểm tra ID pet.',
                         autoclose: true,
                         status: 'error',
                         autotimeout: 3000
                     });
-                } else {
-                    $http.put(baseUrl + 'pet/' + petId, $scope.selectedPet).then(function (response) {
-                        new Notify({
-                            title: 'Thông báo',
-                            text: 'Cập nhật thành công :' + petId,
-                            autoclose: true,
-                            status: 'success',
-                            autotimeout: 3000
+                });
+            }
+        };
+        $scope.updatePet = function (petId) {
+            if (petId == null) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Vui lòng nhập đầy đủ thông tin :',
+                    autoclose: true,
+                    status: 'error',
+                    autotimeout: 3000
+                });
+            } else {
+                $http.put(baseUrl + 'pet/' + petId, $scope.selectedPet).then(function (response) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Cập nhật thành công :' + petId,
+                        autoclose: true,
+                        status: 'success',
+                        autotimeout: 3000
+                    });
+                    $scope.getPets();
+                }).catch(function (error) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Lỗi khi cập nhật :' + petId,
+                        autoclose: true,
+                        status: 'warning',
+                        autotimeout: 3000
+                    });
+                });
+            }
+        };
+        $scope.deletePet = function (petId) {
+            Swal.fire({
+                title: 'Bạn có chắc chắn muôn xóa?' + petId,
+                text: "Bạn sẽ không thể khôi phục hành động này!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận!',
+                cancelButtonText: 'Hủy bỏ'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $http.delete(baseUrl + 'pet/' + petId).then(function (response) {
+                        Swal.fire({
+                            title: 'Đã xóa!',
+                            text: 'Pet có ID: ' + petId + ' đã được xóa thành công.',
+                            icon: 'success',
+                            timer: 3000,
+                            showConfirmButton: false
                         });
                         $scope.getPets();
                     }).catch(function (error) {
-                        new Notify({
-                            title: 'Thông báo',
-                            text: 'Lỗi khi cập nhật :' + petId,
-                            autoclose: true,
-                            status: 'warning',
-                            autotimeout: 3000
+                        Swal.fire({
+                            title: 'Lỗi!',
+                            text: 'Lỗi khi xóa pet có ID: ' + petId,
+                            icon: 'error',
+                            timer: 3000,
+                            showConfirmButton: false
                         });
                     });
                 }
-            };
-            $scope.deletePet = function (petId) {
-                Swal.fire({
-                    title: 'Bạn có chắc chắn muôn xóa?' + petId,
-                    text: "Bạn sẽ không thể khôi phục hành động này!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Xác nhận!',
-                    cancelButtonText: 'Hủy bỏ'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $http.delete(baseUrl + 'pet/' + petId).then(function (response) {
-                            Swal.fire({
-                                title: 'Đã xóa!',
-                                text: 'Pet có ID: ' + petId + ' đã được xóa thành công.',
-                                icon: 'success',
-                                timer: 3000,
-                                showConfirmButton: false
-                            });
-                            $scope.getPets();
-                        }).catch(function (error) {
-                            Swal.fire({
-                                title: 'Lỗi!',
-                                text: 'Lỗi khi xóa pet có ID: ' + petId,
-                                icon: 'error',
-                                timer: 3000,
-                                showConfirmButton: false
-                            });
-                        });
+            });
+        };
+        $scope.clearPetFilter = function () {
+            $scope.petsTable.filter({});
+            $scope.petsTable.sorting({});
+        };
+        /*PRODUCT*/
+        $scope.getProducts = function () {
+            $http.get(baseUrl + 'product').then(function (response) {
+                $scope.productData = response.data;
+                $scope.productAvailableTrueLength = $scope.productData.filter(product => product.available === true).length;
+                $scope.productAvailableFalseLength = $scope.productData.filter(product => product.available === false).length;
+                $scope.productTotalQuantity = $scope.productData.filter(product => product.quantity).reduce((total, product) => total + product.quantity, 0);
+                $scope.productTotalPrice = $scope.productData.filter(product => product.price).reduce((total, product) => total + product.price * product.quantity, 0);
+                // PRODUCT TABLE
+                $scope.productsTable = new NgTableParams({
+                    page: 1,
+                    count: 5,
+                    sorting: {
+                        id: 'desc'
                     }
+                }, {
+                    counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.productData.length],
+                    dataset: $scope.productData
                 });
-            };
-            $scope.clearPetFilter = function () {
-                $scope.petsTable.filter({});
-                $scope.petsTable.sorting({});
-            };
-            /*PRODUCT*/
-            $scope.getProducts = function () {
-                $http.get(baseUrl + 'product').then(function (response) {
-                    $scope.productData = response.data;
-                    $scope.productAvailableTrueLength = $scope.productData.filter(product => product.available === true).length;
-                    $scope.productAvailableFalseLength = $scope.productData.filter(product => product.available === false).length;
-                    $scope.productTotalQuantity = $scope.productData.filter(product => product.quantity).reduce((total, product) => total + product.quantity, 0);
-                    $scope.productTotalPrice = $scope.productData.filter(product => product.price).reduce((total, product) => total + product.price * product.quantity, 0);
-                    // PRODUCT TABLE
-                    $scope.productsTable = new NgTableParams({
-                        page: 1,
-                        count: 5,
-                        sorting: {
-                            id: 'desc'
-                        }
-                    }, {
-                        counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.productData.length],
-                        dataset: $scope.productData
-                    });
-                    // PRODUCT CHART
-                    const productCounts = $scope.productData.reduce((productTemp, currentProduct) => {
-                        const categoryName = currentProduct.productCategoryID.productCategoryName;
-                        productTemp[categoryName] = (productTemp[categoryName] || 0) + 1;
-                        return productTemp;
-                    }, {});
-                    $scope.productLabelsChart = Object.keys(productCounts);
-                    $scope.productDataChart = Object.values(productCounts);
-                    // Tạo biểu đồ
-                    new Chart(document.getElementById('productChart-Bar').getContext('2d'), {
-                        type: 'bar',
-                        data: {
-                            labels: $scope.productLabelsChart,
-                            datasets: [{
-                                label: 'Số lượng từng sản phẩm',
-                                data: $scope.productDataChart,
-                                backgroundColor: colors.slice(0, $scope.productLabelsChart.length),
-                                borderColor: colors.slice(0, $scope.productLabelsChart.length),
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            plugins: {
-                                legend: {
-                                    display: true,
-                                    labels: {
-                                        generateLabels: function (chart) {
-                                            return chart.data.labels.map((label, index) => {
-                                                return {
-                                                    text: label,
-                                                    fillStyle: colors[index],
-                                                    strokeStyle: colors[index],
-                                                    lineWidth: 1,
-                                                    index: index
-                                                };
-                                            });
-                                        }
+                // PRODUCT CHART
+                const productCounts = $scope.productData.reduce((productTemp, currentProduct) => {
+                    const categoryName = currentProduct.productCategoryID.productCategoryName;
+                    productTemp[categoryName] = (productTemp[categoryName] || 0) + 1;
+                    return productTemp;
+                }, {});
+                $scope.productLabelsChart = Object.keys(productCounts);
+                $scope.productDataChart = Object.values(productCounts);
+                // Tạo biểu đồ
+                new Chart(document.getElementById('productChart-Bar').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: $scope.productLabelsChart,
+                        datasets: [{
+                            label: 'Số lượng từng sản phẩm',
+                            data: $scope.productDataChart,
+                            backgroundColor: colors.slice(0, $scope.productLabelsChart.length),
+                            borderColor: colors.slice(0, $scope.productLabelsChart.length),
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                display: true,
+                                labels: {
+                                    generateLabels: function (chart) {
+                                        return chart.data.labels.map((label, index) => {
+                                            return {
+                                                text: label,
+                                                fillStyle: colors[index],
+                                                strokeStyle: colors[index],
+                                                lineWidth: 1,
+                                                index: index
+                                            };
+                                        });
                                     }
                                 }
                             }
                         }
-                    });
-                }).catch(function (error) {
-                    console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
-                });
-            };
-            $scope.getProducts();
-            $scope.productEdit = function (product) {
-                $scope.selectedProduct = angular.copy(product);
-                var editProductModal = new bootstrap.Modal(document.getElementById('editProductModal'), {
-                    keyboard: true
-                });
-                editProductModal.show();
-            };
-            $scope.productAddModal = function () {
-                $scope.selectedProduct = {
-                    productName: null,
-                    price: null,
-                    quantity: null,
-                    available: true,
-                    photo: 'product-placeholder.png',
-                    productCategoryID: {
-                        id: 1
                     }
-                };
-                var show = new bootstrap.Modal(document.getElementById('modalAddProduct'), {
-                    keyboard: true
                 });
-                show.show();
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
+            });
+        };
+        $scope.getProducts();
+        $scope.productEdit = function (product) {
+            $scope.selectedProduct = angular.copy(product);
+            var editProductModal = new bootstrap.Modal(document.getElementById('editProductModal'), {
+                keyboard: true
+            });
+            editProductModal.show();
+        };
+        $scope.productAddModal = function () {
+            $scope.selectedProduct = {
+                productName: null,
+                price: null,
+                quantity: null,
+                available: true,
+                photo: 'product-placeholder.png',
+                productCategoryID: {
+                    id: 1
+                }
             };
-            $scope.addProduct = function () {
-                $http.post(baseUrl + 'product', $scope.selectedProduct).then(function (response) {
+            var show = new bootstrap.Modal(document.getElementById('modalAddProduct'), {
+                keyboard: true
+            });
+            show.show();
+        };
+        $scope.addProduct = function () {
+            $http.post(baseUrl + 'product', $scope.selectedProduct).then(function (response) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Thêm mới thành công :',
+                    autoclose: true,
+                    status: 'success',
+                    autotimeout: 3000
+                });
+                $scope.getProducts();
+            }).catch(function (error) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Lỗi khi thêm mới :',
+                    autoclose: true,
+                    status: 'warning',
+                    autotimeout: 3000
+                });
+            });
+        };
+        $scope.updateProduct = function (productId) {
+            if (productId == null) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Vui lòng nhập đầy đủ thông tin :',
+                    autoclose: true,
+                    status: 'error',
+                    autotimeout: 3000
+                });
+            } else {
+                $http.put(baseUrl + 'product/' + productId, $scope.selectedProduct).then(function (response) {
                     new Notify({
                         title: 'Thông báo',
-                        text: 'Thêm mới thành công :',
+                        text: 'Cập nhật thành công :' + productId,
                         autoclose: true,
                         status: 'success',
                         autotimeout: 3000
@@ -753,182 +756,182 @@
                 }).catch(function (error) {
                     new Notify({
                         title: 'Thông báo',
-                        text: 'Lỗi khi thêm mới :',
+                        text: 'Lỗi khi cập nhật :' + productId,
                         autoclose: true,
                         status: 'warning',
                         autotimeout: 3000
                     });
                 });
-            };
-            $scope.updateProduct = function (productId) {
-                if (productId == null) {
-                    new Notify({
-                        title: 'Thông báo',
-                        text: 'Vui lòng nhập đầy đủ thông tin :',
-                        autoclose: true,
-                        status: 'error',
-                        autotimeout: 3000
-                    });
-                } else {
-                    $http.put(baseUrl + 'product/' + productId, $scope.selectedProduct).then(function (response) {
-                        new Notify({
-                            title: 'Thông báo',
-                            text: 'Cập nhật thành công :' + productId,
-                            autoclose: true,
-                            status: 'success',
-                            autotimeout: 3000
+            }
+        };
+        $scope.deleteProduct = function (productId) {
+            Swal.fire({
+                title: 'Bạn có chắc chắn muôn xóa?',
+                text: "Bạn sẽ không thể khôi phục hành động này!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận!',
+                cancelButtonText: 'Hủy bỏ'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $http.delete(baseUrl + 'product/' + productId).then(function (response) {
+                        Swal.fire({
+                            title: 'Đã xóa!',
+                            text: 'Sản phẩm có ID: ' + productId + ' đã được xóa thành công.',
+                            icon: 'success',
+                            timer: 3000,
+                            showConfirmButton: false
                         });
                         $scope.getProducts();
                     }).catch(function (error) {
-                        new Notify({
-                            title: 'Thông báo',
-                            text: 'Lỗi khi cập nhật :' + productId,
-                            autoclose: true,
-                            status: 'warning',
-                            autotimeout: 3000
+                        Swal.fire({
+                            title: 'Lỗi!',
+                            text: 'Lỗi khi xóa sản phẩm có ID: ' + productId,
+                            icon: 'error',
+                            timer: 3000,
+                            showConfirmButton: false
                         });
                     });
                 }
-            };
-            $scope.deleteProduct = function (productId) {
-                Swal.fire({
-                    title: 'Bạn có chắc chắn muôn xóa?',
-                    text: "Bạn sẽ không thể khôi phục hành động này!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Xác nhận!',
-                    cancelButtonText: 'Hủy bỏ'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $http.delete(baseUrl + 'product/' + productId).then(function (response) {
-                            Swal.fire({
-                                title: 'Đã xóa!',
-                                text: 'Sản phẩm có ID: ' + productId + ' đã được xóa thành công.',
-                                icon: 'success',
-                                timer: 3000,
-                                showConfirmButton: false
-                            });
-                            $scope.getProducts();
-                        }).catch(function (error) {
-                            Swal.fire({
-                                title: 'Lỗi!',
-                                text: 'Lỗi khi xóa sản phẩm có ID: ' + productId,
-                                icon: 'error',
-                                timer: 3000,
-                                showConfirmButton: false
-                            });
-                        });
+            });
+        };
+        $scope.clearProductFilter = function () {
+            $scope.productsTable.filter({});
+            $scope.productsTable.sorting({});
+        };
+        /*USER*/
+        $scope.getUsers = function () {
+            $http.get(baseUrl + 'user').then(function (response) {
+                $scope.userData = response.data;
+                $scope.userEnableTrueLength = $scope.userData.filter(user => user.enable === true).length;
+                $scope.userEnableFalseLength = $scope.userData.filter(user => user.enable === false).length;
+                // PRODUCT TABLE
+                $scope.usersTable = new NgTableParams({
+                    page: 1,
+                    count: 10,
+                    sorting: {
+                        dateCreated: 'desc'
                     }
+                }, {
+                    counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.userData.length],
+                    dataset: $scope.userData
                 });
-            };
-            $scope.clearProductFilter = function () {
-                $scope.productsTable.filter({});
-                $scope.productsTable.sorting({});
-            };
-            /*USER*/
-            $scope.getUsers = function () {
-                $http.get(baseUrl + 'user').then(function (response) {
-                    $scope.userData = response.data;
-                    $scope.userEnableTrueLength = $scope.userData.filter(user => user.enable === true).length;
-                    $scope.userEnableFalseLength = $scope.userData.filter(user => user.enable === false).length;
-                    // PRODUCT TABLE
-                    $scope.usersTable = new NgTableParams({
-                        page: 1,
-                        count: 10,
-                        sorting: {
-                            dateCreated: 'desc'
-                        }
-                    }, {
-                        counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.userData.length],
-                        dataset: $scope.userData
-                    });
-                }).catch(function (error) {
-                    console.error('Lỗi khi lấy dữ liệu người dùng:', error);
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu người dùng:', error);
+            });
+        };
+        $scope.getUsers();
+        $scope.userEdit = function (user) {
+            $scope.selectedUser = angular.copy(user);
+            var editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'), {
+                keyboard: true
+            });
+            editUserModal.show();
+        };
+        $scope.updateUser = function (username) {
+            if (username == null) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Vui lòng nhập đầy đủ thông tin',
+                    autoclose: true,
+                    status: 'error',
+                    autotimeout: 3000
                 });
-            };
-            $scope.getUsers();
-            $scope.userEdit = function (user) {
-                $scope.selectedUser = angular.copy(user);
-                var editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'), {
-                    keyboard: true
-                });
-                editUserModal.show();
-            };
-            $scope.updateUser = function (username) {
-                if (username == null) {
+            } else {
+                $http.put(baseUrl + 'user/' + username, $scope.selectedUser).then(function (response) {
                     new Notify({
                         title: 'Thông báo',
-                        text: 'Vui lòng nhập đầy đủ thông tin',
+                        text: 'Cập nhật thành công :' + $scope.selectedUser.fullName,
                         autoclose: true,
-                        status: 'error',
+                        status: 'success',
                         autotimeout: 3000
                     });
-                } else {
-                    $http.put(baseUrl + 'user/' + username, $scope.selectedUser).then(function (response) {
-                        new Notify({
-                            title: 'Thông báo',
-                            text: 'Cập nhật thành công :' + $scope.selectedUser.fullName,
-                            autoclose: true,
-                            status: 'success',
-                            autotimeout: 3000
-                        });
-                        $scope.getUsers();
-                    }).catch(function (error) {
-                        new Notify({
-                            title: 'Thông báo',
-                            text: 'Lỗi khi cập nhật :' + $scope.selectedUser.fullName,
-                            autoclose: true,
-                            status: 'warning',
-                            autotimeout: 3000
-                        });
-                    });
-                }
-            };
-            $scope.clearUserFilter = function () {
-                $scope.usersTable.filter({});
-                $scope.usersTable.sorting({});
-            };
-            /*PET CATEGORY*/
-            $scope.getPetCategories = function () {
-                $http.get(baseUrl + 'pet-category').then(function (response) {
-                    $scope.petCategoryData = response.data;
-                    $scope.petCategoryTables = new NgTableParams({
-                        page: 1,
-                        count: 10,
-                        sorting: {
-                            petCategoryName: 'asc'
-                        }
-                    }, {
-                        counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.petCategoryData.length],
-                        dataset: $scope.petCategoryData
-                    });
+                    $scope.getUsers();
                 }).catch(function (error) {
-                    console.error('Lỗi khi lấy dữ liệu loại thú cưng:', error);
-                });
-            };
-            $scope.getPetCategories();
-            $scope.petCategoryEdit = function (petCategory) {
-                $scope.selectedPetCategory = angular.copy(petCategory);
-                var editPetCategoryModal = new bootstrap.Modal(document.getElementById('editPetCategoryModal'), {
-                    keyboard: true
-                });
-                editPetCategoryModal.show();
-            };
-            $scope.petCategoryAddModal = function () {
-                $scope.selectedPetCategory = {
-                    photo: null,
-                    petCategoryName: null,
-                };
-                var addPetCategory = new bootstrap.Modal(document.getElementById('addPetCategoryModal'), {
-                    keyboard: true
-                });
-                addPetCategory.show();
-            };
-            $scope.addPetCategory = function () {
-                $http.post(baseUrl + 'pet-category', $scope.selectedPetCategory).then(function (response) {
                     new Notify({
                         title: 'Thông báo',
-                        text: 'Thêm mới thành công :',
+                        text: 'Lỗi khi cập nhật :' + $scope.selectedUser.fullName,
+                        autoclose: true,
+                        status: 'warning',
+                        autotimeout: 3000
+                    });
+                });
+            }
+        };
+        $scope.clearUserFilter = function () {
+            $scope.usersTable.filter({});
+            $scope.usersTable.sorting({});
+        };
+        /*PET CATEGORY*/
+        $scope.getPetCategories = function () {
+            $http.get(baseUrl + 'pet-category').then(function (response) {
+                $scope.petCategoryData = response.data;
+                $scope.petCategoryTables = new NgTableParams({
+                    page: 1,
+                    count: 10,
+                    sorting: {
+                        petCategoryName: 'asc'
+                    }
+                }, {
+                    counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.petCategoryData.length],
+                    dataset: $scope.petCategoryData
+                });
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu loại thú cưng:', error);
+            });
+        };
+        $scope.getPetCategories();
+        $scope.petCategoryEdit = function (petCategory) {
+            $scope.selectedPetCategory = angular.copy(petCategory);
+            var editPetCategoryModal = new bootstrap.Modal(document.getElementById('editPetCategoryModal'), {
+                keyboard: true
+            });
+            editPetCategoryModal.show();
+        };
+        $scope.petCategoryAddModal = function () {
+            $scope.selectedPetCategory = {
+                photo: null,
+                petCategoryName: null,
+            };
+            var addPetCategory = new bootstrap.Modal(document.getElementById('addPetCategoryModal'), {
+                keyboard: true
+            });
+            addPetCategory.show();
+        };
+        $scope.addPetCategory = function () {
+            $http.post(baseUrl + 'pet-category', $scope.selectedPetCategory).then(function (response) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Thêm mới thành công :',
+                    autoclose: true,
+                    status: 'success',
+                    autotimeout: 3000
+                });
+                $scope.getPetCategories();
+            }).catch(function (error) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Lỗi khi thêm mới :',
+                    autoclose: true,
+                    status: 'warning',
+                    autotimeout: 3000
+                });
+            });
+        }
+        $scope.updatePetCategory = function (petCategoryId) {
+            if (petCategoryId == null) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Vui lòng nhập đầy đủ thông tin :',
+                    autoclose: true,
+                    status: 'error',
+                    autotimeout: 3000
+                });
+            } else {
+                $http.put(baseUrl + 'pet-category/' + petCategoryId, $scope.selectedPetCategory).then(function (response) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Cập nhật thành công :' + petCategoryId,
                         autoclose: true,
                         status: 'success',
                         autotimeout: 3000
@@ -937,78 +940,78 @@
                 }).catch(function (error) {
                     new Notify({
                         title: 'Thông báo',
-                        text: 'Lỗi khi thêm mới :',
+                        text: 'Lỗi khi cập nhật :' + petCategoryId,
                         autoclose: true,
                         status: 'warning',
                         autotimeout: 3000
                     });
                 });
             }
-            $scope.updatePetCategory = function (petCategoryId) {
-                if (petCategoryId == null) {
+        };
+        $scope.clearPetCategoryFilter = function () {
+            $scope.petCategoryTables.filter({});
+            $scope.petCategoryTables.sorting({});
+        };
+        /*PRODUCT CATEGORY*/
+        $scope.getProductCategories = function () {
+            $http.get(baseUrl + 'product-category').then(function (response) {
+                $scope.productCategoryData = response.data;
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu loại sản phẩm:', error);
+            });
+        };
+        $scope.getProductCategories();
+        $scope.productCategoryEdit = function (productCategory) {
+            $scope.selectedPetCategory = angular.copy(petCategory);
+            var editPetCategoryModal = new bootstrap.Modal(document.getElementById('editPetCategoryModal'), {
+                keyboard: true
+            });
+            editPetCategoryModal.show();
+        };
+        $scope.productCategoryAddModal = function () {
+            $scope.selectedPetCategory = {
+                photo: null,
+                petCategoryName: null,
+            };
+            var addPetCategory = new bootstrap.Modal(document.getElementById('addPetCategoryModal'), {
+                keyboard: true
+            });
+            addPetCategory.show();
+        };
+        $scope.addProductCategory = function () {
+            $http.post(baseUrl + 'pet-category', $scope.selectedPetCategory).then(function (response) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Thêm mới thành công :',
+                    autoclose: true,
+                    status: 'success',
+                    autotimeout: 3000
+                });
+                $scope.getPetCategories();
+            }).catch(function (error) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Lỗi khi thêm mới :',
+                    autoclose: true,
+                    status: 'warning',
+                    autotimeout: 3000
+                });
+            });
+        }
+        $scope.updateProductCategory = function (productCategoryId) {
+            if (petCategoryId == null) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Vui lòng nhập đầy đủ thông tin :',
+                    autoclose: true,
+                    status: 'error',
+                    autotimeout: 3000
+                });
+            } else {
+                $http.put(baseUrl + 'pet-category/' + petCategoryId, $scope.selectedPetCategory).then(function (response) {
                     new Notify({
                         title: 'Thông báo',
-                        text: 'Vui lòng nhập đầy đủ thông tin :',
-                        autoclose: true,
-                        status: 'error',
-                        autotimeout: 3000
-                    });
-                } else {
-                    $http.put(baseUrl + 'pet-category/' + petCategoryId, $scope.selectedPetCategory).then(function (response) {
-                        new Notify({
-                            title: 'Thông báo',
-                            text: 'Cập nhật thành công :' + petCategoryId,
-                            autoclose: true,
-                            status: 'success',
-                            autotimeout: 3000
-                        });
-                        $scope.getPetCategories();
-                    }).catch(function (error) {
-                        new Notify({
-                            title: 'Thông báo',
-                            text: 'Lỗi khi cập nhật :' + petCategoryId,
-                            autoclose: true,
-                            status: 'warning',
-                            autotimeout: 3000
-                        });
-                    });
-                }
-            };
-            $scope.clearPetCategoryFilter = function () {
-                $scope.petCategoryTables.filter({});
-                $scope.petCategoryTables.sorting({});
-            };
-            /*PRODUCT CATEGORY*/
-            $scope.getProductCategories = function () {
-                $http.get(baseUrl + 'product-category').then(function (response) {
-                    $scope.productCategoryData = response.data;
-                }).catch(function (error) {
-                    console.error('Lỗi khi lấy dữ liệu loại sản phẩm:', error);
-                });
-            };
-            $scope.getProductCategories();
-            $scope.productCategoryEdit = function (productCategory) {
-                $scope.selectedPetCategory = angular.copy(petCategory);
-                var editPetCategoryModal = new bootstrap.Modal(document.getElementById('editPetCategoryModal'), {
-                    keyboard: true
-                });
-                editPetCategoryModal.show();
-            };
-            $scope.productCategoryAddModal = function () {
-                $scope.selectedPetCategory = {
-                    photo: null,
-                    petCategoryName: null,
-                };
-                var addPetCategory = new bootstrap.Modal(document.getElementById('addPetCategoryModal'), {
-                    keyboard: true
-                });
-                addPetCategory.show();
-            };
-            $scope.addProductCategory = function () {
-                $http.post(baseUrl + 'pet-category', $scope.selectedPetCategory).then(function (response) {
-                    new Notify({
-                        title: 'Thông báo',
-                        text: 'Thêm mới thành công :',
+                        text: 'Cập nhật thành công :' + petCategoryId,
                         autoclose: true,
                         status: 'success',
                         autotimeout: 3000
@@ -1017,573 +1020,637 @@
                 }).catch(function (error) {
                     new Notify({
                         title: 'Thông báo',
-                        text: 'Lỗi khi thêm mới :',
+                        text: 'Lỗi khi cập nhật :' + petCategoryId,
                         autoclose: true,
                         status: 'warning',
                         autotimeout: 3000
                     });
                 });
             }
-            $scope.updateProductCategory = function (productCategoryId) {
-                if (petCategoryId == null) {
-                    new Notify({
-                        title: 'Thông báo',
-                        text: 'Vui lòng nhập đầy đủ thông tin :',
-                        autoclose: true,
-                        status: 'error',
-                        autotimeout: 3000
-                    });
-                } else {
-                    $http.put(baseUrl + 'pet-category/' + petCategoryId, $scope.selectedPetCategory).then(function (response) {
+        };
+        $scope.clearProductCategoryFilter = function () {
+            $scope.petCategoryTables.filter({});
+            $scope.petCategoryTables.sorting({});
+        };
+        /*ROLE*/
+        $scope.getRoles = function () {
+            $http.get(baseUrl + 'role').then(function (response) {
+                $scope.roleData = response.data;
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu role:', error);
+            });
+        };
+        $scope.getRoles();
+        /*AUTHORITY*/
+        $scope.getAuthorities = function () {
+            $http.get(baseUrl + 'authority').then(function (response) {
+                $scope.authorityData = response.data;
+                $scope.count_ROLE_ADMIN = $scope.authorityData.filter(authority => authority.authority === 'ROLE_ADMIN').length;
+                $scope.count_ROLE_USER = $scope.authorityData.filter(authority => authority.authority === 'ROLE_USER').length;
+                $scope.count_ROLE_STAFF = $scope.authorityData.filter(authority => authority.authority === 'ROLE_STAFF').length;
+                $scope.authorityTables = new NgTableParams({
+                    page: 1,
+                    count: 10,
+                    sorting: {
+                        authority: 'asc'
+                    }
+                }, {
+                    counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.authorityData.length],
+                    dataset: $scope.authorityData
+                });
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu authority:', error);
+            });
+        };
+        $scope.getAuthorities();
+        $scope.changeRole = function (authorityId, role) {
+            Swal.fire({
+                title: 'Bạn có chắc chắn muốn thay đổi?',
+                text: 'Vai trò sẽ được thay đổi thành ' + role.replace('ROLE_', ''),
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận!',
+                cancelButtonText: 'Hủy bỏ'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $http.put(baseUrl + 'authority/' + authorityId + '/' + role).then(function (response) {
                         new Notify({
                             title: 'Thông báo',
-                            text: 'Cập nhật thành công :' + petCategoryId,
+                            text: 'Thay đổi vai trò thành công',
                             autoclose: true,
                             status: 'success',
-                            autotimeout: 3000
-                        });
-                        $scope.getPetCategories();
-                    }).catch(function (error) {
-                        new Notify({
-                            title: 'Thông báo',
-                            text: 'Lỗi khi cập nhật :' + petCategoryId,
-                            autoclose: true,
-                            status: 'warning',
-                            autotimeout: 3000
-                        });
-                    });
-                }
-            };
-            $scope.clearProductCategoryFilter = function () {
-                $scope.petCategoryTables.filter({});
-                $scope.petCategoryTables.sorting({});
-            };
-            /*ROLE*/
-            $scope.getRoles = function () {
-                $http.get(baseUrl + 'role').then(function (response) {
-                    $scope.roleData = response.data;
-                }).catch(function (error) {
-                    console.error('Lỗi khi lấy dữ liệu role:', error);
-                });
-            };
-            $scope.getRoles();
-            /*AUTHORITY*/
-            $scope.getAuthorities = function () {
-                $http.get(baseUrl + 'authority').then(function (response) {
-                    $scope.authorityData = response.data;
-                    $scope.count_ROLE_ADMIN = $scope.authorityData.filter(authority => authority.authority === 'ROLE_ADMIN').length;
-                    $scope.count_ROLE_USER = $scope.authorityData.filter(authority => authority.authority === 'ROLE_USER').length;
-                    $scope.count_ROLE_STAFF = $scope.authorityData.filter(authority => authority.authority === 'ROLE_STAFF').length;
-                    $scope.authorityTables = new NgTableParams({
-                        page: 1,
-                        count: 10,
-                        sorting: {
-                            authority: 'asc'
-                        }
-                    }, {
-                        counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.authorityData.length],
-                        dataset: $scope.authorityData
-                    });
-                }).catch(function (error) {
-                    console.error('Lỗi khi lấy dữ liệu authority:', error);
-                });
-            };
-            $scope.getAuthorities();
-            $scope.changeRole = function (authorityId, role) {
-                Swal.fire({
-                    title: 'Bạn có chắc chắn muốn thay đổi?',
-                    text: 'Vai trò sẽ được thay đổi thành ' + role.replace('ROLE_', ''),
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Xác nhận!',
-                    cancelButtonText: 'Hủy bỏ'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $http.put(baseUrl + 'authority/' + authorityId + '/' + role).then(function (response) {
-                            new Notify({
-                                title: 'Thông báo',
-                                text: 'Thay đổi vai trò thành công',
-                                autoclose: true,
-                                status: 'success',
-                                autotimeout: 3000
-                            });
-                            $scope.getAuthorities();
-                        }).catch(function (error) {
-                            new Notify({
-                                title: 'Thông báo',
-                                text: 'Lỗi khi thay đổi role',
-                                autoclose: true,
-                                status: 'warning',
-                                autotimeout: 3000
-                            });
-                        });
-                    } else {
-                        new Notify({
-                            title: 'Thông báo',
-                            text: 'Đã hủy',
-                            autoclose: true,
-                            status: 'info',
                             autotimeout: 3000
                         });
                         $scope.getAuthorities();
-                    }
-                });
-            };
-            /*ORDER*/
-            $scope.getOrders = function () {
-                $http.get(baseUrl + 'order').then(function (response) {
-                    $scope.orderData = response.data;
-                    $scope.dangXuLiLength = $scope.orderData.filter(order => order.orderStatusID.id === 1).length;
-                    $scope.daXacNhanLength = $scope.orderData.filter(order => order.orderStatusID.id === 2).length;
-                    $scope.dangVanChuyenLength = $scope.orderData.filter(order => order.orderStatusID.id === 3).length;
-                    $scope.daGiaoLength = $scope.orderData.filter(order => order.orderStatusID.id === 4).length;
-                    $scope.daHuyLength = $scope.orderData.filter(order => order.orderStatusID.id === 5).length;
-                    $scope.orderEnableTrueLength = $scope.orderData.filter(order => order.enable === true).length;
-                    $scope.orderEnableFalseLength = $scope.orderData.filter(order => order.enable === false).length;
-                    // ORDER TABLE
-                    $scope.ordersTable = new NgTableParams({
-                        page: 1,
-                        count: 10,
-                        sorting: {
-                            orderDate: 'desc'
-                        }
-                    }, {
-                        counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.orderData.length],
-                        dataset: $scope.orderData
+                    }).catch(function (error) {
+                        new Notify({
+                            title: 'Thông báo',
+                            text: 'Lỗi khi thay đổi role',
+                            autoclose: true,
+                            status: 'warning',
+                            autotimeout: 3000
+                        });
                     });
-                }).catch(function (error) {
-                    console.error('Lỗi khi lấy dữ liệu đơn hàng:', error);
+                } else {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Đã hủy',
+                        autoclose: true,
+                        status: 'info',
+                        autotimeout: 3000
+                    });
+                    $scope.getAuthorities();
+                }
+            });
+        };
+        /*ORDER*/
+        $scope.getOrders = function () {
+            $http.get(baseUrl + 'order').then(function (response) {
+                $scope.orderData = response.data;
+                $scope.dangXuLiLength = $scope.orderData.filter(order => order.orderStatusID.id === 1).length;
+                $scope.daXacNhanLength = $scope.orderData.filter(order => order.orderStatusID.id === 2).length;
+                $scope.dangVanChuyenLength = $scope.orderData.filter(order => order.orderStatusID.id === 3).length;
+                $scope.daGiaoLength = $scope.orderData.filter(order => order.orderStatusID.id === 4).length;
+                $scope.daHuyLength = $scope.orderData.filter(order => order.orderStatusID.id === 5).length;
+                $scope.orderEnableTrueLength = $scope.orderData.filter(order => order.enable === true).length;
+                $scope.orderEnableFalseLength = $scope.orderData.filter(order => order.enable === false).length;
+                // ORDER TABLE
+                $scope.ordersTable = new NgTableParams({
+                    page: 1,
+                    count: 10,
+                    sorting: {
+                        orderDate: 'desc'
+                    }
+                }, {
+                    counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.orderData.length],
+                    dataset: $scope.orderData
                 });
-            };
-            $scope.getOrders();
-            $scope.changeOrderStatus = function (orderId, status) {
-                Swal.fire({
-                    title: 'Bạn có chắc chắn muốn thay đổi?',
-                    text: 'Thay đổi trạng thái đơn hàng',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Xác nhận!',
-                    cancelButtonText: 'Hủy bỏ'
-                }).then((result) => {
-                    if (result.isConfirmed) {
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu đơn hàng:', error);
+            });
+        };
+        $scope.getOrders();
+        $scope.changeOrderStatus = function (orderId, status) {
+            Swal.fire({
+                title: 'Bạn có chắc chắn muốn thay đổi?',
+                text: 'Thay đổi trạng thái đơn hàng',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận!',
+                cancelButtonText: 'Hủy bỏ'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Đang xử lý...',
+                        text: 'Vui lòng chờ...',
+                        icon: 'info',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                    $http.put(baseUrl + 'order/' + orderId + '/' + status).then(function (response) {
+                        Swal.close();
                         Swal.fire({
-                            title: 'Đang xử lý...',
-                            text: 'Vui lòng chờ...',
-                            icon: 'info',
-                            showConfirmButton: false,
-                            allowOutsideClick: false,
-                            didOpen: () => {
-                                Swal.showLoading();
-                            }
-                        });
-                        $http.put(baseUrl + 'order/' + orderId + '/' + status).then(function (response) {
-                            Swal.close();
-                            Swal.fire({
-                                title: 'Thành công!',
-                                text: 'Cập nhật trạng thái đơn hàng thành công',
-                                icon: 'success',
-                                timer: 3000,
-                                showConfirmButton: false
-                            });
-                            $scope.getOrders();
-                            $scope.getOrderById(orderId);
-                        }).catch(function (error) {
-                            Swal.close();
-                            Swal.fire({
-                                title: 'Lỗi',
-                                text: 'Không thể cập nhật trạng thái đơn hàng',
-                                icon: 'error',
-                                timer: 3000,
-                                showConfirmButton: false
-                            });
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'Đã hủy',
-                            text: 'Thay đổi trạng thái đã bị hủy.',
-                            icon: 'info',
+                            title: 'Thành công!',
+                            text: 'Cập nhật trạng thái đơn hàng thành công',
+                            icon: 'success',
                             timer: 3000,
                             showConfirmButton: false
                         });
                         $scope.getOrders();
                         $scope.getOrderById(orderId);
-                    }
-                });
-            };
-            $scope.clearOrderFilter = function () {
-                $scope.ordersTable.filter({});
-                $scope.ordersTable.sorting({
-                    orderDate: 'desc'
-                });
-            };
-            $scope.getOrderById = function (orderId) {
-                $http.get(baseUrl + 'order/' + orderId).then(function (response) {
-                    $scope.orderDetailAll = response.data;
-                }).catch(function (error) {
-                    console.error('Lỗi khi lấy dữ liệu order:', error);
-                });
-            };
-            $scope.openOrderDetailModal = function (orderId) {
-                $http.get(baseUrl + 'order-detail/' + orderId).then(function (response) {
-                    $scope.orderDetail = response.data;
-                    $scope.totalOrderPrice = $scope.orderDetail.reduce((total, order) => {
-                        return total + order.price * order.quantity;
-                    }, 0);
-                }).catch(function (error) {
-                    console.error('Lỗi khi lấy dữ liệu order:', error);
-                });
-                $scope.getOrderById(orderId);
-                var orderDetailModal = new bootstrap.Modal(document.getElementById('orderDetailModal'), {
-                    keyboard: true
-                });
-                orderDetailModal.show();
-            };
-            $scope.isDisabledOption = function (optionStatusId, currentStatusId) {
-                if (currentStatusId < optionStatusId) {
-                    return true;
-                }
-            };
-            $scope.getOrdersByDate = function (from, to) {
-                const fromDate = $filter('date')(from, 'yyyy-MM-dd');
-                const toDate = $filter('date')(to, 'yyyy-MM-dd');
-                $http.get('/api/order/filter', {params: {from: fromDate, to: toDate}})
-                    .then(function (response) {
-                        const ordersByDate = response.data;
-                        const dailyTotals = {};
-                        ordersByDate.forEach(order => {
-                            const orderDate = $filter('date')(order.orderDate, 'yyyy-MM-dd');
-                            if (!dailyTotals[orderDate]) {
-                                dailyTotals[orderDate] = 0;
-                            }
-                            dailyTotals[orderDate] += order.totalAmount;
+                    }).catch(function (error) {
+                        Swal.close();
+                        Swal.fire({
+                            title: 'Lỗi',
+                            text: 'Không thể cập nhật trạng thái đơn hàng',
+                            icon: 'error',
+                            timer: 3000,
+                            showConfirmButton: false
                         });
-                        const labels = Object.keys(dailyTotals)
-                        const data = Object.values(dailyTotals);
-                        if (!$scope.orderChart) {
-                            $scope.orderChart = new Chart(document.getElementById('orderChart-Line').getContext('2d'), {
-                                type: 'bar',
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                        label: 'Tổng tiền ngày',
-                                        data: data,
-                                        backgroundColor: colors,
-                                        borderColor: colors,
-                                    }]
-                                },
-                                options: {
-                                    plugins: {
-                                        title: {
-                                            display: true,
-                                            text: 'Biểu đồ doanh thu theo ngày trong khoảng từ ' + fromDate + ' đến ' + toDate,
-                                            font: {
-                                                size: 20
-                                            }
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Đã hủy',
+                        text: 'Thay đổi trạng thái đã bị hủy.',
+                        icon: 'info',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                    $scope.getOrders();
+                    $scope.getOrderById(orderId);
+                }
+            });
+        };
+        $scope.clearOrderFilter = function () {
+            $scope.ordersTable.filter({});
+            $scope.ordersTable.sorting({
+                orderDate: 'desc'
+            });
+        };
+        $scope.getOrderById = function (orderId) {
+            $http.get(baseUrl + 'order/' + orderId).then(function (response) {
+                $scope.orderDetailAll = response.data;
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu order:', error);
+            });
+        };
+        $scope.openOrderDetailModal = function (orderId) {
+            $http.get(baseUrl + 'order-detail/' + orderId).then(function (response) {
+                $scope.orderDetail = response.data;
+                $scope.totalOrderPrice = $scope.orderDetail.reduce((total, order) => {
+                    return total + order.price * order.quantity;
+                }, 0);
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu order:', error);
+            });
+            $scope.getOrderById(orderId);
+            var orderDetailModal = new bootstrap.Modal(document.getElementById('orderDetailModal'), {
+                keyboard: true
+            });
+            orderDetailModal.show();
+        };
+        $scope.isDisabledOption = function (optionStatusId, currentStatusId) {
+            if (currentStatusId < optionStatusId) {
+                return true;
+            }
+        };
+        $scope.getOrdersByDate = function (from, to) {
+            const fromDate = $filter('date')(from, 'yyyy-MM-dd');
+            const toDate = $filter('date')(to, 'yyyy-MM-dd');
+            $http.get('/api/order/filter', {params: {from: fromDate, to: toDate}})
+                .then(function (response) {
+                    const ordersByDate = response.data;
+                    const dailyTotals = {};
+                    ordersByDate.forEach(order => {
+                        const orderDate = $filter('date')(order.orderDate, 'yyyy-MM-dd');
+                        if (!dailyTotals[orderDate]) {
+                            dailyTotals[orderDate] = 0;
+                        }
+                        dailyTotals[orderDate] += order.totalAmount;
+                    });
+                    const labels = Object.keys(dailyTotals)
+                    const data = Object.values(dailyTotals);
+                    if (!$scope.orderChart) {
+                        $scope.orderChart = new Chart(document.getElementById('orderChart-Line').getContext('2d'), {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Tổng tiền ngày',
+                                    data: data,
+                                    backgroundColor: colors,
+                                    borderColor: colors,
+                                }]
+                            },
+                            options: {
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: 'Biểu đồ doanh thu theo ngày trong khoảng từ ' + fromDate + ' đến ' + toDate,
+                                        font: {
+                                            size: 20
+                                        }
+                                    },
+                                    legend: {
+                                        display: false
+                                    },
+                                    datalabels: {
+                                        display: true,
+                                        color: '#000',
+                                        font: {
+                                            weight: 'bold',
+                                            size: 14
                                         },
-                                        legend: {
-                                            display: false
-                                        },
-                                        datalabels: {
-                                            display: true,
-                                            color: '#000',
-                                            font: {
-                                                weight: 'bold',
-                                                size: 14
-                                            },
-                                            anchor: 'end',
-                                            align: 'top',
-                                            formatter: function (value) {
-                                                return value.toLocaleString();
-                                            }
+                                        anchor: 'end',
+                                        align: 'top',
+                                        formatter: function (value) {
+                                            return value.toLocaleString();
                                         }
                                     }
-                                },
-                                plugins: [ChartDataLabels]
-                            });
-                        } else {
-                            $scope.orderChart.data.labels = labels;
-                            $scope.orderChart.data.datasets[0].data = data;
-                            $scope.orderChart.update();
-                        }
-                    }, function (error) {
-                        console.error('Lỗi khi lấy dữ liệu đơn hàng theo ngày:', error);
-                    });
-            };
-            $scope.getOrdersByDate($scope.getCurrentDate(true), $scope.getCurrentDate());
-            /*ORDER STATUS*/
-            $scope.getOrderStatus = function () {
-                $http.get(baseUrl + 'orderStatus').then(function (response) {
-                    $scope.orderStatusData = response.data;
-                }).catch(function (error) {
-                    console.error('Lỗi khi lấy dữ liệu orderStatusData:', error);
+                                }
+                            },
+                            plugins: [ChartDataLabels]
+                        });
+                    } else {
+                        $scope.orderChart.data.labels = labels;
+                        $scope.orderChart.data.datasets[0].data = data;
+                        $scope.orderChart.update();
+                    }
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng theo ngày:', error);
                 });
-            };
-            $scope.getOrderStatus();
-            /*ORDER PAYMENT STATUS*/
-            $scope.getOrderPaymentStatus = function () {
-                $http.get(baseUrl + 'paymentStatus').then(function (response) {
-                    $scope.orderPaymentStatus = response.data;
-                }).catch(function (error) {
-                    console.error('Lỗi khi lấy dữ liệu orderPaymentStatus:', error);
+        };
+        $scope.getOrdersByDate($scope.getCurrentDate(true), $scope.getCurrentDate());
+        /*ORDER STATUS*/
+        $scope.getOrderStatus = function () {
+            $http.get(baseUrl + 'orderStatus').then(function (response) {
+                $scope.orderStatusData = response.data;
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu orderStatusData:', error);
+            });
+        };
+        $scope.getOrderStatus();
+        /*ORDER PAYMENT STATUS*/
+        $scope.getOrderPaymentStatus = function () {
+            $http.get(baseUrl + 'paymentStatus').then(function (response) {
+                $scope.orderPaymentStatus = response.data;
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu orderPaymentStatus:', error);
+            });
+        };
+        $scope.getOrderPaymentStatus();
+        /*EXCEL EXPORT*/
+        $scope.exportExcelPet = function () {
+            try {
+                const data = $scope.petData.map((pet, index) => ({
+                    "STT": index + 1,
+                    "Pet ID": pet.fullName,
+                    "Loài": pet.petCategoryID.petCategoryName,
+                    "Giống": pet.breed,
+                    "Tuổi": pet.age,
+                    "Kiểu lông": pet.hair,
+                    "Màu lông": pet.famous,
+                    "Giá": pet.price.toLocaleString("vi-VN") + " đ",
+                    "Giới tính": pet.gender ? "Đực" : "Cái",
+                    "Tình trạng": pet.available ? "Đã bán" : "Chưa bán",
+                    "Mô tả": pet.petDescription,
+                    "Hình ảnh": pet.photo,
+                }));
+                const totalPrice = $scope.petData.reduce((total, pet) => total + pet.price, 0);
+                const totalPets = data.length;
+                data.push({
+                    "STT": "Tổng số thú cưng",
+                    "Pet ID": totalPets,
+                    "Loài": "",
+                    "Giống": "",
+                    "Tuổi": "",
+                    "Kiểu lông": "",
+                    "Màu lông": "",
+                    "Giá": "",
+                    "Giới tính": "",
+                    "Tình trạng": "",
+                    "Mô tả": "",
+                    "Hình ảnh": "",
                 });
-            };
-            $scope.getOrderPaymentStatus();
-            /*EXCEL EXPORT*/
-            $scope.exportExcelPet = function () {
-                try {
-                    const data = $scope.petData.map((pet, index) => ({
-                        "STT": index + 1,
-                        "Pet ID": pet.fullName,
-                        "Loài": pet.petCategoryID.petCategoryName,
-                        "Giống": pet.breed,
-                        "Tuổi": pet.age,
-                        "Kiểu lông": pet.hair,
-                        "Màu lông": pet.famous,
-                        "Giá": pet.price.toLocaleString("vi-VN") + " đ",
-                        "Giới tính": pet.gender ? "Đực" : "Cái",
-                        "Tình trạng": pet.available ? "Đã bán" : "Chưa bán",
-                        "Mô tả": pet.petDescription,
-                        "Hình ảnh": pet.photo,
-                    }));
-                    const totalPrice = $scope.petData.reduce((total, pet) => total + pet.price, 0);
-                    const totalPets = data.length;
-                    data.push({
-                        "STT": "Tổng số thú cưng",
-                        "Pet ID": totalPets,
-                        "Loài": "",
-                        "Giống": "",
-                        "Tuổi": "",
-                        "Kiểu lông": "",
-                        "Màu lông": "",
-                        "Giá": "",
-                        "Giới tính": "",
-                        "Tình trạng": "",
-                        "Mô tả": "",
-                        "Hình ảnh": "",
-                    });
-                    data.push({
-                        "STT": "Tổng giá trị",
-                        "Pet ID": totalPrice.toLocaleString("vi-VN") + " đ",
-                        "Loài": "",
-                        "Giống": "",
-                        "Tuổi": "",
-                        "Kiểu lông": "",
-                        "Màu lông": "",
-                        "Giá": "",
-                        "Giới tính": "",
-                        "Tình trạng": "",
-                        "Mô tả": "",
-                        "Hình ảnh": "",
-                    });
-                    const wb = XLSX.utils.book_new();
-                    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data));
-                    XLSX.writeFile(wb, "Danh sách thú cưng.xlsx");
-                    Swal.fire({
-                        title: 'Thành công!',
-                        text: 'Đã xuất file Excel',
-                        icon: 'success',
-                        timer: 3000,
-                        showConfirmButton: false
-                    });
-                } catch (error) {
-                    Swal.fire({
-                        title: 'Lỗi!',
-                        text: 'Có lỗi xảy ra khi xuất file Excel',
-                        icon: 'error',
-                        timer: 3000,
-                        showConfirmButton: false
-                    });
-                }
-            };
-            $scope.exportExcelProduct = function () {
-                try {
-                    const data = $scope.productData.map((product, index) => ({
-                        "STT": index + 1,
-                        "Tên sản phẩm": product.productName,
-                        "Loại": product.productCategoryID.productCategoryName,
-                        "Giá": product.price.toLocaleString("vi-VN") + " đ",
-                        "Số lượng": product.quantity,
-                        "Tình trạng": product.available ? "Còn hàng" : "Hết hàng",
-                        "Hình ảnh": product.photo,
-                        "Mô tả": product.productDescription,
-                    }));
-                    const totalProducts = data.length;
-                    const totalCost = $scope.productData.reduce((total, product) => total + product.price * product.quantity, 0);
-                    const totalProductQuantity = $scope.productData.reduce((total, product) => total + product.quantity, 0);
-                    data.push({
-                        "STT": "Tổng số sản phẩm",
-                        "Tên sản phẩm": totalProducts,
-                        "Loại": "",
-                        "Giá": "",
-                        "Số lượng": "",
-                        "Tình trạng": "",
-                        "Hình ảnh": "",
-                        "Mô tả": "",
-                    });
-                    data.push({
-                        "STT": "Tổng số lượng",
-                        "Tên sản phẩm": totalProductQuantity,
-                        "Loại": "",
-                        "Giá": "",
-                        "Số lượng": "",
-                        "Tình trạng": "",
-                        "Hình ảnh": "",
-                        "Mô tả": "",
-                    });
-                    data.push({
-                        "STT": "Tổng giá trị",
-                        "Tên sản phẩm": totalCost.toLocaleString("vi-VN") + " đ",
-                        "Loại": "",
-                        "Giá": "",
-                        "Số lượng": "",
-                        "Tình trạng": "",
-                        "Hình ảnh": "",
-                        "Mô tả": "",
-                    });
-                    const wb = XLSX.utils.book_new();
-                    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data));
-                    XLSX.writeFile(wb, "Danh sách sản phẩm.xlsx");
-                    Swal.fire({
-                        title: 'Thành công!',
-                        text: 'Đã xuất file Excel',
-                        icon: 'success',
-                        timer: 3000,
-                        showConfirmButton: false
-                    });
-                } catch (error) {
-                    Swal.fire({
-                        title: 'Lỗi!',
-                        text: 'Có lỗi xảy ra khi xuất file Excel',
-                        icon: 'error',
-                        timer: 3000,
-                        showConfirmButton: false
-                    });
-                }
+                data.push({
+                    "STT": "Tổng giá trị",
+                    "Pet ID": totalPrice.toLocaleString("vi-VN") + " đ",
+                    "Loài": "",
+                    "Giống": "",
+                    "Tuổi": "",
+                    "Kiểu lông": "",
+                    "Màu lông": "",
+                    "Giá": "",
+                    "Giới tính": "",
+                    "Tình trạng": "",
+                    "Mô tả": "",
+                    "Hình ảnh": "",
+                });
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data));
+                XLSX.writeFile(wb, "Danh sách thú cưng.xlsx");
+                Swal.fire({
+                    title: 'Thành công!',
+                    text: 'Đã xuất file Excel',
+                    icon: 'success',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            } catch (error) {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Có lỗi xảy ra khi xuất file Excel',
+                    icon: 'error',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
             }
-            $scope.exportExcelUser = function () {
-                try {
-                    const data = $scope.userData.map((user, index) => ({
-                        "STT": index + 1,
-                        "Họ và tên": user.fullName,
-                        "Ngày tạo": new Date(user.dateCreated).toLocaleDateString("vi-VN"),
-                        "Địa chỉ": user.userAddress,
-                        "Số điện thoại": user.phoneNumber.toString(),
-                        "Email": user.email,
-                        "Trạng thái": user.enable ? "Đang hoạt động" : "Không hoạt động"
-                    }));
-                    const totalUsers = data.length;
-                    data.push({
-                        "STT": "Tổng số người dùng",
-                        "Họ và tên": totalUsers,
-                        "Ngày tạo": "",
-                        "Địa chỉ": "",
-                        "Số điện thoại": "",
-                        "Email": "",
-                        "Trạng thái": "",
-                    });
-                    const wb = XLSX.utils.book_new();
-                    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data));
-                    XLSX.writeFile(wb, "Danh sách người dùng.xlsx");
-                    Swal.fire({
-                        title: 'Thành công!',
-                        text: 'Đã xuất file Excel',
-                        icon: 'success',
-                        timer: 3000,
-                        showConfirmButton: false
-                    });
-                } catch (error) {
-                    Swal.fire({
-                        title: 'Lỗi!',
-                        text: 'Có lỗi xảy ra khi xuất file Excel',
-                        icon: 'error',
-                        timer: 3000,
-                        showConfirmButton: false
-                    });
-                }
-            };
-            $scope.exportExcelOrder = function () {
-                try {
-                    // đang làm
-                    const wb = XLSX.utils.book_new();
-                    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet($scope.orderData));
-                    XLSX.writeFile(wb, "Danh sách đơn hàng.xlsx");
-                    Swal.fire({
-                        title: 'Thành công!',
-                        text: 'Đã xuất file Excel',
-                        icon: 'success',
-                        timer: 3000,
-                        showConfirmButton: false
-                    });
-                } catch (error) {
-                    Swal.fire({
-                        title: 'Lỗi!',
-                        text: 'Có lỗi xảy ra khi xuất file Excel',
-                        icon: 'error',
-                        timer: 3000,
-                        showConfirmButton: false
-                    });
-                }
-            };
-            $scope.exportExcelOrderDetail = function (id) {
-                $http.get(baseUrl + "order-detail/" + id).then(function (resp) {
-                    $scope.orderDetail = resp.data;
-                }).catch(function (error) {
-                    console.error('Lỗi khi lấy dữ liệu order:', error);
+        };
+        $scope.exportExcelProduct = function () {
+            try {
+                const data = $scope.productData.map((product, index) => ({
+                    "STT": index + 1,
+                    "Tên sản phẩm": product.productName,
+                    "Loại": product.productCategoryID.productCategoryName,
+                    "Giá": product.price.toLocaleString("vi-VN") + " đ",
+                    "Số lượng": product.quantity,
+                    "Tình trạng": product.available ? "Còn hàng" : "Hết hàng",
+                    "Hình ảnh": product.photo,
+                    "Mô tả": product.productDescription,
+                }));
+                const totalProducts = data.length;
+                const totalCost = $scope.productData.reduce((total, product) => total + product.price * product.quantity, 0);
+                const totalProductQuantity = $scope.productData.reduce((total, product) => total + product.quantity, 0);
+                data.push({
+                    "STT": "Tổng số sản phẩm",
+                    "Tên sản phẩm": totalProducts,
+                    "Loại": "",
+                    "Giá": "",
+                    "Số lượng": "",
+                    "Tình trạng": "",
+                    "Hình ảnh": "",
+                    "Mô tả": "",
                 });
-                try {
-                    const data = $scope.orderDetail.map((order, index) => ({
-                        "STT": index + 1,
-                        "Sản phẩm": order.productID.productName,
-                        "Giá": order.price,
-                        "Số lượng": order.quantity,
-                        "Tổng": order.price * order.quantity,
-                    }));
-                    const wb = XLSX.utils.book_new();
-                    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data));
-                    XLSX.writeFile(wb, "Hóa đơn số #" + id + ".xlsx");
-                    Swal.fire({
-                        title: 'Thành công!',
-                        text: 'Đã xuất file Excel',
-                        icon: 'success',
-                        timer: 3000,
-                        showConfirmButton: false
-                    });
-                } catch (error) {
-                    Swal.fire({
-                        title: 'Lỗi!',
-                        text: 'Có lỗi xảy ra khi xuất file Excel',
-                        icon: 'error',
-                        timer: 3000,
-                        showConfirmButton: false
-                    });
-                    console.error('Lỗi khi xuất file Excel:', error);
-                }
-            };
-            // CHANGE IMAGE WHEN UPLOAD
-            $scope.updatePhotoPetName = function (input) {
-                if (input.files && input.files[0]) {
-                    var fileName = input.files[0].name;
-                    $scope.selectedPet.photo = fileName;
-                    $scope.$apply();
-                }
-            };
-            $scope.updatePhotoProductName = function (input) {
-                if (input.files && input.files[0]) {
-                    var fileName = input.files[0].name;
-                    $scope.selectedProduct.photo = fileName;
-                    $scope.$apply();
-                }
-            };
-            $scope.updatePhotoPetCategoryName = function (input) {
-                if (input.files && input.files[0]) {
-                    var fileName = input.files[0].name;
-                    $scope.selectedPetCategory.photo = fileName;
-                    $scope.$apply();
-                }
-            };
+                data.push({
+                    "STT": "Tổng số lượng",
+                    "Tên sản phẩm": totalProductQuantity,
+                    "Loại": "",
+                    "Giá": "",
+                    "Số lượng": "",
+                    "Tình trạng": "",
+                    "Hình ảnh": "",
+                    "Mô tả": "",
+                });
+                data.push({
+                    "STT": "Tổng giá trị",
+                    "Tên sản phẩm": totalCost.toLocaleString("vi-VN") + " đ",
+                    "Loại": "",
+                    "Giá": "",
+                    "Số lượng": "",
+                    "Tình trạng": "",
+                    "Hình ảnh": "",
+                    "Mô tả": "",
+                });
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data));
+                XLSX.writeFile(wb, "Danh sách sản phẩm.xlsx");
+                Swal.fire({
+                    title: 'Thành công!',
+                    text: 'Đã xuất file Excel',
+                    icon: 'success',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            } catch (error) {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Có lỗi xảy ra khi xuất file Excel',
+                    icon: 'error',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            }
         }
-    )
-    ;
+        $scope.exportExcelUser = function () {
+            try {
+                const data = $scope.userData.map((user, index) => ({
+                    "STT": index + 1,
+                    "Họ và tên": user.fullName,
+                    "Ngày tạo": new Date(user.dateCreated).toLocaleDateString("vi-VN"),
+                    "Địa chỉ": user.userAddress,
+                    "Số điện thoại": user.phoneNumber.toString(),
+                    "Email": user.email,
+                    "Trạng thái": user.enable ? "Đang hoạt động" : "Không hoạt động"
+                }));
+                const totalUsers = data.length;
+                data.push({
+                    "STT": "Tổng số người dùng",
+                    "Họ và tên": totalUsers,
+                    "Ngày tạo": "",
+                    "Địa chỉ": "",
+                    "Số điện thoại": "",
+                    "Email": "",
+                    "Trạng thái": "",
+                });
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data));
+                XLSX.writeFile(wb, "Danh sách người dùng.xlsx");
+                Swal.fire({
+                    title: 'Thành công!',
+                    text: 'Đã xuất file Excel',
+                    icon: 'success',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            } catch (error) {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Có lỗi xảy ra khi xuất file Excel',
+                    icon: 'error',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            }
+        };
+        $scope.exportExcelOrder = function () {
+            try {
+                // đang làm
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet($scope.orderData));
+                XLSX.writeFile(wb, "Danh sách đơn hàng.xlsx");
+                Swal.fire({
+                    title: 'Thành công!',
+                    text: 'Đã xuất file Excel',
+                    icon: 'success',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            } catch (error) {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Có lỗi xảy ra khi xuất file Excel',
+                    icon: 'error',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            }
+        };
+        $scope.exportExcelOrderDetail = function (id) {
+            $http.get(baseUrl + "order-detail/" + id).then(function (resp) {
+                $scope.orderDetail = resp.data;
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu order:', error);
+            });
+            try {
+                const data = $scope.orderDetail.map((order, index) => ({
+                    "STT": index + 1,
+                    "Sản phẩm": order.productID.productName,
+                    "Giá": order.price,
+                    "Số lượng": order.quantity,
+                    "Tổng": order.price * order.quantity,
+                }));
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data));
+                XLSX.writeFile(wb, "Hóa đơn số #" + id + ".xlsx");
+                Swal.fire({
+                    title: 'Thành công!',
+                    text: 'Đã xuất file Excel',
+                    icon: 'success',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            } catch (error) {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Có lỗi xảy ra khi xuất file Excel',
+                    icon: 'error',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+                console.error('Lỗi khi xuất file Excel:', error);
+            }
+        };
+        // CHANGE IMAGE WHEN UPLOAD
+        $scope.updatePhotoPetName = function (input) {
+            if (input.files && input.files[0]) {
+                var fileName = input.files[0].name;
+                $scope.selectedPet.photo = fileName;
+                $scope.$apply();
+            }
+        };
+        $scope.updatePhotoProductName = function (input) {
+            if (input.files && input.files[0]) {
+                var fileName = input.files[0].name;
+                $scope.selectedProduct.photo = fileName;
+                $scope.$apply();
+            }
+        };
+        $scope.updatePhotoPetCategoryName = function (input) {
+            if (input.files && input.files[0]) {
+                var fileName = input.files[0].name;
+                $scope.selectedPetCategory.photo = fileName;
+                $scope.$apply();
+            }
+        };
+        $scope.updatePhotoSlideName = function (input) {
+            if (input.files && input.files[0]) {
+                var fileName = input.files[0].name;
+                $scope.selectedSlideBar.sliderImage = fileName;
+                $scope.$apply();
+            }
+        };
+        // SLIDE BAR
+        $scope.getSlideBar = function () {
+            $http.get(baseUrl + 'slide-bar').then(function (response) {
+                $scope.slideBarData = response.data;
+                console.table($scope.slideBarData);
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu slide bar:', error);
+            });
+        };
+        $scope.getSlideBar();
+        $scope.updateSlideBar = function (slideBarId) {
+            $http.put(baseUrl + 'slide-bar/' + slideBarId, $scope.selectedSlideBar).then(function (response) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Cập nhật thành công :' + slideBarId,
+                    autoclose: true,
+                    status: 'success',
+                    autotimeout: 3000
+                });
+                $scope.getSlideBar();
+            }).catch(function (error) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Lỗi khi cập nhật :' + slideBarId,
+                    autoclose: true,
+                    status: 'warning',
+                    autotimeout: 3000
+                });
+            });
+        };
+        $scope.deleteSlideBar = function (slideBarId) {
+            Swal.fire({
+                title: 'Bạn có chắc chắn muôn xóa?',
+                text: "Bạn sẽ không thể khôi phục hành động này!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận!',
+                cancelButtonText: 'Hủy bỏ'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $http.delete(baseUrl + 'slide-bar/' + slideBarId).then(function (response) {
+                        Swal.fire({
+                            title: 'Đã xóa!',
+                            text: 'Slide bar có ID: ' + slideBarId + ' đã được xóa thành công.',
+                            icon: 'success',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                        $scope.getSlideBar();
+                    }).catch(function (error) {
+                        Swal.fire({
+                            title: 'Lỗi!',
+                            text: 'Lỗi khi xóa slide bar có ID: ' + slideBarId,
+                            icon: 'error',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    });
+                }
+            });
+        };
+        $scope.slideBarEditModal = function (slideBar) {
+            $scope.selectedSlideBar = angular.copy(slideBar);
+            var editSlideBarModal = new bootstrap.Modal(document.getElementById('editSlideBarModal'), {
+                keyboard: true
+            });
+            editSlideBarModal.show();
+        };
+        // $scope.updatePhotoPetName = function (input) {
+        //     // Xóa mảng ảnh đã chọn cũ
+        //     $scope.selectedImages = [];
+        //
+        //     // Lấy các tệp ảnh đã chọn
+        //     var files = input.files;
+        //
+        //     // Duyệt qua các tệp ảnh và thêm vào mảng selectedImages
+        //     for (var i = 0; i < files.length; i++) {
+        //         var reader = new FileReader();
+        //
+        //         reader.onload = function (e) {
+        //             $scope.$apply(function () {
+        //                 $scope.selectedImages.push(e.target.result); // Lưu đường dẫn của ảnh
+        //             });
+        //         };
+        //
+        //         reader.readAsDataURL(files[i]); // Đọc tệp ảnh và chuyển đổi thành URL
+        //     }
+        // };
+    });
 </script>
 </body>
 </html>
