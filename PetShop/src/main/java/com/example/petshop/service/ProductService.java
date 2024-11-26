@@ -17,8 +17,6 @@ public interface ProductService {
 
     void deleteById(int id);
 
-    Page<Product> searchProduct(String keyword, Pageable pageable);
-
     Page<Product> getPaginatedProduct(Pageable pageable);
 
     List<Product> getProductsByCategory(Integer categoryId, int excludeId);

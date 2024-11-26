@@ -35,10 +35,6 @@ public class ProductServiceImpl implements ProductService {
         productRepo.deleteById(id);
     }
 
-    @Override
-    public Page<Product> searchProduct(String keyword, Pageable pageable) {
-        return productRepo.findByProductDescriptionContainingIgnoreCase(keyword, pageable);
-    }
 
     @Override
     public Page<Product> getPaginatedProduct(Pageable pageable) {

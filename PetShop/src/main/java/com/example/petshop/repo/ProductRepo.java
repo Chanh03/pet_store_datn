@@ -11,21 +11,16 @@ import java.util.List;
 
 @Repository
 public interface ProductRepo extends JpaRepository<Product, Integer> {
+    @Query("""
+                SELECT p
+                FROM Product p
+                WHERE (:keyword IS NULL OR LOWER(p.productName) LIKE LOWER(CONCAT('%', :keyword, '%')))
+                AND (:categoryId IS NULL OR p.productCategoryID.id = :categoryId)
+            """)
+    Page<Product> searchProducts(String keyword, Integer categoryId, Pageable pageable);
 
-	@Query("""
-			    SELECT p
-			    FROM Product p
-			    WHERE (:keyword IS NULL OR LOWER(p.productName) LIKE LOWER(CONCAT('%', :keyword, '%')))
-			    AND (:categoryId IS NULL OR p.productCategoryID.id = :categoryId)
-			""")
-	Page<Product> searchProducts(String keyword, Integer categoryId, Pageable pageable);
+    List<Product> findByProductCategoryID_IdAndIdNot(Integer categoryId, int excludeId);
 
-	Page<Product> findByProductDescriptionContainingIgnoreCase(String keyword, Pageable pageable);
-
-	Page<Product> findByProductCategoryID_Id(Integer categoryId, Pageable pageable);
-
-	List<Product> findByProductCategoryID_IdAndIdNot(Integer categoryId, int excludeId);
-
-	@Query("SELECT p FROM Product p ORDER BY p.createDate DESC")
-	List<Product> findAllByCreatedDateDesc();
+    @Query("SELECT p FROM Product p ORDER BY p.createDate DESC")
+    List<Product> findAllByCreatedDateDesc();
 }

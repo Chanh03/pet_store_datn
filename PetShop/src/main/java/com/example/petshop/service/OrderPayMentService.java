@@ -9,7 +9,6 @@ import java.util.List;
 
 @Service
 public interface OrderPayMentService{
-
     PaymentStatus findById(Integer payMent);
 
     List<PaymentStatus> findAll();
