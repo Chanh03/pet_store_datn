@@ -37,9 +37,4 @@ public interface ProductService {
     // Thêm phương thức tìm kiếm theo khoảng giá
     Page<Product> searchProductWithPrice(String search, Double minPrice, Double maxPrice, Pageable pageable);
 
-    Page<Product> getProductsByPriceRange(Double minPrice, Double maxPrice, Pageable pageable);
-
-    Page<Product> searchProductWithCategoryAndPrice(String keyword, Integer categoryId, Double minPrice, Double maxPrice, Pageable pageable);
-
-    Page<Product> getProductsByCategoryAndPrice(Integer categoryId, Double minPrice, Double maxPrice, Pageable pageable);
 }

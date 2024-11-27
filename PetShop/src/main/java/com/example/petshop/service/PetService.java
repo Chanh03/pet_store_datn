@@ -27,4 +27,7 @@ public interface PetService {
     Page<Pet> getPaginatedPets(Pageable pageable);
 
     Page<Pet> searchPets(String keyword, Pageable pageable);
+    // Tìm kiếm thú cưng theo khoảng giá
+ // Tìm kiếm thú cưng theo khoảng giá
+    Page<Pet> searchPetsByPriceRange(Integer minPrice, Integer maxPrice, Pageable pageable);
 }

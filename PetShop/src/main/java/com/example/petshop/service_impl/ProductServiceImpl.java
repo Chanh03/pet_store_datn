@@ -81,29 +81,9 @@ public class ProductServiceImpl implements ProductService {
         return productRepo.findAllByCreatedDateDescAndAvailable();
     }
 
-    // Các phương thức tìm kiếm theo khoảng giá
     @Override
     public Page<Product> searchProductWithPrice(String search, Double minPrice, Double maxPrice, Pageable pageable) {
-        return productRepo.findByProductDescriptionContainingAndPriceBetween(search, minPrice, maxPrice, pageable);
-    }
-
-    @Override
-    public Page<Product> getProductsByPriceRange(Double minPrice, Double maxPrice, Pageable pageable) {
         return productRepo.findByPriceBetween(minPrice, maxPrice, pageable);
-    }
-
-    @Override
-    public Page<Product> searchProductWithCategoryAndPrice(String keyword, Integer categoryId, Double minPrice, Double maxPrice, Pageable pageable) {
-        return productRepo.findByProductDescriptionContainingAndProductCategoryID_IdAndPriceBetween(keyword, categoryId, minPrice, maxPrice, pageable);
-    }
-    @Override
-    public Page<Product> getProductsByCategoryAndPrice(Integer categoryId, Double minPrice, Double maxPrice, Pageable pageable) {
-        // Kiểm tra xem có giá minPrice và maxPrice không và tạo truy vấn tương ứng
-        if (minPrice != null && maxPrice != null) {
-            return productRepo.findByProductCategoryID_IdAndPriceBetween(categoryId, minPrice, maxPrice, pageable);
-        }
-        // Nếu không có khoảng giá thì tìm sản phẩm theo categoryId (dành cho trường hợp không có minPrice, maxPrice)
-        return productRepo.findByProductCategoryID_Id(categoryId, pageable);
     }
 
 }

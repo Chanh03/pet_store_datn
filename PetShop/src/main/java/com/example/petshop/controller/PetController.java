@@ -20,73 +20,75 @@ import java.util.stream.Collectors;
 @Controller
 public class PetController {
 
-    @Autowired
-    private PetService petService;
+	@Autowired
+	private PetService petService;
 
-    @RequestMapping("/pet")
-    public String viewAllPets(Model model) {
-        List<Pet> list = petService.getAll();
-        model.addAttribute("list", list);
-        return "layout/_allPet";
-    }
+	@RequestMapping("/pet")
+	public String viewAllPets(Model model) {
+		List<Pet> list = petService.getAll();
+		model.addAttribute("list", list);
+		return "layout/_allPet";
+	}
 
-    @RequestMapping("/allPet")
-    public String viewPaginatedPets(Model model,
-                                     @RequestParam(defaultValue = "0") int page,
-                                     @RequestParam(required = false) String keyword,
-                                     @RequestParam(defaultValue = "desc") String priceOrder) {
+	@RequestMapping("/allPet")
+	public String viewPaginatedPets(Model model, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "desc") String priceOrder,
+			@RequestParam(required = false) Integer minPrice, @RequestParam(required = false) Integer maxPrice) {
 
-        int pageSize = 24; // Number of pets per page
-        Page<Pet> petPage;
+		int pageSize = 24; 
+		Page<Pet> petPage;
 
-        // Sort by price (default descending)
-        Sort sort = Sort.by("price").descending();
-        if ("asc".equalsIgnoreCase(priceOrder)) {
-            sort = Sort.by("price").ascending();
-        }
+		Sort sort = Sort.by("price").descending();
+		if ("asc".equalsIgnoreCase(priceOrder)) {
+			sort = Sort.by("price").ascending();
+		}
 
-        // Handle search functionality
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            petPage = petService.searchPets(keyword.trim(), PageRequest.of(page, pageSize, sort));
-        } else {
-            petPage = petService.getPaginatedPets(PageRequest.of(page, pageSize, sort));
-        }
+		
+		if (keyword != null && !keyword.trim().isEmpty()) {
+			petPage = petService.searchPets(keyword.trim(), PageRequest.of(page, pageSize, sort));
+		} else {
+			petPage = petService.getPaginatedPets(PageRequest.of(page, pageSize, sort));
+		}
 
-        // Add data to model
-        model.addAttribute("pets", petPage.getContent());
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", petPage.getTotalPages());
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("sort", priceOrder);
+		if (minPrice != null && maxPrice != null) {
+			petPage = petService.searchPetsByPriceRange(minPrice, maxPrice, PageRequest.of(page, pageSize, sort));
+		}
+		model.addAttribute("pets", petPage.getContent());
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", petPage.getTotalPages());
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("minPrice", minPrice);
+		model.addAttribute("maxPrice", maxPrice);
+		model.addAttribute("sort", priceOrder);
 
-        return "layout/_allPet";
-    }
+		return "layout/_allPet";
+	}
 
-    @RequestMapping("/pet/detail/{id}")
-    public String viewPetDetail(Model model, @PathVariable String id) {
-        Optional<Pet> optionalPet = Optional.ofNullable(petService.findById(id));
+	@RequestMapping("/pet/detail/{id}")
+	public String viewPetDetail(Model model, @PathVariable String id) {
+		Optional<Pet> optionalPet = Optional.ofNullable(petService.findById(id));
 
-        if (optionalPet.isPresent()) {
-            Pet pet = optionalPet.get();
-            model.addAttribute("pet", pet);
+		if (optionalPet.isPresent()) {
+			Pet pet = optionalPet.get();
+			model.addAttribute("pet", pet);
 
-            // Filter list of pets of the same category but different pet ID
-            List<Pet> sameCategoryPets = petService.getAll().stream()
-                    .filter(p -> !p.getPetID().equals(pet.getPetID()) && p.getPetCategoryID().equals(pet.getPetCategoryID()))
-                    .limit(12).collect(Collectors.toList());
+			// Filter list of pets of the same category but different pet ID
+			List<Pet> sameCategoryPets = petService.getAll().stream().filter(
+					p -> !p.getPetID().equals(pet.getPetID()) && p.getPetCategoryID().equals(pet.getPetCategoryID()))
+					.limit(12).collect(Collectors.toList());
 
-            // Filter list of pets from different categories
-            List<Pet> differentCategoryPets = petService.getAll().stream()
-                    .filter(p -> !p.getPetCategoryID().equals(pet.getPetCategoryID()))
-                    .limit(12).collect(Collectors.toList());
+			// Filter list of pets from different categories
+			List<Pet> differentCategoryPets = petService.getAll().stream()
+					.filter(p -> !p.getPetCategoryID().equals(pet.getPetCategoryID())).limit(12)
+					.collect(Collectors.toList());
 
-            model.addAttribute("pets", sameCategoryPets);
-            model.addAttribute("petCates", differentCategoryPets);
-        } else {
-            model.addAttribute("errorMessage", "Thú cưng không tồn tại");
-            return "error";
-        }
+			model.addAttribute("pets", sameCategoryPets);
+			model.addAttribute("petCates", differentCategoryPets);
+		} else {
+			model.addAttribute("errorMessage", "Thú cưng không tồn tại");
+			return "error";
+		}
 
-        return "layout/_petDetail";
-    }
+		return "layout/_petDetail";
+	}
 }

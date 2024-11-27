@@ -26,16 +26,6 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 
     @Query("SELECT p,r FROM Product p, Review r WHERE p.id = r.productID.id and p.available = true ORDER BY p.createDate DESC limit 8")
     List<Product> findAllByCreatedDateDescAndAvailable();
-
-    // Thêm các truy vấn để tìm kiếm theo khoảng giá
-    Page<Product> findByProductDescriptionContainingAndPriceBetween(String productDescription, Double minPrice, Double maxPrice, Pageable pageable);
-
+    // Tìm kiếm sản phẩm theo khoảng giá
     Page<Product> findByPriceBetween(Double minPrice, Double maxPrice, Pageable pageable);
-
-    
-    Page<Product> findByProductDescriptionContainingAndProductCategoryID_IdAndPriceBetween(String productDescription, Integer categoryId, Double minPrice, Double maxPrice, Pageable pageable);
-    // Tìm sản phẩm theo categoryId và khoảng giá
-    Page<Product> findByProductCategoryID_IdAndPriceBetween(Integer categoryId, Double minPrice, Double maxPrice, Pageable pageable);
-
-    
 }

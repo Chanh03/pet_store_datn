@@ -60,4 +60,8 @@ public class PetServiceImpl implements PetService {
     public List<Pet> getAllLimit12() {
         return petRepo.findAllLimit12();
     }
+    @Override
+    public Page<Pet> searchPetsByPriceRange(Integer minPrice, Integer maxPrice, Pageable pageable) {
+        return petRepo.findByPriceBetween(minPrice, maxPrice, pageable);
+    }
 }
