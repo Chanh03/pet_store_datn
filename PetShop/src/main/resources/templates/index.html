@@ -283,7 +283,7 @@
 <body ng-app="myApp" ng-controller="myCtrl">
 <header id="menu" class="sticky-top" th:insert="~{/layout/_menu}"></header>
 <main class="container p-0 bg-white rounded-3 border border-2 border-dark animate__animated animate__fadeIn animate__faster"
-      th:insert="${view}"></main>
+      th:insert="${view}" ng-cloak></main>
 <footer th:insert="~{/layout/_footer}"
         class="bg-white rounded-3 container overflow-hidden my-3 p-0 border border-2 border-dark"></footer>
 <!--MODULE-->
