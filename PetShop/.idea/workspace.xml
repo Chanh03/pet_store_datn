@@ -6,7 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="add check phone/email user form">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_users.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_users.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/UserRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/UserRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/UserServiceDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/UserServiceDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/security/information.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/security/information.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/security/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/security/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/config/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/entity/User.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,47 +72,47 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.PetShopApplication.executor&quot;: &quot;Run&quot;,
-    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;AnhNgo1&quot;,
-    &quot;grid.search.filter.rows&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Vanh/GitHub/DATN_DEV/PetShop/src/main/resources/static/images/logo&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.PetShopApplication.executor": "Run",
+    "full.screen.before.presentation.mode": "false",
+    "git-widget-placeholder": "tamnenha",
+    "grid.search.filter.rows": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/FPT Polytechnic/DATN/source2/PetShop/src/main/resources/templates/security",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.editor",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlserver&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlserver"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\FPT Polytechnic\DATN\source2\PetShop\src\main\resources\templates\security" />
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\images\logo" />
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\templates\admin" />
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\images\banner" />
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\gifs" />
-      <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\images\background" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\templates\admin" />
@@ -236,6 +248,7 @@
       <workItem from="1732611532905" duration="9971000" />
       <workItem from="1732623882448" duration="18720000" />
       <workItem from="1732679078667" duration="4104000" />
+      <workItem from="1732713634042" duration="6919000" />
     </task>
     <task id="LOCAL-00037" summary="update order">
       <option name="closed" value="true" />
@@ -685,17 +698,6 @@
     <MESSAGE value="update form, add excel, pdf order" />
     <MESSAGE value="add check phone/email user form" />
     <option name="LAST_COMMIT_MESSAGE" value="add check phone/email user form" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/petshop/controller/PaymentController.java</url>
-          <line>133</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

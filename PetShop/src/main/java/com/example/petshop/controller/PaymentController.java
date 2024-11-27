@@ -96,7 +96,7 @@ public class PaymentController {
     }
 
     @GetMapping("/vn-pay-callback")
-    public ResponseEntity<Object> payCallbackHandler(HttpServletRequest request) throws ParseException {
+    public String payCallbackHandler(HttpServletRequest request) throws ParseException {
         // Lấy các tham số từ VNPay gửi về
         String status = request.getParameter("vnp_ResponseCode");
         String maDonHang = request.getParameter("vnp_TxnRef");
@@ -194,12 +194,12 @@ public class PaymentController {
 
             }
 
-            return ResponseEntity.ok(order);
+            return "security/successVnpay";
         } else {
             // Trường hợp thanh toán thất bại
             dto.setCode("400");
             dto.setMessage("Fail");
-            return ResponseEntity.ok(dto);
+            return "security/failVnpay";
         }
     }
 

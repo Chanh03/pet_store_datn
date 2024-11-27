@@ -60,7 +60,19 @@ public class UserServiceDetails implements UserDetailsService {
         // Kiểm tra sự tồn tại của người dùng theo email
         if (userService.existedByEmail(email) && userService.existedByUsername(id)) {
             return true;
+        }
 
+        if (userService.existedByUsername(id)) {
+            User user = userService.findByUsername(id);
+            if (user == null) {
+                // Nếu người dùng không tồn tại, trả về false
+                return false;
+            }
+
+            if (!user.getEnable()) {
+                // Nếu tài khoản người dùng không kích hoạt, trả về false
+                return false;
+            }
         }
         if (!userService.existedByUsername(id)) {
 
@@ -89,7 +101,7 @@ public class UserServiceDetails implements UserDetailsService {
                 URL url = new URL("https://api.ipify.org?format=text");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
-                String inInfoToken = System.getenv("ipInfoToken");
+                String inInfoToken = "2f51d24fddf1e1";
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String publicIp = in.readLine();
                 in.close();
