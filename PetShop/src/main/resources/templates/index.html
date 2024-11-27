@@ -623,7 +623,12 @@
         $scope.errorMessage = '';
 
         $http.get("/api/voucher").then(function (response) {
-            $scope.vouchers = response.data;
+            const currentDate  = new Date();
+            $scope.vouchers = response.data.filter(voucher => {
+                const expiryDate = new Date(voucher.expiryDate);
+                return currentDate <= expiryDate
+            });
+
         }).catch(function (error) {
             console.error("Error fetching vouchers", error);
         });
