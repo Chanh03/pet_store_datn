@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="PetShop:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="add check phone/email user form">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="add form user send mail">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_users.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_users.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,13 +83,13 @@
     &quot;grid.search.filter.rows&quot;: &quot;true&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Vanh/GitHub/DATN_DEV/PetShop/src/main/resources/static/images/logo&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Vanh/GitHub/DATN_DEV&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;,
@@ -235,15 +242,9 @@
       <workItem from="1732543498108" duration="6728000" />
       <workItem from="1732611532905" duration="9971000" />
       <workItem from="1732623882448" duration="18720000" />
-      <workItem from="1732679078667" duration="4104000" />
-    </task>
-    <task id="LOCAL-00037" summary="update order">
-      <option name="closed" value="true" />
-      <created>1731173821051</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1731173821051</updated>
+      <workItem from="1732679078667" duration="5692000" />
+      <workItem from="1732708841917" duration="2343000" />
+      <workItem from="1732720065792" duration="1392000" />
     </task>
     <task id="LOCAL-00038" summary="update validate (min max)">
       <option name="closed" value="true" />
@@ -629,7 +630,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732681589881</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="add form user send mail">
+      <option name="closed" value="true" />
+      <created>1732683514580</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1732683514580</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -659,7 +668,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update payment status img x2" />
     <MESSAGE value="add order detail export excel x1" />
     <MESSAGE value="update admin x1" />
     <MESSAGE value="update admin x2" />
@@ -684,7 +692,8 @@
     <MESSAGE value="update main" />
     <MESSAGE value="update form, add excel, pdf order" />
     <MESSAGE value="add check phone/email user form" />
-    <option name="LAST_COMMIT_MESSAGE" value="add check phone/email user form" />
+    <MESSAGE value="add form user send mail" />
+    <option name="LAST_COMMIT_MESSAGE" value="add form user send mail" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
