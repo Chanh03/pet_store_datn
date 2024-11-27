@@ -151,7 +151,7 @@ public class RestUserController {
             String uuidString = uuid.toString();
             user.setActiveToken(uuidString);
             user.setUserPassword(encodedPassword);
-
+            user.setIsDelete(true);
             user.setDateCreated(LocalDateTime.now());
 
             // Gán vai trò cho người dùng
@@ -217,6 +217,7 @@ public class RestUserController {
         }
 
         // Kích hoạt tài khoản
+        user.setIsDelete(false);
         user.setEnable(true);
         service.update(user);
 
@@ -353,7 +354,9 @@ public class RestUserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"success\": false, \"message\": \"Tài khoản không tồn tại\"}");
         }
-
+        if (existingUser.getUsername().matches("\\d+") &&!existingUser.getEmail().equals(userDTO.getEmail())) { // Kiểm tra nếu username không chỉ chứa ký tự số
+            return ResponseEntity.ok("{\"success\": false, \"message\": \"Bạn không thể đổi email khác do đăng nhập bằng bên thứ 3!\"}");
+        }
         // Cập nhật thông tin
         existingUser.setFullName(userDTO.getFullName());
         existingUser.setEmail(userDTO.getEmail());

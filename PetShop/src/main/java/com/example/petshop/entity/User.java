@@ -69,6 +69,9 @@ public class User implements UserDetails {
     private String activeToken;
 
     @NotNull
+    @Column(name = "IsDelete", nullable = false)
+    private Boolean isDelete = false;
+    @NotNull
     @Column(name = "DateCreated", nullable = false)
     private LocalDateTime dateCreated;
 

@@ -95,6 +95,15 @@ public class HomeController {
         return "security/register";
     }
 
+    @RequestMapping("/successVnpay")
+    public String successVnpay() {
+        return "security/successVnpay";
+    }
+    @RequestMapping("/failVnpay")
+    public String failVnpay() {
+        return "security/failVnpay";
+    }
+
     @RequestMapping("/confirmation")
     public String confirmation(@RequestParam("confirmation_token") String confirmation_token) {
         return "security/confirmation";
