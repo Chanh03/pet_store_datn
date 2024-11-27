@@ -938,23 +938,34 @@
                     autotimeout: 3000
                 });
             } else {
-                $http.put(baseUrl + 'user/' + username, $scope.selectedUser).then(function (response) {
-                    new Notify({
-                        title: 'Thông báo',
-                        text: 'Cập nhật thành công :' + $scope.selectedUser.fullName,
-                        autoclose: true,
-                        status: 'success',
-                        autotimeout: 3000
-                    });
-                    $scope.getUsers();
-                }).catch(function (error) {
-                    new Notify({
-                        title: 'Thông báo',
-                        text: 'Lỗi khi cập nhật :' + $scope.selectedUser.fullName,
-                        autoclose: true,
-                        status: 'warning',
-                        autotimeout: 3000
-                    });
+                Swal.fire({
+                    title: 'Thay đổi thông tin người dùng ' + username + '?',
+                    text: "Bạn có chắc chắn muốn thay đổi thông tin người dùng này?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Xác nhận!',
+                    cancelButtonText: 'Hủy bỏ'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $http.put(baseUrl + 'user/' + username, $scope.selectedUser).then(function (response) {
+                            Swal.fire({
+                                title: 'Thành công!',
+                                text: 'Cập nhật thông tin người dùng có username: ' + username + ' thành công.',
+                                icon: 'success',
+                                timer: 3000,
+                                showConfirmButton: false
+                            });
+                            $scope.getUsers();
+                        }).catch(function (data) {
+                            Swal.fire({
+                                title: 'Lỗi!',
+                                text: data.data.message,
+                                icon: 'error',
+                                timer: 3000,
+                                showConfirmButton: false
+                            });
+                        });
+                    }
                 });
             }
         };

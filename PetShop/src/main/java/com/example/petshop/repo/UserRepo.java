@@ -29,4 +29,6 @@ public interface UserRepo extends JpaRepository<User, String> {
 
     @Query("SELECT u FROM User u WHERE u.enable = false")
     List<User> findUserByEnableFalse();
+
+    List<User> findByPhoneNumber(String phoneNumber);
 }

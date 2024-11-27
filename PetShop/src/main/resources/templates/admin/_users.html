@@ -70,7 +70,7 @@
                 <td data-title="'#'" class="p-2 px-3 text-center">
                     <b>{{ (usersTable.page() - 1) * usersTable.count() + $index + 1 }}</b>
                 </td>
-                <!--                <td sortable="'id'" data-title="'productID'">{{ product.id }}</td>-->
+                <td sortable="'userName'" class="text-start" data-title="'Tên đăng nhập'">{{ user.userName }}</td>
                 <td sortable="'fullName'" filter="{ 'fullName': 'text' }"
                     data-title="'Họ và tên'" class="text-start">
                     <span class="text-primary fw-bold">
