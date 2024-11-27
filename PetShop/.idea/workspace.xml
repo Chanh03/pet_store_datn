@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update form, add excel, pdf order">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="add check phone/email user form">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/UserRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/UserRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_userModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_userModal.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_users.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_users.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,15 +235,7 @@
       <workItem from="1732543498108" duration="6728000" />
       <workItem from="1732611532905" duration="9971000" />
       <workItem from="1732623882448" duration="18720000" />
-      <workItem from="1732679078667" duration="2461000" />
-    </task>
-    <task id="LOCAL-00036" summary="update">
-      <option name="closed" value="true" />
-      <created>1731152884226</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1731152884226</updated>
+      <workItem from="1732679078667" duration="4104000" />
     </task>
     <task id="LOCAL-00037" summary="update order">
       <option name="closed" value="true" />
@@ -635,7 +621,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732643455121</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <task id="LOCAL-00085" summary="add check phone/email user form">
+      <option name="closed" value="true" />
+      <created>1732681589881</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1732681589881</updated>
+    </task>
+    <option name="localTasksCounter" value="86" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -665,7 +659,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update payment status img" />
     <MESSAGE value="update payment status img x2" />
     <MESSAGE value="add order detail export excel x1" />
     <MESSAGE value="update admin x1" />
@@ -690,7 +683,8 @@
     <MESSAGE value="add send notification (1%)" />
     <MESSAGE value="update main" />
     <MESSAGE value="update form, add excel, pdf order" />
-    <option name="LAST_COMMIT_MESSAGE" value="update form, add excel, pdf order" />
+    <MESSAGE value="add check phone/email user form" />
+    <option name="LAST_COMMIT_MESSAGE" value="add check phone/email user form" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
