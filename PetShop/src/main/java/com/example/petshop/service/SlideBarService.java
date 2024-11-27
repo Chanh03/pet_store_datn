@@ -8,4 +8,12 @@ import java.util.List;
 @Service
 public interface SlideBarService {
     List<SliderBar> getAll();
+
+    SliderBar save(SliderBar sliderBar);
+
+    SliderBar getById(Integer id);
+
+    void delete(Integer id);
+
+    void deleteAll();
 }

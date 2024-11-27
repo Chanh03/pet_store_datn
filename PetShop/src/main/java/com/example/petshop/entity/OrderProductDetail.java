@@ -35,5 +35,4 @@ public class OrderProductDetail {
     @NotNull
     @Column(name = "Price", nullable = false)
     private Integer price;
-
 }

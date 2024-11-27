@@ -48,4 +48,13 @@ public class AdminController {
         return "admin/_authority";
     }
 
+    @RequestMapping("/slide-bar")
+    public String adminSlideBar(Model model) {
+        return "admin/_sildeBar";
+    }
+
+    @RequestMapping("/send-notification")
+    public String adminSendNotification(Model model) {
+        return "admin/_send_notification";
+    }
 }

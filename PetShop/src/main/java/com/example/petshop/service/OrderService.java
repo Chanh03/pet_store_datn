@@ -4,6 +4,9 @@ import com.example.petshop.entity.Order;
 import com.example.petshop.entity.User;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.PrinterJob;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,4 +24,7 @@ public interface OrderService {
 
     Order getByOrderIdAndUser(int id, User user);
 
+    Order getById(Integer id);
+
+    List<Order> findOrdersByDate(Date from, Date to);
 }

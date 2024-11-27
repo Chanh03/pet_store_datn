@@ -52,6 +52,17 @@
             transition: 0.5s;
         }
 
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .button-image {
             background-color: white;
             border: 2px solid black;
@@ -59,7 +70,7 @@
             background-repeat: no-repeat;
             background-size: cover;
             cursor: pointer;
-            transition: 0.5s;
+            transition: 0.5s all;
         }
 
         .button-image:hover {
@@ -211,6 +222,49 @@
             background: linear-gradient(121deg, rgba(71, 74, 255, 0) 0%, #ff8383 50%, rgba(255, 255, 255, 0) 100%);
         }
 
+        .link-wrapper {
+            display: flex;
+            position: absolute;
+            left: 0;
+            bottom: 45%;
+            transform: translateY(50%);
+            width: 200%;
+            animation: marquee 20s linear infinite;
+        }
+
+        .link-wrapper:hover {
+            animation-play-state: paused;
+        }
+
+
+        .link {
+            display: inline-block;
+            text-align: center;
+            line-height: 50px;
+            padding: 0 50px;
+            margin: 0 10px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+        }
+
+        .link-wrapper {
+            position: absolute;
+            width: 100%;
+            white-space: nowrap;
+            animation: marquee 15s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                left: 100%;
+            }
+            100% {
+                left: -100%;
+            }
+        }
+
         .star-rating {
             font-size: 2rem;
             color: #ddd; /* Default color for unselected stars */
@@ -228,7 +282,8 @@
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
 <header id="menu" class="sticky-top" th:insert="~{/layout/_menu}"></header>
-<main class="container p-0 bg-white rounded-3 border border-2 border-dark" th:insert="${view}"></main>
+<main class="container p-0 bg-white rounded-3 border border-2 border-dark animate__animated animate__fadeIn animate__faster"
+      th:insert="${view}"></main>
 <footer th:insert="~{/layout/_footer}"
         class="bg-white rounded-3 container overflow-hidden my-3 p-0 border border-2 border-dark"></footer>
 <!--MODULE-->
@@ -240,13 +295,17 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <!--    JS-->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 <script>
     const socket = new SockJS('http://172.16.72.83:8080/ws');
     const stompClient = Stomp.over(socket);
@@ -345,9 +404,66 @@
         },
         crossFade: true,
     });
+    document.addEventListener("scroll", () => {
+        const elements = document.querySelectorAll(".fade-in");
+        const windowHeight = window.innerHeight;
+
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementBottom = element.getBoundingClientRect().bottom;
+
+            // Kiểm tra nếu thẻ nằm trong vùng hiển thị
+            if (elementTop < windowHeight - 100 && elementBottom > 100) {
+                element.classList.add("show");
+            } else {
+                element.classList.remove("show");
+            }
+        });
+    });
+    $(document).ready(function () {
+        $("#search-box").autocomplete({
+            source: function (request, response) {
+                const category = $("#searchCategory").val();
+                const apiURL = category === "pet" ? 'http://localhost:8080/api/pet' : 'http://localhost:8080/api/product';
+
+                fetch(apiURL)
+                    .then(res => res.json())
+                    .then(data => {
+                        const results = $.map(data, item => {
+                            const itemName = category === "pet" ? item.breed : item.productName;
+
+                            // Kiểm tra điều kiện tên và lấy đường dẫn hình ảnh tương ứng
+                            if (itemName.toLowerCase().includes(request.term.toLowerCase())) {
+                                const imageUrl = category === "pet"
+                                    ? `/images/pet/${item.photo}`
+                                    : `/images/product/${item.photo}`;
+
+                                return {
+                                    label: `
+                                    <div class="autocomplete-item" style="display: flex; align-items: center;">
+                                        <strong style="flex: 1;">${itemName}</strong>
+                                        <p style="margin: 0; flex-shrink: 0;">Giá: ${item.price.toLocaleString()}đ</p>
+                                        <img src="${imageUrl}" alt="${itemName}" style="width: 50px; height: 50px; margin-left: 10px; object-fit: cover;">
+                                    </div>`,
+                                    value: itemName,
+                                    id: item.id
+                                };
+                            }
+                        });
+                        response(results);
+                    })
+                    .catch(error => console.error(`Error fetching ${category}:`, error));
+            },
+        })
+            .data("ui-autocomplete")._renderItem = function (ul, item) {
+            return $("<li>")
+                .data("item.autocomplete", item)
+                .append(item.label)
+                .appendTo(ul);
+        };
+    });
+
 </script>
-<!--    Angular add to cart-->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script>
     const app = angular.module('myApp', []);
     app.controller('myCtrl', function ($scope, $http) {
@@ -410,7 +526,6 @@
             remove(id) {
                 const index = this.items.findIndex(item => item.id === id);
                 if (index !== -1) {
-                    //splice trong mang Array angular de them hoac xoa phan tu trong mang
                     this.items.splice(index, 1);
                     this.saveToLocalStorage();
                     this.loadFromLocalStorage();
@@ -418,7 +533,7 @@
                         title: 'Sản phẩm đã được xóa khỏi giỏ hàng',
                         status: 'success',
                         autoclose: true,
-                        autotimeout: 2000,
+                        autotimeout: 2000
                     })
                 }
             },
@@ -474,7 +589,7 @@
 
             saveToLocalStorage() {
                 localStorage.setItem('cart', JSON.stringify(this.items));
-                this.updateTotal();
+                this.updateTotal(); // Cập nhật tổng khi lưu
             },
 
             loadFromLocalStorage() {
@@ -485,10 +600,12 @@
                 this.updateTotal();
             },
 
+            // Hàm để lấy detailItems từ items
             getDetailItems() {
                 return this.items;
             },
 
+            //
             getPayMent() {
                 return this.getDetailItems()
             }
@@ -496,6 +613,7 @@
 
         // Tải giỏ hàng từ localStorage khi khởi động ứng dụng
         $scope.cart.loadFromLocalStorage();
+
 
         // Voucher
         $scope.vouchers = []
@@ -643,7 +761,6 @@
                 }
             });
         };
-
         // $scope.checkout = function () {
         //     const username = document.getElementById("username_auth").textContent;
         //     $http.get("/api/user/" + username).then(function (response) {
@@ -700,7 +817,6 @@
         //         console.log("Lỗi khi order", error);
         //     });
         // }
-
         //history
         $scope.getOrderHistory = function () {
             $http.get("/api/order/history")
@@ -714,11 +830,11 @@
 
         $scope.updatePaymentStatus = function (history) {
             if (history.orderStatusID.statusName === 'Đã giao') {
-                history.paymentStatusID = { id: 2 };
+                history.paymentStatusID = {id: 2};
             } else if (history.paymentStatusID.id === 2) {
-                history.paymentStatusID = { id: 2 };
+                history.paymentStatusID = {id: 2};
             } else {
-                history.paymentStatusID = { id: 1 };
+                history.paymentStatusID = {id: 1};
             }
         };
 
@@ -813,11 +929,11 @@
                 .catch(function (error) {
                     console.error("Loi review", error);
                 });
-            $http.put("/api/order-detail/" + $scope.reviewData.orderID.id  + '/' + $scope.reviewData.productID.id)
-                .then(function (response){
+            $http.put("/api/order-detail/" + $scope.reviewData.orderID.id + '/' + $scope.reviewData.productID.id)
+                .then(function (response) {
 
-                }).catch(function (error){
-                    console.log("loi" + error)
+                }).catch(function (error) {
+                console.log("loi" + error)
             })
 
 
@@ -836,8 +952,6 @@
             $scope.reviewData.rating = 0;
             $scope.reviewData.comment = '';
         };
-
-
     });
 </script>
 </html>

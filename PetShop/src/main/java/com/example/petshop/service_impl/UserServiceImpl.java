@@ -111,4 +111,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public List<User> findByPhoneNumber(String phoneNumber) {
+        return userRepo.findByPhoneNumber(phoneNumber);
+    }
+
 }
