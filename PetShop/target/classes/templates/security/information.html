@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="~{/index.html::home(~{::body})}"
+>
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>Pet Shop</title>
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+</head>
+
+<body>
+<div class="container-lg main-content px-3"
+     style="background-image: url('/images/background/dog_14.jpg'); background-size: 150%; background-position: 30% 20%;">
+    <div class="d-flex align-items-left justify-content-left mt-5 mb-4">
+        <h3 class="fw-bold font-resp text-danger">
+            <i class="fa-regular fa-user"></i> Thông tin người dùng
+        </h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-lg-8">
+            <div class="card shadow" style="backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.7);">
+                <div class="card-body">
+                    <form id="form-information">
+                        <h5
+                                class="alert font-resp"
+                                th:if="${message}"
+                                th:text="${message}"
+                                th:classappend="${loginStatus == true ? 'alert-success' : 'alert-danger'}"
+                        ></h5>
+
+                        <div class="d-flex justify-content-end gap-3 mb-4">
+                            <button
+                                    type="button"
+                                    id="editButton"
+                                    class="button-image"
+                                    onclick="enableEditing()"
+                            >
+                                Chỉnh sửa
+                            </button>
+                            <button type="button" onclick="save()"
+                                    class="button-image-white background-color text-white">
+                                Lưu
+                            </button>
+                        </div>
+
+                        <div class="form-floating mb-3" style="display: none">
+                            <!-- Kiểm tra giá trị sub -->
+                            <input
+                                    class="form-control"
+                                    id="username"
+                                    name="username"
+                                    placeholder="Tên đăng nhập"
+                                    required
+                                    type="text"
+                                    th:value="${user.username}"
+                                    readonly disabled
+                            />
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="fullName"
+                                    name="fullName"
+                                    placeholder="Tên của bạn"
+                                    required
+                                    type="text"
+                                    readonly
+                            />
+                            <label for="fullName"><i class="fa-regular fa-user"></i> Tên của bạn</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="email"
+                                    name="email"
+                                    placeholder="Email"
+                                    required
+                                    type="email"
+                                    readonly
+                            />
+                            <label for="email"><i class="fa-solid fa-at"></i> Email</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="phoneNumber"
+                                    name="phoneNumber"
+                                    placeholder="Số điện thoại"
+                                    required
+                                    type="tel"
+                                    readonly
+                            />
+                            <label for="phoneNumber"><i class="fa-solid fa-phone"></i> Số điện thoại</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="userAddress"
+                                    name="userAddress"
+                                    placeholder="Địa chỉ"
+                                    required
+                                    type="text"
+                                    readonly
+                            />
+                            <label for="userAddress"><i class="fa-solid fa-house"></i> Địa chỉ</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input
+                                    class="form-control"
+                                    id="dateCreate"
+                                    name="dateCreate"
+                                    placeholder="Ngày tạo tài khoản"
+                                    required
+                                    type="text"
+                                    readonly disabled
+                            />
+                            <label for="dateCreate"><i class="fa-regular fa-clock"></i> Ngày tạo tài khoản</label>
+                        </div>
+
+                        <div class="d-flex justify-content-center mb-4"></div>
+                    </form>
+
+                    <div class="text-center my-4">
+                        <button class="button-image" onclick="togglePasswordForm()">
+                            Đổi mật khẩu
+                        </button>
+                    </div>
+
+                    <!-- Form đổi mật khẩu -->
+                    <div
+                            id="passwordForm"
+                            class="password-form"
+                            style="display: none"
+                    >
+                        <form id="form-newPass">
+                            <div class="form-floating mb-3">
+                                <input
+                                        class="form-control"
+                                        id="currentPassword"
+                                        name="currentPassword"
+                                        placeholder="Mật khẩu hiện tại"
+                                        required
+                                        type="password"
+                                />
+                                <label for="currentPassword"><i class="fa-solid fa-lock"></i> Mật khẩu hiện tại</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input
+                                        class="form-control"
+                                        id="newPassword"
+                                        name="newPassword"
+                                        placeholder="Mật khẩu mới"
+                                        required
+                                        type="password"
+                                />
+                                <label for="newPassword"><i class="fa-solid fa-lock"></i> Mật khẩu mới</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input
+                                        class="form-control"
+                                        id="confirmPassword"
+                                        name="confirmPassword"
+                                        placeholder="Xác nhận mật khẩu mới"
+                                        required
+                                        type="password"
+                                />
+                                <label for="confirmPassword"><i class="fa-solid fa-repeat"></i> Xác nhận mật khẩu
+                                    mới</label>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button
+                                        type="button"
+                                        onclick="saveNewPass()"
+                                        class="button-image-white background-color text-white"
+                                >
+                                    Lưu mật khẩu mới
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let userData = {};
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const userName = document.getElementById("username").value;
+            if (userName) {
+                fetch(`/api/user/information/${userName}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok ' + response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data)
+                        userData = data;
+                        document.getElementById("fullName").value = data.fullName || '';
+                        document.getElementById("email").value = data.email || '';
+                        document.getElementById("phoneNumber").value = data.phoneNumber || '';
+                        document.getElementById("userAddress").value = data.userAddress || '';
+                        document.getElementById("dateCreate").value = data.dateCreate || '';
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error);
+                    })
+            }
+
+
+        });
+
+
+        //Cho phép chỉnh sửa thông tin người dùng
+        function enableEditing() {
+            const fields = document.querySelectorAll(
+                "input:not(#username):not(#accountCreationDate)"
+            );
+            fields.forEach((field) => field.removeAttribute("readonly"));
+        }
+
+        //Hiển thị form đổi mật khẩu
+        function togglePasswordForm() {
+            const passwordForm = document.getElementById("passwordForm");
+            passwordForm.style.display =
+                passwordForm.style.display === "none" ? "block" : "none";
+        }
+
+        function save() {
+            const username = document.getElementById("username").value;
+            const fullName = document.getElementById("fullName").value;
+            const email = document.getElementById("email").value;
+            const phoneNumber = document.getElementById("phoneNumber").value;
+            const userAddress = document.getElementById("userAddress").value;
+            if (!username || !fullName || !email || !phoneNumber || !userAddress) {
+                Swal.fire({
+                    title: 'Thông tin không chính xác',
+                    text: 'Vui lòng điền đầy đủ thông tin cá nhân',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                Swal.fire({
+                    title: 'Thông tin không chính xác',
+                    text: 'Vui lòng nhập địa chỉ email hợp lệ.',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            const phoneRegex = /^0\d{9,10}$/;
+            if (!phoneRegex.test(phoneNumber)) {
+                Swal.fire({
+                    title: 'Thông tin không chính xác',
+                    text: 'Số điện thoại phải từ 10 đến 11 chữ số và bắt đầu bằng số 0.',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            Swal.fire({
+                title: 'Bạn có chắc chắn muốn cập nhật thông tin?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    // Gọi API để đổi mật khẩu
+                    fetch(`/api/user/update/${username}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            fullName,
+                            email,
+                            phoneNumber,
+                            userAddress,
+                        }),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            if (data.success) {
+                                Swal.fire({
+                                    title: 'Thành công!',
+                                    text: 'Cập nhật thông tin thành công',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Thất bại!',
+                                    text: 'Cập nhật thông không tin thành công: ' + data.message,
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Có lỗi xảy ra:", error);
+                            Swal.fire({
+                                title: 'Lỗi!',
+                                text: 'Có lỗi xảy ra trong quá trình đổi mật khẩu.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        });
+                }
+            });
+        }
+
+        // Hàm validate password
+        function validatePassword(password) {
+            const passwordRegex =
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+            return passwordRegex.test(password);
+        }
+
+        function saveNewPass() {
+            const username = document.getElementById("username").value;
+            const currentPassword = document.getElementById("currentPassword").value;
+            const newPassword = document.getElementById("newPassword").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                Swal.fire({
+                    title: 'Thông tin không chính xác',
+                    text: 'Vui lòng điền đầy đủ thông tin đổi mật khẩu',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            if (!validatePassword(newPassword)) {
+                Swal.fire({
+                    title: 'Mật khẩu yếu',
+                    text: 'Mật khẩu phải chứa ít nhất 8 ký tự bao gồm số, chữ thường, chữ hoa, và ký tự đặc biệt.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            // Kiểm tra nếu mật khẩu mới và xác nhận mật khẩu không khớp
+            if (newPassword !== confirmPassword) {
+                Swal.fire({
+                    title: 'Mật khẩu không khớp',
+                    text: 'Mật khẩu mới và xác nhận mật khẩu không khớp',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            if (newPassword === currentPassword) {
+                Swal.fire({
+                    title: 'Mật khẩu bị trùng',
+                    text: 'Mật khẩu mới và mật khẩu hiện tại không nên giống nhau !',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            // Nếu tất cả các điều kiện đều đúng, hiển thị hộp thoại xác nhận
+            Swal.fire({
+                title: 'Bạn có chắc chắn muốn đổi mật khẩu?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Đổi mật khẩu',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log(currentPassword)
+                    // Gọi API để đổi mật khẩu
+                    fetch(`/api/user/change-password/${username}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            oldPassword: currentPassword,
+                            newPassword,
+                        }),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            if (data.success) {
+                                Swal.fire({
+                                    title: 'Thành công!',
+                                    text: 'Đổi mật khẩu thành công',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                });
+                                togglePasswordForm();
+                                document.getElementById("currentPassword").value = '';
+                                document.getElementById("newPassword").value = '';
+                                document.getElementById("confirmPassword").value = '';
+
+                            } else {
+                                Swal.fire({
+                                    title: 'Thất bại!',
+                                    text: 'Đổi mật khẩu thất bại: ' + data.message,
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Có lỗi xảy ra:", error);
+                            Swal.fire({
+                                title: 'Lỗi!',
+                                text: 'Có lỗi xảy ra trong quá trình đổi mật khẩu.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        });
+                }
+            });
+        }
+
+    </script>
+</div>
+</body>
+</html>
