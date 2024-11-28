@@ -25,184 +25,203 @@
                 <li class="breadcrumb-item"><a href="/quan-tri-he-thong">Trang
                     chủ</a></li>
                 <li th:text="${product.productName}" class="breadcrumb-item active"
-                    aria-current="page">Tên sản phẩm</li>
+                    aria-current="page">Tên sản phẩm
+                </li>
             </ol>
         </nav>
-
-        <!-- Product Image on the left -->
-        <div class="col-md-6">
-            <img th:src="@{/images/product/{photo}(photo=${product.photo})}"
-                 class="img-fluid sticky-top" alt="Sản phẩm ${product.productName}"
-                 style="z-index: 1; top: 10%; object-fit: cover; width: 100%; max-height: 800px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+        <div class="col-lg-6 col-md-12">
+            <div class="sticky-top border-dark button-image" style="top: 80px;">
+                <img th:src="@{/images/product/{photo}(photo=${product.photo})}"
+                     class="img-fluid " alt="Sản phẩm ${product.productName}"
+                     style="object-fit: cover; width: 100%; max-height: 800px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+                <img src="/images/logo/logo-2.png" alt="logo" class="position-absolute bottom-0 end-0 m-3"
+                     style="width: 200px;">
+            </div>
         </div>
-
-        <!-- Product Details on the right -->
-        <div class="col-md-6">
-            <div class="card shadow p-4">
-                <h1 class="display-5 fw-bold mb-3" th:text="${product.productName}">Tên
+        <div class="col-lg-6 col-md-12">
+            <div class="card shadow p-4 border-0">
+                <h1 class="fw-bold mb-3 fs-1" th:text="${product.productName}">Tên
                     sản phẩm</h1>
-
-                <p class="fs-4">
-                    <span class="text-black fw-bold" style="font-size: 3rem;">Giá:</span>
-                    <span class="text-danger" style="font-size: 3rem;"
-                          th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">400.000đ</span>
-                </p>
-
-                <p class="mt-3 text-muted fs-5" style="font-size: 2rem;">
-						<span class="fw-bold" style="font-size: 1.5rem;">Số lượng
-							có sẵn:</span> <span th:text="${product.quantity}"
-                                                 style="font-size: 1.5rem;">10</span>
-                </p>
-
-                <p class="mt-3 text-muted fs-5" style="font-size: 2rem;">
-                    Trạng thái:   <span th:text="${product.quantity == 0 ? 'Hết hàng' : 'Còn hàng'}"
-                                        th:classappend="${product.quantity == 0 ? 'text-danger' : 'text-success'}">
-                                         Còn hàng
-                                    </span>
-                </p>
-
-
-                <a th:attr="ng-click=${'cart.add(' + product.id + ')'}"
-                   class="btn button-image w-100 py-3 rounded-0"
-                   style="background-color: red; color: white;"> Thêm vào giỏ </a>
-
-                <!--        <div class="mt-3">
-            <i class="bi bi-telephone me-1"></i> <span>Contact</span>
-            <a href="#" class="ms-3"><i class="bi bi-facebook"></i> Message</a>
-        </div> -->
-                <!-- Product Description -->
-                <div class="mt-4">
-                    <h3 class="mb-3" style="font-size: 2.5rem; font-weight: bold;">Chi
-                        tiết sản phẩm</h3>
-                    <hr style="background-color: red; height: 2px; border: none;">
-                    <p class="fs-5" th:text="${product.productDescription}"
-                       style="font-weight: bold;">Mô tả sản phẩm</p>
-
+                <div class="d-flex align-items-center">
+                    <h3 class="m-0 text-dark fw-bold text-start"
+                        style="text-transform: uppercase">Giá : </h3>
+                    <h1 class="color fw-bold fs-1 ms-3"
+                        th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">
+                        100.000đ</h1>
                 </div>
-
-
-
-                <!-- Product Reviews -->
-                <h3 class="mb-3"
-                    style="font-size: 1.5rem; font-weight: bold; color: #333; margin-bottom: 1rem;">Đánh
-                    giá sản phẩm</h3>
-                <hr
-                        style="background-color: red; height: 2px; border: none; margin-bottom: 1rem;">
-
-                <div
-                        style="max-height: 400px; overflow-y: auto; padding-right: 10px; scrollbar-width: thin; scrollbar-color: #c4c4c4 #f1f1f1;">
-                    <!-- Nếu không có đánh giá -->
+                <div class="mt-3">
+                    <h3 class="m-0 color fw-bold text-start" style="text-transform: uppercase">
+                        Trạng thái sản phẩm:</h3>
+                    <ul class="list-group list-group-flush " style="border-left: 5px solid #dc3545;">
+                        <li class="list-group list-group-item ">
+                            <div class="d-flex align-items-end">
+                                <h5 class="text-muted fw-bold m-0">Tình trạng:</h5>
+                                <h3 style="text-decoration: underline" class="fw-bold m-0 ms-2"
+                                    th:text="${product.available ? 'Còn hàng' : 'Hết hàng'}"
+                                    th:classappend="${product.available ? 'text-success' : 'text-danger'}">
+                                </h3>
+                            </div>
+                        </li>
+                        <li class="list-group list-group-item">
+                            <div class="d-flex align-items-end">
+                                <h5 class="text-muted fw-bold m-0">Số lượng tồn kho:</h5>
+                                <h3 style="text-decoration: underline" class="text-primary fw-bold m-0 ms-2"
+                                    th:text="${product.quantity}">100</h3>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mt-3" style="border-left: 5px solid #2e8f24;">
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                        aria-controls="flush-collapseOne">
+                                    <i class="fas fa-check-circle fs-3 text-success me-2"></i>
+                                    Giao hàng nhanh chóng
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    Nội dung này mô tả cam kết giao hàng nhanh chóng. Chúng tôi cam kết sẽ giao hàng
+                                    trong vòng 24 giờ kể từ khi đặt hàng. Đây là cam kết đầu tiên của chúng tôi về
+                                    dịch
+                                    vụ.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                        aria-controls="flush-collapseTwo">
+                                    <i class="fas fa-check-circle fs-3 text-success me-2"></i>
+                                    Chính sách đổi trả linh hoạt
+                                </button>
+                            </h2>
+                            <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    Chúng tôi cung cấp chính sách đổi trả linh hoạt trong 30 ngày đối với tất cả các
+                                    sản
+                                    phẩm. Nếu bạn không hài lòng, bạn có thể trả lại sản phẩm và nhận lại tiền.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                        aria-controls="flush-collapseThree">
+                                    <i class="fas fa-check-circle fs-3 text-success me-2"></i>
+                                    Chất lượng đảm bảo
+                                </button>
+                            </h2>
+                            <div id="flush-collapseThree" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    Chúng tôi đảm bảo rằng tất cả các sản phẩm đều đạt chất lượng cao, được kiểm tra
+                                    kỹ
+                                    lưỡng trước khi giao đến tay khách hàng. Cam kết này mang đến sự an tâm tuyệt
+                                    đối
+                                    cho người tiêu dùng.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <a th:attr="ng-click=${'cart.add(' + product.id + ')'}"
+                       class="btn button-image w-100 py-3 rounded-0 bg-danger text-white fw-bold rounded-3">
+                        <h3 class="m-0">
+                            Thêm vào giỏ hàng <i class="fas fa-cart-plus"></i>
+                        </h3>
+                    </a>
+                </div>
+                <div class="my-3 mt-5">
+                    <h3 class="m-0 color fw-bold text-start" style="text-transform: uppercase">MÔ TẢ SẢN PHẨM</h3>
+                    <div class="line background-color" style="height: 5px;"></div>
+                </div>
+                <div>
+                    <h4 th:text="${product.productDescription}">Mô tả sản phẩm</h4>
+                </div>
+                <div class="my-3 mt-5">
+                    <h3 class="m-0 color fw-bold text-start" style="text-transform: uppercase">ĐÁNH GIÁ SẢN PHẨM
+                        [[${product.productName}]]</h3>
+                    <div class="line background-color" style="height: 5px;"></div>
+                </div>
+                <div style="max-height: 400px; overflow-y: auto; padding-right: 10px; scrollbar-width: thin; scrollbar-color: #c4c4c4 #f1f1f1;">
                     <div th:if="${reviews.isEmpty()}"
                          style="font-size: 1rem; color: #555; margin-bottom: 1rem;">
                         <h2 style="font-size: 1rem; margin: 0;">Chưa có đánh giá nào
                             cho sản phẩm này.</h2>
                     </div>
-
-                    <!-- Hiển thị danh sách đánh giá -->
-                    <div th:each="review : ${reviews}" style="margin-bottom: 15px;">
-                        <div
-                                style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 15px; background-color: #fff;">
+                    <div th:each="review : ${reviews}" class="mb-3">
+                        <div class="card p-3">
                             <div th:if="${!ratings.isEmpty()}"
                                  class="d-flex justify-content-start align-items-center">
-                                <!-- Icon người dùng bên trái -->
-                                <i class="fas fa-user"
-                                   style="font-size: 2rem; color: #444; margin-right: 10px;"></i>
-
-                                <!-- Tên người dùng -->
-                                <span
-                                        style="font-size: 1.6rem; color: #444; font-weight: bold;"
-                                        th:text="${review.userName.username}">Người dùng</span>
-
-                                <!-- Ngôi sao đánh giá -->
-                                <div class="star-rating"
-                                     style="font-size: 2rem; margin-left: 15px; text-align: left;">
-                                    <!-- Full stars -->
-                                    <span th:if="${averageRating >= 1}" style="color: #FFD700;">&#9733;</span>
-                                    <span th:if="${averageRating >= 2}" style="color: #FFD700;">&#9733;</span>
-                                    <span th:if="${averageRating >= 3}" style="color: #FFD700;">&#9733;</span>
-                                    <span th:if="${averageRating >= 4}" style="color: #FFD700;">&#9733;</span>
-                                    <span th:if="${averageRating >= 5}" style="color: #FFD700;">&#9733;</span>
-
-                                    <!-- Half star -->
-                                    <span th:if="${averageRating % 1 >= 0.5 && averageRating < 5}"
-                                          style="color: #FFD700;">&#9734;</span>
-
-                                    <!-- Empty stars -->
-                                    <span th:if="${averageRating < 1}" style="color: #E0E0E0;">&#9733;</span>
-                                    <span th:if="${averageRating < 2}" style="color: #E0E0E0;">&#9733;</span>
-                                    <span th:if="${averageRating < 3}" style="color: #E0E0E0;">&#9733;</span>
-                                    <span th:if="${averageRating < 4}" style="color: #E0E0E0;">&#9733;</span>
-                                    <span th:if="${averageRating < 5 && averageRating % 1 < 0.5}"
+                                <div>
+                                    <i class="fas fa-user fs-3"></i>
+                                    <span class="fs-4 fw-bold"
+                                          th:text="${review.userName.fullName}">Người dùng</span>
+                                </div>
+                                <div class="fs-6 ms-3 text-muted">
+                                    <span>đã mua sản phẩm <i class="fas fa-check-circle"
+                                                             style="color: #2e8f24;"></i>
+                                    </span>
+                                </div>
+                                <div class="star-rating ms-auto">
+                                    <span th:if="${review.rating >= 1}" style="color: #FFD700;">&#9733;</span>
+                                    <span th:if="${review.rating >= 2}" style="color: #FFD700;">&#9733;</span>
+                                    <span th:if="${review.rating >= 3}" style="color: #FFD700;">&#9733;</span>
+                                    <span th:if="${review.rating >= 4}" style="color: #FFD700;">&#9733;</span>
+                                    <span th:if="${review.rating >= 5}" style="color: #FFD700;">&#9733;</span>
+                                    <span th:if="${review.rating < 1}" style="color: #E0E0E0;">&#9733;</span>
+                                    <span th:if="${review.rating < 2}" style="color: #E0E0E0;">&#9733;</span>
+                                    <span th:if="${review.rating < 3}" style="color: #E0E0E0;">&#9733;</span>
+                                    <span th:if="${review.rating < 4}" style="color: #E0E0E0;">&#9733;</span>
+                                    <span th:if="${review.rating < 5 && averageRating % 1 < 0.5}"
                                           style="color: #E0E0E0;">&#9733;</span>
                                 </div>
                             </div>
-
-                            <p
-                                    style="font-size: 3.2rem; color: #666; margin-bottom: 0.5rem;"
-                                    th:text="${#temporals.format(review.reviewDate, 'dd/MM/yyyy HH:mm')}">Ngày
+                            <p class="text-muted" style="font-style: italic"
+                               th:text="${#temporals.format(review.reviewDate, 'dd/MM/yyyy HH:mm')}">Ngày
                                 đánh giá</p>
-                            <p style="font-size: 4.2rem; color: #444; margin: 0;"
-                               th:text="${review.comment}">Bình luận của người dùng</p>
+                            <div>
+                                <span><i class="fa-solid fa-angles-right"></i></span>
+                                <span class="p-2">[[${review.comment}]]</span>
+                            </div>
                         </div>
                     </div>
-
-
                 </div>
-
-                <!-- CSS Thanh Cuộn -->
-                <div
-                        style="max-height: 400px; overflow-y: auto; padding-right: 10px; scrollbar-width: thin; scrollbar-color: #c4c4c4 #f1f1f1;">
-                    <style>
-                        div[style*="overflow-y: auto"]::-webkit-scrollbar {
-                            width: 8px;
-                        }
-
-                        div[style*="overflow-y: auto"]::-webkit-scrollbar-track {
-                            background: #f1f1f1;
-                            border-radius: 5px;
-                        }
-
-                        div[style*="overflow-y: auto"]::-webkit-scrollbar-thumb {
-                            background: #c4c4c4;
-                            border-radius: 5px;
-                        }
-
-                        div[style*="overflow-y: auto"]::-webkit-scrollbar-thumb:hover {
-                            background: #888;
-                        }
-                    </style>
-                </div>
-
 
             </div>
-
         </div>
-
     </div>
 </div>
-
-</div>
-
-<div th:if="${not #lists.isEmpty(relatedProducts)}" class="row g-4">
+<div th:if="${not #lists.isEmpty(relatedProducts)}" class="row g-4 p-3">
     <div class="text-center">
-        <h2 class="text-center mb-4 font-weight-bold">Sản phẩm cùng loại</h2>
+        <div class="my-3 px-2">
+            <h1 class="m-0 color fw-bold text-center" style="text-transform: uppercase">CÁC SẢN
+                PHẨM THUỘC LOẠI
+                [[${product.productCategoryID.productCategoryName}]]</h1>
+            <div class="line background-color" style="height: 5px;"></div>
+        </div>
         <div class="row">
             <div th:each="product, iterStat : ${relatedProducts}"
                  th:if="${iterStat.index < 6}"
                  class="col-lg-2 col-md-4 col-sm-4 col-6 mb-4">
                 <div class="card card-hover border-0">
-                    <div class="position-relative button-image add-to-cart-container"
-                         style="background-color: #f7f7f5; border-radius: 32px;">
-                        <div class="overflow-hidden p-0 position-relative"
-                             style="border-radius: 15px;">
-                            <!-- Link chi tiết sản phẩm -->
+                    <div class="position-relative button-image add-to-cart-container rounded-4">
+                        <div class="overflow-hidden p-0 position-relative">
                             <a class="nav-link"
                                th:href="@{/product/detail/{id}(id=${product.id})}">
-                                <div class="overflow-hidden rounded-5 button-image"
-                                     style="background-color: #f7f7f5; display: flex; align-items: center; justify-content: center; border-radius: 15px;">
+                                <div class="overflow-hidden rounded-5">
                                     <img loading="lazy"
                                          th:src="@{/images/product/{photo}(photo=${product.photo})}"
-                                         class="card-img-top card-image" alt="product"
+                                         class="card-img-top" alt="product"
                                          style="max-width: 300px; max-height: 300px; object-fit: cover; border-radius: 15px;">
                                 </div>
                             </a>
@@ -217,50 +236,40 @@
                             </h5>
                         </button>
                     </div>
-
                     <div class="card-body text-center">
-                        <!-- Tên sản phẩm -->
                         <h5 th:text="${product.productName}" class="product-name">Tên
                             sản phẩm</h5>
-                        <!-- Giá sản phẩm -->
                         <h4 class="color fw-bold"
-                            th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">100.000đ</h4>
+                            th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">
+                            100.000đ</h4>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
 <div>
-    <!-- Other Products -->
-    <h2 class="text-center mb-4 font-weight-bold">Sản phẩm khác</h2>
-
-    <hr>
-    <div class="row">
+    <div class="my-3 px-2">
+        <h1 class="m-0 color fw-bold text-center">CÁC SẢN PHẨM KHÁC</h1>
+        <div class="line background-color" style="height: 5px;"></div>
+    </div>
+    <div class="row g-4 p-3">
         <div th:each="product, iterStat : ${otherProducts}"
              th:if="${iterStat.index < 12}"
-             class="col-lg-2 col-md-4 col-sm-4 col-6 mb-4">
+             class="col-lg-2 col-md-4 col-sm-4 col-6 mb-2">
             <div class="card card-hover border-0">
-                <div class="position-relative button-image add-to-cart-container"
-                     style="background-color: #f7f7f5; border-radius: 32px;">
-                    <div class="overflow-hidden p-0 position-relative"
-                         style="border-radius: 25px;">
-                        <!-- Link chi tiết sản phẩm -->
+                <div class="position-relative button-image add-to-cart-container rounded-4">
+                    <div class="overflow-hidden p-0 position-relative">
                         <a class="nav-link"
                            th:href="@{/product/detail/{id}(id=${product.id})}">
-                            <div class="overflow-hidden rounded-5 button-image"
-                                 style="border-radius: 15px;">
+                            <div class="overflow-hidden rounded-5">
                                 <img loading="lazy"
                                      th:src="@{/images/product/{photo}(photo=${product.photo})}"
-                                     class="card-img-top card-image" alt="product"
+                                     class="card-img-top" alt="product"
                                      style="max-width: 300px; max-height: 300px; object-fit: cover; border-radius: 15px;">
                             </div>
                         </a>
                     </div>
-
-                    <!-- Nút thêm vào giỏ hàng -->
                     <button th:attr="ng-click=${'cart.add(' + product.id + ')'}"
                             class="btn background-color button-image-white add-to-cart w-100 py-3 position-absolute"
                             style="bottom: 0; left: 0; z-index: 1001; border-radius: 15px;">
@@ -269,31 +278,16 @@
                         </h5>
                     </button>
                 </div>
-
                 <div class="card-body text-center">
-                    <!-- Tên sản phẩm -->
-                    <h5 th:text="${product.productName}"
-                        class="product-name text-truncate">Tên sản phẩm</h5>
-                    <!-- Giá sản phẩm -->
+                    <h5 th:text="${product.productName}" class="product-name">Tên
+                        sản phẩm</h5>
                     <h4 class="color fw-bold"
-                        th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">100.000đ</h4>
+                        th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">
+                        100.000đ</h4>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-<hr>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN6jIeHz"
-        crossorigin="anonymous"></script>
 </body>
-
 </html>

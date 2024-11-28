@@ -9,94 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update pet category">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/Corgi.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/Dachshund.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/French Bulldog.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/Golden.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/Munchkin.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/Poodle.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/Ragdoll.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet/Shorthair.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet_category/cats.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/pet_category/dogs.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/Pate01.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/Pate02.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/Pate03.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/Pate04.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/Pate05.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/Snack01.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/Snack02.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/SupThuong01.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/SupThuong02.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/SupThuong03..webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/balo01.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/balo02.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/balo03.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/balo04.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/balo05.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/chuongLong01.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/chuongLong02.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/chuongLong03.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/chuongLong04.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/chuongLong05.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/doChoi01.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/doChoi02.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/doChoi03.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/doChoi04.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/doChoi06.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/dungCuAnUong01.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/dungCuAnUong02.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/dungCuAnUong03.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/dungCuAnUong04.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/dungCuAnUong05.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/hat01.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/hat02.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/hat03.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/hat04.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/hat05.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/hat06.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/hat07.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/hat08.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/hat09.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/hat10.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/oDem01.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/oDem02.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/oDem03.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/oDem04.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/suaTamDauGoi01.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/suaTamDauGoi02.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/suaTamDauGoi03.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/suaTamDauGoi04.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/suaTamDauGoi05.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/thoiTrang01.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/thoiTrang02.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/thoiTrang03.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/thoiTrang04.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/thoiTrang05.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/veSinh01.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/veSinh02.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/veSinh03.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/veSinh04.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/veSinh05.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/vongCo01.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/vongCo02.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/vongCo03.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/vongCo04.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product/vongCo05.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product_category/chuongLong.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product_category/doChoi.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product_category/dungCuAnUong.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product_category/dungCuVeSinh.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product_category/oDem.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product_category/pateSnackSupThuong.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product_category/suaTamDauGoi.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product_category/thoiTrang.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product_category/thucAnHat.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product_category/tuiSachBalo.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/product_category/vongCo.webp" afterDir="false" />
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="add img/ update detail form">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_productDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_productDetail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_productDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_productDetail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -329,15 +245,7 @@
       <workItem from="1732708841917" duration="2343000" />
       <workItem from="1732720065792" duration="1392000" />
       <workItem from="1732770034370" duration="3562000" />
-      <workItem from="1732787778603" duration="2675000" />
-    </task>
-    <task id="LOCAL-00040" summary="update akjnfsjjakfawfs">
-      <option name="closed" value="true" />
-      <created>1731257427012</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1731257427012</updated>
+      <workItem from="1732787778603" duration="6405000" />
     </task>
     <task id="LOCAL-00041" summary="updtae load nhanh vl">
       <option name="closed" value="true" />
@@ -723,7 +631,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732773344125</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="add img/ update detail form">
+      <option name="closed" value="true" />
+      <created>1732790523584</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1732790523584</updated>
+    </task>
+    <option name="localTasksCounter" value="90" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -763,7 +679,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update admin x3" />
     <MESSAGE value="update admin x4" />
     <MESSAGE value="update index x1" />
     <MESSAGE value="update index x2 (add rating &gt;= 4 newest)" />
@@ -788,7 +703,8 @@
     <MESSAGE value="update crssss" />
     <MESSAGE value="update source" />
     <MESSAGE value="update pet category" />
-    <option name="LAST_COMMIT_MESSAGE" value="update pet category" />
+    <MESSAGE value="add img/ update detail form" />
+    <option name="LAST_COMMIT_MESSAGE" value="add img/ update detail form" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
