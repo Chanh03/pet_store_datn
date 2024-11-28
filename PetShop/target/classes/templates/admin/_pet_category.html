@@ -61,17 +61,31 @@
                          class="img-thumbnail">
                 </td>
                 <td sortable="'petCategoryName'" filter="{ 'petCategoryName': 'text' }"
-                    data-title="'Tên loài'" class="text-start text-truncate" style="max-width: 100px">{{
-                    pc.petCategoryName }}
+                    data-title="'Tên loài'" class="text-start text-truncate" style="max-width: 100px">
+                    {{ pc.petCategoryName }}
                 </td>
-                <td data-title="'Tool'" class="text-center" style="width: 200px">
+                <td ng-init="petCount = findPetLengthByCategoryId(pc.id)" data-title="'Số lượng thú cưng'"
+                    sortable="'petCount'">
+                    <div ng-if="petCount > 0">
+                        {{ petCount }}
+                    </div>
+                    <div ng-if="petCount == 0">
+                        <span class="text-danger">Chưa có thú cưng</span>
+                    </div>
+                </td>
+                <td data-title="'Tool'" class="text-start" style="width: 200px">
                     <button ng-click="petCategoryEdit(pc)" class="btn btn-outline-secondary">
                         <i class="fa-solid fa-pen"></i>
                         <span>Sửa</span>
                     </button>
-                    <button ng-click="petCategoryViewAllPet(pc)" class="btn btn-success">
+                    <button ng-click="openPetCategoryDetailModal(pc.id)" class="btn btn-success"
+                            ng-init="petCount = findPetLengthByCategoryId(pc.id)" ng-if="petCount > 0" style="width: 80px">
                         <i class="fa-solid fa-eye"></i>
                         <span>Xem</span>
+                    </button>
+                    <button ng-click="deletePetCategory(pc.id)" class="btn btn-outline-danger" ng-if="petCount == 0" style="width: 80px">
+                        <i class="fa-solid fa-xmark"></i>
+                        <span>Xóa</span>
                     </button>
                 </td>
             </tr>
