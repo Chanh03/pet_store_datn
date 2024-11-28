@@ -1,0 +1,105 @@
+<style>
+    input[type="file"] {
+        width: 90px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+</style>
+<!-- Modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editProductLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header bg-color">
+                <h5 class="modal-title" id="editProductLabel">Thay đổi thông tin khách hàng
+                    #{{selectedUser.fullName}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form name="editUserForm">
+                    <div class="row">
+                        <!-- Cột 1 -->
+                        <div class="mb-3">
+                            <label for="userName">Tên đăng nhập:</label>
+                            <input ng-model="selectedUser.userName" type="text" class="form-control"
+                                   id="userName"
+                                   name="userName"
+                                   placeholder="Tên đăng nhập" required disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fullName">Tên khách hàng:</label>
+                            <input ng-model="selectedUser.fullName" type="text" class="form-control"
+                                   id="fullName"
+                                   name="fullName"
+                                   placeholder="Tên khách hàng" required>
+                            <span ng-show="editUserForm.fullName.$touched && editUserForm.fullName.$invalid"
+                                  class="text-danger fst-italic">
+                                Vui lòng nhập tên khách hàng.
+                            </span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email">Email:</label>
+                            <input ng-model="selectedUser.email" type="email" class="form-control"
+                                   id="email"
+                                   name="email"
+                                   placeholder="Email" required>
+                            <span ng-show="editUserForm.email.$touched && editUserForm.email.$invalid"
+                                  class="text-danger fst-italic">
+                                Vui lòng nhập email.
+                            </span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phoneNumber">Số điện thoại:</label>
+                            <input ng-model="selectedUser.phoneNumber" type="text" class="form-control"
+                                   id="phoneNumber"
+                                   name="phoneNumber"
+                                   placeholder="Số điện thoại" required minlength="10" maxlength="10">
+                            <span ng-show="editUserForm.phoneNumber.$touched && editUserForm.phoneNumber.$invalid"
+                                  class="text-danger fst-italic">
+                                Vui lòng nhập số điện thoại (từ 0 đến 10 số).
+                            </span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userAddress">Địa chỉ:</label>
+                            <textarea ng-model="selectedUser.userAddress" type="text" class="form-control"
+                                      id="userAddress"
+                                      name="userAddress"
+                                      placeholder="Địa chỉ" required minlength="0" maxlength="100">
+                            </textarea>
+                            <span ng-show="editUserForm.userAddress.$touched && editUserForm.userAddress.$invalid"
+                                  class="text-danger fst-italic">
+                                Vui lòng nhập địa chỉ (từ 0 đến 100 ký tự).
+                            </span>
+                        </div>
+                        <div class="mb-3">
+                            <label>Trạng thái</label>
+                            <div class="form-check form-check-inline">
+                                <input ng-checked="selectedUser.enable == true"
+                                       ng-model="selectedUser.enable" class="form-check-input"
+                                       type="radio" id="hoatDong" value="true">
+                                <label class="form-check-label" for="hoatDong">Đang hoạt động</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input ng-checked="selectedUser.enable == false"
+                                       ng-model="selectedUser.enable" class="form-check-input"
+                                       type="radio" id="khongHoatDong" value="false">
+                                <label class="form-check-label" for="khongHoatDong">Khóa tài khoản</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--                <button type="button" class="btn btn-danger" ng-click="deleteUser(selectedUser.id)">-->
+                <!--                    <span>Xóa</span> <i-->
+                <!--                        class="fa-solid fa-trash"></i>-->
+                <!--                </button>-->
+                <button ng-disabled="editUserForm.$invalid || editUserForm.$pristine" type="button"
+                        class="btn btn-primary"
+                        ng-click="updateUser(selectedUser.userName)">
+                    <span>Lưu thay đổi</span> <i class="fa-solid fa-floppy-disk"></i>
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

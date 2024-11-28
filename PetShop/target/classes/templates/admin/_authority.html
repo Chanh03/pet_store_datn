@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/index.html::admin(~{::body})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+<div class="mt-3">
+    <div class="mt-1 mb-3 rounded-3 overflow-hidden shadow p-4 bg-white">
+        <!--BREADCRUMB-->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/quan-tri-he-thong">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Phân quyền
+                </li>
+            </ol>
+        </nav>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>
+                <span>Phân quyền</span>
+                <i class="fa-solid fa-user-shield"></i>
+            </h1>
+        </div>
+        <hr>
+        <div class="row g-5">
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">CÁC VAI TRÒ HIỆN CÓ</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <div ng-repeat="role in roleData" class="d-flex justify-content-start align-items-end">
+                            <h4>
+                                <span style="background-color: #dc3545" class="badge me-2"
+                                      ng-if="role.name === 'ROLE_ADMIN'">ADMIN</span>
+                                <span style="background-color: #17a2b8" class="badge me-2"
+                                      ng-if="role.name === 'ROLE_STAFF'">STAFF</span>
+                                <span style="background-color: #6c757d" class="badge me-2"
+                                      ng-if="role.name === 'ROLE_USER'">USER</span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">ADMIN</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h2>{{count_ROLE_ADMIN}}</h2>
+                        <h5 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{authorityData.length}}</span>
+                            <span class="fs-6 badge" style="background: rgba(220,53,69,0.05); color: #dc3545">{{ (count_ROLE_ADMIN / authorityData.length * 100) | number:2 }}%</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">STAFF</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h2>{{count_ROLE_STAFF}}</h2>
+                        <h5 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{authorityData.length}}</span>
+                            <span class="fs-6 badge" style="background: rgba(23,162,184,0.05); color: #17a2b8">{{ (count_ROLE_STAFF / authorityData.length * 100) | number:2 }}%</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">USER</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h2>{{count_ROLE_USER}}</h2>
+                        <h5 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{authorityData.length}}</span>
+                            <span class="fs-6 badge" style="background: rgba(108,117,125,0.05); color: #6c757d">{{ (count_ROLE_USER / authorityData.length * 100) | number:2 }}%</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-1 mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
+        <div class="d-flex position-absolute gap-4" style="right: 25px;top: 83px">
+            <button ng-click="clearUserFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
+        </div>
+        <table ng-table="authorityTables"
+               class="table text-truncate table-responsive rounded-3 table-hover table-sm  p-5"
+               show-filter="true">
+            <tr ng-repeat="userAuthor in $data" class="align-middle">
+                <!-- STT tính toán dựa trên trang hiện tại -->
+                <td data-title="'#'" class="p-2 px-3 text-center">
+                    <b>{{ (authorityTables.page() - 1) * authorityTables.count() + $index + 1 }}</b>
+                </td>
+                <!--                <td sortable="'id'" data-title="'productID'">{{ product.id }}</td>-->
+                <td sortable="'userName.fullName'" filter="{ 'userName.fullName': 'text' }"
+                    data-title="'Họ và tên'" class="text-start">
+                    <span class="text-primary fw-bold">
+                        {{ userAuthor.userName.fullName }}
+                    </span>
+                </td>
+                <td sortable="'userName.fullName'" filter="{ 'userName.phoneNumber': 'text' }"
+                    data-title="'Số điện thoại'" class="text-start">{{ userAuthor.userName.phoneNumber }}
+                </td>
+                <td sortable="'userName.fullName'" filter="{ 'userName.email': 'text' }"
+                    data-title="'Email'" class="text-start">{{ userAuthor.userName.email }}
+                </td>
+                <td sortable="'role.name'" filter="{ 'role.name': 'text' }" data-title="'Vai trò'" class="text-start">
+                    <select
+                            ng-model="userAuthor.authority"
+                            ng-change="changeRole(userAuthor.id, userAuthor.authority)"
+                            class="form-select"
+                            ng-class="{'text-danger fw-bold': userAuthor.authority === 'ROLE_ADMIN',
+                                       'text-info fw-bold': userAuthor.authority === 'ROLE_STAFF',
+                                       'text-secondary fw-bold': userAuthor.authority === 'ROLE_USER'}">
+                        <option class="bg-white text-dark" ng-repeat=" role in roleData" ng-value="role.name">
+                            {{role.name.replace('ROLE_', '')}}
+                        </option>
+                    </select>
+                </td>
+                <td data-title="'###'" class="text-center">
+                    <div ng-if="userAuthor.authority === 'ROLE_ADMIN'">
+                        <span style="background: rgba(220,53,69,0.05); color: #dc3545" class="badge">ADMIN</span>
+                    </div>
+                    <div ng-if="userAuthor.authority === 'ROLE_STAFF'">
+                        <span style="background: rgba(23,162,184,0.05); color: #17a2b8" class="badge">STAFF</span>
+                    </div>
+                    <div ng-if="userAuthor.authority === 'ROLE_USER'">
+                        <span style="background: rgba(108,117,125,0.05); color: #6c757d" class="badge">USER</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
