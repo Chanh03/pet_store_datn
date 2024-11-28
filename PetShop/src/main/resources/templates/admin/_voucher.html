@@ -32,6 +32,60 @@
             </div>
         </div>
         <hr>
+        <div class="row g-5">
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">ĐANG CÔNG KHAI</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h2>{{voucherEnableTrueLength}}</h2>
+                        <h5 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{voucherData.length}}</span>
+                            <span class="fs-6 badge" style="background: #e8f6f6; color: #5cbec4">{{ (voucherEnableTrueLength / voucherData.length * 100) | number:2 }}%</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">ĐANG ẨN DANH</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h2>{{voucherEnableFalseLength}}</h2>
+                        <h5 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{voucherData.length}}</span>
+                            <span class="fs-6 badge" style="background: #f6e8e8; color: #ff4646">{{ (voucherEnableFalseLength / voucherData.length * 100) | number:2 }}%</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">CÒN HẠN</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h2>{{voucherNotExpiredLength}}</h2>
+                        <h5 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{voucherData.length}}</span>
+                            <span class="fs-6 badge" style="background: #e8f6f6; color: #5cbec4">{{ (voucherNotExpiredLength / voucherData.length * 100) | number:2 }}%</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">HẾT HẠN</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h2>{{voucherExpiredLength}}</h2>
+                        <h5 class="text-secondary">
+                            . trên tổng số
+                            <span class="">{{voucherData.length}}</span>
+                            <span class="fs-6 badge" style="background: #f6e8e8; color: #ff4646">{{ (voucherExpiredLength / voucherData.length * 100) | number:2 }}%</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="text-center mt-1 mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
         <div class="row g-3">
@@ -57,11 +111,16 @@
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>
-                            <div class="d-flex justify-content-center align-items-center p-2">
+                            <div class="d-flex justify-content-center align-items-center p-2 position-relative">
+                                <div class="position-absolute top-0 start-0 translate-start-x overlay-status">
+                                    <span class="badge rounded-pill {{ v.expiryDate < getCurrentDate() ? 'bg-danger' : 'bg-success' }} text-white px-3 py-2">
+                                        {{ v.expiryDate < getCurrentDate() ? 'Hết hạn' : 'Còn hạn' }}
+                                    </span>
+                                </div>
                                 <div class="mx-auto">
                                     <img src="/images/logo/logo.png" alt="">
                                 </div>
-                                <div class="text-start p-3" style="border-left: 4px dashed #000000;width: 325px;">
+                                <div class="text-start p-3" style="border-left: 4px dashed #000000; width: 325px;">
                                     <div class="mb-2">
                                         <h6 class="fw-bold text-primary">Mã Voucher: <span class="text-uppercase">{{ v.voucherID }}</span>
                                         </h6>
@@ -71,13 +130,12 @@
                                         </p>
                                     </div>
                                     <div class="mb-3">
-                                        <small class="text-muted">Hết hạn: {{ v.expiryDate | date:'dd/MM/yyyy'
-                                            }}</small>
+                                        <small class="text-muted">Hết hạn: {{ v.expiryDate | date:'dd/MM/yyyy'}}</small>
                                     </div>
                                     <div class="voucher-status">
                                         <small class="text-muted">
-                                            Trạng thái: <span
-                                                class="{{ v.enable ? 'badge bg-success' : 'badge bg-danger' }}">
+                                            Trạng thái:
+                                            <span class="{{ v.enable ? 'fw-bold text-success' : 'fw-bold text-danger' }}">
                                                 {{ v.enable ? 'Công khai' : 'Ẩn danh' }}
                                             </span>
                                         </small>

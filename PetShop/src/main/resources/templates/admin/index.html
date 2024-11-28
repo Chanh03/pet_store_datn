@@ -1874,6 +1874,10 @@
         $scope.getVouchers = function () {
             $http.get(baseUrl + 'voucher').then(function (response) {
                 $scope.voucherData = response.data;
+                $scope.voucherEnableTrueLength = $scope.voucherData.filter(voucher => voucher.enable === true).length;
+                $scope.voucherEnableFalseLength = $scope.voucherData.filter(voucher => voucher.enable === false).length
+                $scope.voucherNotExpiredLength = $scope.voucherData.filter(voucher => $scope.getCurrentDate() < voucher.expiryDate).length;
+                $scope.voucherExpiredLength = $scope.voucherData.filter(voucher => $scope.getCurrentDate() > voucher.expiryDate).length;
             }).catch(function (error) {
                 console.error('Lỗi khi lấy dữ liệu voucher:', error);
             });
