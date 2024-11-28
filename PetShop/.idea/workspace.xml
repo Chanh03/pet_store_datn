@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="add img/ update detail form">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="add img/ update detail form x2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_productDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_productDetail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_productDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_productDetail.html" afterDir="false" />
@@ -245,15 +245,7 @@
       <workItem from="1732708841917" duration="2343000" />
       <workItem from="1732720065792" duration="1392000" />
       <workItem from="1732770034370" duration="3562000" />
-      <workItem from="1732787778603" duration="6405000" />
-    </task>
-    <task id="LOCAL-00041" summary="updtae load nhanh vl">
-      <option name="closed" value="true" />
-      <created>1731258114692</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1731258114692</updated>
+      <workItem from="1732787778603" duration="7202000" />
     </task>
     <task id="LOCAL-00042" summary="add access denied handle">
       <option name="closed" value="true" />
@@ -639,7 +631,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732790523584</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="add img/ update detail form x2">
+      <option name="closed" value="true" />
+      <created>1732795541916</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1732795541916</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -679,7 +679,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update admin x4" />
     <MESSAGE value="update index x1" />
     <MESSAGE value="update index x2 (add rating &gt;= 4 newest)" />
     <MESSAGE value="update index x3 pet category" />
@@ -704,7 +703,8 @@
     <MESSAGE value="update source" />
     <MESSAGE value="update pet category" />
     <MESSAGE value="add img/ update detail form" />
-    <option name="LAST_COMMIT_MESSAGE" value="add img/ update detail form" />
+    <MESSAGE value="add img/ update detail form x2" />
+    <option name="LAST_COMMIT_MESSAGE" value="add img/ update detail form x2" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
