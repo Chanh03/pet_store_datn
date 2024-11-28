@@ -44,13 +44,13 @@
                                 <label class="floating-label" for="fromDate">Ngày bắt đầu:</label>
                                 <input type="date" id="fromDate" ng-model="fromDate" class="form-control"
                                        ng-change="getOrdersByDate(fromDate, toDate)"
-                                       ng-init="fromDate = getCurrentDate(true)">
+                                       ng-init="fromDate = getCurrentDate(true)" value="{{getCurrentDate(true)}}">
                             </div>
                             <div>
                                 <label for="toDate">Ngày kết thúc:</label>
                                 <input type="date" id="toDate" ng-model="toDate" class="form-control"
                                        ng-change="getOrdersByDate(fromDate, toDate)"
-                                       ng-init="toDate = getCurrentDate()">
+                                       ng-init="toDate = getCurrentDate()" value="{{getCurrentDate()}}">
                             </div>
                         </div>
                     </div>

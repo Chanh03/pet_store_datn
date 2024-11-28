@@ -1,7 +1,9 @@
 package com.example.petshop.rest;
 
+import com.example.petshop.entity.Pet;
 import com.example.petshop.entity.PetCategory;
 import com.example.petshop.service.PetCategoryService;
+import com.example.petshop.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,8 @@ public class RestPetCategoryController {
     @Autowired
     PetCategoryService petCategoryService;
 
+    @Autowired
+    private PetService petService;
 
     @GetMapping
     public List<PetCategory> getAll() {
@@ -27,7 +31,7 @@ public class RestPetCategoryController {
 
     @PostMapping
     public void save(@RequestBody PetCategory petCategory) {
-         petCategoryService.save(petCategory);
+        petCategoryService.save(petCategory);
     }
 
     @PutMapping("/{id}")
@@ -39,5 +43,11 @@ public class RestPetCategoryController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         petCategoryService.deleteId(id);
+    }
+
+    @GetMapping("/{id}/all-pet")
+    public List<Pet> getAllPetById(@PathVariable("id") int id) {
+        PetCategory petCategoryId = petCategoryService.findById(id);
+        return petService.getAllPetByCategoryId(petCategoryId);
     }
 }

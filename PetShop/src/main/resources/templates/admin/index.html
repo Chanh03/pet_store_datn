@@ -298,6 +298,7 @@
 
 <div th:insert="~{/admin/_pet_category_modal}"></div>
 <div th:insert="~{/admin/_add_pet_category_modal}"></div>
+<div th:insert="~{/admin/_pet_category_details_modal}"></div>
 
 <div th:insert="~{/admin/_productModal}"></div>
 <div th:insert="~{/admin/_productAddModal}"></div>
@@ -1058,6 +1059,61 @@
                     });
                 });
             }
+        };
+        $scope.deletePetCategory = function (petCategoryId) {
+            Swal.fire({
+                title: 'Bạn có chắc chắn muôn xóa?',
+                text: "Bạn sẽ không thể khôi phục hành động này!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận!',
+                cancelButtonText: 'Hủy bỏ'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $http.delete(baseUrl + 'pet-category/' + petCategoryId).then(function (response) {
+                        Swal.fire({
+                            title: 'Đã xóa!',
+                            text: 'Loại thú cưng có ID: ' + petCategoryId + ' đã được xóa thành công.',
+                            icon: 'success',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                        $scope.getPetCategories();
+                    }).catch(function (error) {
+                        Swal.fire({
+                            title: 'Lỗi!',
+                            text: 'Lỗi khi xóa loại thú cưng có ID: ' + petCategoryId,
+                            icon: 'error',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    });
+                }
+            });
+        }
+        $scope.openPetCategoryDetailModal = function (petCategoryId) {
+            $http.get(baseUrl + 'pet-category/' + petCategoryId + '/all-pet').then(function (response) {
+                $scope.selectedAllPetByCategory = response.data;
+                $scope.petsCategoryDetailTable = new NgTableParams({
+                    page: 1,
+                    count: 5,
+                    sorting: {
+                        petID: 'desc'
+                    }
+                }, {
+                    counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.selectedAllPetByCategory.length],
+                    dataset: $scope.selectedAllPetByCategory
+                });
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu loại thú cưng:', error);
+            });
+            var petCategoryDetailModal = new bootstrap.Modal(document.getElementById('petCategoryDetailModal'), {
+                keyboard: true
+            });
+            petCategoryDetailModal.show();
+        };
+        $scope.findPetLengthByCategoryId = function (petCategoryId) {
+            return $scope.petData.filter(pet => pet.petCategoryID.id === petCategoryId).length;
         };
         $scope.clearPetCategoryFilter = function () {
             $scope.petCategoryTables.filter({});
