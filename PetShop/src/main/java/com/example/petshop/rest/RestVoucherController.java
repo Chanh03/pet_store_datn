@@ -39,4 +39,11 @@ public class RestVoucherController {
     public void deleteVoucher(@PathVariable("id") String id) {
         voucherService.deleteVoucher(id);
     }
+
+    @PutMapping("/{id}")
+    public Voucher updateVoucher(@PathVariable("id") String id, @RequestBody Voucher voucher) {
+        voucher.setExpiryDate(voucher.getExpiryDate().plusDays(1));
+        voucher.setVoucherID(id);
+        return voucherService.updateVoucher(voucher);
+    }
 }

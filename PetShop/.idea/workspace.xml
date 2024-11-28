@@ -9,10 +9,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="add img/ update detail form x3">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="add img/ update detail form x4">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_voucher.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_voucherADDModal.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_voucherModal.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_productDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_productDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_productDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_productDetail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestVoucherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestVoucherController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_petModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_petModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_pet_category.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_pet_category.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/controller/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/rest/RestVoucherController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/rest/RestVoucherController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_pet_category.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_pet_category.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +37,8 @@
       <list>
         <option value="Interface" />
         <option value="com.intellij.jpb.JpaEntity" />
-        <option value="HTML File" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -82,7 +92,7 @@
     "grid.search.filter.rows": "true",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Vanh/GitHub/DATN_DEV/PetShop/src/main/resources/static",
+    "last_opened_file_path": "D:/Vanh/GitHub/DATN_DEV/PetShop/src/main/resources/templates/admin",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -91,7 +101,7 @@
     "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.editor",
+    "settings.editor.selected.configurable": "preferences.fileTypes",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -102,8 +112,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static" />
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\templates\admin" />
+      <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static" />
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\images\logo" />
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\images\banner" />
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\static\gifs" />
@@ -245,15 +255,7 @@
       <workItem from="1732708841917" duration="2343000" />
       <workItem from="1732720065792" duration="1392000" />
       <workItem from="1732770034370" duration="3562000" />
-      <workItem from="1732787778603" duration="8093000" />
-    </task>
-    <task id="LOCAL-00043" summary="add history order detail">
-      <option name="closed" value="true" />
-      <created>1731407651247</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1731407651247</updated>
+      <workItem from="1732787778603" duration="17767000" />
     </task>
     <task id="LOCAL-00044" summary="update bla bla bla bla">
       <option name="closed" value="true" />
@@ -639,7 +641,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732796314231</updated>
     </task>
-    <option name="localTasksCounter" value="92" />
+    <task id="LOCAL-00092" summary="add img/ update detail form x4">
+      <option name="closed" value="true" />
+      <created>1732797210810</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1732797210810</updated>
+    </task>
+    <option name="localTasksCounter" value="93" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -679,7 +689,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update index x2 (add rating &gt;= 4 newest)" />
     <MESSAGE value="update index x3 pet category" />
     <MESSAGE value="update index menu search (fixed)" />
     <MESSAGE value="update index x3" />
@@ -704,7 +713,8 @@
     <MESSAGE value="add img/ update detail form" />
     <MESSAGE value="add img/ update detail form x2" />
     <MESSAGE value="add img/ update detail form x3" />
-    <option name="LAST_COMMIT_MESSAGE" value="add img/ update detail form x3" />
+    <MESSAGE value="add img/ update detail form x4" />
+    <option name="LAST_COMMIT_MESSAGE" value="add img/ update detail form x4" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

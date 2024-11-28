@@ -288,6 +288,34 @@
         }
 
 
+        .voucher-container {
+            transition: background 0.3s;
+        }
+
+        .voucher-container:hover .voucher-coupon {
+            opacity: 0.5;
+            background: #000000;
+            transition: filter 0.3s;
+        }
+
+        .voucher-container:hover {
+            background: rgba(0, 0, 0, 0.5);
+            border: 4px solid #2292af !important;
+        }
+
+        .voucher-container:hover .voucher-control {
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+
+        .voucher-control {
+            opacity: 0;
+        }
+
+        .voucher-container:hover .voucher-control {
+            opacity: 1;
+        }
+
     </style>
 </head>
 
@@ -309,6 +337,10 @@
 
 <div th:insert="~{/admin/_slideBarModal}"></div>
 <div th:insert="~{/admin/_slideBarAddModal}"></div>
+
+<div th:insert="~{/admin/_voucherModal}"></div>
+<div th:insert="~{/admin/_voucherADDModal}"></div>
+
 <!-- MAIN CONTENT -->
 <main class="container-fluid p-0 d-flex">
     <div id="bdSidebar"
@@ -413,15 +445,21 @@
                 </ul>
             </li>
             <li class="nav-item mb-2">
-                <a th:href="@{/quan-tri-he-thong/send-notification}" class="nav-link text-dark  border shadow-sm">
-                    <i class="fa-solid fa-bell"></i>
-                    <span class="text-muted"><strong>Gửi thông báo</strong></span>
-                </a>
-            </li>
-            <li class="nav-item mb-2">
                 <a th:href="@{/quan-tri-he-thong/slide-bar}" class="nav-link text-dark  border shadow-sm">
                     <i class="fa-solid fa-image"></i>
                     <span class="text-muted">Quản lý ảnh <strong>Slide</strong></span>
+                </a>
+            </li>
+            <li class="nav-item mb-2">
+                <a th:href="@{/quan-tri-he-thong/voucher}" class="nav-link text-dark  border shadow-sm">
+                    <i class="fa-solid fa-gift"></i>
+                    <span class="text-muted">Quản lý <strong>Voucher</strong></span>
+                </a>
+            </li>
+            <li class="nav-item mb-2">
+                <a th:href="@{/quan-tri-he-thong/send-notification}" class="nav-link text-dark  border shadow-sm">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="text-muted"><strong>Gửi thông báo</strong></span>
                 </a>
             </li>
         </ul>
@@ -1831,6 +1869,127 @@
                 keyboard: true
             });
             editSlideBarModal.show();
+        };
+        // VOUCHER
+        $scope.getVouchers = function () {
+            $http.get(baseUrl + 'voucher').then(function (response) {
+                $scope.voucherData = response.data;
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu voucher:', error);
+            });
+        };
+        $scope.getVouchers();
+        $scope.editVoucher = function (voucher) {
+            $scope.selectedVoucher = angular.copy(voucher);
+            var editVoucherModal = new bootstrap.Modal(document.getElementById('editVoucherModal'), {
+                keyboard: true
+            });
+            editVoucherModal.show();
+        };
+        $scope.updateVoucher = function (voucherId) {
+            if (voucherId == null) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Vui lòng nhập đầy đủ thông tin :',
+                    autoclose: true,
+                    status: 'error',
+                    autotimeout: 3000
+                });
+            } else {
+                $http.put(baseUrl + 'voucher/' + voucherId, $scope.selectedVoucher).then(function (response) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Cập nhật thành công :' + voucherId,
+                        autoclose: true,
+                        status: 'success',
+                        autotimeout: 3000
+                    });
+                    $scope.getVouchers();
+                }).catch(function (error) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Lỗi khi cập nhật :' + voucherId,
+                        autoclose: true,
+                        status: 'warning',
+                        autotimeout: 3000
+                    });
+                });
+            }
+        };
+        $scope.openAddVoucherModal = function () {
+            $scope.selectedVoucher = {
+                enable: true,
+            };
+            var addVoucherModal = new bootstrap.Modal(document.getElementById('addVoucherModal'), {
+                keyboard: true
+            });
+            addVoucherModal.show();
+        };
+        $scope.addVoucher = function (id) {
+            $http.get(baseUrl + 'voucher/' + id).then(function (response) {
+                if (response.data) {
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: 'ID voucher đã tồn tại',
+                        icon: 'error',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                } else {
+                    $http.post(baseUrl + 'voucher', $scope.selectedVoucher).then(function (response) {
+                        Swal.fire({
+                            title: 'Thành công!',
+                            text: 'Thêm mới voucher thành công',
+                            icon: 'success',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                        $scope.getVouchers();
+                    }).catch(function (error) {
+                        Swal.fire({
+                            title: 'Lỗi!',
+                            text: 'Lỗi khi thêm mới voucher',
+                            icon: 'error',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    });
+                }
+            }).catch(function (error) {
+                console.error('Lỗi khi kiểm tra ID voucher:', error);
+            });
+        };
+
+        $scope.deleteVoucher = function (voucherId) {
+            Swal.fire({
+                title: 'Bạn có chắc chắn muôn xóa?',
+                text: "Bạn sẽ không thể khôi phục hành động này!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận!',
+                cancelButtonText: 'Hủy bỏ'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $http.delete(baseUrl + 'voucher/' + voucherId).then(function (response) {
+                        Swal.fire({
+                            title: 'Đã xóa!',
+                            text: 'Đã xóa voucher : ' + voucherId,
+                            icon: 'success',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                        $scope.getVouchers();
+                    }).catch(function (error) {
+                        Swal.fire({
+                            title: 'Lỗi!',
+                            text: 'Lỗi khi xóa voucher : ' + voucherId,
+                            icon: 'error',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    });
+                }
+            });
         };
     });
 </script>

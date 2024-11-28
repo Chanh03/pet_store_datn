@@ -57,4 +57,9 @@ public class AdminController {
     public String adminSendNotification(Model model) {
         return "admin/_send_notification";
     }
+
+    @RequestMapping("/voucher")
+    public String adminVoucher(Model model) {
+        return "admin/_voucher";
+    }
 }
