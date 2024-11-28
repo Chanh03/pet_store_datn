@@ -1,33 +1,20 @@
 package com.example.petshop.controller;
 
 import com.example.petshop.entity.*;
-import com.example.petshop.repo.SubscriptionRepo;
 import com.example.petshop.service.*;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
 
-import java.io.Console;
 import java.security.Principal;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -57,15 +44,6 @@ public class HomeController {
 
     @Autowired
     private OrderProductDetailService orderProductDetailService;
-
-    @Autowired
-    private JavaMailSender mailSender;
-
-    @Autowired
-    private SubscriptionRepo subscriptionRepository;
-
-    @Autowired
-    private TemplateEngine templateEngine;
 
     @ModelAttribute("user")
     public User user(Authentication authentication, Principal principal) {
@@ -207,40 +185,5 @@ public class HomeController {
         model.addAttribute("order", order);
         model.addAttribute("orderDetailHistory", orderDetailHistory);
         return "/layout/_historyOrderDetail";
-    }
-
-    @GetMapping("/subscribe")
-    public String showSubscriptionForm(Model model) {
-        model.addAttribute("subscription", new Subscription());
-        return "/layout/_main";
-    }
-
-    @PostMapping("/subscribe")
-    public String subscribe(@ModelAttribute Subscription subscription, Model model) throws MessagingException, MessagingException {
-        Optional<Subscription> existingSubscription = subscriptionRepository.findByEmail(subscription.getEmail());
-        if (existingSubscription.isPresent()) {
-            model.addAttribute("message", false);
-            return "/layout/_main";
-        }
-
-        subscriptionRepository.save(subscription);
-
-        Context context = new Context();
-        context.setVariable("name", subscription.getName());
-        context.setVariable("email", subscription.getEmail());
-        context.setVariable("phone_number", subscription.getPhoneNumber());
-
-        String body = templateEngine.process("/layout/_mailForm", context);
-
-        MimeMessage mimeMessage = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-        helper.setTo(subscription.getEmail());
-        helper.setSubject("ĐĂNG KÝ NHẬN TIN CỬA HÀNG THÚ CƯNG NINJAS");
-        helper.setText(body, true);
-
-        mailSender.send(mimeMessage);
-
-        model.addAttribute("message", true);
-        return "/layout/_main";
     }
 }

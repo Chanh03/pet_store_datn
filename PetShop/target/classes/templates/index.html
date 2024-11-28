@@ -45,7 +45,7 @@
         }
 
         .container {
-            max-width: 1600px;
+            max-width: 1366px;
         }
 
         #menu {
@@ -953,31 +953,47 @@
         };
     });
 </script>
+
 <script>
-    try {
-        const isSuccess = [[${message}]]
-        if (isSuccess == true) {
-            console.log(isSuccess)
-            Swal.fire({
-                title: 'Đăng Ký Thành Công',
-                text: 'Bạn đã đăng ký thành công!! ' +
-                    'Vui lòng kiểm tra Email',
-                icon: 'success'
-            })
-        } else {
-            Swal.fire({
-                title: 'Thông Báo Lỗi',
-                text: 'Email đã được đăng ký ở của hàng!!',
-                icon: 'error'
-            })
-        }
-    } catch (error) {
-        Swal.fire({
-            title: 'Error',
-            text: 'Lỗi hệ thống',
-            icon: 'error'
+    function subscribe() {
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            phoneNumber: document.getElementById('phoneNumber').value,
+        };
+
+        fetch('http://localhost:8080/api/subscriptions/subscribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
         })
-        console.log(error)
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire({
+                        title: 'Đăng Ký Thành Công',
+                        text: 'Bạn đã đăng ký thành công!! Vui lòng kiểm tra Email',
+                        icon: 'success'
+                    }).then(() => {
+                        document.getElementById('subscribeForm').reset();
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Thông Báo Lỗi',
+                        text: 'Email đã được đăng ký!',
+                        icon: 'error'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Lỗi hệ thống',
+                    icon: 'error'
+                });
+                console.error('Error:', error);
+            });
     }
 </script>
 </html>

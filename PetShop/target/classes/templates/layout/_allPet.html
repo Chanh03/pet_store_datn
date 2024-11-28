@@ -23,7 +23,7 @@
                 <option value="asc" th:selected="${sort == 'asc'}">Tăng dần</option>
                 <option value="desc" th:selected="${sort == 'desc'}">Giảm dần</option>
             </select>
-            <input type="hidden" name="keyword" th:value="${keyword}" />
+            <input type="hidden" name="keyword" th:value="${keyword}"/>
         </form>
 
         <!-- Form tìm kiếm -->
@@ -79,12 +79,13 @@
     </div>
 
     <!-- Phân trang -->
-    <div th:if="${petPage.totalElements > 5}">
+    <div th:if="${petPage.totalElements > 18}">
         <nav class="d-flex justify-content-center mt-4">
             <ul class="pagination">
                 <!-- Nút "Previous" -->
                 <li th:classappend="${petPage.hasPrevious()} ? '' : 'disabled'" class="page-item">
-                    <a class="page-link" th:href="@{/allPet(page=${petPage.number - 1}, keyword=${keyword}, priceOrder=${priceOrder})}">&laquo;</a>
+                    <a class="page-link"
+                       th:href="@{/allPet(page=${petPage.number - 1}, keyword=${keyword}, priceOrder=${priceOrder})}">&laquo;</a>
                 </li>
 
                 <!-- Các nút trang -->
@@ -96,7 +97,8 @@
 
                 <!-- Nút "Next" -->
                 <li th:classappend="${petPage.hasNext()} ? '' : 'disabled'" class="page-item">
-                    <a class="page-link" th:href="@{/allPet(page=${petPage.number + 1}, keyword=${keyword}, priceOrder=${priceOrder})}">&raquo;</a>
+                    <a class="page-link"
+                       th:href="@{/allPet(page=${petPage.number + 1}, keyword=${keyword}, priceOrder=${priceOrder})}">&raquo;</a>
                 </li>
             </ul>
         </nav>

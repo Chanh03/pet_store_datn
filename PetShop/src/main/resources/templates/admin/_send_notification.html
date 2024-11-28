@@ -26,18 +26,18 @@
         <hr>
     </div>
     <div class="mt-1 mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
-        <form th:action="@{/quan-tri-he-thong/send}" method="post">
+        <form id="sendNotificationForm">
             <div class="mb-3">
                 <label for="subject" class="form-label">Tiêu đề:</label>
                 <input type="text" id="subject" name="subject" class="form-control" required>
             </div>
 
             <div class="mb-3">
-                <label for="contentEditor" class="form-label">Nội dung:</label>
-                <textarea id="contentEditor" name="content" class="form-control" rows="5"></textarea>
+                <label for="content" class="form-label">Nội dung:</label>
+                <textarea id="content" name="content" class="form-control" rows="5"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Gửi email</button>
+            <button type="button" onclick="sendNotification()" class="btn btn-primary">Gửi email</button>
         </form>
     </div>
 </div>

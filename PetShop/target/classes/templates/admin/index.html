@@ -1786,5 +1786,39 @@
         };
     });
 </script>
+
+<script>
+    function sendNotification() {
+        const subject = document.getElementById('subject').value;
+        const content = document.getElementById('content').value;
+
+        fetch('http://localhost:8080/api/subscriptions/send?subject=' + encodeURIComponent(subject) + '&content=' + encodeURIComponent(content), {
+            method: 'POST'
+        })
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire({
+                        title: 'Đăng Ký Thành Công',
+                        text: 'Bạn đã đăng ký thành công!! Vui lòng kiểm tra Email',
+                        icon: 'success'
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Thông Báo Lỗi',
+                        text: 'Gửi thông báo thất bại!',
+                        icon: 'error'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Lỗi hệ thống',
+                    icon: 'error'
+                });
+                console.error('Error:', error);
+            });
+    }
+</script>
 </body>
 </html>
