@@ -10,12 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="UPDATE ALL ADMIN">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_voucher.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_voucher.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_petAddModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_petAddModal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_pet_category_modal.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_pet_category_modal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_productAddModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_productAddModal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_productModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_productModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -248,15 +243,7 @@
       <workItem from="1732708841917" duration="2343000" />
       <workItem from="1732720065792" duration="1392000" />
       <workItem from="1732770034370" duration="3562000" />
-      <workItem from="1732787778603" duration="25667000" />
-    </task>
-    <task id="LOCAL-00047" summary="update order detail form">
-      <option name="closed" value="true" />
-      <created>1731665634829</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1731665634829</updated>
+      <workItem from="1732787778603" duration="25899000" />
     </task>
     <task id="LOCAL-00048" summary="update nhieu cai hahah">
       <option name="closed" value="true" />
@@ -642,7 +629,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732817392954</updated>
     </task>
-    <option name="localTasksCounter" value="96" />
+    <task id="LOCAL-00096" summary="UPDATE ALL ADMIN">
+      <option name="closed" value="true" />
+      <created>1732817791178</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1732817791178</updated>
+    </task>
+    <option name="localTasksCounter" value="97" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
