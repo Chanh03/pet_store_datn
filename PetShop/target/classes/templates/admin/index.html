@@ -325,11 +325,16 @@
 <div th:insert="~{/admin/_petAddModal}"></div>
 
 <div th:insert="~{/admin/_pet_category_modal}"></div>
-<div th:insert="~{/admin/_add_pet_category_modal}"></div>
+<div th:insert="~{/admin/_pet_category_add_modal}"></div>
 <div th:insert="~{/admin/_pet_category_details_modal}"></div>
 
 <div th:insert="~{/admin/_productModal}"></div>
 <div th:insert="~{/admin/_productAddModal}"></div>
+
+<div th:insert="~{/admin/_product_category_modal}"></div>
+<div th:insert="~{/admin/_product_category_add_modal}"></div>
+<div th:insert="~{/admin/_product_category_details_modal}"></div>
+
 
 <div th:insert="~{/admin/_userModal}"></div>
 
@@ -1161,77 +1166,142 @@
         $scope.getProductCategories = function () {
             $http.get(baseUrl + 'product-category').then(function (response) {
                 $scope.productCategoryData = response.data;
+                $scope.productCategoryTables = new NgTableParams({
+                    page: 1,
+                    count: 10,
+                    sorting: {
+                        productCategoryName: 'asc'
+                    }
+                }, {
+                    counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.productCategoryData.length],
+                    dataset: $scope.productCategoryData
+                });
             }).catch(function (error) {
                 console.error('Lỗi khi lấy dữ liệu loại sản phẩm:', error);
             });
         };
         $scope.getProductCategories();
         $scope.productCategoryEdit = function (productCategory) {
-            $scope.selectedPetCategory = angular.copy(petCategory);
-            var editPetCategoryModal = new bootstrap.Modal(document.getElementById('editPetCategoryModal'), {
+            $scope.selectedProductCategory = angular.copy(productCategory);
+            var editProductCategoryModal = new bootstrap.Modal(document.getElementById('editProductCategoryModal'), {
                 keyboard: true
             });
-            editPetCategoryModal.show();
+            editProductCategoryModal.show();
         };
         $scope.productCategoryAddModal = function () {
-            $scope.selectedPetCategory = {
+            $scope.selectedProductCategory = {
                 photo: null,
                 petCategoryName: null,
             };
-            var addPetCategory = new bootstrap.Modal(document.getElementById('addPetCategoryModal'), {
+            var addPetCategory = new bootstrap.Modal(document.getElementById('addProductCategoryModal'), {
                 keyboard: true
             });
             addPetCategory.show();
         };
         $scope.addProductCategory = function () {
-            $http.post(baseUrl + 'pet-category', $scope.selectedPetCategory).then(function (response) {
-                new Notify({
-                    title: 'Thông báo',
+            $http.post(baseUrl + 'product-category', $scope.selectedProductCategory).then(function (response) {
+                Swal.fire({
+                    title: 'Thành công!',
                     text: 'Thêm mới thành công :',
-                    autoclose: true,
-                    status: 'success',
-                    autotimeout: 3000
+                    icon: 'success',
+                    timer: 3000,
+                    showConfirmButton: false
                 });
-                $scope.getPetCategories();
+                $scope.getProductCategories();
             }).catch(function (error) {
-                new Notify({
-                    title: 'Thông báo',
+                Swal.fire({
+                    title: 'Lỗi!',
                     text: 'Lỗi khi thêm mới :',
-                    autoclose: true,
-                    status: 'warning',
-                    autotimeout: 3000
+                    icon: 'error',
+                    timer: 3000,
+                    showConfirmButton: false
                 });
             });
         }
         $scope.updateProductCategory = function (productCategoryId) {
-            if (petCategoryId == null) {
-                new Notify({
+            if (productCategoryId == null) {
+                Swal.fire({
                     title: 'Thông báo',
-                    text: 'Vui lòng nhập đầy đủ thông tin :',
-                    autoclose: true,
-                    status: 'error',
-                    autotimeout: 3000
+                    text: 'Vui lòng nhập đầy đủ thông tin',
+                    icon: 'error',
+                    timer: 3000,
+                    showConfirmButton: false
                 });
             } else {
-                $http.put(baseUrl + 'pet-category/' + petCategoryId, $scope.selectedPetCategory).then(function (response) {
-                    new Notify({
-                        title: 'Thông báo',
-                        text: 'Cập nhật thành công :' + petCategoryId,
-                        autoclose: true,
-                        status: 'success',
-                        autotimeout: 3000
+                $http.put(baseUrl + 'product-category/' + productCategoryId, $scope.selectedProductCategory).then(function (response) {
+                    Swal.fire({
+                        title: 'Thành công!',
+                        text: 'Cập nhật thông tin : ' + productCategoryId + ' thành công.',
+                        icon: 'success',
+                        timer: 3000,
+                        showConfirmButton: false
                     });
-                    $scope.getPetCategories();
+                    $scope.getProductCategories();
                 }).catch(function (error) {
-                    new Notify({
-                        title: 'Thông báo',
-                        text: 'Lỗi khi cập nhật :' + petCategoryId,
-                        autoclose: true,
-                        status: 'warning',
-                        autotimeout: 3000
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: 'Lỗi khi cập nhật : ' + productCategoryId,
+                        icon: 'error',
+                        timer: 3000,
+                        showConfirmButton: false
                     });
                 });
             }
+        };
+        $scope.deleteProductCategory = function (productCategoryId) {
+            Swal.fire({
+                title: 'Bạn có chắc chắn muôn xóa?',
+                text: "Bạn sẽ không thể khôi phục hành động này!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận!',
+                cancelButtonText: 'Hủy bỏ'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $http.delete(baseUrl + 'product-category/' + productCategoryId).then(function (response) {
+                        Swal.fire({
+                            title: 'Đã xóa!',
+                            text: 'Loại sản phẩm có ID: ' + productCategoryId + ' đã được xóa thành công.',
+                            icon: 'success',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                        $scope.getProductCategories();
+                    }).catch(function (error) {
+                        Swal.fire({
+                            title: 'Lỗi!',
+                            text: 'Lỗi khi xóa loại sản phẩm có ID: ' + productCategoryId,
+                            icon: 'error',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    });
+                }
+            });
+        };
+        $scope.openProductCategoryDetailModal = function (productCategoryId) {
+            $http.get(baseUrl + 'product-category/' + productCategoryId + '/all-product').then(function (response) {
+                $scope.selectedAllProductByCategory = response.data;
+                $scope.productsCategoryDetailTable = new NgTableParams({
+                    page: 1,
+                    count: 5,
+                    sorting: {
+                        id: 'desc'
+                    }
+                }, {
+                    counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.selectedAllProductByCategory.length],
+                    dataset: $scope.selectedAllProductByCategory
+                });
+            }).catch(function (error) {
+                console.error('Lỗi khi lấy dữ liệu loại sản phẩm:', error);
+            });
+            var productCategoryDetailModal = new bootstrap.Modal(document.getElementById('productCategoryDetailModal'), {
+                keyboard: true
+            });
+            productCategoryDetailModal.show();
+        };
+        $scope.findProductLengthByCategoryId = function (productCategoryId) {
+            return $scope.productData.filter(product => product.productCategoryID.id === productCategoryId).length;
         };
         $scope.clearProductCategoryFilter = function () {
             $scope.petCategoryTables.filter({});
@@ -1732,6 +1802,13 @@
                 $scope.$apply();
             }
         };
+        $scope.updatePhotoProductCategoryName = function (input) {
+            if (input.files && input.files[0]) {
+                var fileName = input.files[0].name;
+                $scope.selectedProductCategory.photo = fileName;
+                $scope.$apply();
+            }
+        };
         $scope.updatePhotoSlideName = function (input) {
             if (input.files && input.files[0]) {
                 var fileName = input.files[0].name;
@@ -1961,6 +2038,37 @@
                 }
             }).catch(function (error) {
                 console.error('Lỗi khi kiểm tra ID voucher:', error);
+            });
+        };
+        $scope.deleteVoucherALL = function () {
+            Swal.fire({
+                title: 'Bạn có chắc chắn muôn xóa toàn bộ voucher?',
+                text: "Bạn sẽ không thể khôi phục hành động này!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận!',
+                cancelButtonText: 'Hủy bỏ'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $http.delete(baseUrl + 'voucher/delete-all').then(function (response) {
+                        Swal.fire({
+                            title: 'Đã xóa!',
+                            text: 'Voucher đã được xóa thành công.',
+                            icon: 'success',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                        $scope.getVouchers();
+                    }).catch(function (error) {
+                        Swal.fire({
+                            title: 'Lỗi!',
+                            text: 'Lỗi khi xóa voucher',
+                            icon: 'error',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    });
+                }
             });
         };
 

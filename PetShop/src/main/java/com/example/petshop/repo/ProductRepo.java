@@ -1,6 +1,7 @@
 package com.example.petshop.repo;
 
 import com.example.petshop.entity.Product;
+import com.example.petshop.entity.ProductCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,4 +27,6 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 
     @Query("SELECT p,r FROM Product p, Review r WHERE p.id = r.productID.id and p.available = true ORDER BY p.createDate DESC limit 8")
     List<Product> findAllByCreatedDateDescAndAvailable();
+
+    List<Product> findByProductCategoryID(ProductCategory productCategory);
 }

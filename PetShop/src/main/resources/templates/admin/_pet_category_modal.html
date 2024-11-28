@@ -35,18 +35,25 @@
                                            id="photo"
                                            placeholder="Hình ảnh" name="photo" required>
                                     <input type="file" id="fileInput" accept="image/*"
-                                           onchange="angular.element(this).scope().updatePhotoPetName(this)">
+                                           onchange="angular.element(this).scope().updatePhotoPetCategoryName(this)">
                                 </div>
                                 <span ng-show="editPetCategoryModal.photo.$touched && editPetCategoryModal.photo.$invalid"
                                       class="text-danger fst-italic">
                                     Vui lòng chọn ảnh.
                                 </span>
+                                <div class="text-center">
+                                    <img height="300px" width="300px"
+                                         ng-src="/images/pet_category/{{ selectedPetCategory.photo }}"
+                                         alt="{{ selectedPetCategory.photo }}"
+                                         class="img-thumbnail">
+                                </div>
                             </div>
                         </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button ng-disabled="editPetCategoryModal.$invalid || editPetCategoryModal.$pristine" type="button"
+                <button ng-disabled="editPetCategoryModal.$invalid" type="button"
                         class="btn btn-primary"
                         ng-click="addPetCategory(selectedPet.id)">
                     <span>Lưu thay đổi</span> <i class="fa-solid fa-plus"></i>

@@ -37,4 +37,9 @@ public class VoucherServiceImpl implements VoucherService {
     public void deleteVoucher(String id) {
         voucherRepo.deleteById(id);
     }
+
+    @Override
+    public void deleteAllVoucher() {
+        voucherRepo.deleteAll();
+    }
 }

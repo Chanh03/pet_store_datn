@@ -43,6 +43,12 @@
                                     Vui lòng chọn ảnh.
                                 </span>
                             </div>
+                            <div class="text-center" ng-if="selectedPetCategory.photo">
+                                <img height="300px" width="300px"
+                                     ng-src="/images/pet_category/{{ selectedPetCategory.photo }}"
+                                     alt="{{ selectedPetCategory.photo }}"
+                                     class="img-thumbnail">
+                            </div>
                         </div>
                 </form>
             </div>

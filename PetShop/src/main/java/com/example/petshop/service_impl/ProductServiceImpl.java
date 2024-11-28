@@ -1,6 +1,7 @@
 package com.example.petshop.service_impl;
 
 import com.example.petshop.entity.Product;
+import com.example.petshop.entity.ProductCategory;
 import com.example.petshop.repo.ProductRepo;
 import com.example.petshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,5 +82,8 @@ public class ProductServiceImpl implements ProductService {
         return productRepo.findAllByCreatedDateDescAndAvailable();
     }
 
-
+    @Override
+    public List<Product> getAllProductByCategoryId(ProductCategory productCategory) {
+        return productRepo.findByProductCategoryID(productCategory);
+    }
 }

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/index.html::admin(~{::body})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+<div class="mt-3">
+    <div class="mt-1 mb-3 rounded-3 overflow-hidden shadow p-4 bg-white">
+        <!--BREADCRUMB-->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/quan-tri-he-thong">Trang chủ</a></li>
+                <li class="breadcrumb-item active">Sản phẩm</li>
+                <li class="breadcrumb-item active" aria-current="page">Các loại
+                </li>
+            </ol>
+        </nav>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>
+                <span>Các loại sản phẩm</span>
+                <i class="fa-solid fa-box"></i>
+            </h1>
+            <div>
+                <button ng-click="productCategoryAddModal()" class="insert-btn btn px-4 py-3">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Thêm loại sản phẩm</span>
+                </button>
+            </div>
+        </div>
+        <hr>
+        <div class="row g-5">
+            <div class="col-3">
+                <div class="card p-4 rounded-4 border-light-subtle shadow-sm">
+                    <h4 class="text-secondary">HIỆN CÓ</h4>
+                    <div class="d-flex justify-content-start align-items-end">
+                        <h2>{{productCategoryData.length}}</h2>
+                        <h5 class="text-secondary">
+                            . loại sản phẩm
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-1 mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
+        <div class="d-flex position-absolute gap-4" style="right: 35px;top: 80px">
+            <button ng-click="clearPetCategoryFilter()" class="btn btn-danger ms-auto">Xóa lọc</button>
+        </div>
+        <table ng-table="productCategoryTables"
+               class="table table-responsive text-truncate rounded-3 table-hover table-sm  p-5"
+               show-filter="true">
+            <tr ng-repeat="pc in $data" class="align-middle">
+                <td data-title="'#'" class="p-2 px-3 text-center">
+                    <b>{{ (productCategoryTables.page() - 1) * productCategoryTables.count() + $index + 1 }}</b>
+                </td>
+                <td data-title="'Hình ảnh'" class="text-center">
+                    <img height="100px" width="100px" ng-src="/images/product_category/{{ pc.photo }}"
+                         alt="{{ pc.photo }}"
+                         class="img-thumbnail">
+                </td>
+                <td sortable="'productCategoryName'" filter="{ 'productCategoryName': 'text' }"
+                    data-title="'Tên loại sản phẩm'" class="text-start text-truncate" style="max-width: 100px">
+                    {{ pc.productCategoryName }}
+                </td>
+                <td ng-init="productCount = findProductLengthByCategoryId(pc.id)" data-title="'Số lượng sản phẩm'"
+                    sortable="'productCount'">
+                    <div ng-if="productCount > 0">
+                        {{ productCount }}
+                    </div>
+                    <div ng-if="productCount == 0">
+                        <span class="text-danger">Chưa có sản phẩm</span>
+                    </div>
+                </td>
+                <td data-title="'Tool'" class="text-start" style="width: 200px">
+                    <button ng-click="productCategoryEdit(pc)" class="btn btn-outline-secondary">
+                        <i class="fa-solid fa-pen"></i>
+                        <span>Sửa</span>
+                    </button>
+                    <button ng-click="openProductCategoryDetailModal(pc.id)" class="btn btn-success"
+                            ng-if="productCount > 0"
+                            style="width: 80px">
+                        <i class="fa-solid fa-eye"></i>
+                        <span>Xem</span>
+                    </button>
+                    <button ng-click="deleteProductCategory(pc.id)" class="btn btn-outline-danger" ng-if="productCount == 0"
+                            style="width: 80px">
+                        <i class="fa-solid fa-xmark"></i>
+                        <span>Xóa</span>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

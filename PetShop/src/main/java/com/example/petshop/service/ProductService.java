@@ -1,6 +1,7 @@
 package com.example.petshop.service;
 
 import com.example.petshop.entity.Product;
+import com.example.petshop.entity.ProductCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -32,4 +33,6 @@ public interface ProductService {
     Page<Product> searchProductWithCategory(String keyword, Integer categoryId, Pageable pageable);
 
     List<Product> getAllByCreatedDateAndEnable();
+
+    List<Product> getAllProductByCategoryId(ProductCategory productCategory);
 }
