@@ -157,11 +157,12 @@
                         <h4>Chưa có đánh giá nào cho sản phẩm này.</h4>
                     </div>
                     <div th:if="${not #lists.isEmpty(reviews)}"
-                         class="d-flex align-items-center justify-content-center">
-                        <h1 style="font-size: 5rem !important;" class="color fw-bold" th:text="${averageRating}">Đánh
+                         class="d-flex flex-column align-items-center justify-content-center">
+                        <h1 style="font-size: 5rem !important;" class="color fw-bold m-0 p-0"
+                            th:text="${averageRating}">Đánh
                             giá trung
                             bình</h1>
-                        <div class="d-flex flex-column ms-3">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
                             <div class="star-rating">
                                 <span th:if="${averageRating >= 1}" style="color: #FFD700;">&#9733;</span>
                                 <span th:if="${averageRating >= 2}" style="color: #FFD700;">&#9733;</span>
