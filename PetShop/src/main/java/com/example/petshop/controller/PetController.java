@@ -3,15 +3,15 @@ package com.example.petshop.controller;
 import com.example.petshop.entity.Pet;
 import com.example.petshop.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,17 +20,9 @@ import java.util.stream.Collectors;
 @Controller
 public class PetController {
 
-	@Autowired
-	private PetService petService;
-
-	@RequestMapping("/pet")
-	public String viewAllPets(Model model) {
-		List<Pet> list = petService.getAll();
-		model.addAttribute("list", list);
-		return "layout/_allPet";
-	}
-
-	@RequestMapping("/allPet")
+    @Autowired
+    private PetService petService;
+    @RequestMapping("/allPet")
 	public String viewPaginatedPets(Model model, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "desc") String priceOrder,
 			@RequestParam(required = false) Integer minPrice, @RequestParam(required = false) Integer maxPrice) {
@@ -64,31 +56,16 @@ public class PetController {
 		return "layout/_allPet";
 	}
 
-	@RequestMapping("/pet/detail/{id}")
-	public String viewPetDetail(Model model, @PathVariable String id) {
-		Optional<Pet> optionalPet = Optional.ofNullable(petService.findById(id));
 
-		if (optionalPet.isPresent()) {
-			Pet pet = optionalPet.get();
-			model.addAttribute("pet", pet);
-
-			// Filter list of pets of the same category but different pet ID
-			List<Pet> sameCategoryPets = petService.getAll().stream().filter(
-					p -> !p.getPetID().equals(pet.getPetID()) && p.getPetCategoryID().equals(pet.getPetCategoryID()))
-					.limit(12).collect(Collectors.toList());
-
-			// Filter list of pets from different categories
-			List<Pet> differentCategoryPets = petService.getAll().stream()
-					.filter(p -> !p.getPetCategoryID().equals(pet.getPetCategoryID())).limit(12)
-					.collect(Collectors.toList());
-
-			model.addAttribute("pets", sameCategoryPets);
-			model.addAttribute("petCates", differentCategoryPets);
-		} else {
-			model.addAttribute("errorMessage", "Thú cưng không tồn tại");
-			return "error";
-		}
-
-		return "layout/_petDetail";
-	}
+    @RequestMapping("/pet/detail/{id}")
+    public String petDetail(Model model, @PathVariable String id) {
+        List<Pet> pet = petService.getAll();
+        Pet pet1 = petService.findById(id);
+        List<Pet> samePetCategory = petService.getAllPetByCategoryId(pet1.getPetCategoryID());
+        List<Pet> otherPetCategory = pet.stream().filter(p -> !p.getPetCategoryID().equals(pet1.getPetCategoryID())).collect(Collectors.toList());
+        model.addAttribute("pet", pet1);
+        model.addAttribute("samePetCategory", samePetCategory);
+        model.addAttribute("otherPetCategory", otherPetCategory);
+        return "layout/_petDetail";
+    }
 }

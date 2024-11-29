@@ -11,6 +11,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Nationalized;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.security.Principal;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
@@ -67,6 +68,9 @@ public class User implements UserDetails {
     @Column(name = "ActiveToken", nullable = false, length = 200)
     private String activeToken;
 
+    @NotNull
+    @Column(name = "IsDelete", nullable = false)
+    private Boolean isDelete = false;
     @NotNull
     @Column(name = "DateCreated", nullable = false)
     private LocalDateTime dateCreated;

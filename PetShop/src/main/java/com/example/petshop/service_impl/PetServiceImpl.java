@@ -1,6 +1,7 @@
 package com.example.petshop.service_impl;
 
 import com.example.petshop.entity.Pet;
+import com.example.petshop.entity.PetCategory;
 import com.example.petshop.repo.PetRepo;
 import com.example.petshop.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import java.util.List;
 
 @Service
 public class PetServiceImpl implements PetService {
-
     @Autowired
     private PetRepo petRepo;
 
@@ -57,11 +57,13 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public List<Pet> getAllLimit12() {
-        return petRepo.findAllLimit12();
+    public List<Pet> getAllPetByCategoryId(PetCategory id) {
+        return petRepo.findAllByPetCategoryID(id);
     }
     @Override
+
     public Page<Pet> searchPetsByPriceRange(Integer minPrice, Integer maxPrice, Pageable pageable) {
         return petRepo.findByPriceBetween(minPrice, maxPrice, pageable);
     }
 }
+

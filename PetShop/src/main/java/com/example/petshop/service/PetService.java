@@ -1,6 +1,7 @@
 package com.example.petshop.service;
 
 import com.example.petshop.entity.Pet;
+import com.example.petshop.entity.PetCategory;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +10,6 @@ import java.util.List;
 
 @Service
 public interface PetService {
-
     List<Pet> getAll();
 
     Pet findById(String id);
@@ -22,12 +22,11 @@ public interface PetService {
 
     List<Pet> getAllByCreatedDate();
 
-    List<Pet> getAllLimit12();
-
     Page<Pet> getPaginatedPets(Pageable pageable);
 
     Page<Pet> searchPets(String keyword, Pageable pageable);
-    // Tìm kiếm thú cưng theo khoảng giá
- // Tìm kiếm thú cưng theo khoảng giá
+
+    List<Pet> getAllPetByCategoryId(PetCategory id);
+   // Tìm kiếm thú cưng theo khoảng giá
     Page<Pet> searchPetsByPriceRange(Integer minPrice, Integer maxPrice, Pageable pageable);
 }

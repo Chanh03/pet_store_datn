@@ -102,8 +102,9 @@
                     <img height="100px" width="100px" ng-src="/images/pet/{{ pet.photo }}" alt="{{ pet.photo }}"
                          class="img-thumbnail pet-image">
                 </td>
-                <td sortable="'petID'" class="text-start text-wrap" filter="{ 'petID': 'text' }" data-title="'Pet Id'">
-                    {{ pet.petID }}
+                <td sortable="'petID'" class="text-start text-wrap fw-bold" filter="{ 'petID': 'text' }"
+                    data-title="'Pet Id'">
+                    <a href="/pet/detail/{{ pet.petID }}">{{ pet.petID }}</a>
                 </td>
                 <td sortable="'breed'" class="text-start" filter="{ 'breed': 'text' }" data-title="'Giống'">{{ pet.breed
                     }}
@@ -138,8 +139,8 @@
                             <span>Sửa</span>
                         </button>
                         <button class="btn btn-outline-danger" ng-click="deletePet(pet.petID)">
-                        <i class="fa-solid fa-xmark"></i>
-                        <span>Xóa</span>
+                            <i class="fa-solid fa-xmark"></i>
+                            <span>Xóa</span>
                         </button>
                     </div>
                 </td>

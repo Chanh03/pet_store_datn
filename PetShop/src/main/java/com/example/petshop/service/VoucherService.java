@@ -16,4 +16,6 @@ public interface VoucherService {
     Voucher updateVoucher(Voucher voucher);
 
     void deleteVoucher(String id);
+
+    void deleteAllVoucher();
 }

@@ -21,11 +21,11 @@
                 <span>Đơn hàng</span>
                 <i class="fas fa-box-open"></i>
             </h1>
-            <div>
-                <button ng-click="exportExcelOrder()" class="btn btn-success px-4 py-3">
-                    <i class="fa-solid fa-file-excel"></i> Xuất Excel
-                </button>
-            </div>
+<!--            <div>-->
+<!--                <button ng-click="exportExcelOrder()" class="btn btn-success px-4 py-3">-->
+<!--                    <i class="fa-solid fa-file-excel"></i> Xuất Excel-->
+<!--                </button>-->
+<!--            </div>-->
         </div>
         <hr>
         <div class="row g-1">
@@ -153,7 +153,7 @@
                                 ng-class="order.orderStatusID.id === 4 ? 'text-success fw-bold' : ''">
                             Đã giao ✅
                         </option>
-                        <option ng-disabled="isDisabledOption(order.orderStatusID.id,5) || order.orderStatusID.id === 4"
+                        <option ng-disabled="isDisabledOption(order.orderStatusID.id,5) || order.orderStatusID.id === 4 || order.orderStatusID.id === 3"
                                 ng-value="5"
                                 ng-selected="order.orderStatusID.id === 5"
                                 ng-class="order.orderStatusID.id === 5 ? 'text-danger fw-bold' : ''">

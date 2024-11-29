@@ -10,14 +10,21 @@
     <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
             <div class="modal-header bg-color">
-                <h5 class="modal-title" id="editProductLabel">Chỉnh sửa khách hàng</h5>
+                <h5 class="modal-title" id="editProductLabel">Thay đổi thông tin khách hàng
+                    #{{selectedUser.fullName}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form name="editUserForm">
                     <div class="row">
                         <!-- Cột 1 -->
-                        <input ng-model="selectedUser.userName" hidden="hidden">
+                        <div class="mb-3">
+                            <label for="userName">Tên đăng nhập:</label>
+                            <input ng-model="selectedUser.userName" type="text" class="form-control"
+                                   id="userName"
+                                   name="userName"
+                                   placeholder="Tên đăng nhập" required disabled>
+                        </div>
                         <div class="mb-3">
                             <label for="fullName">Tên khách hàng:</label>
                             <input ng-model="selectedUser.fullName" type="text" class="form-control"

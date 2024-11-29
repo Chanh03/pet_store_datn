@@ -91,151 +91,191 @@
 <!-- Modal -->
 <div class="modal fade" id="orderDetailModal" tabindex="-1" aria-labelledby="editProductLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
-        <div class="modal-content">
+        <div class="modal-content" id="orderDetailExportExcelForm">
             <div class="modal-header bg-color">
-                <h5 class="modal-title" id="editProductLabel">Đơn đặt hàng #{{orderDetailAll.id}}</h5>
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="text-center">
+                            <h5 class="modal-title" id="editProductLabel">Đơn đặt hàng #{{orderDetailAll.id}}</h5>
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body order-detail-modal">
-                <div ng-if="orderDetail.length">
-                    <div class="card border-0 mb-5">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="card shadow">
-                                    <div class="card-header fw-bold bg-modal-header-color">Thông tin người dùng</div>
-                                    <div class="card-body">
-                                        <p><span class="text-muted">Họ tên:</span>
-                                            {{ orderDetailAll.userName.fullName }}</p>
-                                        <p><span class="text-muted">Email:</span>
-                                            {{ orderDetailAll.userName.email }}</p>
-                                        <p><span class="text-muted">SĐT:</span>
-                                            {{ orderDetailAll.userName.phoneNumber }}</p>
-                                        <p><span class="text-muted">Địa chỉ:</span>
-                                            {{ orderDetailAll.userName.userAddress }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card shadow">
-                                    <div class="card-header fw-bold bg-modal-header-color">Thông tin đơn hàng</div>
-                                    <div class="card-body">
-                                        <p><span class="text-muted">Ngày đặt:</span>
-                                            {{ orderDetailAll.orderDate | date: 'dd/MM/yyyy' }}</p>
-                                        <p><span class="text-muted">Tổng tiền:</span>
-                                            {{ orderDetailAll.totalAmount | number:'0' }}đ</p>
-                                        <p><span class="text-muted">Địa chỉ giao hàng:</span>
-                                            {{ orderDetailAll.shippingAddress }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="card shadow">
-                                    <div class="card-header fw-bold bg-modal-header-color">Trạng thái đơn hàng</div>
-                                    <div class="card-body">
-                                        <div>
-                                            <h6 class="text-muted fst-italic">
-                                                Đơn hàng đã được đặt vào {{orderDetailAll.orderDate | date:
-                                                'dd/MM/yyyy'}}
-                                            </h6>
-                                        </div>
-                                        <div class="order-status-list">
-                                            <div class="order-status-list">
-                                                <span class="text-info d-block p-3 m-0"
-                                                      ng-class="{'fw-bold order-timeline-checked': orderDetailAll.orderStatusID.id === 1, 'disabled': isDisabledOption(orderDetailAll.orderStatusID.id, 1)}">
-                                                    <i class="fas fa-hourglass-half"></i> Đang xử lý
-                                                </span>
-                                                <span class="text-primary d-block p-3 m-0"
-                                                      ng-class="{'fw-bold order-timeline-checked': orderDetailAll.orderStatusID.id === 2, 'disabled': isDisabledOption(orderDetailAll.orderStatusID.id, 2)}">
-                                                    <i class="fas fa-check-circle"></i> Đã xác nhận
-                                                </span>
-                                                <span class="text-warning d-block p-3 m-0"
-                                                      ng-class="{'fw-bold order-timeline-checked': orderDetailAll.orderStatusID.id === 3, 'disabled': isDisabledOption(orderDetailAll.orderStatusID.id, 3)}">
-                                                    <i class="fas fa-shipping-fast"></i> Đang vận chuyển
-                                                </span>
-                                                <span class="text-success d-block p-3 m-0 "
-                                                      ng-class="{'fw-bold order-timeline-checked': orderDetailAll.orderStatusID.id === 4, 'disabled': isDisabledOption(orderDetailAll.orderStatusID.id, 4)}">
-                                                    <i class="fas fa-box-open"></i> Đã giao
-                                                </span>
-                                                <span class="text-danger d-block p-3 m-0"
-                                                      ng-class="{'fw-bold order-timeline-checked': orderDetailAll.orderStatusID.id === 5, 'disabled': isDisabledOption(orderDetailAll.orderStatusID.id, 5) || orderDetailAll.orderStatusID.id === 4}">
-                                                    <i class="fas fa-times-circle"></i> Hủy đơn
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card shadow">
-                                    <div class="card-header fw-bold bg-modal-header-color">Trạng thái thanh toán</div>
-                                    <div class="card-body bg-white">
-                                        <div class="mx-auto" ng-if="orderDetailAll.paymentStatusID.id === 1"
-                                             style="width: 200px">
-                                            <img class="img-fluid" src="/images/logo/not-paid.webp" alt="">
-                                        </div>
-                                        <div class="mx-auto" ng-if="orderDetailAll.paymentStatusID.id === 2"
-                                             style="width: 200px">
-                                            <img class="img-fluid" src="/images/logo/paid-order-status-01.webp" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div ng-if="orderDetail.length" id="orderDetailExportForm">
+                    <div class="mb-3">
+                        <h1 class="text-center">
+                            Hóa đơn đặt hàng #{{orderDetailAll.id}}
+                        </h1>
+                        <table class="table shadow table-border m-0 table-hover">
+                            <thead>
+                            <tr>
+                                <th colspan="2" class="text-center fw-bold">Thông tin người dùng</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="text-muted">Họ tên:</td>
+                                <td>{{ orderDetailAll.userName.fullName }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">Email:</td>
+                                <td>{{ orderDetailAll.userName.email }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">SĐT:</td>
+                                <td>{{ orderDetailAll.userName.phoneNumber }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">Địa chỉ:</td>
+                                <td>{{ orderDetailAll.userName.userAddress }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="card mb-5">
-                        <div class="card-header fw-bold bg-modal-header-color text-center">
-                            <h2>Danh sách sản phẩm</h2>
-                        </div>
-                        <table class="table shadow table-border border m-0 table-hover">
+                    <div class="mb-3">
+                        <table class="table shadow table-border m-0 table-hover">
+                            <thead>
+                            <tr>
+                                <th colspan="2" class="text-center fw-bold">Thông tin đơn hàng</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="text-muted">Ngày đặt:</td>
+                                <td>{{ orderDetailAll.orderDate | date: 'dd/MM/yyyy' }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">Tổng tiền:</td>
+                                <td>{{ orderDetailAll.totalAmount | number:'0' }}đ</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">Địa chỉ giao hàng:</td>
+                                <td>{{ orderDetailAll.shippingAddress }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mb-3">
+                        <table class="table shadow table-border m-0">
+                            <thead>
+                            <tr>
+                                <th colspan="5" class="text-center fw-bold">Danh sách sản phẩm</th>
+                            </tr>
                             <tr>
                                 <th class="text-center">STT</th>
                                 <th>Tên sản phẩm</th>
                                 <th>Giá</th>
                                 <th>Số lượng</th>
-                                <th>Thành tiền</th>
+                                <th class="text-center">Thành tiền</th>
                             </tr>
+                            </thead>
+                            <tbody>
                             <tr ng-repeat="od in orderDetail">
-                                <td class="text-center">
-                                    {{$index + 1}}
-                                </td>
+                                <td class="text-center">{{$index + 1}}</td>
                                 <td class="text-wrap" style="max-width: 200px">
-                                    {{od.productID.productName}}
-                                    <span>
-                                        <a href="/san-pham/{{od.productID.id}}"
-                                           target="_blank">(Xem)</a>
-                                    </span>
+                                    {{od.productID.productName}} <a href="/san-pham/{{od.productID.id}}"
+                                                                    target="_blank">(Xem)</a>
                                 </td>
-                                <td>
-                                    {{od.price | number: '0'}}đ
-                                </td>
-                                <td>
-                                    x{{od.quantity}}
-                                </td>
-                                <td>
-                                    {{od.price * od.quantity | number: '0'}}đ
-                                </td>
+                                <td>{{od.price | number: '0'}}đ</td>
+                                <td>x{{od.quantity}}</td>
+                                <td class="text-center">{{od.price * od.quantity | number: '0'}}đ</td>
                             </tr>
                             <tr>
-                                <td class="fw-bold text-center" colspan="4">
-                                    Tổng
-                                </td>
-                                <td class="fw-bold">{{totalOrderPrice | number: '0'}}đ
+                                <td class="fw-bold text-center" colspan="3">#</td>
+                                <td class="fw-bold ">Phí vận chuyển</td>
+                                <td class="text-center" style="font-style: italic">50.000đ</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold text-center" colspan="3">#</td>
+                                <td class="fw-bold ">Tổng</td>
+                                <td class="fw-bold text-center">{{totalOrderPrice + 50000 | number: '0'}}đ</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold text-center" colspan="3">#</td>
+                                <td class="fw-bold">Trạng thái thanh toán</td>
+                                <td class="fw-bold text-center"
+                                    ng-class="{'text-danger': orderDetailAll.paymentStatusID.id === 1, 'text-success': orderDetailAll.paymentStatusID.id === 2}">
+                                    {{orderDetailAll.paymentStatusID.id === 1 ? 'Chưa thanh toán' : 'Đã thanh toán'}}
                                 </td>
                             </tr>
+                            </tbody>
                         </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card shadow">
+                            <div class="card-header fw-bold bg-modal-header-color">Trạng thái đơn hàng</div>
+                            <div class="card-body">
+                                <div>
+                                    <h6 class="text-muted fst-italic">
+                                        Đơn hàng đã được đặt vào {{orderDetailAll.orderDate | date:
+                                        'dd/MM/yyyy'}}
+                                    </h6>
+                                </div>
+                                <div class="order-status-list">
+                                    <div class="order-status-list">
+                                                <span class="text-info d-block p-3 m-0"
+                                                      ng-class="{'fw-bold order-timeline-checked': orderDetailAll.orderStatusID.id === 1, 'disabled': isDisabledOption(orderDetailAll.orderStatusID.id, 1)}">
+                                                    <i class="fas fa-hourglass-half"></i> Đang xử lý
+                                                </span>
+                                        <span class="text-primary d-block p-3 m-0"
+                                              ng-class="{'fw-bold order-timeline-checked': orderDetailAll.orderStatusID.id === 2, 'disabled': isDisabledOption(orderDetailAll.orderStatusID.id, 2)}">
+                                                    <i class="fas fa-check-circle"></i> Đã xác nhận
+                                                </span>
+                                        <span class="text-warning d-block p-3 m-0"
+                                              ng-class="{'fw-bold order-timeline-checked': orderDetailAll.orderStatusID.id === 3, 'disabled': isDisabledOption(orderDetailAll.orderStatusID.id, 3)}">
+                                                    <i class="fas fa-shipping-fast"></i> Đang vận chuyển
+                                                </span>
+                                        <span class="text-success d-block p-3 m-0 "
+                                              ng-class="{'fw-bold order-timeline-checked': orderDetailAll.orderStatusID.id === 4, 'disabled': isDisabledOption(orderDetailAll.orderStatusID.id, 4)}">
+                                                    <i class="fas fa-box-open"></i> Đã giao
+                                                </span>
+                                        <span class="text-danger d-block p-3 m-0"
+                                              ng-class="{'fw-bold order-timeline-checked': orderDetailAll.orderStatusID.id === 5, 'disabled': isDisabledOption(orderDetailAll.orderStatusID.id, 5) || orderDetailAll.orderStatusID.id === 4}">
+                                                    <i class="fas fa-times-circle"></i> Hủy đơn
+                                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card shadow" style="min-height: 100%">
+                            <div class="card-header fw-bold bg-modal-header-color">Trạng thái đơn hàng</div>
+                            <div class="card-body d-flex justify-content-center align-items-center">
+                                <div class="mx-auto" ng-if="orderDetailAll.paymentStatusID.id === 1"
+                                     style="width: 200px">
+                                    <img class="img-fluid" src="/images/logo/not-paid.webp" alt="">
+                                </div>
+                                <div class="mx-auto" ng-if="orderDetailAll.paymentStatusID.id === 2"
+                                     style="width: 200px">
+                                    <img class="img-fluid" src="/images/logo/paid-order-status-01.webp" alt="">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div ng-if="!orderDetail.length" class="text-center">
                     <h4>Không có sản phẩm nào trong đơn hàng này</h4>
                 </div>
             </div>
+
             <div class="modal-footer">
-                <div class="me-auto shadow border border-1 rounded-3">
-                    <button type="button" ng-click="exportExcelOrderDetail(orderDetailAll.id)" class="btn btn-outline-success fw-bold"
+                <div class="me-auto">
+                    <button type="button" ng-click="exportOrderDetailPDF(orderDetailAll.id)"
+                            class="btn btn-outline-danger fw-bold shadow border border-1 rounded-3"
                             style="text-transform: uppercase">
-                        Xuất hóa đơn
+                        Xuất PDF
+                    </button>
+                    <button type="button" ng-click="exportOrderDetailExcel(orderDetailAll.id)"
+                            class="btn btn-outline-success fw-bold shadow border border-1 rounded-3"
+                            style="text-transform: uppercase">
+                        Xuất Excel
                     </button>
                 </div>
                 <div class="mx-auto">
@@ -270,7 +310,7 @@
                     <button type="button" class="btn btn-danger"
                             ng-click="changeOrderStatus(orderDetailAll.id, 5)"
                             ng-class="orderDetailAll.orderStatusID.id === 5 ? 'button-checked-outline' : ''"
-                            ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, 5) || orderDetailAll.orderStatusID.id === 4">
+                            ng-disabled="isDisabledOption(orderDetailAll.orderStatusID.id, 5) || orderDetailAll.orderStatusID.id === 4 || orderDetailAll.orderStatusID.id === 3">
                         Hủy đơn
                         <i class="fas fa-times-circle"></i>
                     </button>

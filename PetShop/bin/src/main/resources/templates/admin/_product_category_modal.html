@@ -1,0 +1,70 @@
+<style>
+    input[type="file"] {
+        width: 85px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+</style>
+<!-- Modal -->
+<div class="modal fade" id="editProductCategoryModal" tabindex="-1" aria-labelledby="editProductCategoryModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-color">
+                <h5 class="modal-title" id="editProductCategoryModalLabel">Chỉnh sửa loài thú cưng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form name="editProductCategoryModal">
+                    <div class="row">
+                        <!-- Cột 1 -->
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="breed">Nhập tên loại sản phẩm:</label>
+                                <input ng-model="selectedProductCategory.productCategoryName" type="text"
+                                       class="form-control"
+                                       id="breed"
+                                       placeholder="Loại sản phẩm" name="productCategory" required ng-minlength="3"
+                                       ng-maxlength="50">
+                                <span ng-show="editProductCategoryModal.productCategory.$touched && editProductCategoryModal.productCategory.$invalid"
+                                      class="text-danger fst-italic">
+                                    Vui lòng nhập tên loại sản phẩm (từ 3 đến 50 ký tự).
+                                </span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="photo" class="me-2">Chọn ảnh loại sản phẩm:</label>
+                                <div class=" d-flex align-items-center">
+                                    <input ng-model="selectedProductCategory.photo" type="text"
+                                           class="form-control me-2"
+                                           id="photo"
+                                           placeholder="Hình ảnh" name="photo" required>
+                                    <input type="file" id="fileInput" accept="image/*"
+                                           onchange="angular.element(this).scope().updatePhotoProductCategoryName(this)">
+                                </div>
+                                <span ng-show="editProductCategoryModal.photo.$invalid"
+                                      class="text-danger fst-italic">
+                                    Vui lòng chọn ảnh.
+                                </span>
+                            </div>
+                            <div class="text-center">
+                                <img height="300px" width="300px"
+                                     ng-src="/images/product_category/{{ selectedProductCategory.photo }}"
+                                     alt="{{ selectedProductCategory.photo }}"
+                                     class="img-thumbnail">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button ng-disabled="editProductCategoryModal.$invalid"
+                        type="button"
+                        class="btn btn-primary"
+                        ng-click="updateProductCategory(selectedProductCategory.id)">
+                    <span>Lưu thay đổi</span> <i class="fa-solid fa-plus"></i>
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

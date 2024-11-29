@@ -20,7 +20,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="petId">Nhập ID thú cưng</label>
-                                <input ng-model="selectedPet.petID" type="text" class="form-control" id="petId"
+                                <input disabled ng-model="selectedPet.petID" type="text" class="form-control" id="petId"
                                        name="petID" placeholder="Id thú cưng"
                                        required ng-minlength="10" ng-maxlength="20">
                                 <span ng-show="editPetForm.petID.$touched && editPetForm.petID.$invalid"
@@ -158,6 +158,12 @@
                                       class="text-danger fst-italic">
                                     Vui lòng chọn ảnh.
                                 </span>
+                            </div>
+                            <div class="text-center" ng-if="selectedPet.photo">
+                                <img height="300px" width="300px"
+                                     ng-src="/images/pet/{{ selectedPet.photo }}"
+                                     alt="{{ selectedPet.photo }}"
+                                     class="img-thumbnail">
                             </div>
                         </div>
                     </div>

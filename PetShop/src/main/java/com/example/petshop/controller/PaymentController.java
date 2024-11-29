@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.mail.Session;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +38,7 @@ import com.example.petshop.service.ProductService;
 import com.example.petshop.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @RestController
@@ -76,7 +79,7 @@ public class PaymentController {
         // Dữ liệu giỏ hàng từ client
         String username = paymentRequest.getUserName();
         System.out.println(username);
-        int totalAmount = paymentRequest.getAmount();
+        long totalAmount = paymentRequest.getAmount();
         System.out.println(totalAmount);
         List<OrderProductDetailDTO> items = paymentRequest.getProductDetails();
         String address = paymentRequest.getShippingAddress();
@@ -96,7 +99,7 @@ public class PaymentController {
     }
 
     @GetMapping("/vn-pay-callback")
-    public ResponseEntity<Object> payCallbackHandler(HttpServletRequest request) throws ParseException {
+    public ModelAndView payCallbackHandler(HttpServletRequest request) throws ParseException {
         // Lấy các tham số từ VNPay gửi về
         String status = request.getParameter("vnp_ResponseCode");
         String maDonHang = request.getParameter("vnp_TxnRef");
@@ -108,7 +111,7 @@ public class PaymentController {
 
         Order order = new Order();
         // Chuyển đổi số tiền từ kiểu String sang Integer (lưu ý rằng VNPay trả số tiền với đơn vị 100 đồng)
-        int amountInt = Integer.parseInt(amount) / 100;
+        long amountInt = Long.parseLong(amount) / 100;
 
         // Tạo DTO để trả về
         PaymentDTO dto = new PaymentDTO();
@@ -193,13 +196,12 @@ public class PaymentController {
                 }
 
             }
-
-            return ResponseEntity.ok(order);
+            return new ModelAndView("redirect:/successVnpay/" + maDonHang);
         } else {
             // Trường hợp thanh toán thất bại
             dto.setCode("400");
             dto.setMessage("Fail");
-            return ResponseEntity.ok(dto);
+            return new ModelAndView("redirect:/failVnpay");
         }
     }
 

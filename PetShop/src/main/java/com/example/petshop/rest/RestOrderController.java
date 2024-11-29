@@ -4,7 +4,9 @@ import com.example.petshop.config.MailerService;
 import com.example.petshop.entity.*;
 import com.example.petshop.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.relational.core.sql.In;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -13,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RequestMapping("/api/order")
@@ -35,6 +38,9 @@ public class RestOrderController {
     private OrderProductDetailService orderProductDetailService;
 
     @Autowired
+    private ProductService productService;
+
+    @Autowired
     private MailerService mailerService;
 
     @GetMapping
@@ -44,7 +50,7 @@ public class RestOrderController {
 
     @GetMapping("/{id}")
     public Order getById(@PathVariable("id") Integer id) {
-        return orderService.getById(id);
+        return orderService.getByOrderId(id);
     }
 
     @PostMapping
@@ -69,6 +75,14 @@ public class RestOrderController {
         if (orderStatus == 4) { // Order đã giao
             PaymentStatus paymentStatus = orderPayMentService.getById(2); // Đã thanh toán
             order.setPaymentStatusID(paymentStatus);
+        }
+        if (orderStatus == 5) { // Order bị hủy
+            List<OrderProductDetail> orderProductDetails = orderProductDetailService.getByOrderID(order);
+            for (OrderProductDetail detail : orderProductDetails) {
+                Product product = detail.getProductID();
+                product.setQuantity(detail.getQuantity() + product.getQuantity());
+                productService.save(product);
+            }
         }
         String emailOrderMessage = "";
         if (orderStatus == 2) {
@@ -103,9 +117,28 @@ public class RestOrderController {
     }
 
     @PutMapping("/status/{id}")
-    public Order updateOrderStatus(@PathVariable int id) {
-        Order order = orderService.getById(id);
-        order.setOrderStatusID(orderStatusService.getByStatus(5)); // Hủy đơn hàng
+    public Order updateStatus(@PathVariable("id") Integer id) {
+        Order order = orderService.getByOrderId(id);
+        List<OrderProductDetail> orderProductDetails = orderProductDetailService.getByOrderID(order);
+        for (OrderProductDetail detail : orderProductDetails) {
+            Product product = detail.getProductID();
+            product.setQuantity(detail.getQuantity() + product.getQuantity());
+            productService.save(product);
+        }
+        OrderStatus orderStatus = orderStatusService.getById(5);
+        order.setOrderStatusID(orderStatus);
         return orderService.save(order);
+
+    }
+
+    @GetMapping("/filter")
+    public List<Order> getByDate(@RequestParam(value = "from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
+                                 @RequestParam(value = "to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date to) {
+        if (from == null || to == null) {
+            return orderService.getAll();
+        } else if (from.after(to)) {
+            return orderService.findOrdersByDate(from, new Date());
+        }
+        return orderService.findOrdersByDate(from, to);
     }
 }

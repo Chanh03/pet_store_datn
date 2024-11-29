@@ -1,6 +1,9 @@
 package com.example.petshop.config;
 
 import com.example.petshop.service.UserServiceDetails;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +46,7 @@ public class SecurityConfig {
                         .requestMatchers("/quan-tri-he-thong/**").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers("/thanh-toan/**").authenticated()
                         .requestMatchers("/cart-payMent/**").authenticated()
+                        .requestMatchers("/history-detail/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .exceptionHandling(ex -> ex
@@ -111,17 +115,41 @@ public class SecurityConfig {
     public AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler() {
         return (request, response, authentication) -> {
             OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+
             // Gọi hàm saveUser, nếu trả về false thì ngắt quá trình đăng nhập
             if (!userServiceDetails.saveUser(oAuth2User)) {
-                request.getSession().invalidate(); // Xóa session
-                response.sendRedirect("/login?error=true"); // Chuyển hướng sang trang lỗi
+                // Xóa session hiện tại
+                request.getSession().invalidate();
+
+                // Xóa cookie JSESSIONID (nếu có)
+                deleteCookie(request, response, "JSESSIONID");
+
+                // Chuyển hướng về trang login với thông báo lỗi
+                response.sendRedirect("/login?error=true");
                 return;
             }
 
             // Nếu saveUser trả về true, tiếp tục chuyển hướng thành công
             response.sendRedirect("/login?success=true");
-
         };
     }
+
+    // Hàm xóa cookie
+    private void deleteCookie(HttpServletRequest request, HttpServletResponse response, String cookieName) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(cookieName)) {
+                    // Đặt lại cookie với thời gian sống là 0
+                    cookie.setValue(null);
+                    cookie.setMaxAge(0);
+                    cookie.setPath("/"); // Đảm bảo path là "/"
+                    response.addCookie(cookie); // Thêm cookie đã xóa vào response
+                    break;
+                }
+            }
+        }
+    }
+
 
 }

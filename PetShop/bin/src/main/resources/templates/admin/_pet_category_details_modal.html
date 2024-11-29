@@ -1,0 +1,77 @@
+<style>
+    input[type="file"] {
+        width: 85px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+</style>
+<!-- Modal -->
+<div class="modal fade" id="petCategoryDetailModal" tabindex="-1" aria-labelledby="petCategoryDetailModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" style="width: 100% !important;">
+        <div class="modal-content">
+            <div class="modal-header bg-color">
+                <h5 class="modal-title" id="petCategoryDetailModalLabel">Các thú cưng cùng loại:</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table ng-table="petsCategoryDetailTable"
+                       class="table table-responsive text-truncate rounded-3 table-hover table-sm  p-5"
+                       show-filter="true">
+                    <tr ng-repeat="pet in $data" class="align-middle">
+                        <td data-title="'#'" class="p-2 px-3 text-center">
+                            <b>{{ (petsTable.page() - 1) * petsTable.count() + $index + 1 }}</b>
+                        </td>
+                        <td data-title="'Hình ảnh'" class="text-center">
+                            <img height="100px" width="100px" ng-src="/images/pet/{{ pet.photo }}" alt="{{ pet.photo }}"
+                                 class="img-thumbnail pet-image">
+                        </td>
+                        <td sortable="'petID'" class="text-start text-wrap fw-bold" filter="{ 'petID': 'text' }"
+                            data-title="'Pet Id'">
+                            <a href="/pet/detail/{{ pet.petID }}">{{ pet.petID }}</a>
+                        </td>
+                        <td sortable="'breed'" class="text-start" filter="{ 'breed': 'text' }" data-title="'Giống'">{{
+                            pet.breed
+                            }}
+                        </td>
+                        <td sortable="'petCategoryID.petCategoryName'"
+                            filter="{ 'petCategoryID.petCategoryName': 'text' }"
+                            data-title="'Loài'" class="text-start text-wrap">{{ pet.petCategoryID.petCategoryName }}
+                        </td>
+                        <td sortable="'price'" filter="{ 'price': 'number' }" data-title="'Giá'">{{ pet.price | number :
+                            '0'}}đ
+                        </td>
+                        <td sortable="'createDate'" data-title="'Ngày thêm'">{{ pet.createDate |
+                            date: 'dd/MM/yyyy'}}
+                        </td>
+                        <td sortable="'gender'" data-title="'Giới tính'" class="text-center">
+                            <span ng-if="pet.gender" class="badge bg-primary">Đực</span>
+                            <span ng-if="!pet.gender" class="badge bg-warning">Cái</span>
+                        </td>
+                        <td sortable="'available'" data-title="'Trạng thái'" class="text-center">
+                            <div ng-if="pet.available" class="text-success">
+                                <i class="fa-solid fa-circle"></i>
+                                <span>Đã bán</span>
+                            </div>
+                            <div ng-if="!pet.available" class="text-warning">
+                                <i class="fa-solid fa-circle"></i>
+                                <span>Chưa bán</span>
+                            </div>
+                        </td>
+                        <td data-title="'Tool'" class="text-center">
+                            <div>
+                                <button class="btn btn-outline-danger" ng-click="deletePet(pet.petID)">
+                                    <i class="fa-solid fa-xmark"></i>
+                                    <span>Xóa</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

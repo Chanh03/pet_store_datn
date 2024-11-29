@@ -1,5 +1,6 @@
 package com.example.petshop.rest;
 
+import com.example.petshop.entity.Product;
 import com.example.petshop.entity.ProductCategory;
 import com.example.petshop.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,14 @@ public class RestProductCategoryController {
         productCategory.setId(id);
         return productCategoryService.save(productCategory);
     }
+
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable int id) {
         productCategoryService.deleteById(id);
+    }
+
+    @GetMapping("/{id}/all-product")
+    public List<Product> getAllProDuctById(@PathVariable int id) {
+        return productCategoryService.getAllProductById(id);
     }
 }

@@ -1,51 +1,43 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{/index.html::home(~{::body})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/index.html::home(~{::body})}">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Trang Sản Phẩm</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trang Sản Phẩm</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
+
 <body style="background-color: #f8f9fa;">
-	<div class="container py-5">
-		<!-- Product Section -->
-		<div class="row">
-			<!-- Category Filter -->
-			<div class="col-3">
-				<div class="card mb-4"
-					style="border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); overflow: hidden;">
-					<div class="card-body" style="padding: 20px;">
-						<h6 class="category-title text-center text-danger fw-bold"
-							style="font-size: 1.2rem; margin-bottom: 15px;">Danh mục</h6>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item"
-								style="border: none; padding: 10px 0;"><a
-								th:each="category : ${categories}"
-								th:href="@{/allProduct(categoryId=${category.id}, sort=${sort}, page=0)}"
-								class="text-decoration-none text-dark"
-								th:text="${category.productCategoryName}"
-								style="font-weight: 500; font-size: 1rem; padding: 8px 15px; display: block; transition: background-color 0.3s ease;">
-							</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
+<div class="container py-5">
 
+    <!-- Product Section -->
+    <div class="row">
+        <!-- Category Filter -->
+        <div class="col-3">
+            <div class="card mb-4" style="border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);">
+                <div class="card-body">
+                    <h6 class="category-title text-center text-danger fw-bold" style="font-size: 1.2rem;">Danh mục
+                    </h6>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" style="border: none;" th:each="category : ${categories}">
+                            <!-- Thêm tham số categoryId vào URL -->
+                            <a th:href="@{/allProduct(categoryId=${category.id}, page=0)}"
+                               class="text-decoration-none text-dark" th:text="${category.productCategoryName}"
+                               style="font-weight: 500; font-size: 1rem;">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-			<!-- Product List -->
-			<div class="col-9">
-				<!-- Search and Sort -->
-				<div class="row mb-3">
-					<div class="col-6">
-						<!-- Sort Form -->
+        <!-- Product List -->
+        <div class="col-9">
+           	<!-- Sort Form -->
 						<form th:action="@{/allProduct}" method="get" class="d-flex mb-3">
 							<!-- Nút tìm giá tăng dần -->
 							<button type="submit" name="sort" value="asc"
@@ -82,118 +74,112 @@
 								style="border-radius: 5px;">Tìm kiếm</button>
 						</form>
 
-					</div>
-					<div class="col-6">
-						<!-- Search Form -->
-						<!-- Search Form -->
-						<form th:action="@{/allProduct}" method="get" class="d-flex mb-4">
-							<input class="form-control" type="search"
-								placeholder="Tìm kiếm sản phẩm" aria-label="Search"
-								name="search" th:value="${search}"
-								style="border: 2px solid #dc3545; border-radius: 5px; padding-left: 12px; font-size: 25px; height: 45px; width: 300px;">
-							<button class="btn btn-danger" type="submit"
-								style="border-radius: 5px; padding: 12px 30px; font-size: 18px; height: 45px;">
-								Tìm</button>
-						</form>
+            <div class="row">
+                <!-- Product Card -->
+                <!-- <div class="col-3 mb-4" th:each="product : ${productPage.content}">
+                    <div class="card shadow-sm"
+                        style="border-radius: 10px; transition: transform 0.3s; height: 100%;">
+                        <div class="badge bg-success position-absolute" style="top: 10px; left: 10px;">
+                            Còn hàng
+                        </div>
+                        <a th:href="@{/product/detail/{id}(id=${product.id})}">
+                            <img th:src="@{/images/product/{photo}(photo=${product.photo})}" class="card-img-top"
+                                style="height: 18rem; object-fit: cover; border-top-left-radius: 10px; border-top-right-radius: 10px;"
+                                alt="Sản phẩm">
+                        </a>
+                        <div class="card-body d-flex flex-column align-items-center text-center">
+                            <p class="card-text fw-bold text-dark mb-1"
+                                style="font-size: 1.1rem; min-height: 3rem; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"
+                                th:text="${product.productName}">
+                                Tên sản phẩm
+                            </p>
+                            <p class="card-text text-danger fw-bold mt-auto" style="font-size: 1.2rem;"
+                                th:text="${product.price}">
+                                400.000đ
+                            </p>
+                        </div>
+                    </div>
+                </div> -->
+                <div th:each="product : ${productPage.content}" class="col-lg-3 col-md-4 col-sm-4 col-4">
+                    <div class="card card-hover border-0">
+                        <div class="position-relative button-image add-to-cart-container"
+                             style="background-color: #f7f7f5">
+                            <div class="overflow-hidden p-0 position-relative">
+                                <a class="nav-link" th:href="@{/product/detail/{id}(id=${product.id})}">
+                                    <img loading="lazy" th:src="@{/images/product/{photo}(photo=${product.photo})}"
+                                         class="card-img-top card-image" alt="product">
+                                </a>
+                            </div>
 
-					</div>
-				</div>
-				<!-- End Search and Sort -->
+                            <a th:attr="ng-click=${'cart.add(' + product.id + ')'}"
+                               class="btn background-color button-image-white add-to-cart w-100 py-3 rounded-0 position-absolute"
+                               style="bottom: 0; left: 0; z-index: 1001;">
+                                <h5 class="text-white m-0">
+                                    <span>Thêm vào giỏ</span> <i class="fas fa-cart-plus"></i>
+                                </h5>
+                            </a>
+                        </div>
 
-				<div class="row">
-					<!-- Kiểm tra nếu không có sản phẩm -->
-					<div class="col-12 text-center"
-						th:if="${productPage.content.isEmpty()}">
-						<h4 class="text-muted mt-5">Không có sản phẩm nào!</h4>
-					</div>
+                        <div class="card-body text-center">
+                            <div class="d-flex justify-content-center gap-2 my-2">
+                                <i class="fa-solid fa-star text-warning"></i>
+                                <i class="fa-solid fa-star text-warning"></i>
+                                <i class="fa-solid fa-star text-warning"></i>
+                                <i class="fa-solid fa-star text-warning"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <h5 class="" th:text="${product.productName}">ten sp</h5>
+                            <h4 class="color fw-bold"
+                                th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">
+                                100.000đ</h4>
+                        </div>
+                    </div>
+                </div>
 
-					<!-- Hiển thị danh sách sản phẩm nếu có -->
-					<div th:each="product : ${productPage.content}"
-						class="col-lg-3 col-md-4 col-sm-4 col-4"
-						th:if="${!productPage.content.isEmpty()}">
-						<div class="card card-hover border-0">
-							<div class="position-relative button-image add-to-cart-container"
-								style="background-color: #f7f7f5">
-								<div class="overflow-hidden p-0 position-relative">
-									<a class="nav-link"
-										th:href="@{/product/detail/{id}(id=${product.id})}"> <img
-										loading="lazy"
-										th:src="@{/images/product/{photo}(photo=${product.photo})}"
-										class="card-img-top card-image" alt="product">
-									</a>
-								</div>
-								<div class="badge position-absolute"
-									style="top: 0; right: 0; z-index: 1000;">
-									<img src="/images/logo/hot-badge.png" alt="hot-badge"
-										style="width: 50px;">
-								</div>
-								<a th:attr="ng-click=${'cart.add(' + product.id + ')'}"
-									class="btn background-color button-image-white add-to-cart w-100 py-3 rounded-0 position-absolute"
-									style="bottom: 0; left: 0; z-index: 1001;">
-									<h5 class="text-white m-0">
-										<span>Thêm vào giỏ</span> <i class="fas fa-cart-plus"></i>
-									</h5>
-								</a>
-							</div>
+            </div>
 
-							<div class="card-body text-center">
-								<div class="d-flex justify-content-center gap-2 my-2">
-									<i class="fa-solid fa-star text-warning"></i> <i
-										class="fa-solid fa-star text-warning"></i> <i
-										class="fa-solid fa-star text-warning"></i> <i
-										class="fa-solid fa-star text-warning"></i> <i
-										class="fa-solid fa-star"></i>
-								</div>
-								<h5 class="" th:text="${product.productName}">ten sp</h5>
-								<h4 class="color fw-bold"
-									th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">
-									100.000đ</h4>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- Pagination -->
-				<div class="row py-3" th:if="${productPage.totalElements > 8}">
-					<div class="col">
-						<nav aria-label="Page navigation">
-							<ul class="pagination justify-content-center">
-								<li class="page-item"
-									th:classappend="${productPage.hasPrevious() ? '' : 'disabled'}">
-									<a class="page-link text-white bg-danger"
-									th:href="@{/allProduct(page=${productPage.number - 1}, search=${search}, sort=${sort}, categoryId=${categoryId})}"
-									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-								</a>
-								</li>
-								<li class="page-item"
-									th:each="i : ${#numbers.sequence(0, productPage.totalPages - 1)}"
-									th:classappend="${i == productPage.number ? 'active' : ''}">
-									<a class="page-link"
-									th:href="@{/allProduct(page=${i}, search=${search}, sort=${sort}, categoryId=${categoryId})}"
-									th:text="${i + 1}"></a>
-								</li>
-								<li class="page-item"
-									th:classappend="${productPage.hasNext() ? '' : 'disabled'}">
-									<a class="page-link text-white bg-danger"
-									th:href="@{/allProduct(page=${productPage.number + 1}, search=${search}, sort=${sort}, categoryId=${categoryId})}"
-									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-								</a>
-								</li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-				<!-- End Pagination -->
-			</div>
-			<!-- End Product List -->
-		</div>
-		<!-- End Product Section -->
-	</div>
-	<!-- JS files -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN6jIeHz"
-		crossorigin="anonymous"></script>
-	<script src="service.js"></script>
+            <!-- Pagination -->
+            <div class="row py-3">
+                <div class="col">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:classappend="${productPage.hasPrevious() ? '' : 'disabled'}">
+                                <a class="page-link text-white bg-danger"
+                                   th:href="@{/allProduct(page=${productPage.number - 1}, search=${search}, sort=${sort})}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item" th:each="i : ${#numbers.sequence(0, productPage.totalPages - 1)}"
+                                th:classappend="${i == productPage.number ? 'active' : ''}">
+                                <a class="page-link"
+                                   th:href="@{/allProduct(page=${i}, search=${search}, sort=${sort})}"
+                                   th:text="${i + 1}"></a>
+                            </li>
+                            <li class="page-item" th:classappend="${productPage.hasNext() ? '' : 'disabled'}">
+                                <a class="page-link text-white bg-danger"
+                                   th:href="@{/allProduct(page=${productPage.number + 1}, search=${search}, sort=${sort})}"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- End Pagination -->
+        </div>
+        <!-- End Product List -->
+    </div>
+    <!-- End Product Section -->
+</div>
+<hr>
+<!-- JS files -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN6jIeHz"
+        crossorigin="anonymous"></script>
+<script src="service.js"></script>
 </body>
+
 </html>

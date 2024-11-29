@@ -78,19 +78,6 @@
                         <!--                            </div>-->
                         <!--                        </div>-->
                         <div class="mb-3">
-                            <label for="photo" class="me-2">Chọn ảnh thú cưng:</label>
-                            <div class=" d-flex align-items-center">
-                                <input ng-model="selectedProduct.photo" type="text" class="form-control me-2" id="photo"
-                                       placeholder="Hình ảnh" required name="photo">
-                                <input type="file" id="fileInput" accept="image/*"
-                                       onchange="angular.element(this).scope().updatePhotoProductName(this)">
-                            </div>
-                            <span ng-show="addProductModal.photo.$touched && addProductModal.photo.$invalid"
-                                  class="text-danger fst-italic">
-                                Vui lòng chọn ảnh thú cưng.
-                            </span>
-                        </div>
-                        <div class="mb-3">
                             <label for="proDes">Thông tin chi tiết:</label>
                             <textarea ng-model="selectedProduct.productDescription" class="form-control"
                                       placeholder="Thông tin chi tiết" id="proDes" required name="proDes"
@@ -101,9 +88,27 @@
                                 Vui lòng nhập thông tin chi tiết (từ 10 đến 255 ký tự).
                             </span>
                         </div>
+                        <div class="mb-3">
+                            <label for="photo" class="me-2">Chọn ảnh sản phẩm:</label>
+                            <div class=" d-flex align-items-center">
+                                <input ng-model="selectedProduct.photo" type="text" class="form-control me-2" id="photo"
+                                       placeholder="Hình ảnh" required name="photo">
+                                <input type="file" id="fileInput" accept="image/*"
+                                       onchange="angular.element(this).scope().updatePhotoProductName(this)">
+                            </div>
+                            <span ng-show="addProductModal.photo.$touched && addProductModal.photo.$invalid"
+                                  class="text-danger fst-italic">
+                                Vui lòng chọn ảnh sản phẩm.
+                            </span>
+                        </div>
+                        <div class="text-center" ng-if="selectedProduct.photo">
+                            <img height="300px" width="300px"
+                                 ng-src="/images/product/{{ selectedProduct.photo }}"
+                                 alt="{{ selectedProduct.photo }}"
+                                 class="img-thumbnail">
+                        </div>
                     </div>
                 </form>
-
             </div>
             <div class="modal-footer">
                 <button ng-disabled="addProductModal.$invalid" type="button" class="btn btn-primary"

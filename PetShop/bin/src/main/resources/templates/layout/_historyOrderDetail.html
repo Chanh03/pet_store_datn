@@ -37,7 +37,7 @@
                     <td th:text="${od.quantity}">{{od.quantity}}</td>
                     <td th:text="${od.quantity * od.price}">{{od.price * od.quantity | number: '0'}}đ</td>
                     <td>
-                        <div th:if="${od.orderID.paymentStatusID.id == 2}">
+                        <div th:if="${od.orderID.paymentStatusID.id == 2 && od.orderID.orderStatusID.id == 4}">
                             <button th:attr="ng-click=${'review(' + od.productID.id + ', ' + od.orderID.id +')'}"
                                     th:if="${od.reviewStatus == false}">
                                 <h5>Đánh giá sản phẩm</h5>
@@ -45,12 +45,10 @@
                             <div th:if="${od.reviewStatus == true}">
                                 <h5>Sản phẩm đã đánh giá <i class="fa fa-check-circle"
                                                             style="color: green; font-size: 20px;"></i></h5>
-
                             </div>
                         </div>
                         <h5 th:if="${od.orderID.paymentStatusID.id == 1}">Vui lòng thanh toán</h5>
                     </td>
-
                 </tr>
                 <div sec:authorize="isAuthenticated()">
                     <span id="username_auth" hidden="hidden" th:text="${#authentication.getName()}"></span>

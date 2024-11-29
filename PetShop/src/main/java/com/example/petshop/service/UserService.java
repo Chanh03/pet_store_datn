@@ -34,4 +34,6 @@ public interface UserService {
     boolean existedByTempToken(String token);
 
     void cleanupInactiveUsers();
+
+    List<User> findByPhoneNumber(@Size(max = 10) @NotNull String phoneNumber);
 }

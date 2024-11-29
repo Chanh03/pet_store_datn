@@ -94,10 +94,10 @@
         <div class="d-flex justify-content-center position-relative overflow-hidden rounded-5 shadow">
             <img loading="lazy" class="w-100 card-image" src="/images/banner/advertise-vertical-1.webp"
                  alt="">
-            <button class="btn rounded-5 px-4 btn-outline-danger position-absolute button-image"
-                    style="bottom: 10%; left: 50%; transform: translateX(-50%)">
+            <a href="/allPet" class="btn rounded-5 px-4 btn-outline-danger position-absolute button-image"
+               style="bottom: 10%; left: 50%; transform: translateX(-50%)">
                 <span class="fw-bold m-0">Xem thêm</span>
-            </button>
+            </a>
         </div>
     </div>
     <div class="col-lg-7 col-md-7">
@@ -126,9 +126,9 @@
 
         </div>
         <div class="d-flex justify-content-center mb-3">
-            <button class="btn color py-2 px-4 rounded-5 button-image">
+            <a href="allPet" class="btn color py-2 px-4 rounded-5 button-image">
                 <span class="fw-bold">Xem thêm</span>
-            </button>
+            </a>
         </div>
     </div>
 </div>
@@ -205,7 +205,7 @@
                             </a>
                         </div>
                         <div class="badge position-absolute" style="top: 0; right: 0; z-index: 1000;">
-                            <img src="/images/logo/hot-badge.png" alt="hot-badge" style="width: 50px;">
+                            <img src="/images/logo/new-badge.png" alt="hot-badge" style="width: 70px;">
                         </div>
                         <a th:attr="ng-click=${'cart.add(' + product.id + ')'}"
                            class="btn background-color button-image-white add-to-cart w-100 py-3 rounded-0 position-absolute"
@@ -215,15 +215,12 @@
                             </h5>
                         </a>
                     </div>
-
                     <div class="card-body text-center">
-                        <div class="d-flex justify-content-center gap-2 my-2">
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
+                        <!--                        <div class="d-flex justify-content-center gap-2 my-2">-->
+                        <!--                            <i th:each="i : ${#numbers.sequence(1, 5)}"-->
+                        <!--                               th:class="${i <= product.rating} ? 'fa-solid fa-star text-warning' : 'fa-solid fa-star'">-->
+                        <!--                            </i>-->
+                        <!--                        </div>-->
                         <h5 class="" th:text="${product.productName}">ten sp</h5>
                         <h4 class="color fw-bold"
                             th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">
@@ -233,7 +230,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center mb-3">
-            <a class="btn color py-2 px-4 rounded-5 button-image">
+            <a href="allProduct" class="btn color py-2 px-4 rounded-5 button-image">
                 <span class="fw-bold">Xem thêm</span>
             </a>
         </div>
@@ -265,7 +262,7 @@
     <div class="col-lg-7">
         <!--ITEMS-->
         <a th:href="@{http://localhost:8080/product/detail/{id}(id=${r.productID.id})}" th:each="r:${reviews}"
-           class="card p-3 mb-3 button-image"
+           class="card p-3 mb-3 nav-link button-image"
            style="background-size: contain;background-position: right;">
             <div class="row overflow-hidden">
                 <div class="col-10">
@@ -275,10 +272,10 @@
                                 <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
                                      style="object-fit: cover;">
                             </div>
-                            <div class="d-flex align-items-center gap-2">
+                            <div class="d-flex align-items-center gap-2 text-truncate">
                                 <h3 th:text="${r.userName.fullName}" class="color fw-bold m-0 text-truncate">Nguyễn Văn
                                     A</h3>
-                                <h6 class="m-0 text-muted">
+                                <h6 class="m-0 text-muted text-truncate">
                                     đã mua sản phẩm
                                 </h6>
                                 <h5 th:text="${r.productID.productName}" class="color fw-bold m-0 text-truncate"
@@ -331,7 +328,8 @@
             <div class="card-body text-center p-2">
                 <h5 class="color fw-bold">Spa - Grooming</h5>
                 <p class="text-body-tertiary"
-                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">Chúng
+                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">
+                    Chúng
                     tôi cung cấp dịch vụ spa và grooming cho thú cưng của bạn, mang
                     lại trải nghiệm tốt nhất.</p>
                 <a href="/service" class="btn btn-primary">Xem chi tiết</a>
@@ -348,7 +346,8 @@
             <div class="card-body text-center p-2">
                 <h5 class="color fw-bold">Huấn luyện thú cưng</h5>
                 <p class="text-body-tertiary"
-                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">Chúng
+                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">
+                    Chúng
                     tôi cung cấp dịch vụ huấn luyện chuyên nghiệp, giúp thú cưng của
                     bạn học hỏi và phát triển.</p>
                 <a href="/service" class="btn btn-primary">Xem chi tiết</a>
@@ -365,7 +364,8 @@
             <div class="card-body text-center p-2">
                 <h5 class="color fw-bold">Cắt tỉa lông thú cưng</h5>
                 <p class="text-body-tertiary"
-                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">Dịch
+                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">
+                    Dịch
                     vụ cắt tỉa lông chuyên nghiệp, giúp thú cưng của bạn trông gọn
                     gàng và đáng yêu hơn.</p>
                 <a href="/service" class="btn btn-primary">Xem chi tiết</a>
@@ -382,7 +382,8 @@
             <div class="card-body text-center p-2">
                 <h5 class="color fw-bold">Khách sạn thú cưng</h5>
                 <p class="text-body-tertiary"
-                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">Dịch
+                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">
+                    Dịch
                     vụ khách sạn mang đến không gian thoải mái và tiện nghi cho thú
                     cưng của bạn nếu bạn không có thời gian chăm sóc .</p>
                 <a href="/service" class="btn btn-primary">Xem chi tiết</a>
@@ -455,11 +456,42 @@
                     Vai trò: Quản trị viên
                 </span>
                 <ul>
-                    <li>
-                        Thiết kế FE (Figma) và code FE (Trang chủ, Giỏ hàng, ADMIN, Login, Module)
+                    <li><strong>Thiết kế FE</strong>
+                        <ul>
+                            <li>Figma</li>
+                            <li>Xây dựng UI FE:
+                                <ul>
+                                    <li>Trang chủ</li>
+                                    <li>Chi tiết (Sản phẩm, Thú cưng)</li>
+                                    <li>Giỏ hàng</li>
+                                    <li>ADMIN</li>
+                                    <li>Login</li>
+                                    <li>Module</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><strong>Code BE</strong>
+                        <ul>
+                            <li>Entity</li>
+                            <li>Repository</li>
+                            <li>Service (và Implement)</li>
+                            <li>Controller</li>
+                            <li>Security</li>
+                            <li>REST API</li>
+                        </ul>
                     </li>
                     <li>
-                        Code BE (Entity, Repository, Service (và Implement), Controller, Security)
+                        <strong>Chức năng</strong>
+                        <ul>
+                            <li>Toàn bộ trang ADMIN</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Công việc khác</strong>
+                        <ul>
+                            <li>Kiểm tra, đánh giá và hiệu chỉnh tài liệu báo cáo</li>
+                        </ul>
                     </li>
                 </ul>
                 <p class="text-body-tertiary">Email: anhnvps30934@fpt.edu.vn</p>
