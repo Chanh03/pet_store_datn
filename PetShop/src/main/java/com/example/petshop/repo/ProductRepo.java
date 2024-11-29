@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface ProductRepo extends JpaRepository<Product, Integer> {
-    Page<Product> findByProductDescriptionContainingIgnoreCase(String keyword, Pageable pageable);
+    Page<Product> findByProductNameContainingIgnoreCase(String keyword, Pageable pageable);
 
     List<Product> findByProductCategoryID_IdAndIdNot(Integer id, int id1);
 
@@ -23,10 +23,10 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 
     Page<Product> findByProductDescriptionAndProductCategoryID_Id(String keyword, Integer categoryId, Pageable pageable);
 
-    Page<Product> findByProductCategoryID_IdAndProductDescriptionContainingIgnoreCase(Integer categoryId, String keyword, Pageable pageable);
+    Page<Product> findByProductCategoryID_IdAndProductNameContainingIgnoreCase(Integer categoryId, String keyword, Pageable pageable);
 
     @Query("SELECT p FROM Product p WHERE p.available = true ORDER BY p.createDate DESC limit 8")
-    List<Product> findAllByCreatedDateDescAndAvailable();
+    List<Product> findAllByAndAvailableCreatedDateDesc();
 
     List<Product> findByProductCategoryID(ProductCategory productCategory);
 }
