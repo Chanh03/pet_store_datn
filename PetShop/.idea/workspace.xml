@@ -5,79 +5,53 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9790aa60-bce0-4f0d-b6f2-58f7e1899297" name="Changes" comment="11/27">
+      <change beforePath="$PROJECT_DIR$/../INSERT DATN 21-10.sql" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/ProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/ProductRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/cho_Alaska.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/cho_Chihuahua.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/cho_Husky.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/cho_Poodle.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/cho_Shiba.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/meo_Anh.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/meo_Bengal.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/meo_Ragdoll.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/meo_Sphynx.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/pet/meo_ba_tu.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/o_dem.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product-placeholder.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_Snack_cho.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_Snack_meo.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_ao_chomeo.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_ao_khoac_cho.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_balo.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_bat_an.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_binh_nuoc.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_bong_cho_meo.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_cat.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_chuong_cho.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_dau_goi_cho.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_dau_goi_meo.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_giuong_cho.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_giuong_meo.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_long_cho.jpg.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_long_meo.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_non_cho.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_o_dem_meo.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_pate_cho.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_pate_meo.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_sua_tam_cho.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_sua_tam_kho.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_sua_tam_meo.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_sup_cho.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_ta.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_tham_vs.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_thuc_an_Beagle.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_thuc_an_Corgi.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_thuc_an_Labrador.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_thuc_an_Poodle.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_thuc_an_hat.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_tui_xach_chomeo.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_vay_meo.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_vong_co.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/product_xich.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/prooduct_o_dem_cho.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/suatam_daugoi.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/thoi_trang.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/thucanhat.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/tuixach_balo.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product/vongco.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product_category/chuong_long.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product_category/do_choi.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product_category/dungcuanuong.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product_category/dungcuvesinh.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product_category/o_dem.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product_category/pate.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product_category/suatam_daugoi.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product_category/thoi_trang.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product_category/thucanhat.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product_category/tuixach_balo.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/product_category/vongco.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyCart.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyCart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/config/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/access-denied.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/admin-bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/best-selling-coming.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/bg.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/button-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/button-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/button-white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/button.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/footer-bg-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/footer-bg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/login-advertise.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/login-form-bg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/menu-background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/modal-bg.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/new-pet-bg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/no-cart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background/register-bg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/banner/advertise-vertical-1.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/banner/advertise.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/banner/banner-sieu-xin.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/banner/feedback.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/banner/long-banner-placeholder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/banner/order_banner.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/banner/sale-banner-1.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/banner/vertical-banner-placeholder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/logo/admin-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/logo/brand-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/logo/hot-badge.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/logo/logo-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/logo/logo-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/logo/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/logo/map-point.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/logo/not-paid.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/logo/paid-order-status-01.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/logo/paid-order-status.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/logo/payment.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/logo/shopping-cart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/logo/success-noti.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/logo/success-noty.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/slide/slider1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/slide/slider2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/slide/slider3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/slide/slider4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/user/user-placeholder.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
