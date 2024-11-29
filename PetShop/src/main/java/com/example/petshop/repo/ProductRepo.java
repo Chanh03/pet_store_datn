@@ -11,9 +11,9 @@ import java.util.List;
 
 @Repository
 public interface ProductRepo extends JpaRepository<Product, Integer> {
-    @Query("SELECT p FROM Product p WHERE LOWER(p.productName) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
-            "OR LOWER(p.productDescription) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    @Query("SELECT p FROM Product p WHERE p.productName LIKE %:keyword% OR p.productDescription LIKE %:keyword%")
     Page<Product> searchByKeyword(String keyword, Pageable pageable);
+
 
     List<Product> findByProductCategoryID_IdAndIdNot(Integer id, int id1);
 
