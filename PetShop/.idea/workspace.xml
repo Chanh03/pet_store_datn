@@ -9,8 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="UPDATE ALL ADMIN">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="add check hsd">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/ProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/ProductRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyOrderDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyOrderDetail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/repo/ProductRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/repo/ProductRepo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,40 +70,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.PetShopApplication.executor": "Run",
-    "full.screen.before.presentation.mode": "false",
-    "git-widget-placeholder": "AnhNgo1",
-    "grid.search.filter.rows": "true",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Vanh/GitHub/DATN_DEV/PetShop/src/main/resources/templates/admin",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.fileTypes",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.PetShopApplication.executor&quot;: &quot;Run&quot;,
+    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;AnhNgo1&quot;,
+    &quot;grid.search.filter.rows&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Vanh/GitHub/DATN_DEV/PetShop/src/main/resources/templates/admin&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.fileTypes&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlserver"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlserver&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Vanh\GitHub\DATN_DEV\PetShop\src\main\resources\templates\admin" />
@@ -243,15 +249,8 @@
       <workItem from="1732708841917" duration="2343000" />
       <workItem from="1732720065792" duration="1392000" />
       <workItem from="1732770034370" duration="3562000" />
-      <workItem from="1732787778603" duration="25899000" />
-    </task>
-    <task id="LOCAL-00048" summary="update nhieu cai hahah">
-      <option name="closed" value="true" />
-      <created>1731667813763</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1731667813763</updated>
+      <workItem from="1732787778603" duration="25962000" />
+      <workItem from="1732849567327" duration="1306000" />
     </task>
     <task id="LOCAL-00049" summary="update pet (remove input id for update), order">
       <option name="closed" value="true" />
@@ -637,7 +636,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732817791178</updated>
     </task>
-    <option name="localTasksCounter" value="97" />
+    <task id="LOCAL-00097" summary="add check hsd">
+      <option name="closed" value="true" />
+      <created>1732818049731</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1732818049731</updated>
+    </task>
+    <option name="localTasksCounter" value="98" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -677,7 +684,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="méo chạy đc nhưng vẫn up :v" />
     <MESSAGE value="update fix all" />
     <MESSAGE value="fix fix fix payment status" />
     <MESSAGE value="bug add quantity" />
@@ -702,7 +708,8 @@
     <MESSAGE value="update admin add voucher" />
     <MESSAGE value="update admin add count voucher" />
     <MESSAGE value="UPDATE ALL ADMIN" />
-    <option name="LAST_COMMIT_MESSAGE" value="UPDATE ALL ADMIN" />
+    <MESSAGE value="add check hsd" />
+    <option name="LAST_COMMIT_MESSAGE" value="add check hsd" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -431,8 +431,6 @@
                     .then(data => {
                         const results = $.map(data, item => {
                             const itemName = category === "pet" ? item.breed : item.productName;
-
-                            // Kiểm tra điều kiện tên và lấy đường dẫn hình ảnh tương ứng
                             if (itemName.toLowerCase().includes(request.term.toLowerCase())) {
                                 const imageUrl = category === "pet"
                                     ? `/images/pet/${item.photo}`
@@ -713,7 +711,8 @@
                                         orderID: {id: orderID},
                                         productID: {id: item.id},
                                         quantity: item.quantity,
-                                        price: item.price
+                                        price: item.price,
+                                        reviewStatus: false
                                     };
                                     //update lai quantity khi checkout
                                     const updateQuantityPromise = $http.put(
