@@ -9,14 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="add check hsd">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="backup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/ProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/ProductRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyOrderDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyOrderDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/repo/ProductRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/repo/ProductRepo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestSlideBarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestSlideBarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_historyOrderDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_historyOrderDetail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_menu.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,15 +248,7 @@
       <workItem from="1732720065792" duration="1392000" />
       <workItem from="1732770034370" duration="3562000" />
       <workItem from="1732787778603" duration="25962000" />
-      <workItem from="1732849567327" duration="1306000" />
-    </task>
-    <task id="LOCAL-00049" summary="update pet (remove input id for update), order">
-      <option name="closed" value="true" />
-      <created>1731688714455</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1731688714455</updated>
+      <workItem from="1732849567327" duration="3015000" />
     </task>
     <task id="LOCAL-00050" summary="add export excel (order)">
       <option name="closed" value="true" />
@@ -644,7 +634,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732818049731</updated>
     </task>
-    <option name="localTasksCounter" value="98" />
+    <task id="LOCAL-00098" summary="backup">
+      <option name="closed" value="true" />
+      <created>1732851032249</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1732851032249</updated>
+    </task>
+    <option name="localTasksCounter" value="99" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -666,12 +664,18 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="COLUMN_ID_WIDTH">
+                <map>
+                  <entry key="Table.Default.Date.ColumnIdWidth" value="160" />
+                  <entry key="Table.GitHub.CommitStatus.ColumnIdWidth" value="292" />
+                </map>
+              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="AnhNgo1" />
+                        <option value="origin/AnhNgo1" />
                       </list>
                     </value>
                   </entry>
@@ -684,7 +688,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update fix all" />
     <MESSAGE value="fix fix fix payment status" />
     <MESSAGE value="bug add quantity" />
     <MESSAGE value="update history" />
@@ -709,7 +712,8 @@
     <MESSAGE value="update admin add count voucher" />
     <MESSAGE value="UPDATE ALL ADMIN" />
     <MESSAGE value="add check hsd" />
-    <option name="LAST_COMMIT_MESSAGE" value="add check hsd" />
+    <MESSAGE value="backup" />
+    <option name="LAST_COMMIT_MESSAGE" value="backup" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -39,6 +39,7 @@ public class RestSlideBarController {
     public void delete(@PathVariable Integer id) {
         slideBarService.delete(id);
     }
+
     @DeleteMapping
     public void deleteAll() {
         slideBarService.deleteAll();
