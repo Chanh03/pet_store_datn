@@ -55,27 +55,13 @@ public class PetController {
 
     @RequestMapping("/pet/detail/{id}")
     public String petDetail(Model model, @PathVariable String id) {
-        Optional<Pet> optionalPet = Optional.ofNullable(petService.findById(id));
-
-        if (optionalPet.isPresent()) {
-            Pet pet = optionalPet.get();
-            model.addAttribute("pet", pet);
-
-            // Lọc danh sách thú cưng cùng loại (cùng `petCategoryID`) nhưng không trùng
-            // `petID`
-            List<Pet> otherPets = petService.getAll().stream().filter(
-                            p -> !p.getPetID().equals(pet.getPetID()) && p.getPetCategoryID().equals(pet.getPetCategoryID()))
-                    .limit(12).collect(Collectors.toList());
-            List<Pet> otherPetCate = petService.getAll().stream().filter(
-                            p -> !p.getPetCategoryID().equals(pet.getPetCategoryID()))
-                    .limit(12).collect(Collectors.toList());
-            model.addAttribute("pets", otherPets);
-            model.addAttribute("petCates", otherPetCate);
-        } else {
-            model.addAttribute("errorMessage", "Thú cưng không tồn tại");
-            return "error";
-        }
-
+        List<Pet> pet = petService.getAll();
+        Pet pet1 = petService.findById(id);
+        List<Pet> samePetCategory = petService.getAllPetByCategoryId(pet1.getPetCategoryID());
+        List<Pet> otherPetCategory = pet.stream().filter(p -> !p.getPetCategoryID().equals(pet1.getPetCategoryID())).collect(Collectors.toList());
+        model.addAttribute("pet", pet1);
+        model.addAttribute("samePetCategory", samePetCategory);
+        model.addAttribute("otherPetCategory", otherPetCategory);
         return "layout/_petDetail";
     }
 }

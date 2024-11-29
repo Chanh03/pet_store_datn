@@ -1,6 +1,7 @@
 package com.example.petshop.service_impl;
 
 import com.example.petshop.entity.Pet;
+import com.example.petshop.entity.PetCategory;
 import com.example.petshop.repo.PetRepo;
 import com.example.petshop.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,10 @@ public class PetServiceImpl implements PetService {
     @Override
     public Page<Pet> searchPets(String keyword, Pageable pageable) {
         return petRepo.findByPetDescriptionContainingIgnoreCase(keyword, pageable);
+    }
+
+    @Override
+    public List<Pet> getAllPetByCategoryId(PetCategory id) {
+        return petRepo.findAllByPetCategoryID(id);
     }
 }

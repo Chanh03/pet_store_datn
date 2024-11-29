@@ -1,6 +1,7 @@
 package com.example.petshop.service;
 
 import com.example.petshop.entity.Pet;
+import com.example.petshop.entity.PetCategory;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,4 +25,6 @@ public interface PetService {
     Page<Pet> getPaginatedPets(Pageable pageable);
 
     Page<Pet> searchPets(String keyword, Pageable pageable);
+
+    List<Pet> getAllPetByCategoryId(PetCategory petCategoryID);
 }

@@ -1,6 +1,7 @@
 package com.example.petshop.repo;
 
 import com.example.petshop.entity.Pet;
+import com.example.petshop.entity.PetCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,6 @@ public interface PetRepo extends JpaRepository<Pet, String> {
     List<Pet> findAllByCreatedDateDesc();
 
     Page<Pet> findByPetDescriptionContainingIgnoreCase(String keyword, Pageable pageable);
+
+    List<Pet> findAllByPetCategoryID(PetCategory petCategoryID);
 }

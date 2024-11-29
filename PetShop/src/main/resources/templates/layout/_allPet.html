@@ -15,27 +15,53 @@
 
     <!-- Form tìm kiếm và sắp xếp -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <!-- Dropdown sắp xếp -->
-        <form action="/allPet" method="get" class="col-md-4 mb-3 d-inline-block">
-            <select class="form-select form-select-lg" name="priceOrder" onchange="this.form.submit()"
-                    style="border: 2px solid #dc3545;">
-                <option value="" selected>Sắp xếp theo giá</option>
-                <option value="asc" th:selected="${sort == 'asc'}">Tăng dần</option>
-                <option value="desc" th:selected="${sort == 'desc'}">Giảm dần</option>
-            </select>
-            <input type="hidden" name="keyword" th:value="${keyword}" />
+        <!-- Nút tìm giá tăng dần -->
+        <form action="/allPet" method="get" class="d-flex mb-3">
+            <button type="submit" name="priceOrder" value="asc"
+                    class="btn btn-danger ms-2"
+                    style="border-radius: 5px; padding: 8px 10px; display: flex; align-items: center; justify-content: center;">
+                <span th:if="${priceOrder == 'asc'}">Giá ↑</span> <span
+                    th:if="${priceOrder != 'asc'}">Giá ↑</span>
+            </button>
+
+            <!-- Nút tìm giá giảm dần -->
+            <button type="submit" name="priceOrder" value="desc"
+                    class="btn btn-danger ms-2"
+                    style="border-radius: 5px; padding: 8px 10px; display: flex; align-items: center; justify-content: center;">
+                <span th:if="${priceOrder == 'desc'}">Giá ↓</span> <span
+                    th:if="${priceOrder != 'desc'}">Giá ↓</span>
+            </button>
+
+            <!-- Tìm kiếm theo giá -->
+            <form method="get" action="/searchByPriceRange" class="d-flex">
+                <input type="number" class="form-control ms-2" name="minPrice"
+                       placeholder="Giá từ" th:value="${minPrice}" min="0"
+                       style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
+                <input type="number" class="form-control ms-2" name="maxPrice"
+                       placeholder="Giá đến" th:value="${maxPrice}" min="0"
+                       style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
+
+                <!-- Nút tìm kiếm -->
+                <button type="submit" class="btn btn-danger ms-2"
+                        style="border-radius: 5px;">Tìm kiếm</button>
+            </form>
+
         </form>
 
-        <!-- Form tìm kiếm -->
+        <!-- Form tìm kiếm thú cưng -->
         <form action="/allPet" method="get" class="d-flex col-md-4 ms-auto">
-            <input type="text" name="keyword" class="form-control form-control-lg me-2"
-                   placeholder="Tìm kiếm sản phẩm..." th:value="${keyword}" style="border: 2px solid #dc3545;">
-            <button type="submit" class="btn btn-danger d-flex align-items-center">
+            <input type="text" name="keyword"
+                   class="form-control form-control-lg me-2"
+                   placeholder="Tìm kiếm thú cưng..." th:value="${keyword}"
+                   style="border: 2px solid #dc3545; font-size: 16px; height: 45px; padding-left: 12px;">
+            <button type="submit"
+                    class="btn btn-danger d-flex align-items-center"
+                    style="border-radius: 5px; padding: 8px 20px; font-size: 16px;">
                 Tìm kiếm <i class="bi bi-search ms-2"></i>
             </button>
         </form>
     </div>
-    <hr>
+
 
     <!-- Hiển thị danh sách thú cưng -->
     <div class="row">
@@ -69,9 +95,11 @@
                         <h5 class="m-0">New</h5>
                     </div> -->
                     <div class="card-body text-center">
+                        <span class="fw-bold" th:text="${pet.petID}">ID</span>
+                        <h4 th:text="${#numbers.formatDecimal(pet.price, 0, 'COMMA', 0, 'POINT') + 'đ'}"></h4>
                         <h5 th:text="${pet.petCategoryID.petCategoryName + ' ' + pet.breed + ' ' + pet.hair}"
                             class="">ten thu cung</h5>
-                        <span th:text="${'ID : '+pet.petID}">ID</span>
+
                     </div>
                 </div>
             </a>
