@@ -126,9 +126,9 @@
 
         </div>
         <div class="d-flex justify-content-center mb-3">
-            <button class="btn color py-2 px-4 rounded-5 button-image">
+            <a href="/allPet" class="btn color py-2 px-4 rounded-5 button-image">
                 <span class="fw-bold">Xem thêm</span>
-            </button>
+            </a>
         </div>
     </div>
 </div>
@@ -147,7 +147,7 @@
         <div class="swiper-wrapper">
             <!--ITEMS-->
             <div th:each="pc : ${productCategories}" class="swiper-slide">
-                <a href="/filter" class="nav-link">
+                <a th:href="@{/allProduct(categoryId=${pc.id}, page=0)}" class="nav-link">
                     <div class="card card-hover border-0 d-flex justify-content-center align-items-center">
                         <div class="overflow-hidden button-image"
                              style="background-color: #f7f7f5; border-radius: 50%; width: 100%; height: 100%;">
@@ -168,7 +168,7 @@
         <div class="swiper-pagination color" style="position: static"></div>
     </div>
 </div>
-<!--LOAI SP DANH CHO THU CUNG END-->
+<!--LOAI SP DANH CHO THU CƯNG END-->
 <!--SP NOI BAT-->
 <div class="row my-3 g-3 d-flex align-items-center px-2 ">
     <h1 class="color fw-bold text-center">SẢN PHẨM MỚI</h1>
@@ -219,7 +219,7 @@
                         <!--                        <div class="d-flex justify-content-center gap-2 my-2">-->
                         <!--                            <i th:each="i : ${#numbers.sequence(1, 5)}"-->
                         <!--                               th:class="${i <= product.rating} ? 'fa-solid fa-star text-warning' : 'fa-solid fa-star'">-->
-                        <!--                            </i>-->
+                        <!--        p                    </i>-->
                         <!--                        </div>-->
                         <h5 class="" th:text="${product.productName}">ten sp</h5>
                         <h4 class="color fw-bold"
@@ -230,7 +230,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center mb-3">
-            <a class="btn color py-2 px-4 rounded-5 button-image">
+            <a href="/allProduct" class="btn color py-2 px-4 rounded-5 button-image">
                 <span class="fw-bold">Xem thêm</span>
             </a>
         </div>
@@ -457,10 +457,10 @@
                 </span>
                 <ul>
                     <li>
-                        Thiết kế FE (Figma) và code FE (Trang chủ, Giỏ hàng, ADMIN, Login, Module)
+                        Thiết kế FE (Figma) và code FE (Trang chủ, ADMIN)
                     </li>
                     <li>
-                        Code BE (Entity, Repository, Service (và Implement), Controller, Security)
+                        Code BE (Trang chủ, ADMIN)
                     </li>
                 </ul>
                 <p class="text-body-tertiary">Email: anhnvps30934@fpt.edu.vn</p>
@@ -476,7 +476,7 @@
             </div>
             <div class="card-body p-2">
                 <h5 class="color fw-bold d-flex justify-content-center gap-2 align-items-center">
-                    <span>Ngô Viêt Anh</span>
+                    <span>Nguyễn Trọng Phúc</span>
                     <span class="badge bg-success">Admin</span>
                 </h5>
                 <span>
@@ -484,14 +484,14 @@
                 </span>
                 <ul>
                     <li>
-                        Thiết kế FE (Figma) và code FE (Trang chủ, Giỏ hàng, ADMIN, Login, Module)
+                        Thiết kế Usercase, ERD, DB và code FE (Cart, Payment, History, Review)
                     </li>
                     <li>
-                        Code BE (Entity, Repository, Service (và Implement), Controller, Security)
+                        Code BE (Cart, Payment, History, Review, Security)
                     </li>
                 </ul>
-                <p class="text-body-tertiary">Email: anhnvps30934@fpt.edu.vn</p>
-                <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
+                <p class="text-body-tertiary">Email: nguyentrongphuc03@gmail.com</p>
+                <p class="text-body-tertiary">Số điện thoại: 0911870319</p>
             </div>
         </div>
     </div>
@@ -503,7 +503,7 @@
             </div>
             <div class="card-body p-2">
                 <h5 class="color fw-bold d-flex justify-content-center gap-2 align-items-center">
-                    <span>Ngô Viêt Anh</span>
+                    <span>Đỗ Minh Tâm</span>
                     <span class="badge bg-success">Admin</span>
                 </h5>
                 <span>
@@ -511,14 +511,14 @@
                 </span>
                 <ul>
                     <li>
-                        Thiết kế FE (Figma) và code FE (Trang chủ, Giỏ hàng, ADMIN, Login, Module)
+                       Code FE (Login, register, forgot-password, new-password, infomation, confirmation, VNPAY)
                     </li>
                     <li>
-                        Code BE (Entity, Repository, Service (và Implement), Controller, Security)
+                        Code BE (Login, register, forgot-password, new-password, infomation, confirmation, VNPAY)
                     </li>
                 </ul>
-                <p class="text-body-tertiary">Email: anhnvps30934@fpt.edu.vn</p>
-                <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
+                <p class="text-body-tertiary">Email: </p>
+                <p class="text-body-tertiary">Số điện thoại: </p>
             </div>
         </div>
     </div>
@@ -530,7 +530,7 @@
             </div>
             <div class="card-body p-2">
                 <h5 class="color fw-bold d-flex justify-content-center gap-2 align-items-center">
-                    <span>Ngô Viêt Anh</span>
+                    <span>Phạm Nhật Hoàng</span>
                     <span class="badge bg-success">Admin</span>
                 </h5>
                 <span>
@@ -538,14 +538,15 @@
                 </span>
                 <ul>
                     <li>
-                        Thiết kế FE (Figma) và code FE (Trang chủ, Giỏ hàng, ADMIN, Login, Module)
+                         Khảo sát yêu cầu - Sơ đồ phân tích chức năng - ActivityDiagram - Insert Database - Test Design/Test Case/TestReprt"
+
                     </li>
                     <li>
-                        Code BE (Entity, Repository, Service (và Implement), Controller, Security)
+                        Code BE (Filter)
                     </li>
                 </ul>
-                <p class="text-body-tertiary">Email: anhnvps30934@fpt.edu.vn</p>
-                <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
+                <p class="text-body-tertiary">Email: </p>
+                <p class="text-body-tertiary">Số điện thoại: </p>
             </div>
         </div>
     </div>
@@ -557,7 +558,7 @@
             </div>
             <div class="card-body p-2">
                 <h5 class="color fw-bold d-flex justify-content-center gap-2 align-items-center">
-                    <span>Ngô Viêt Anh</span>
+                    <span>Lê Hoàng Hiền</span>
                     <span class="badge bg-success">Admin</span>
                 </h5>
                 <span>

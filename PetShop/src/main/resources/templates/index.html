@@ -714,7 +714,9 @@
                                         orderID: {id: orderID},
                                         productID: {id: item.id},
                                         quantity: item.quantity,
-                                        price: item.price
+                                        price: item.price,
+                                        reviewStatus : false
+
                                     };
                                     //update lai quantity khi checkout
                                     const updateQuantityPromise = $http.put(
