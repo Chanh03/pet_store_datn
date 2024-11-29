@@ -34,10 +34,13 @@
                 </div>
             </div>
         </div>
+             <div class="col-9">
 
         <!-- Product List -->
-        <div class="col-9">
-           	<!-- Sort Form -->
+     				<!-- Search and Sort -->
+				<div class="row mb-3">
+					<div class="col-6">
+						<!-- Sort Form -->
 						<form th:action="@{/allProduct}" method="get" class="d-flex mb-3">
 							<!-- Nút tìm giá tăng dần -->
 							<button type="submit" name="sort" value="asc"
@@ -74,6 +77,22 @@
 								style="border-radius: 5px;">Tìm kiếm</button>
 						</form>
 
+					</div>
+					<div class="col-6">
+						<!-- Search Form -->
+						<!-- Search Form -->
+						<form th:action="@{/allProduct}" method="get" class="d-flex mb-4">
+							<input class="form-control" type="search"
+								placeholder="Tìm kiếm sản phẩm" aria-label="Search"
+								name="search" th:value="${search}"
+								style="border: 2px solid #dc3545; border-radius: 5px; padding-left: 12px; font-size: 25px; height: 45px; width: 300px;">
+							<button class="btn btn-danger" type="submit"
+								style="border-radius: 5px; padding: 12px 30px; font-size: 18px; height: 45px;">
+								Tìm</button>
+						</form>
+
+					</div>
+				</div>
             <div class="row">
                 <!-- Product Card -->
                 <!-- <div class="col-3 mb-4" th:each="product : ${productPage.content}">
