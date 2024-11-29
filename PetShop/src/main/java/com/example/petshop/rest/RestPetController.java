@@ -1,45 +1,49 @@
 package com.example.petshop.rest;
 
 import com.example.petshop.entity.Pet;
+import com.example.petshop.service.PetCategoryService;
 import com.example.petshop.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
-@RestController
-@RequestMapping("/api/pet")
 @CrossOrigin("*")
+@RequestMapping("/api/pet")
+@RestController
 public class RestPetController {
+    @Autowired
+    private PetService petService;
+    @Autowired
+    private PetCategoryService petCategoryService;
 
-	@Autowired
-	private PetService petService;
+    @GetMapping
+    public List<Pet> getPet() {
+        return petService.getAll();
+    }
 
-	@GetMapping
-	public List<Pet> getPets() {
-		return petService.getAll();
-	}
+    @GetMapping("/{id}")
+    public Pet getPetId(@PathVariable("id") String id) {
+        return petService.findById(id);
+    }
 
-	@GetMapping("/{id}")
-	public Pet getPetById(@PathVariable("id") String id) {
-		return petService.findById(id);
-	}
+    @PostMapping
+    public void save(@RequestBody Pet pet) {
+        pet.setCreateDate(LocalDateTime.now());
+        petService.save(pet);
+    }
 
-	@PostMapping
-	public void savePet(@RequestBody Pet pet) {
-		pet.setCreateDate(LocalDateTime.now());
-		petService.save(pet);
-	}
+    @PutMapping("/{id}")
+    public void updatePet(@PathVariable("id") String id, @RequestBody Pet pet) {
+        petService.save(pet);
+    }
 
-	@PutMapping("/{id}")
-	public void updatePet(@PathVariable("id") String id, @RequestBody Pet pet) {
-		pet.setPetID(id);
-		petService.save(pet);
-	}
+    @DeleteMapping("/{id}")
+    public void deletePet(@PathVariable("id") String id) {
+        petService.deleteById(id);
+    }
 
-	@DeleteMapping("/{id}")
-	public void deletePet(@PathVariable("id") String id) {
-		petService.deleteById(id);
-	}
 }

@@ -55,4 +55,14 @@ public class ReviewServiceImpl implements ReviewService {
     public boolean isOrdered(String username, int id) {
         return false;
     }
+
+    @Override
+    public Review save(Review review) {
+        return reviewRepo.save(review);
+    }
+
+    @Override
+    public List<Review> getReviewsMoiNhatVaTren4() {
+        return reviewRepo.findTop4ByOrderByCreatedDateDesc();
+    }
 }

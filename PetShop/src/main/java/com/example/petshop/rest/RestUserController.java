@@ -151,7 +151,7 @@ public class RestUserController {
             String uuidString = uuid.toString();
             user.setActiveToken(uuidString);
             user.setUserPassword(encodedPassword);
-
+            user.setIsDelete(true);
             user.setDateCreated(LocalDateTime.now());
 
             // Gán vai trò cho người dùng
@@ -217,6 +217,7 @@ public class RestUserController {
         }
 
         // Kích hoạt tài khoản
+        user.setIsDelete(false);
         user.setEnable(true);
         service.update(user);
 
@@ -353,7 +354,9 @@ public class RestUserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"success\": false, \"message\": \"Tài khoản không tồn tại\"}");
         }
-
+        if (existingUser.getUsername().matches("\\d+") &&!existingUser.getEmail().equals(userDTO.getEmail())) { // Kiểm tra nếu username không chỉ chứa ký tự số
+            return ResponseEntity.ok("{\"success\": false, \"message\": \"Bạn không thể đổi email khác do đăng nhập bằng bên thứ 3!\"}");
+        }
         // Cập nhật thông tin
         existingUser.setFullName(userDTO.getFullName());
         existingUser.setEmail(userDTO.getEmail());
@@ -367,14 +370,30 @@ public class RestUserController {
     }
 
     @PutMapping("/{id}")
-    public void updateUser(@PathVariable String id, @RequestBody User user) {
-        User user1 = service.findByUsername(id);
-        user.setUserName(user1.getUsername());
-        user.setDateCreated(user1.getDateCreated());
-        user.setActiveToken(user1.getActiveToken());
-        user.setUserPassword(user1.getUserPassword());
+    public ResponseEntity<?> updateUser(@PathVariable String id, @RequestBody User user) {
+        User currentUser = service.findByUsername(id);
+        List<User> usersEmailCheck = service.findByEmail(user.getEmail());
+        List<User> usersPhoneCheck = service.findByPhoneNumber(user.getPhoneNumber());
+        if (currentUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("{\"success\": false, \"message\": \"Tài khoản không tồn tại\"}");
+        }
+        if (usersEmailCheck.stream().anyMatch(u -> !u.getUsername().equals(id))) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("{\"success\": false, \"message\": \"Email đã được sử dụng cho một tài khoản khác\"}");
+        }
+        if (usersPhoneCheck.stream().anyMatch(u -> !u.getUsername().equals(id))) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("{\"success\": false, \"message\": \"Số điện thoại đã được sử dụng cho một tài khoản khác\"}");
+        }
+        user.setUserName(currentUser.getUsername());
+        user.setDateCreated(currentUser.getDateCreated());
+        user.setActiveToken(currentUser.getActiveToken());
+        user.setUserPassword(currentUser.getUserPassword());
         service.updateUser(user);
+        return ResponseEntity.ok("{\"success\": true, \"message\": \"Cập nhật thành công\"}");
     }
+
 
     @GetMapping
     public List<User> getUser() {

@@ -66,12 +66,11 @@
         }
 
         .mini-cart-box .cart-item {
-            transition: 0.5s;
+            transition: 0.3s all;
         }
 
         .mini-cart-box .cart-item:hover {
-            border-bottom: 5px solid #f04336;
-            padding-bottom: 10px;
+            border-left: 5px solid #f04336;
         }
 
         .ui-menu {
@@ -186,14 +185,8 @@
                     </li>
                     <li class="nav-item text-center search-button">
                         <div class="bg-white rounded-3 shadow border border-2 border-dark p-1" style="width: 400px;">
-                            <form action="/search" method="get" class="d-flex align-items-center shadow">
-                                <!-- Select box -->
-                                <select id="searchCategory" class="form-select form-select-sm mx-2"
-                                        style="width: 120px;">
-                                    <option value="pet">Thú cưng</option>
-                                    <option value="product">Sản phẩm</option>
-                                </select>
-                                <input id="search-box" type="text" class="form-control border-0" name="search-box"
+                            <form action="/allProduct" method="get" class="d-flex align-items-center shadow">
+                                <input id="search-box" type="text" class="form-control border-0" name="search"
                                        placeholder="Tìm kiếm...">
                                 <button type="submit"
                                         class="rounded-2 px-3 py-2 background-color border-0 button-image-white">
@@ -253,7 +246,7 @@
                             </div>
                             <div ng-if="cart.items.length" class="card">
                                 <div class="card-body">
-                                    <div id="cart-items" class="mb-3">
+                                    <div id="cart-items" class="">
                                         <!-- Danh sách sản phẩm -->
                                         <div class="cart-item d-flex align-items-center mb-3"
                                              ng-repeat="item in cart.items track by item.id">
@@ -308,48 +301,7 @@
         })
     }
 
-    $(document).ready(function () {
-        $("#search-box").autocomplete({
-            source: function (request, response) {
-                const category = $("#searchCategory").val();
-                const apiURL = category === "pet" ? 'http://localhost:8080/api/pet' : 'http://localhost:8080/api/product';
 
-                fetch(apiURL)
-                    .then(res => res.json())
-                    .then(data => {
-                        const results = $.map(data, item => {
-                            const itemName = category === "pet" ? item.breed : item.productName;
-
-                            // Kiểm tra điều kiện tên và lấy đường dẫn hình ảnh tương ứng
-                            if (itemName.toLowerCase().includes(request.term.toLowerCase())) {
-                                const imageUrl = category === "pet"
-                                    ? `/images/pet/${item.photo}`
-                                    : `/images/product/${item.photo}`;
-
-                                return {
-                                    label: `
-                                    <div class="autocomplete-item" style="display: flex; align-items: center;">
-                                        <strong style="flex: 1;">${itemName}</strong>
-                                        <p style="margin: 0; flex-shrink: 0;">Giá: ${item.price.toLocaleString()}đ</p>
-                                        <img src="${imageUrl}" alt="${itemName}" style="width: 50px; height: 50px; margin-left: 10px; object-fit: cover;">
-                                    </div>`,
-                                    value: itemName,
-                                    id: item.id
-                                };
-                            }
-                        });
-                        response(results);
-                    })
-                    .catch(error => console.error(`Error fetching ${category}:`, error));
-            },
-        })
-            .data("ui-autocomplete")._renderItem = function (ul, item) {
-            return $("<li>")
-                .data("item.autocomplete", item)
-                .append(item.label)
-                .appendTo(ul);
-        };
-    });
 </script>
 </body>
 </html>

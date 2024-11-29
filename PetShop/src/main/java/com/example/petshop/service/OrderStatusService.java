@@ -14,4 +14,10 @@ public interface OrderStatusService {
     OrderStatus getByStatus(Integer orderStatus);
 
     OrderStatus getById(int i);
+
+    OrderStatus create(OrderStatus orderStatus);
+
+    void update(OrderStatus orderStatus);
+
+    OrderStatus findById(int id);
 }

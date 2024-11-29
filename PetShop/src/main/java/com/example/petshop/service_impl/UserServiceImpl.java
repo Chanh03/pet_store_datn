@@ -92,23 +92,28 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Scheduled(fixedRate = 60000)
     public void cleanupInactiveUsers() {
-//        List<User> listUser = userRepo.findUserByEnableFalse();
-//        Instant now = Instant.now();
-//
-//        try {
-//            for (User user : listUser) {
-//                LocalDateTime dateCreated = user.getDateCreated();
-//                LocalDateTime nowLocal = LocalDateTime.now();
-//                if (dateCreated.isBefore(nowLocal.minusSeconds(600))) {
-//                    System.out.println(nowLocal);
-//                    System.out.println(dateCreated);
-//                    authorityService.deleteByUserName(user);
-//                    userRepo.delete(user);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        List<User> listUser = userRepo.findUserByIsDeleteTrue();
+        Instant now = Instant.now();
+
+        try {
+            for (User user : listUser) {
+                LocalDateTime dateCreated = user.getDateCreated();
+                LocalDateTime nowLocal = LocalDateTime.now();
+                if (dateCreated.isBefore(nowLocal.minusSeconds(600))) {
+                    System.out.println(nowLocal);
+                    System.out.println(dateCreated);
+                    authorityService.deleteByUserName(user);
+                    userRepo.delete(user);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<User> findByPhoneNumber(String phoneNumber) {
+        return userRepo.findByPhoneNumber(phoneNumber);
     }
 
 }

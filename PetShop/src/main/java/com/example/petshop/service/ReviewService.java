@@ -16,4 +16,8 @@ public interface ReviewService {
     double getAverageRatingByProductId(int id);
 
     boolean isOrdered(String username, int id);
+
+    Review save(Review review);
+
+    List<Review> getReviewsMoiNhatVaTren4();
 }

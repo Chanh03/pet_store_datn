@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class NotificationController {
 
-	@Autowired
-	private SimpMessagingTemplate simpMessagingTemplate;
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
 
-	@PostMapping("/send-notification")
-	public void sendNotification(@RequestParam String message) {
-		// Gửi thông báo tới tất cả client đăng ký trên "/trang-chu"
-		simpMessagingTemplate.convertAndSend("/", message);
-	}
+    @PostMapping("/send-notification")
+    public void sendNotification(@RequestParam String message) {
+        // Gửi thông báo tới tất cả client đăng ký trên "/trang-chu"
+        simpMessagingTemplate.convertAndSend("/", message);
+    }
 }

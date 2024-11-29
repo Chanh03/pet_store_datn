@@ -32,4 +32,19 @@ public class OrderStatusServiceImpl implements OrderStatusService {
     public OrderStatus getById(int i) {
         return orderStatusRepo.findById(i).orElse(null);
     }
+
+    @Override
+    public OrderStatus create(OrderStatus orderStatus) {
+        return orderStatusRepo.save(orderStatus);
+    }
+
+    @Override
+    public void update(OrderStatus orderStatus) {
+        orderStatusRepo.save(orderStatus);
+    }
+
+    @Override
+    public OrderStatus findById(int id) {
+        return orderStatusRepo.findById(id).orElse(null);
+    }
 }

@@ -24,71 +24,98 @@ import java.util.stream.Collectors;
 
 @Controller
 public class ProductController {
-	@Autowired
-	private ProductService productService;
+    @Autowired
+    private ProductService productService;
 
-	@Autowired
-	private ReviewService reviewService;
+    @Autowired
+    private ReviewService reviewService;
 
-	@Autowired
-	private OrderProductDetailService orderProductDetailService;
+    @Autowired
+    private OrderProductDetailService orderProductDetailService;
 
-	@Autowired
-	private ProductCategoryService productCategoryService;
+    @Autowired
+    private ProductCategoryService productCategoryService;
 
-	@RequestMapping("/allProduct")
-	public String viewProduct(
-	        Model model,
-	        @RequestParam(defaultValue = "0") int page,
-	        @RequestParam(required = false) String search,
-	        @RequestParam(required = false) String sort,
-	        @RequestParam(required = false) Integer categoryId) {
+    @RequestMapping("/allProduct")
+    public String viewProduct(Model model,
+                              @RequestParam(defaultValue = "0") int page,
+                              @RequestParam(required = false) String search,
+                              @RequestParam(required = false) String sort,
+                              @RequestParam(required = false) Integer categoryId,
+                              @RequestParam(required = false) Double minPrice,
+                              @RequestParam(required = false) Double maxPrice) {
+        int pageSize = 16;
+        Page<Product> productPage;
 
-	    int pageSize = 16;
-	    Sort.Direction sortDirection = (sort != null && sort.equals("asc")) ? Sort.Direction.ASC : Sort.Direction.DESC;
+        // Xác định thứ tự sắp xếp
+        Sort.Direction sortDirection = (sort != null && sort.equals("asc")) ? Sort.Direction.ASC : Sort.Direction.DESC;
 
-	    Page<Product> productPage;
+        // Xử lý logic tìm kiếm
+        if (minPrice != null && maxPrice != null) {
+            // Tìm kiếm sản phẩm theo khoảng giá
+            productPage = productService.searchProductWithPrice(sort, minPrice, maxPrice,
+                    PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
+        } else if (search != null && !search.isEmpty() && categoryId != null) {
+            // Tìm kiếm theo từ khóa và danh mục
+            productPage = productService.searchProductWithCategory(search, categoryId,
+                    PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
+        } else if (search != null && !search.isEmpty()) {
+            // Tìm kiếm theo từ khóa
+            productPage = productService.searchProduct(search,
+                    PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
+        } else if (categoryId != null) {
+            // Lọc theo danh mục
+            productPage = productService.getProductsByCategoryId(categoryId,
+                    PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
+        } else {
+            // Lấy tất cả sản phẩm nếu không có điều kiện lọc
+            productPage = productService
+                    .getPaginatedProduct(PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
+        }
 
-	    if ((search != null && !search.isEmpty()) || categoryId != null) {
-	        productPage = productService.searchFlexible(
-	                search != null ? search : "",
-	                categoryId,
-	                PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
-	    } else {
-	        productPage = productService.getPaginatedProduct(PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
-	    }
+        // Lấy danh sách danh mục
+        List<ProductCategory> categories = productCategoryService.getAll();
 
-	    List<ProductCategory> categories = productCategoryService.getAll();
-	    model.addAttribute("productPage", productPage);
-	    model.addAttribute("categories", categories);
-	    model.addAttribute("search", search);
-	    model.addAttribute("sort", sort);
-	    model.addAttribute("categoryId", categoryId);
+        // Đưa dữ liệu vào model để hiển thị trên giao diện
+        model.addAttribute("productPage", productPage);
+        model.addAttribute("categories", categories);
+        model.addAttribute("search", search);
+        model.addAttribute("sort", sort);
+        model.addAttribute("categoryId", categoryId);
+        model.addAttribute("minPrice", minPrice);
+        model.addAttribute("maxPrice", maxPrice);
 
-	    return "layout/_allProduct";
-	}
+        return "layout/_allProduct";
+    }
 
-	@RequestMapping("/product/detail/{id}")
-	public String product(Model model, @PathVariable int id) {
-		Product product = productService.getById(id);
+    @RequestMapping("/product/detail/{id}")
+    public String product(Model model, @PathVariable int id) {
+        Product product = productService.getById(id);
 
-		if (product != null) {
-			model.addAttribute("product", product);
-			List<Product> relatedProducts = productService.getProductsByCategory(product.getProductCategoryID().getId(),
-					id);
-			model.addAttribute("relatedProducts", relatedProducts);
+        if (product != null) {
+            model.addAttribute("product", product);
+            List<Product> relatedProducts = productService.getProductsByCategory(product.getProductCategoryID().getId(), id);
+            model.addAttribute("relatedProducts", relatedProducts);
 
-			List<Review> reviews = reviewService.getReviewsByProductId(id);
-			model.addAttribute("reviews", reviews);
-			List<Review> ratings = reviewService.getRatingsByProductId(id);
-			model.addAttribute("ratings", ratings);
-			double averageRating = reviewService.getAverageRatingByProductId(id);
-			model.addAttribute("averageRating", averageRating);
-		} else {
-			model.addAttribute("errorMessage", "Sản phẩm không tồn tại");
-			return "error";
-		}
+            List<Product> otherProducts = productService.getProductsByDifferentCategory(
+                    product.getProductCategoryID().getId(),
+                    product.getId()
+            );
+            model.addAttribute("otherProducts", otherProducts);
 
-		return "layout/_productDetail";
-	}
+            List<Review> reviews = reviewService.getReviewsByProductId(id);
+            model.addAttribute("reviews", reviews != null ? reviews : List.of());
+
+            List<Review> ratings = reviewService.getRatingsByProductId(id);
+            model.addAttribute("ratings", ratings != null ? ratings : List.of());
+
+            double averageRating = reviewService.getAverageRatingByProductId(id);
+            model.addAttribute("averageRating", averageRating);
+        } else {
+            model.addAttribute("errorMessage", "Sản phẩm không tồn tại");
+            return "error";
+        }
+
+        return "layout/_productDetail";
+    }
 }
