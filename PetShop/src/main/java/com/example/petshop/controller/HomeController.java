@@ -95,6 +95,20 @@ public class HomeController {
         return "security/register";
     }
 
+    @RequestMapping("/successVnpay/{id}")
+    public String successVnpay(@PathVariable(name = "id") int id) {
+        String orderID = String.valueOf(id);
+        if (orderID.length() < 8) {
+            return "redirect:/access-denied";
+        }
+        return "security/successVnpay";
+    }
+
+    @RequestMapping("/failVnpay")
+    public String failVnpay() {
+        return "security/failVnpay";
+    }
+
     @RequestMapping("/confirmation")
     public String confirmation(@RequestParam("confirmation_token") String confirmation_token) {
         return "security/confirmation";

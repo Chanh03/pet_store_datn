@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/index.html::home(~{::body})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+</head>
+
+<body>
+
+<!--SLIDE-->
+<div class="row g-0">
+    <div class="col-12">
+        <div class="swiper swiper-container-banner">
+            <div class="swiper-wrapper">
+                <div th:each="s : ${slides}" class="swiper-slide">
+                    <img loading="lazy" class="swiper-gl-image w-100"
+                         th:src="@{/images/slide/{photo}(photo = ${s.sliderImage})}" th:alt="${s.sliderImage}">
+                </div>
+            </div>
+
+            <div class="swiper-button-prev swiper-button-prev-banner"></div>
+            <div class="swiper-button-next swiper-button-next-banner"></div>
+            <div class="swiper-pagination swiper-pagination-banner"></div>
+        </div>
+    </div>
+</div>
+<!--SLIDE END-->
+
+<!--BANNER-->
+<div class="d-flex justify-content-center">
+    <img loading="lazy" class="w-100" src="/images/banner/banner-sieu-xin.webp" alt="banner" style="object-fit: cover;">
+</div>
+<!--BANNER END-->
+<!--TIEN ICH-->
+<div class="row my-3 g-4 p-2 ">
+    <div class="col-lg-3 col-6">
+        <div class="d-flex justify-content-center align-items-center gap-2">
+            <i class="fas fa-paw fa-3x color"></i>
+            <h5 class="text-start">
+                Sản phẩm chất lượng
+                Được kiểm định an toàn
+            </h5>
+        </div>
+    </div>
+    <div class="col-lg-3 col-6">
+        <div class="d-flex justify-content-center align-items-center gap-2">
+            <i class="fas fa-dog fa-3x color"></i>
+            <h5 class="text-start">
+                Thức ăn cho thú cưng
+                Đa dạng và bổ dưỡng
+            </h5>
+        </div>
+    </div>
+    <div class="col-lg-3 col-6">
+        <div class="d-flex justify-content-center align-items-center gap-2">
+            <i class="fas fa-cat fa-3x color"></i>
+            <h5 class="text-start">
+                Phụ kiện thú cưng
+                Thời trang và tiện ích
+            </h5>
+        </div>
+    </div>
+    <div class="col-lg-3 col-6">
+        <div class="d-flex justify-content-center align-items-center gap-2">
+            <i class="fas fa-clinic-medical fa-3x color"></i>
+            <h5 class="text-start">
+                Dịch vụ chăm sóc
+                Khám và điều trị tận nơi
+            </h5>
+        </div>
+    </div>
+</div>
+<!--TIEN ICH END-->
+<div class="my-3 overflow-hidden align-middle" style="height: 80px; position: relative;background: snow">
+    <div class="link-wrapper m-0">
+        <h3>
+            <a href="#cho" class="link button-image rounded-3 text-danger" th:each="pc : ${petCategories}">
+                <div class="d-flex justify-content-center align-items-center gap-2 fs-5">
+                    <span th:text="${pc.petCategoryName}">Chó</span>
+                    <div class="overflow-hidden rounded-5" style="width: 50px; height: 50px;">
+                        <img th:src="@{/images/pet_category/{photo}(photo=${pc.photo})}"
+                             class="w-100" style="object-fit: cover;">
+                    </div>
+                </div>
+            </a>
+        </h3>
+    </div>
+</div>
+<!--THU CUNG MOI-->
+<div class="row my-3 g-3 d-flex align-items-center px-2 ">
+    <h1 class="color fw-bold text-center">THÚ CƯNG MỚI</h1>
+    <div class="col-lg-5 col-md-5 position-relative">
+        <div class="d-flex justify-content-center position-relative overflow-hidden rounded-5 shadow">
+            <img loading="lazy" class="w-100 card-image" src="/images/banner/advertise-vertical-1.webp"
+                 alt="">
+            <button class="btn rounded-5 px-4 btn-outline-danger position-absolute button-image"
+                    style="bottom: 10%; left: 50%; transform: translateX(-50%)">
+                <span class="fw-bold m-0">Xem thêm</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-lg-7 col-md-7">
+        <div class="row g-2">
+            <!--ITEMS-->
+            <div th:each="pet : ${nextSixPet}" class="col-lg-4 col-md-6 col-sm-6 col-6">
+                <a class="nav-link" th:href="@{/pet/detail/{id}(id=${pet.petID})}">
+                    <div class="card card-hover border-0 position-relative">
+                        <div class="overflow-hidden rounded-5 button-image"
+                             style="background-color: #f7f7f5; display: flex; align-items: center; justify-content: center;">
+                            <img loading="lazy" th:src="@{/images/pet/{photo}(photo=${pet.photo})}"
+                                 class="card-img-top card-image" alt="pet"
+                                 style="max-width: 300px; max-height: 300px; object-fit: cover;">
+                        </div>
+                        <div class="badge bg-warning position-absolute" style="top: 0; right: 0; z-index: 1000;">
+                            <h5 class="m-0">New</h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 th:text="${pet.petCategoryID.petCategoryName + ' ' + pet.breed + ' ' + pet.hair}"
+                                class="">ten thu cung</h5>
+                            <span th:text="${'ID : '+pet.petID}">ID</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+        <div class="d-flex justify-content-center mb-3">
+            <a href="/allPet" class="btn color py-2 px-4 rounded-5 button-image">
+                <span class="fw-bold">Xem thêm</span>
+            </a>
+        </div>
+    </div>
+</div>
+<!--THU CUNG MOI END-->
+<!--BANNER-->
+<div class="my-3 ">
+    <img loading="lazy" src="/images/banner/long-banner-placeholder.png" class="w-100" alt="banner"
+         style="object-fit: cover;">
+</div>
+<!--BANNER END-->
+<!--LOAI SP DANH CHO THU CUNG-->
+<div class="container my-5 overflow-hidden ">
+    <h1 class="color fw-bold text-center mb-4">CÁC LOẠI SẢN PHẨM DÀNH CHO THÚ CƯNG</h1>
+    <!-- Swiper -->
+    <div class="swiper-container position-relative">
+        <div class="swiper-wrapper">
+            <!--ITEMS-->
+            <div th:each="pc : ${productCategories}" class="swiper-slide">
+                <a th:href="@{/allProduct(categoryId=${pc.id}, page=0)}" class="nav-link">
+                    <div class="card card-hover border-0 d-flex justify-content-center align-items-center">
+                        <div class="overflow-hidden button-image"
+                             style="background-color: #f7f7f5; border-radius: 50%; width: 100%; height: 100%;">
+                            <img loading="lazy" th:src="@{/images/product_category/{photo}(photo=${pc.photo})}"
+                                 class="card-img-top card-image img-fluid" th:alt="${pc.photo}">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 th:text="${pc.productCategoryName}" class="">Tên loại sản phẩm</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- Nút điều hướng -->
+        <div class="swiper-button-next color" style="position: absolute;top: 35%"></div>
+        <div class="swiper-button-prev color" style="position: absolute;top: 35%"></div>
+        <!-- Thanh phân trang -->
+        <div class="swiper-pagination color" style="position: static"></div>
+    </div>
+</div>
+<!--LOAI SP DANH CHO THU CƯNG END-->
+<!--SP NOI BAT-->
+<div class="row my-3 g-3 d-flex align-items-center px-2 ">
+    <h1 class="color fw-bold text-center">SẢN PHẨM MỚI</h1>
+    <div class="col-lg-4 col-md-5 position-relative sticky-top sticky-element">
+        <div class=" d-flex justify-content-center position-relative shadow">
+            <!--            <div class="position-absolute text-center d-flex justify-content-center align-items-center gap-2"-->
+            <!--                 style="top: 0; left: 50%; transform: translateX(-50%);z-index: 1000">-->
+            <!--                <h1 class="color fw-bold m-0">Giảm giá</h1>-->
+            <!--                <h1 class="text-white background-color fw-bold py-2 m-0 w-50">50%</h1>-->
+            <!--            </div>-->
+            <img loading="lazy" class="button-image w-100" src="/images/banner/sale-banner-1.webp"
+                 alt="best-selling">
+            <!--            <button class="btn rounded-2 px-4 py-2 position-absolute button-image-white"-->
+            <!--                    style="background-color: #f04336;bottom: 50%; left: 50%; transform: translateX(-50%)">-->
+            <!--                <span class="fw-bold m-0 text-white">Xem ngay</span>-->
+            <!--            </button>-->
+            <!--            <div class="position-absolute w-100 px-5 text-center"-->
+            <!--                 style="bottom: 5%; left: 50%; transform: translateX(-50%);z-index: 1000">-->
+            <!--                <h5>Chỉ còn 100.000đ - 200.000đ, số lượng có hạn !</h5>-->
+            <!--            </div>-->
+        </div>
+    </div>
+    <div class="col-lg-8 col-md-7">
+        <div class="row g-2">
+            <!--ITEMS-->
+            <div th:each="product : ${nextSixProducts}" class="col-lg-3 col-md-4 col-sm-4 col-4">
+                <div class="card card-hover border-0">
+                    <div class="position-relative button-image add-to-cart-container"
+                         style="background-color: #f7f7f5">
+                        <div class="overflow-hidden p-0 position-relative">
+                            <a class="nav-link" th:href="@{/product/detail/{id}(id=${product.id})}">
+                                <img loading="lazy" th:src="@{/images/product/{photo}(photo=${product.photo})}"
+                                     class="card-img-top card-image" alt="product">
+                            </a>
+                        </div>
+                        <div class="badge position-absolute" style="top: 0; right: 0; z-index: 1000;">
+                            <img src="/images/logo/hot-badge.png" alt="hot-badge" style="width: 50px;">
+                        </div>
+                        <a th:attr="ng-click=${'cart.add(' + product.id + ')'}"
+                           class="btn background-color button-image-white add-to-cart w-100 py-3 rounded-0 position-absolute"
+                           style="bottom: 0; left: 0; z-index: 1001;">
+                            <h5 class="text-white m-0">
+                                <span>Thêm vào giỏ</span> <i class="fas fa-cart-plus"></i>
+                            </h5>
+                        </a>
+                    </div>
+                    <div class="card-body text-center">
+                        <!--                        <div class="d-flex justify-content-center gap-2 my-2">-->
+                        <!--                            <i th:each="i : ${#numbers.sequence(1, 5)}"-->
+                        <!--                               th:class="${i <= product.rating} ? 'fa-solid fa-star text-warning' : 'fa-solid fa-star'">-->
+                        <!--        p                    </i>-->
+                        <!--                        </div>-->
+                        <h5 class="" th:text="${product.productName}">ten sp</h5>
+                        <h4 class="color fw-bold"
+                            th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">
+                            100.000đ</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mb-3">
+            <a href="/allProduct" class="btn color py-2 px-4 rounded-5 button-image">
+                <span class="fw-bold">Xem thêm</span>
+            </a>
+        </div>
+    </div>
+</div>
+<!--SP NOI BAT END-->
+<!--BANNER-->
+<div class="my-3 ">
+    <img loading="lazy" src="/images/banner/long-banner-placeholder.png" class="w-100" alt="banner"
+         style="object-fit: cover;">
+</div>
+<!--BANNER END-->
+<!--FEEDBACK-->
+<div class="row my-3 g-4 d-flex align-items-center px-2 ">
+    <h1 class="color fw-bold text-center">Phản hồi của khách hàng</h1>
+    <div class="col-lg-5">
+        <div class="card position-relative button-image" style="cursor: unset">
+            <img loading="lazy" src="/images/banner/feedback.webp" class="sticky-top" alt="feedback">
+            <!--<div class="card-body text-center position-absolute"
+                 style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <h1 class="color fw-bold">Phản hồi của khách hàng</h1>
+                <p>
+                    "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng yêu,
+                    đồng hành cùng bạn trên mọi chặng đường!"
+                </p>
+            </div>-->
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <!--ITEMS-->
+        <a th:href="@{http://localhost:8080/product/detail/{id}(id=${r.productID.id})}" th:each="r:${reviews}"
+           class="card p-3 mb-3 nav-link button-image"
+           style="background-size: contain;background-position: right;">
+            <div class="row overflow-hidden">
+                <div class="col-10">
+                    <div class="d-flex justify-content-between align-items-center gap-2">
+                        <div class="d-flex justify-content-start align-items-center gap-2">
+                            <div class="overflow-hidden rounded-circle" style="width: 50px;height: 50px">
+                                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
+                                     style="object-fit: cover;">
+                            </div>
+                            <div class="d-flex align-items-center gap-2 text-truncate">
+                                <h3 th:text="${r.userName.fullName}" class="color fw-bold m-0 text-truncate">Nguyễn Văn
+                                    A</h3>
+                                <h6 class="m-0 text-muted text-truncate">
+                                    đã mua sản phẩm
+                                </h6>
+                                <h5 th:text="${r.productID.productName}" class="color fw-bold m-0 text-truncate"
+                                    style="text-decoration: underline">
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start gap-2 my-2 fs-4 align-items-center">
+                        <div class="d-flex justify-content-center gap-2 my-2">
+                            <i th:each="i : ${#numbers.sequence(1, 5)}"
+                               th:class="${i <= r.rating} ? 'fa-solid fa-star text-warning' : 'fa-solid fa-star'">
+                            </i>
+                        </div>
+                        <!--                        <h4 class="m-0" th:text="${r.rating}"></h4>-->
+                        <!--                        ⭐⭐⭐⭐-->
+                    </div>
+                    <div>
+                        <h5 th:text="${r.comment}" class="my-3">
+                            "Ninja Pet – Tự hào mang đến cho bạn những sản phẩm chất lượng cùng những bé thú cưng đáng
+                            yêu,
+                            đồng hành cùng bạn trên mọi chặng đường!"
+                        </h5>
+                    </div>
+                    <p class="text-body-tertiary">
+                        <span>Đã đánh giá vào : </span>
+                        <span th:text="${#temporals.format(r.reviewDate, 'dd/MM/yyyy')}"></span>
+                    </p>
+                </div>
+                <div class="col-2 d-flex justify-content-center align-items-center">
+                    <div class="overflow-hidden rounded-5 border border-2 border-dark" style="width: 100%;">
+                        <img th:src="@{/images/product/{photo}(photo=${r.productID.photo})}"
+                             th:alt="${r.productID.photo}" class="w-100" style="object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<!--FEEDBACK END-->
+
+<div class="row">
+    <!-- Service 1 -->
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card border-0 shadow p-3">
+            <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
+                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
+                     style="object-fit: cover;">
+            </div>
+            <div class="card-body text-center p-2">
+                <h5 class="color fw-bold">Spa - Grooming</h5>
+                <p class="text-body-tertiary"
+                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">
+                    Chúng
+                    tôi cung cấp dịch vụ spa và grooming cho thú cưng của bạn, mang
+                    lại trải nghiệm tốt nhất.</p>
+                <a href="/service" class="btn btn-primary">Xem chi tiết</a>
+            </div>
+        </div>
+    </div>
+    <!-- Service 2 -->
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card border-0 shadow p-3">
+            <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
+                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
+                     style="object-fit: cover;">
+            </div>
+            <div class="card-body text-center p-2">
+                <h5 class="color fw-bold">Huấn luyện thú cưng</h5>
+                <p class="text-body-tertiary"
+                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">
+                    Chúng
+                    tôi cung cấp dịch vụ huấn luyện chuyên nghiệp, giúp thú cưng của
+                    bạn học hỏi và phát triển.</p>
+                <a href="/service" class="btn btn-primary">Xem chi tiết</a>
+            </div>
+        </div>
+    </div>
+    <!-- Service 3 -->
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card border-0 shadow p-3">
+            <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
+                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
+                     style="object-fit: cover;">
+            </div>
+            <div class="card-body text-center p-2">
+                <h5 class="color fw-bold">Cắt tỉa lông thú cưng</h5>
+                <p class="text-body-tertiary"
+                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">
+                    Dịch
+                    vụ cắt tỉa lông chuyên nghiệp, giúp thú cưng của bạn trông gọn
+                    gàng và đáng yêu hơn.</p>
+                <a href="/service" class="btn btn-primary">Xem chi tiết</a>
+            </div>
+        </div>
+    </div>
+    <!-- Service 4 -->
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card border-0 shadow p-3">
+            <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
+                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
+                     style="object-fit: cover;">
+            </div>
+            <div class="card-body text-center p-2">
+                <h5 class="color fw-bold">Khách sạn thú cưng</h5>
+                <p class="text-body-tertiary"
+                   style="color: #4a4a4a; line-height: 1.8; font-size: 18px; transition: color 0.3s; cursor: pointer;">
+                    Dịch
+                    vụ khách sạn mang đến không gian thoải mái và tiện nghi cho thú
+                    cưng của bạn nếu bạn không có thời gian chăm sóc .</p>
+                <a href="/service" class="btn btn-primary">Xem chi tiết</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- <DỊCH VỤ END> -->
+<!--DANG KY NHAN THONG TIN MOI NHAT-->
+<div class="row g-0 py-3">
+    <div class="my-3 px-2">
+        <h1 class="m-0 color fw-bold">Đăng ký nhận thông tin mới nhất</h1>
+        <div class="line background-color" style="height: 5px;"></div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card position-relative">
+            <img loading="lazy"
+                 src="https://i.pinimg.com/736x/89/c2/b6/89c2b6a63cacbd3f0d777fc7b8fa3f34.jpg"
+                 class="img-fluid rounded"
+                 alt="feedback"
+                 style="object-fit: fill;">
+        </div>
+    </div>
+
+    <div class="col-lg-6" style="background-color: #cc382e;">
+        <div class="border-0 p-5">
+            <form action="/subscribe" method="post">
+                <div class="mb-3">
+                    <label for="email" class="form-label text-white">Email</label> <input
+                        type="email" name="email" class="form-control" id="email"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label text-white">Họ và Tên</label>
+                    <input type="text" name="name" class="form-control" id="name"
+                           required>
+                </div>
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label text-white">Số
+                        Điện Thoại</label> <input type="text" name="phoneNumber"
+                                                  class="form-control" id="phoneNumber">
+                </div>
+                <button type="submit" class="btn btn-danger ">Đăng ký</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!--DANG KY NHAN THONG TIN MOI NHAT END-->
+
+<!-- Nhân viên chăm sóc khách hàng -->
+<div class="row justify-content-center g-3 px-2 mb-3 ">
+    <div class="my-3">
+        <h1 class="m-0 color fw-bold">Nhân sự</h1>
+        <div class="line background-color" style="height: 5px;"></div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card border-0 shadow p-3">
+            <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
+                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
+                     style="object-fit: cover;">
+            </div>
+            <div class="card-body p-2">
+                <h5 class="color fw-bold d-flex justify-content-center gap-2 align-items-center">
+                    <span>Ngô Viêt Anh</span>
+                    <span class="badge bg-success">Admin</span>
+                </h5>
+                <span>
+                    Vai trò: Quản trị viên
+                </span>
+                <ul>
+                    <li>
+                        Thiết kế FE (Figma) và code FE (Trang chủ, ADMIN)
+                    </li>
+                    <li>
+                        Code BE (Trang chủ, ADMIN)
+                    </li>
+                </ul>
+                <p class="text-body-tertiary">Email: anhnvps30934@fpt.edu.vn</p>
+                <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card border-0 shadow p-3">
+            <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
+                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
+                     style="object-fit: cover;">
+            </div>
+            <div class="card-body p-2">
+                <h5 class="color fw-bold d-flex justify-content-center gap-2 align-items-center">
+                    <span>Nguyễn Trọng Phúc</span>
+                    <span class="badge bg-success">Admin</span>
+                </h5>
+                <span>
+                    Vai trò: Quản trị viên
+                </span>
+                <ul>
+                    <li>
+                        Thiết kế Usercase, ERD, DB và code FE (Cart, Payment, History, Review)
+                    </li>
+                    <li>
+                        Code BE (Cart, Payment, History, Review, Security)
+                    </li>
+                </ul>
+                <p class="text-body-tertiary">Email: nguyentrongphuc03@gmail.com</p>
+                <p class="text-body-tertiary">Số điện thoại: 0911870319</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card border-0 shadow p-3">
+            <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
+                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
+                     style="object-fit: cover;">
+            </div>
+            <div class="card-body p-2">
+                <h5 class="color fw-bold d-flex justify-content-center gap-2 align-items-center">
+                    <span>Đỗ Minh Tâm</span>
+                    <span class="badge bg-success">Admin</span>
+                </h5>
+                <span>
+                    Vai trò: Quản trị viên
+                </span>
+                <ul>
+                    <li>
+                       Code FE (Login, register, forgot-password, new-password, infomation, confirmation, VNPAY)
+                    </li>
+                    <li>
+                        Code BE (Login, register, forgot-password, new-password, infomation, confirmation, VNPAY)
+                    </li>
+                </ul>
+                <p class="text-body-tertiary">Email: </p>
+                <p class="text-body-tertiary">Số điện thoại: </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card border-0 shadow p-3">
+            <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
+                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
+                     style="object-fit: cover;">
+            </div>
+            <div class="card-body p-2">
+                <h5 class="color fw-bold d-flex justify-content-center gap-2 align-items-center">
+                    <span>Phạm Nhật Hoàng</span>
+                    <span class="badge bg-success">Admin</span>
+                </h5>
+                <span>
+                    Vai trò: Quản trị viên
+                </span>
+                <ul>
+                    <li>
+                         Khảo sát yêu cầu - Sơ đồ phân tích chức năng - ActivityDiagram - Insert Database - Test Design/Test Case/TestReprt"
+
+                    </li>
+                    <li>
+                        Code BE (Filter)
+                    </li>
+                </ul>
+                <p class="text-body-tertiary">Email: </p>
+                <p class="text-body-tertiary">Số điện thoại: </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card border-0 shadow p-3">
+            <div class="overflow-hidden rounded-circle mx-auto" style="width: 6rem; height: 6rem;">
+                <img loading="lazy" src="/images/user/user-placeholder.png" class="w-100" alt=""
+                     style="object-fit: cover;">
+            </div>
+            <div class="card-body p-2">
+                <h5 class="color fw-bold d-flex justify-content-center gap-2 align-items-center">
+                    <span>Lê Hoàng Hiền</span>
+                    <span class="badge bg-success">Admin</span>
+                </h5>
+                <span>
+                    Vai trò: Quản trị viên
+                </span>
+                <ul>
+                    <li>
+                        Thiết kế FE (Figma) và code FE (Trang chủ, Giỏ hàng, ADMIN, Login, Module)
+                    </li>
+                    <li>
+                        Code BE (Entity, Repository, Service (và Implement), Controller, Security)
+                    </li>
+                </ul>
+                <p class="text-body-tertiary">Email: anhnvps30934@fpt.edu.vn</p>
+                <p class="text-body-tertiary">Số điện thoại: 0123456789</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

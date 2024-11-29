@@ -1,0 +1,76 @@
+<style>
+    input[type="file"] {
+        width: 85px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+</style>
+<!-- Modal -->
+<div class="modal fade" id="productCategoryDetailModal" tabindex="-1" aria-labelledby="productCategoryDetailModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" style="width: 100% !important;">
+        <div class="modal-content">
+            <div class="modal-header bg-color">
+                <h5 class="modal-title" id="productCategoryDetailModalLabel">Các sản phẩm cùng loại:</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table ng-table="productsCategoryDetailTable"
+                       class="table table-responsive text-truncate rounded-3 table-hover table-sm  p-5"
+                       show-filter="true">
+                    <tr ng-repeat="product in $data" class="align-middle">
+                        <!-- STT tính toán dựa trên trang hiện tại -->
+                        <td data-title="'#'" class="p-2 px-3 text-center">
+                            <b>{{ (productsTable.page() - 1) * productsTable.count() + $index + 1 }}</b>
+                        </td>
+                        <td data-title="'Hình ảnh'" class="text-center">
+                            <img height="100px" width="100px" ng-src="/images/product/{{ product.photo }}"
+                                 alt="{{ product.photo }}"
+                                 class="img-thumbnail pet-image">
+                        </td>
+                        <!--                <td sortable="'id'" data-title="'productID'">{{ product.id }}</td>-->
+                        <td sortable="'productName'" filter="{ 'productName': 'text' }"
+                            data-title="'Sản phẩm'" class="text-start text-truncate" style="max-width: 100px">
+                            <a class="fw-bold" href="/product/detail/{{product.id}}"> {{product.productName }}
+                            </a>
+                        </td>
+                        <!--                        <td sortable="'productCategoryID.productCategoryName'"-->
+                        <!--                            filter="{ 'productCategoryID.productCategoryName': 'text' }"-->
+                        <!--                            data-title="'Loại'" class="text-start text-truncate">{{-->
+                        <!--                            product.productCategoryID.productCategoryName }}-->
+                        <!--                        </td>-->
+                        <td sortable="'price'" data-title="'Giá'">{{ product.price | number : '0'}}đ</td>
+                        <td sortable="'quantity'" data-title="'Số lượng'">{{ product.quantity }}
+                        </td>
+                        <td sortable="'available'" data-title="'Trạng thái'" class="text-center">
+                            <div ng-if="product.available" class="text-success">
+                                <i class="fa-solid fa-circle"></i>
+                                <span>Còn hàng</span>
+                            </div>
+                            <div ng-if="!product.available" class="text-danger">
+                                <i class="fa-solid fa-circle"></i>
+                                <span>Hết hàng</span>
+                            </div>
+                        </td>
+                        <td sortable="'createDate'" data-title="'Ngày thêm'" class="text-center text-truncate">{{
+                            product.createDate | date: 'dd/MM/yyyy' }}
+                        </td>
+                        <!--                        <td data-title="'Tool'" class="text-center">-->
+                        <!--                            <button ng-click="productEdit(product)" class="btn btn-outline-secondary">-->
+                        <!--                                <i class="fa-solid fa-pen"></i>-->
+                        <!--                                <span>Sửa</span>-->
+                        <!--                            </button>-->
+                        <!--                            <button class="btn btn-danger" ng-click="deleteProduct(product.id)">-->
+                        <!--                                <i class="fa-solid fa-xmark"></i>-->
+                        <!--                                <span>Xóa</span>-->
+                        <!--                            </button>-->
+                        <!--                        </td>-->
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

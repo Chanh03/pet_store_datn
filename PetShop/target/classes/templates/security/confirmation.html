@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/index.html::home(~{::body})}">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Pet Shop</title>
+</head>
+
+<body>
+<div class="container-lg main-content px-3">
+    <div class="d-flex align-items-center justify-content-center mt-5">
+        <div
+                class="w-75 gap-2 d-flex justify-content-start align-items-center">
+            <h3 id="activation-message" class="fw-bold font-resp text-danger">
+                <i class="fa-regular fa-user"></i> Đang kiểm tra
+            </h3>
+        </div>
+        <div class="line w-25"></div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" data-bs-backdrop="static" id="countdownModal"
+         tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Thông báo</h5>
+                </div>
+                <div class="modal-body">
+                    <p id="modal-message"></p>
+                    <div class="progress" role="progressbar" aria-valuemin="0"
+                         aria-valuemax="100">
+                        <div id="progressBar"
+                             class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
+                             style="width: 0"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const params = new URLSearchParams(window.location.search);
+        const confirmationToken = params.get("confirmation_token");
+        console.log(confirmationToken);  // Kiểm tra giá trị token
+
+        const messageElement = document.getElementById('activation-message');
+        const iconElement = document.querySelector('.fa-regular.fa-user');  // Giữ lại icon
+
+        if (confirmationToken) {
+            fetch('/api/user/confirmation?confirmation_token=' + confirmationToken, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ confirmation_token: confirmationToken })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response:', data);
+
+                    // Kiểm tra nếu trả về giá trị userDTO
+                    if (data && data.enable) {
+                        // Cập nhật nội dung nếu thành công, vẫn giữ lại icon
+                        messageElement.innerHTML = '<i class="fa-regular fa-user"></i> Tài khoản đã được kích hoạt thành công!';
+
+                        var countdown = 3;
+                        var modalMessage = document.getElementById("modal-message");  // Sửa lại tên biến cho đúng
+                        var progressBar = document.getElementById('progressBar');
+                        var redirectUrl = '/login';
+                        var myModal = new bootstrap.Modal(document.getElementById('countdownModal'));
+                        myModal.show();
+
+                        var progressWidth = 0; // Khởi tạo chiều rộng thanh tiến trình
+                        var interval = setInterval(function () {
+                            modalMessage.innerHTML = "Kích hoạt tài khoản thành công! Chuyển hướng sau " + countdown + " giây.";
+                            // Cập nhật thanh tiến trình
+                            progressWidth += 50;
+                            progressBar.style.width = progressWidth + '%';
+                            countdown--;
+                            if (countdown < 0) {
+                                clearInterval(interval);
+                                myModal.hide(); // Đóng modal
+                                window.location.href = redirectUrl;
+                            }
+                        }, 1000);
+
+                    } else {
+                        // Nếu thất bại, hiển thị thông báo lỗi từ API
+                        console.error('Có lỗi xảy ra khi kích hoạt tài khoản:', data.message);
+                        messageElement.innerHTML = '<i class="fa-regular fa-user"></i> Đường dẫn hiện không khả dụng với bạn';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    messageElement.innerHTML = '<i class="fa-regular fa-user"></i> Có lỗi xảy ra khi gửi yêu cầu kích hoạt tài khoản! Vui lòng thử lại';
+                });
+        } else {
+            console.log('Không có confirmation_token trong URL');
+            messageElement.innerHTML = '<i class="fa-regular fa-user"></i> Đường dẫn hiện không khả dụng với bạn';
+        }
+    });
+</script>
+
+
+
+</body>
+</html>

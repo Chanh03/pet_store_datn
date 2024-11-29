@@ -6,11 +6,14 @@ import com.example.petshop.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.relational.core.sql.In;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -126,5 +129,16 @@ public class RestOrderController {
         order.setOrderStatusID(orderStatus);
         return orderService.save(order);
 
+    }
+
+    @GetMapping("/filter")
+    public List<Order> getByDate(@RequestParam(value = "from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
+                                 @RequestParam(value = "to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date to) {
+        if (from == null || to == null) {
+            return orderService.getAll();
+        } else if (from.after(to)) {
+            return orderService.findOrdersByDate(from, new Date());
+        }
+        return orderService.findOrdersByDate(from, to);
     }
 }

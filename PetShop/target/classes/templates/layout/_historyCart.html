@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/index.html::home(~{::body})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử đơn hàng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Màu nền nhẹ cho toàn bộ trang */
+        }
+
+        .sidebar {
+            border-right: 1px solid #dee2e6; /* Đường viền bên phải cho sidebar */
+        }
+
+        .sidebar a {
+            transition: color 0.2s; /* Hiệu ứng chuyển đổi cho liên kết */
+        }
+
+        .sidebar a:hover {
+            color: #dc3545; /* Màu đỏ khi hover */
+        }
+
+        .order-item {
+            border-bottom: 1px solid #dee2e6; /* Đường viền dưới cho mỗi đơn hàng */
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+
+    </style>
+</head>
+
+<body>
+<main class="container mt-4 d-flex">
+    <aside class="col-md-3 bg-white p-1 sidebar">
+        <div class="shadow p-3" style="position: sticky;top: 10%;left: 0">
+            <div class="d-flex align-items-center mb-4">
+                <div>
+                    <h3 class="fw-bold mb-0" th:text="${userHistory.getFullName()}">Tên người dùng</h3>
+                    <h3 class="mb-0" th:text="${'Số lượng đơn hàng: ' + userHistory.getOrders().size()}">Đơn hàng</h3>
+                    <h3 class="mb-0" th:text="${'Dia chi: ' + userHistory.userAddress}">Đơn hàng</h3>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <section class="col-md-9 bg-white p-4 shadow-sm">
+        <ul class="nav nav-tabs mb-4" id="orderTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active text-dark fw-bold" id="all-tab" data-bs-toggle="tab"
+                        data-bs-target="#all"
+                        type="button"
+                        role="tab"
+                        aria-controls="all" aria-selected="true">Tất cả
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link text-info fw-bold" id="processing-tab" data-bs-toggle="tab"
+                        data-bs-target="#processing"
+                        type="button" role="tab"
+                        aria-controls="processing" aria-selected="false">Đang xử lý
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link text-primary fw-bold" id="confirmed-tab" data-bs-toggle="tab"
+                        data-bs-target="#confirmed"
+                        type="button" role="tab"
+                        aria-controls="confirmed" aria-selected="false">Đã xác nhận
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link text-warning fw-bold" id="shipping-tab" data-bs-toggle="tab"
+                        data-bs-target="#shipping"
+                        type="button"
+                        role="tab"
+                        aria-controls="shipping" aria-selected="false">Đang vận chuyển
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link text-success fw-bold" id="delivered-tab" data-bs-toggle="tab"
+                        data-bs-target="#delivered"
+                        type="button" role="tab"
+                        aria-controls="delivered" aria-selected="false">Đã giao
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link text-danger fw-bold" id="canceled-tab" data-bs-toggle="tab"
+                        data-bs-target="#canceled"
+                        type="button" role="tab"
+                        aria-controls="canceled" aria-selected="false">Đã hủy
+                </button>
+            </li>
+        </ul>
+        <!-- Tab content -->
+        <div class="tab-content" id="orderTabContent">
+            <!-- Tất cả -->
+            <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                <div ng-repeat="history in orderHistory | orderBy: '-orderDate'"
+                     class="row card shadow p-3 mb-3 order-history-hover">
+                    <div class="col-12">
+                        <a ng-href="/history-detail/{{history.id}}" class="nav-link">
+                            <div class="row" type="button">
+                                <div class="col-8">
+                                    <div class="flex-grow-1">
+                                        <span class="text-danger fw-bold">ID: {{history.id}}</span>
+                                        <p class="fw-bold mb-1">Thời gian: {{ history.orderDate |
+                                            date:'dd-MM-yyyy'}}</p>
+                                        <p class="mb-1">Địa chỉ: {{ history.shippingAddress}}</p>
+
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="text-end">
+                                        <h5 class="badge" id="statusName"
+                                            ng-class="{
+                                    'bg-info': history.orderStatusID.statusName === 'Đang xử lý',
+                                    'bg-primary': history.orderStatusID.statusName === 'Đã xác nhận',
+                                    'bg-warning': history.orderStatusID.statusName === 'Đang vận chuyển',
+                                    'bg-success': history.orderStatusID.statusName === 'Đã giao',
+                                    'bg-danger': history.orderStatusID.statusName === 'Hủy đơn'
+                                  }">
+                                            {{history.orderStatusID.statusName}}
+                                        </h5>
+                                    </div>
+                                    <div class="text-end">
+                                        <p class="text-secondary mb-0"><img src="/gifs/icons8-money.gif" alt=""> Tổng số
+                                            tiền:
+                                            <span
+                                                    class="fs-3 text-danger">{{ history.totalAmount | currency:'':0 }}₫</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="row mt-5 mb-2">
+                            <div class="col-12 d-flex align-items-center justify-content-end gap-3">
+                                <div class="btn  disabled">
+                                    <span ng-init="updatePaymentStatus(history)" ng-class="{
+                                        'text-success btn-outline-success fw-bold': history.paymentStatusID.id == 2,
+                                        'text-danger btn-outline-danger fw-bold': history.paymentStatusID.id == 1}">
+                                        {{ history.paymentStatusID.id == 2 ? 'Thanh toán thành công' : 'Đang chờ thanh toán' }}
+                                    </span>
+                                </div>
+                                <a ng-if="history.paymentStatusID.id == 2"
+                                   class="btn btn-danger"
+                                   ng-href="/history-detail/{{history.id}}">
+                                    <h5 class=" m-0 mx-1 my-2">Đánh giá sản phẩm</h5>
+                                </a>
+                                <button ng-if="history.orderStatusID.statusName === 'Đang xử lý'"
+                                        class="btn btn-danger"
+                                        ng-click="deleteHistory(history.id)">
+                                    <h5 class=" m-0 mx-1 my-2">Hủy</h5>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Đang xử lý -->
+            <div class="tab-pane fade" id="processing" role="tabpanel" aria-labelledby="processing-tab">
+                <div ng-repeat="history in orderHistory | filter: {orderStatusID: {statusName: 'Đang xử lý'}} | orderBy: '-orderDate'"
+                     class="row card shadow p-3 mb-3 order-history-hover">
+                    <div class="col-12">
+                        <a ng-href="/history-detail/{{history.id}}" class="nav-link">
+                            <div class="row" type="button">
+                                <div class="col-8">
+                                    <div class="flex-grow-1">
+                                        <span class="text-danger fw-bold">ID: {{history.id}}</span>
+                                        <p class="fw-bold mb-1">Thời gian: {{ history.orderDate |
+                                            date:'dd-MM-yyyy'}}</p>
+                                        <p class="mb-1">Địa chỉ: {{ history.shippingAddress}}</p>
+
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="text-end">
+                                        <h5 class="badge" id="statusName"
+                                            ng-class="{
+                                    'bg-info': history.orderStatusID.statusName === 'Đang xử lý',
+                                    'bg-primary': history.orderStatusID.statusName === 'Đã xác nhận',
+                                    'bg-warning': history.orderStatusID.statusName === 'Đang vận chuyển',
+                                    'bg-success': history.orderStatusID.statusName === 'Đã giao',
+                                    'bg-danger': history.orderStatusID.statusName === 'Hủy đơn'
+                                  }">
+                                            {{history.orderStatusID.statusName}}
+                                        </h5>
+                                    </div>
+                                    <div class="text-end">
+                                        <p class="text-secondary mb-0"><img src="/gifs/icons8-money.gif" alt=""> Tổng số
+                                            tiền:
+                                            <span
+                                                    class="fs-3 text-danger">{{ history.totalAmount | currency:'':0 }}₫</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="row mt-5 mb-2">
+                            <div class="col-12 d-flex align-items-center justify-content-end gap-3">
+                                <div class="btn  disabled">
+                            <span ng-init="updatePaymentStatus(history)" ng-class="{
+                                'text-success btn-outline-success fw-bold': history.paymentStatusID.id == 2,
+                                'text-danger btn-outline-danger fw-bold': history.paymentStatusID.id == 1}">
+                                                                        {{ history.paymentStatusID.id == 2 ? 'Thanh toán thành công' : 'Đang chờ thanh toán' }}
+
+                            </span>
+                                </div>
+                                <a ng-if="history.paymentStatusID.statusPayment == 2"
+                                   class="btn btn-danger"
+                                   ng-href="/history-detail/{{history.id}}">
+                                    <h5 class=" m-0 mx-1 my-2">Đánh giá sản phẩm</h5>
+                                </a>
+                                <button ng-if="history.orderStatusID.statusName === 'Đang xử lý'"
+                                        class="btn btn-danger"
+                                        ng-click="deleteHistory(history.id)">
+                                    <h5 class=" m-0 mx-1 my-2">Hủy</h5>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Đã xác nhận -->
+            <div class="tab-pane fade" id="confirmed" role="tabpanel" aria-labelledby="confirmed-tab">
+                <div ng-repeat="history in orderHistory | filter: {orderStatusID: {statusName: 'Đã xác nhận'}} | orderBy: '-orderDate'"
+                     class="row card shadow p-3 mb-3 order-history-hover">
+                    <div class="col-12">
+                        <a ng-href="/history-detail/{{history.id}}" class="nav-link">
+                            <div class="row" type="button">
+                                <div class="col-8">
+                                    <div class="flex-grow-1">
+                                        <span class="text-danger fw-bold">ID: {{history.id}}</span>
+                                        <p class="fw-bold mb-1">Thời gian: {{ history.orderDate |
+                                            date:'dd-MM-yyyy'}}</p>
+                                        <p class="mb-1">Địa chỉ: {{ history.shippingAddress}}</p>
+
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="text-end">
+                                        <h5 class="badge" id="statusName"
+                                            ng-class="{
+                                    'bg-info': history.orderStatusID.statusName === 'Đang xử lý',
+                                    'bg-primary': history.orderStatusID.statusName === 'Đã xác nhận',
+                                    'bg-warning': history.orderStatusID.statusName === 'Đang vận chuyển',
+                                    'bg-success': history.orderStatusID.statusName === 'Đã giao',
+                                    'bg-danger': history.orderStatusID.statusName === 'Hủy đơn'
+                                  }">
+                                            {{history.orderStatusID.statusName}}
+                                        </h5>
+                                    </div>
+                                    <div class="text-end">
+                                        <p class="text-secondary mb-0"><img src="/gifs/icons8-money.gif" alt=""> Tổng số
+                                            tiền:
+                                            <span
+                                                    class="fs-3 text-danger">{{ history.totalAmount | currency:'':0 }}₫</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="row mt-5 mb-2">
+                            <div class="col-12 d-flex align-items-center justify-content-end gap-3">
+                                <div class="btn  disabled">
+                            <span ng-init="updatePaymentStatus(history)" ng-class="{
+                                'text-success btn-outline-success fw-bold': history.paymentStatusID.id == 2,
+                                'text-danger btn-outline-danger fw-bold': history.paymentStatusID.id == 1}">
+                                                                        {{ history.paymentStatusID.id == 2 ? 'Thanh toán thành công' : 'Đang chờ thanh toán' }}
+
+                            </span>
+                                </div>
+                                <a ng-if="history.paymentStatusID.statusPayment == 2"
+                                   class="btn btn-danger"
+                                   ng-href="/history-detail/{{history.id}}">
+                                    <h5 class=" m-0 mx-1 my-2">Đánh giá sản phẩm</h5>
+                                </a>
+                                <button ng-if="history.orderStatusID.statusName === 'Đang xử lý'"
+                                        class="btn btn-danger"
+                                        ng-click="deleteHistory(history.id)">
+                                    <h5 class=" m-0 mx-1 my-2">Hủy</h5>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Đang vận chuyển -->
+            <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+                <div ng-repeat="history in orderHistory | filter: {orderStatusID: {id: 'Đang vận chuyển'}} | orderBy: '-orderDate'"
+                     class="row card shadow p-3 mb-3 order-history-hover">
+                    <div class="col-12">
+                        <a ng-href="/history-detail/{{history.id}}" class="nav-link">
+                            <div class="row" type="button">
+                                <div class="col-8">
+                                    <div class="flex-grow-1">
+                                        <span class="text-danger fw-bold">ID: {{history.id}}</span>
+                                        <p class="fw-bold mb-1">Thời gian: {{ history.orderDate |
+                                            date:'dd-MM-yyyy'}}</p>
+                                        <p class="mb-1">Địa chỉ: {{ history.shippingAddress}}</p>
+
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="text-end">
+                                        <h5 class="badge" id="statusName"
+                                            ng-class="{
+                                    'bg-info': history.orderStatusID.statusName === 'Đang xử lý',
+                                    'bg-primary': history.orderStatusID.statusName === 'Đã xác nhận',
+                                    'bg-warning': history.orderStatusID.statusName === 'Đang vận chuyển',
+                                    'bg-success': history.orderStatusID.statusName === 'Đã giao',
+                                    'bg-danger': history.orderStatusID.statusName === 'Hủy đơn'
+                                  }">
+                                            {{history.orderStatusID.statusName}}
+                                        </h5>
+                                    </div>
+                                    <div class="text-end">
+                                        <p class="text-secondary mb-0"><img src="/gifs/icons8-money.gif" alt=""> Tổng số
+                                            tiền:
+                                            <span
+                                                    class="fs-3 text-danger">{{ history.totalAmount | currency:'':0 }}₫</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="row mt-5 mb-2">
+                            <div class="col-12 d-flex align-items-center justify-content-end gap-3">
+                                <div class="btn  disabled">
+                            <span ng-init="updatePaymentStatus(history)" ng-class="{
+                                'text-success btn-outline-success fw-bold': history.paymentStatusID.id == 2,
+                                'text-danger btn-outline-danger fw-bold': history.paymentStatusID.id == 1}">
+                                                                        {{ history.paymentStatusID.id == 2 ? 'Thanh toán thành công' : 'Đang chờ thanh toán' }}
+
+                            </span>
+                                </div>
+                                <a ng-if="history.paymentStatusID.statusPayment == 2"
+                                   class="btn btn-danger"
+                                   ng-href="/history-detail/{{history.id}}">
+                                    <h5 class=" m-0 mx-1 my-2">Đánh giá sản phẩm</h5>
+                                </a>
+                                <button ng-if="history.orderStatusID.statusName === 'Đang xử lý'"
+                                        class="btn btn-danger"
+                                        ng-click="deleteHistory(history.id)">
+                                    <h5 class=" m-0 mx-1 my-2">Hủy</h5>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Đã giao -->
+            <div class="tab-pane fade" id="delivered" role="tabpanel" aria-labelledby="delivered-tab">
+                <div ng-repeat="history in orderHistory | filter: {orderStatusID: {statusName: 'Đã giao'}} | orderBy: '-orderDate'"
+                     class="row card shadow p-3 mb-3 order-history-hover">
+                    <div class="col-12">
+                        <a ng-href="/history-detail/{{history.id}}" class="nav-link">
+                            <div class="row" type="button">
+                                <div class="col-8">
+                                    <div class="flex-grow-1">
+                                        <span class="text-danger fw-bold">ID: {{history.id}}</span>
+                                        <p class="fw-bold mb-1">Thời gian: {{ history.orderDate |
+                                            date:'dd-MM-yyyy'}}</p>
+                                        <p class="mb-1">Địa chỉ: {{ history.shippingAddress}}</p>
+
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="text-end">
+                                        <h5 class="badge" id="statusName"
+                                            ng-class="{
+                                    'bg-info': history.orderStatusID.statusName === 'Đang xử lý',
+                                    'bg-primary': history.orderStatusID.statusName === 'Đã xác nhận',
+                                    'bg-warning': history.orderStatusID.statusName === 'Đang vận chuyển',
+                                    'bg-success': history.orderStatusID.statusName === 'Đã giao',
+                                    'bg-danger': history.orderStatusID.statusName === 'Hủy đơn'
+                                  }">
+                                            {{history.orderStatusID.statusName}}
+                                        </h5>
+                                    </div>
+                                    <div class="text-end">
+                                        <p class="text-secondary mb-0"><img src="/gifs/icons8-money.gif" alt=""> Tổng số
+                                            tiền:
+                                            <span
+                                                    class="fs-3 text-danger">{{ history.totalAmount | currency:'':0 }}₫</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="row mt-5 mb-2">
+                            <div class="col-12 d-flex align-items-center justify-content-end gap-3">
+                                <div class="btn  disabled">
+                            <span ng-init="updatePaymentStatus(history)" ng-class="{
+                                'text-success btn-outline-success fw-bold': history.paymentStatusID.id == 2,
+                                'text-danger btn-outline-danger fw-bold': history.paymentStatusID.id == 1}">
+                                                                        {{ history.paymentStatusID.id == 2 ? 'Thanh toán thành công' : 'Đang chờ thanh toán' }}
+
+                            </span>
+                                </div>
+                                <a ng-if="history.paymentStatusID.statusPayment == 2"
+                                   class="btn btn-danger"
+                                   ng-href="/history-detail/{{history.id}}">
+                                    <h5 class=" m-0 mx-1 my-2">Đánh giá sản phẩm</h5>
+                                </a>
+                                <button ng-if="history.orderStatusID.statusName === 'Đang xử lý'"
+                                        class="btn btn-danger"
+                                        ng-click="deleteHistory(history.id)">
+                                    <h5 class=" m-0 mx-1 my-2">Hủy</h5>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Đã huỷ -->
+            <div class="tab-pane fade" id="canceled" role="tabpanel" aria-labelledby="canceled-tab">
+                <div ng-repeat="history in orderHistory | filter: {orderStatusID: {statusName: 'Hủy đơn'}} | orderBy: '-orderDate'"
+                     class="row card shadow p-3 mb-3 order-history-hover">
+                    <div class="col-12">
+                        <a ng-href="/history-detail/{{history.id}}" class="nav-link">
+                            <div class="row" type="button">
+                                <div class="col-8">
+                                    <div class="flex-grow-1">
+                                        <span class="text-danger fw-bold">ID: {{history.id}}</span>
+                                        <p class="fw-bold mb-1">Thời gian: {{ history.orderDate |
+                                            date:'dd-MM-yyyy'}}</p>
+                                        <p class="mb-1">Địa chỉ: {{ history.shippingAddress}}</p>
+
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="text-end">
+                                        <h5 class="badge" id="statusName"
+                                            ng-class="{
+                                    'bg-info': history.orderStatusID.statusName === 'Đang xử lý',
+                                    'bg-primary': history.orderStatusID.statusName === 'Đã xác nhận',
+                                    'bg-warning': history.orderStatusID.statusName === 'Đang vận chuyển',
+                                    'bg-success': history.orderStatusID.statusName === 'Đã giao',
+                                    'bg-danger': history.orderStatusID.statusName === 'Hủy đơn'
+                                  }">
+                                            {{history.orderStatusID.statusName}}
+                                        </h5>
+                                    </div>
+                                    <div class="text-end">
+                                        <p class="text-secondary mb-0"><img src="/gifs/icons8-money.gif" alt=""> Tổng số
+                                            tiền:
+                                            <span
+                                                    class="fs-3 text-danger">{{ history.totalAmount | currency:'':0 }}₫</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="row mt-5 mb-2">
+                            <div class="col-12 d-flex align-items-center justify-content-end gap-3">
+                                <div class="btn  disabled">
+                            <span ng-init="updatePaymentStatus(history)" ng-class="{
+                                'text-success btn-outline-success fw-bold': history.paymentStatusID.id == 2,
+                                'text-danger btn-outline-danger fw-bold': history.paymentStatusID.id == 1}">
+                                                                        {{ history.paymentStatusID.id == 2 ? 'Thanh toán thành công' : 'Đang chờ thanh toán' }}
+
+                            </span>
+                                </div>
+                                <a ng-if="history.paymentStatusID.statusPayment == 2"
+                                   class="btn btn-danger"
+                                   ng-href="/history-detail/{{history.id}}">
+                                    <h5 class=" m-0 mx-1 my-2">Đánh giá sản phẩm</h5>
+                                </a>
+                                <button ng-if="history.orderStatusID.statusName === 'Đang xử lý'"
+                                        class="btn btn-danger"
+                                        ng-click="deleteHistory(history.id)">
+                                    <h5 class=" m-0 mx-1 my-2">Hủy</h5>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/index.html::home(~{::body})}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+
+<div class="container mt-5">
+    <h2 class="text-center">Chi tiết đơn hàng</h2>
+    <div>
+        <div class="card rounded-0">
+            <table class="table table-border m-0 table-hover">
+                <tr>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Hình ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+
+                </tr>
+                <tr class="align-middle" th:each="od : ${orderDetailHistory}">
+                    <td class="text-center">{{$index + 1}}</td>
+                    <td class="text-center">
+                        <img th:src="@{/images/product/{photo}(photo=${od.productID.photo})}"
+                             class="img-fluid" width="100">
+                    </td>
+                    <td th:text="${od.productID.productName}">name</td>
+                    <td th:text="${od.price}">{{od.price | number: '0'}}đ</td>
+                    <td th:text="${od.quantity}">{{od.quantity}}</td>
+                    <td th:text="${od.quantity * od.price}">{{od.price * od.quantity | number: '0'}}đ</td>
+                    <td>
+                        <div th:if="${od.orderID.paymentStatusID.id == 2 && od.orderID.orderStatusID.id == 4}">
+                            <button th:attr="ng-click=${'review(' + od.productID.id + ', ' + od.orderID.id +')'}" th:if="${od.reviewStatus == false}">
+                                <h5>Đánh giá sản phẩm</h5>
+                            </button>
+                            <div th:if="${od.reviewStatus == true}">
+                                <h5>Sản phẩm đã đánh giá <i class="fa fa-check-circle" style="color: green; font-size: 20px;"></i></h5>
+                            </div>
+                        </div>
+                        <h5 th:if="${od.orderID.paymentStatusID.id == 1}">Vui lòng thanh toán</h5>
+                    </td>
+
+                </tr>
+                <div sec:authorize="isAuthenticated()">
+                    <span id="username_auth" hidden="hidden" th:text="${#authentication.getName()}"></span>
+                </div>
+
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

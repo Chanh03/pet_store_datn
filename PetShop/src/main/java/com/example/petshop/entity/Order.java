@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -34,7 +35,7 @@ public class Order {
 
     @NotNull
     @Column(name = "TotalAmount", nullable = false)
-    private Integer totalAmount;
+    private Long totalAmount;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

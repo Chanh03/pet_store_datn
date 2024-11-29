@@ -17,7 +17,7 @@ public class PaymentService {
 
     public String createVnPayPayment(String money, String username, List<OrderProductDetailDTO> productDetails, String address) {
         // Tính toán số tiền theo yêu cầu của VNPay (tính theo đơn vị 100 đồng)
-        long amount = Integer.parseInt(money) * 100L;
+        long amount = Long.parseLong(money) * 100L;
         // Mã ngân hàng mặc định
 
         // Lấy cấu hình VNPay từ VNpayConfig

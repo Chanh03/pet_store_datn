@@ -1,6 +1,7 @@
 package com.example.petshop.service_impl;
 
 import com.example.petshop.entity.Product;
+import com.example.petshop.entity.ProductCategory;
 import com.example.petshop.repo.ProductRepo;
 import com.example.petshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> searchProduct(String search, PageRequest of) {
-        return productRepo.findByProductDescriptionContainingIgnoreCase(search, of);
+        return productRepo.findByProductNameContainingIgnoreCase(search, of);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> searchProductWithCategory(String keyword, Integer categoryId, Pageable pageable) {
-        return productRepo.findByProductCategoryID_IdAndProductDescriptionContainingIgnoreCase(categoryId, keyword, pageable);
+        return productRepo.findByProductCategoryID_IdAndProductNameContainingIgnoreCase(categoryId, keyword, pageable);
     }
 
     @Override
@@ -78,8 +79,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllByCreatedDateAndEnable() {
-        return productRepo.findAllByCreatedDateDescAndAvailable();
+        return productRepo.findAllByAndAvailableCreatedDateDesc();
     }
 
-
+    @Override
+    public List<Product> getAllProductByCategoryId(ProductCategory productCategory) {
+        return productRepo.findByProductCategoryID(productCategory);
+    }
 }

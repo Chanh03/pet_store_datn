@@ -26,5 +26,5 @@ public interface PetService {
 
     Page<Pet> searchPets(String keyword, Pageable pageable);
 
-    List<Pet> getAllPetByCategoryId(PetCategory petCategoryID);
+    List<Pet> getAllPetByCategoryId(PetCategory id);
 }

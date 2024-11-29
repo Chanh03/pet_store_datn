@@ -36,13 +36,11 @@ public class PaymentDTO {
         return orderDate;
     }
 
-    public int getAmount() {
+    public long getAmount() {
         if (amount == null) {
             return 0;
         }
-        int amountInt = Integer.parseInt(amount);
+        long amountInt = Long.parseLong(amount);
         return amountInt;
     }
-
-
 }
