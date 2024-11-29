@@ -70,34 +70,24 @@ public class ProductController {
 
         return "layout/_allProduct";
     }
+
     @RequestMapping("/product/detail/{id}")
     public String product(Model model, @PathVariable int id) {
         Product product = productService.getById(id);
-
-        if (product != null) {
-            model.addAttribute("product", product);
-            List<Product> relatedProducts = productService.getProductsByCategory(product.getProductCategoryID().getId(), id);
-            model.addAttribute("relatedProducts", relatedProducts);
-
-            List<Product> otherProducts = productService.getProductsByDifferentCategory(
-                    product.getProductCategoryID().getId(),
-                    product.getId()
-            );
-            model.addAttribute("otherProducts", otherProducts);
-
-            List<Review> reviews = reviewService.getReviewsByProductId(id);
-            model.addAttribute("reviews", reviews != null ? reviews : List.of());
-
-            List<Review> ratings = reviewService.getRatingsByProductId(id);
-            model.addAttribute("ratings", ratings != null ? ratings : List.of());
-
-            double averageRating = reviewService.getAverageRatingByProductId(id);
-            model.addAttribute("averageRating", averageRating);
-        } else {
-            model.addAttribute("errorMessage", "Sản phẩm không tồn tại");
-            return "error";
-        }
-
+        List<Product> relatedProducts = productService.getProductsByCategory(product.getProductCategoryID().getId(), id);
+        List<Product> otherProducts = productService.getProductsByDifferentCategory(
+                product.getProductCategoryID().getId(),
+                product.getId()
+        );
+        List<Review> reviews = reviewService.getReviewsByProductId(id);
+        List<Review> ratings = reviewService.getRatingsByProductId(id);
+        double averageRating = reviewService.getAverageRatingByProductId(id);
+        model.addAttribute("product", product);
+        model.addAttribute("relatedProducts", relatedProducts);
+        model.addAttribute("reviews", reviews != null ? reviews : List.of());
+        model.addAttribute("ratings", ratings != null ? ratings : List.of());
+        model.addAttribute("otherProducts", otherProducts);
+        model.addAttribute("averageRating", averageRating);
         return "layout/_productDetail";
     }
 }
