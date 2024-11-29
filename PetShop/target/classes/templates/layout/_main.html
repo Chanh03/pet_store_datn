@@ -147,7 +147,7 @@
         <div class="swiper-wrapper">
             <!--ITEMS-->
             <div th:each="pc : ${productCategories}" class="swiper-slide">
-                <a href="/filter" class="nav-link">
+                <a th:href="@{/allProduct(categoryId=${pc.id}, page=0)}" class="nav-link">
                     <div class="card card-hover border-0 d-flex justify-content-center align-items-center">
                         <div class="overflow-hidden button-image"
                              style="background-color: #f7f7f5; border-radius: 50%; width: 100%; height: 100%;">
@@ -168,7 +168,7 @@
         <div class="swiper-pagination color" style="position: static"></div>
     </div>
 </div>
-<!--LOAI SP DANH CHO THU CUNG END-->
+<!--LOAI SP DANH CHO THU CƯNG END-->
 <!--SP NOI BAT-->
 <div class="row my-3 g-3 d-flex align-items-center px-2 ">
     <h1 class="color fw-bold text-center">SẢN PHẨM MỚI</h1>
