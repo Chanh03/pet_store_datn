@@ -8,61 +8,145 @@
 <body>
 <div class="mt-3">
     <div class="row g-3">
-        <div class="col-7">
-            <div class="card shadow bg-white border-0 p-4">
-                <div>
-                    <h4 class="fw-bold text-center">Bảng thống kê số lượng sản phẩm theo loại</h4>
-                </div>
-                <canvas style="height: 400px" id="productChart-Bar"></canvas>
-                <code class="text-center">Hiện có {{productLabelsChart.length}} loại sản phẩm khác nhau với tổng số
-                    {{productData.length}}
-                    sản phẩm</code>
-            </div>
-        </div>
-        <div class="col-5">
-            <div class="card shadow bg-white border-0 p-4">
-                <div>
-                    <h4 class="fw-bold text-center">Bảng thống kê số lượng thú cưng theo loài</h4>
-                </div>
-                <canvas style="height: 400px" id="petChart-Bar"></canvas>
-                <code class="text-center">Hiện có {{labels.length}} loài thú cưng khác nhau với tổng số
-                    {{petData.length}}
-                    thú cưng</code>
-            </div>
-        </div>
-    </div>
-    <div class="row mt-3">
-        <div class="col-12">
-            <div class="card shadow bg-white border-0 p-4">
+        <!--NGÀY-->
+        <div class="col-6">
+            <div class="card shadow border-0 p-3" style="background: #28a745;color: #ffffff"> <!-- Xanh dương -->
                 <div class="row">
+                    <h5 class="text-center">
+                        <strong>Hôm nay: </strong><span
+                            ng-init="today = getCurrentDate()">{{today | date:'dd/MM/yyyy'}}</span>
+                    </h5>
+                    <h2 class="text-center">
+                        <h2 class="text-center">
+                        <span class="badge fw-bold" style="font-size: 18px;">
+                            <i class="fas fa-money-bill-wave"></i>
+                            {{totalOrderTodayPriceNoShip | number:0}}đ + {{totalOrderDaGiaoToday * 50000 | number:0}}đ =
+                            <span class="text-decoration-underline" style="font-size: 24px;">
+                                {{totalOrderTodayPrice | number:0}}đ
+                            </span>
+                        </span>
+                        </h2>
+                    </h2>
+                </div>
+                <div class="row g-0">
                     <div class="col-3">
-                        <div class="card shadow bg-white border-0 p-4">
-                            <div>
-                                <h4 class="fw-bold text-center">Lọc doanh thu theo ngày</h4>
-                            </div>
-                            <div>
-                                <label class="floating-label" for="fromDate">Ngày bắt đầu:</label>
-                                <input type="date" id="fromDate" ng-model="fromDate" class="form-control"
-                                       ng-change="getOrdersByDate(fromDate, toDate)"
-                                       ng-init="fromDate = getCurrentDate(true)" value="{{getCurrentDate(true)}}">
-                            </div>
-                            <div>
-                                <label for="toDate">Ngày kết thúc:</label>
-                                <input type="date" id="toDate" ng-model="toDate" class="form-control"
-                                       ng-change="getOrdersByDate(fromDate, toDate)"
-                                       ng-init="toDate = getCurrentDate()" value="{{getCurrentDate()}}">
+                        <div class="border-0">
+                            <h6 class="text-center text-white">Số đơn hàng:</h6>
+                            <h5 class="text-center text-white m-0">{{orderTodayData.length}}</h5>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="border-0 ">
+                            <h6 class="text-center text-white">Đang xử lí:</h6>
+                            <h5 class="text-center text-white m-0">{{totalOrderTodayDangXuLi}}</h5>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="border-0 ">
+                            <h6 class="text-center text-white">Đang vận chuyển:</h6>
+                            <h5 class="text-center text-white m-0">{{totalOrderTodayDangVanChuyen}}</h5>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="border-0 ">
+                            <h6 class="text-center text-white">Đã giao:</h6>
+                            <h5 class="text-center text-white m-0">{{totalOrderTodayDangDaGiao}}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="accordion accordion-flush" id="top5SpBanChayTrongNgay">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#top5SpBanChayTrongNgay1" aria-expanded="false"
+                                        aria-controls="top5SpBanChayTrongNgay1">
+                                    Top sản phẩm bán chạy ngày - {{today | date:'dd/MM/yyyy'}}
+                                </button>
+                            </h2>
+                            <div id="top5SpBanChayTrongNgay1" class="accordion-collapse collapse"
+                                 data-bs-parent="#top5SpBanChayTrongNgay">
+                                <div class="accordion-body">
+                                    <div class="list-group list-group-flush">
+                                        Sản phẩm 1
+                                        Sản phẩm 2
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-9">
-                        <div class="card shadow bg-white border-0 p-4">
-                            <canvas style="height: 400px !important;" id="orderChart-Line"></canvas>
+                </div>
+            </div>
+        </div>
+        <!--TUẦN-->
+        <div class="col-6">
+            <div class="card shadow border-0 p-3" style="background: #282aa7;color: #ffffff"> <!-- Xanh dương -->
+                <div class="row">
+                    <h5 class="text-center">
+                        <strong>7 ngày gần nhất</strong>
+                    </h5>
+                    <h2 class="text-center">
+                        <span class="badge fw-bold" style="font-size: 18px;">
+                            <i class="fas fa-money-bill-wave"></i>
+                            {{totalOrderWeekPriceNoShip | number:0}}đ + {{totalOrderDaGiaoWeek * 50000 | number:0}}đ =
+                            <span class="text-decoration-underline" style="font-size: 24px;">
+                                {{totalOrderWeekPrice | number:0}}đ
+                            </span>
+                        </span>
+                    </h2>
+                </div>
+                <div class="row g-0">
+                    <div class="col-3">
+                        <div class="border-0">
+                            <h6 class="text-center text-white">Số đơn hàng:</h6>
+                            <h5 class="text-center text-white m-0">{{orderWeekData.length}}</h5>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="border-0 ">
+                            <h6 class="text-center text-white">Đang xử lí:</h6>
+                            <h5 class="text-center text-white m-0">{{totalOrderWeekDangXuLi}}</h5>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="border-0 ">
+                            <h6 class="text-center text-white">Đang vận chuyển:</h6>
+                            <h5 class="text-center text-white m-0">{{totalOrderWeekDangVanChuyen}}</h5>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="border-0 ">
+                            <h6 class="text-center text-white">Đã giao:</h6>
+                            <h5 class="text-center text-white m-0">{{totalOrderWeekDangDaGiao}}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="accordion accordion-flush" id="top5SpBanChayTrongThang">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#top5SpBanChayTrongThang1" aria-expanded="false"
+                                        aria-controls="top5SpBanChayTrongThang1">
+                                    Top sản phẩm bán chạy tuần - {{today | date:'MM/yyyy'}}
+                                </button>
+                            </h2>
+                            <div id="top5SpBanChayTrongThang1" class="accordion-collapse collapse"
+                                 data-bs-parent="#top5SpBanChayTrongThang">
+                                <div class="accordion-body">
+                                    <div class="list-group list-group-flush">
+                                        Sản phẩm 1
+                                        Sản phẩm 2
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 </body>
 </html>

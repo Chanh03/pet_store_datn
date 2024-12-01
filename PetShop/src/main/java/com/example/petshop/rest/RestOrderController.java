@@ -132,11 +132,36 @@ public class RestOrderController {
     }
 
     @GetMapping("/filter")
-    public List<Order> getByDate(@RequestParam(value = "from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
-                                 @RequestParam(value = "to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date to) {
+    public List<Order> getOrders(
+            @RequestParam(value = "from", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
+            @RequestParam(value = "to", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date to,
+            @RequestParam(value = "today", required = false, defaultValue = "false") boolean today,
+            @RequestParam(value = "week", required = false, defaultValue = "false") boolean week,
+            @RequestParam(value = "month", required = false, defaultValue = "false") boolean month,
+            @RequestParam(value = "year", required = false, defaultValue = "false") boolean year) {
+        LocalDate localDate = LocalDate.now();
+
+        int day1 = localDate.getDayOfMonth();
+        int month1 = localDate.getMonthValue();
+        int year1 = localDate.getYear();
+        LocalDate sevenDaysAgo = localDate.minusDays(7);
+        if (today) {
+            return orderService.findOrdersToday(java.sql.Date.valueOf(localDate));
+        }
+        if (week) {
+            return orderService.findOrdersByDate(java.sql.Date.valueOf(sevenDaysAgo), java.sql.Date.valueOf(localDate));
+        }
+        if (month) {
+            return orderService.findOrdersByMonth(month1, year1);
+        }
+        if (year) {
+            return orderService.findOrdersByYear(year1);
+        }
         if (from == null || to == null) {
             return orderService.getAll();
-        } else if (from.after(to)) {
+        }
+
+        if (from.after(to)) {
             return orderService.findOrdersByDate(from, new Date());
         }
         return orderService.findOrdersByDate(from, to);

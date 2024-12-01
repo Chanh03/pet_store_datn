@@ -56,4 +56,18 @@ public class OrderServiceImpl implements OrderService {
         return orderRepo.findByOrderDate(from, to);
     }
 
+    @Override
+    public List<Order> findOrdersToday(Date localDate) {
+        return orderRepo.findByOrderToday(localDate);
+    }
+
+    @Override
+    public List<Order> findOrdersByYear(int year1) {
+        return orderRepo.findByOrderYear(year1);
+    }
+
+    @Override
+    public List<Order> findOrdersByMonth(int month1, int year1) {
+        return orderRepo.findByOrderMonth(month1, year1);
+    }
 }
