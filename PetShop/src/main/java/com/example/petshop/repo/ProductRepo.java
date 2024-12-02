@@ -29,6 +29,6 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     List<Product> findAllByAndAvailableCreatedDateDesc();
 
     List<Product> findByProductCategoryID(ProductCategory productCategory);
- // Tìm kiếm sản phẩm theo khoảng giá
+    // Tìm kiếm sản phẩm theo khoảng giá
     Page<Product> findByPriceBetween(Double minPrice, Double maxPrice, Pageable pageable);
 }

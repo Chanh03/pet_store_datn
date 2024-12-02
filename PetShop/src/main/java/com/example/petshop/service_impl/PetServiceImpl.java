@@ -61,9 +61,7 @@ public class PetServiceImpl implements PetService {
         return petRepo.findAllByPetCategoryID(id);
     }
     @Override
-
     public Page<Pet> searchPetsByPriceRange(Integer minPrice, Integer maxPrice, Pageable pageable) {
         return petRepo.findByPriceBetween(minPrice, maxPrice, pageable);
     }
 }
-

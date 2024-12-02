@@ -41,4 +41,9 @@ public class OrderProductDetailServiceImpl implements OrderProductDetailService 
 
         return orderProductDetailRepo.findByOrderIDAndProductID(orderID, productID);
     }
+
+    @Override
+    public List<Object[]> getTop5Product(List<Order> order) {
+        return orderProductDetailRepo.findTop5Product(order);
+    }
 }

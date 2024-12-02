@@ -19,10 +19,8 @@ public interface PetRepo extends JpaRepository<Pet, String> {
     Page<Pet> findByPetDescriptionContainingIgnoreCase(String keyword, Pageable pageable);
 
     List<Pet> findAllByPetCategoryID(PetCategory petCategoryID);
-    // Tìm kiếm thú cưng theo khoảng giá
     Page<Pet> findByPriceBetween(Integer minPrice, Integer maxPrice, Pageable pageable);
 @Query("SELECT p FROM Pet p WHERE p.price >= :minPrice AND p.price <= :maxPrice ORDER BY p.price ASC")
+
 List<Pet> findAllByPriceRangeOrderByPriceAsc(@Param("minPrice") Double minPrice, @Param("maxPrice") Double maxPrice);
-  
-   
 }

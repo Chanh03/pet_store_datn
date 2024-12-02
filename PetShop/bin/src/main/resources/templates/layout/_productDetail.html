@@ -57,8 +57,8 @@
                             <div class="d-flex align-items-end">
                                 <h5 class="text-muted fw-bold m-0">Tình trạng:</h5>
                                 <h3 style="text-decoration: underline" class="fw-bold m-0 ms-2"
-                                    th:text="${product.available ? 'Còn hàng' : 'Hết hàng'}"
-                                    th:classappend="${product.available ? 'text-success' : 'text-danger'}">
+                                    th:text="${product.quantity != 0 ? 'Còn hàng' : 'Hết hàng'}"
+                                    th:classappend="${product.quantity != 0 ? 'text-success' : 'text-danger'}">
                                 </h3>
                             </div>
                         </li>
@@ -169,12 +169,12 @@
                                 <span th:if="${averageRating >= 3}" style="color: #FFD700;">&#9733;</span>
                                 <span th:if="${averageRating >= 4}" style="color: #FFD700;">&#9733;</span>
                                 <span th:if="${averageRating >= 5}" style="color: #FFD700;">&#9733;</span>
+
                                 <span th:if="${averageRating < 1}" style="color: #E0E0E0;">&#9733;</span>
                                 <span th:if="${averageRating < 2}" style="color: #E0E0E0;">&#9733;</span>
                                 <span th:if="${averageRating < 3}" style="color: #E0E0E0;">&#9733;</span>
                                 <span th:if="${averageRating < 4}" style="color: #E0E0E0;">&#9733;</span>
-                                <span th:if="${averageRating < 5 && averageRating % 1 < 0.5}"
-                                      style="color: #E0E0E0;">&#9733;</span>
+                                <span th:if="${averageRating < 5}" style="color: #E0E0E0;">&#9733;</span>
                             </div>
                             <div class="text-dark fs-4 mb-4">
                                 [[${reviews.size()}]] đánh giá

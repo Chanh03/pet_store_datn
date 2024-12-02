@@ -13,7 +13,7 @@
 <body style="background-color: #f8f9fa;">
 <div class="container py-5">
 
-   <!-- Form tìm kiếm và sắp xếp -->
+   		<!-- Form tìm kiếm và sắp xếp -->
 		<div class="d-flex justify-content-between align-items-center mb-4">
 			<!-- Nút tìm giá tăng dần -->
 			<form action="/allPet" method="get" class="d-flex mb-3">
@@ -56,13 +56,13 @@
 					style="border: 2px solid #dc3545; font-size: 16px; height: 45px; padding-left: 12px;">
 				<button type="submit"
 					class="btn btn-danger d-flex align-items-center"
-					style="border-radius: 5px; padding: 8px 20px; font-size: 16px;">
+					style="border-radius: 5px; padding: 5px 10px; font-size: 12px;">
 					Tìm kiếm <i class="bi bi-search ms-2"></i>
 				</button>
 			</form>
 		</div>
 
-
+		<hr>
     <!-- Hiển thị danh sách thú cưng -->
     <div class="row">
         <div th:if="${#lists.isEmpty(pets)}" class="text-center py-5">

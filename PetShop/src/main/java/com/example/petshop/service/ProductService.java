@@ -35,7 +35,6 @@ public interface ProductService {
     List<Product> getAllByCreatedDateAndEnable();
 
     List<Product> getAllProductByCategoryId(ProductCategory productCategory);
-
     // Thêm phương thức tìm kiếm theo khoảng giá
     Page<Product> searchProductWithPrice(String search, Double minPrice, Double maxPrice, Pageable pageable);
 }

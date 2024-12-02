@@ -22,7 +22,7 @@ public class PetController {
 
     @Autowired
     private PetService petService;
-    @RequestMapping("/allPet")
+	@RequestMapping("/allPet")
 	public String viewPaginatedPets(Model model, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "desc") String priceOrder,
 			@RequestParam(required = false) Integer minPrice, @RequestParam(required = false) Integer maxPrice) {
@@ -55,7 +55,6 @@ public class PetController {
 
 		return "layout/_allPet";
 	}
-
 
     @RequestMapping("/pet/detail/{id}")
     public String petDetail(Model model, @PathVariable String id) {
