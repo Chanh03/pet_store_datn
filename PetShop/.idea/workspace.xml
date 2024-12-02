@@ -9,18 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update dashboard x2 cái qq gì xảy ra v">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/OrderProductDetailRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/OrderProductDetailRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/OrderRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/OrderRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/repo/OrderProductDetailRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/repo/OrderProductDetailRepo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/index.html" afterDir="false" />
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="siêu update admin">
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/repo/OrderRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/repo/OrderRepo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/rest/RestOrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/rest/RestOrderController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/service/OrderService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/service_impl/OrderServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/service_impl/OrderServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,15 +255,7 @@
       <workItem from="1733044106376" duration="23000" />
       <workItem from="1733050256260" duration="8318000" />
       <workItem from="1733105775451" duration="9473000" />
-      <workItem from="1733133441253" duration="5945000" />
-    </task>
-    <task id="LOCAL-00057" summary="change order status send mail to customer">
-      <option name="closed" value="true" />
-      <created>1731845963586</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1731845963586</updated>
+      <workItem from="1733133441253" duration="6268000" />
     </task>
     <task id="LOCAL-00058" summary="update order status send mail">
       <option name="closed" value="true" />
@@ -656,7 +641,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733115285097</updated>
     </task>
-    <option name="localTasksCounter" value="106" />
+    <task id="LOCAL-00106" summary="siêu update admin">
+      <option name="closed" value="true" />
+      <created>1733139473357</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1733139473358</updated>
+    </task>
+    <option name="localTasksCounter" value="107" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -702,7 +695,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update slide" />
     <MESSAGE value="add send notification (1%)" />
     <MESSAGE value="update main" />
     <MESSAGE value="update form, add excel, pdf order" />
@@ -727,7 +719,8 @@
     <MESSAGE value="replace table dashboard/ update order" />
     <MESSAGE value="update dashboard x2" />
     <MESSAGE value="update dashboard x2 cái qq gì xảy ra v" />
-    <option name="LAST_COMMIT_MESSAGE" value="update dashboard x2 cái qq gì xảy ra v" />
+    <MESSAGE value="siêu update admin" />
+    <option name="LAST_COMMIT_MESSAGE" value="siêu update admin" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

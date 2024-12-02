@@ -1,6 +1,5 @@
 package com.example.petshop.rest;
 
-import com.example.petshop.entity.DTO.ProductSaleDTO;
 import com.example.petshop.entity.Order;
 import com.example.petshop.entity.OrderProductDetail;
 import com.example.petshop.entity.Product;

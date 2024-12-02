@@ -1,11 +1,9 @@
 package com.example.petshop.repo;
 
-import com.example.petshop.entity.DTO.ProductSaleDTO;
 import com.example.petshop.entity.Order;
 import com.example.petshop.entity.OrderProductDetail;
 import com.example.petshop.entity.Product;
 import com.example.petshop.entity.User;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
