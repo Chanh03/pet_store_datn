@@ -167,4 +167,14 @@ public class RestOrderController {
         }
         return orderService.findOrdersByDate(from, to);
     }
+
+    @GetMapping("/filter/chart")
+    public List<Object[]> getOrdersChart(
+            @RequestParam(value = "from", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
+            @RequestParam(value = "to", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date to) {
+        if (from == null || to == null) {
+            return orderService.getAllChart();
+        }
+        return orderService.findOrdersChartByDate(from, to);
+    }
 }

@@ -30,4 +30,8 @@ public interface OrderService {
     List<Order> findOrdersByYear(int date);
 
     List<Order> findOrdersByMonth(int month1, int year1);
+
+    List<Object[]> findOrdersChartByDate(Date from, Date to);
+
+    List<Object[]> getAllChart();
 }

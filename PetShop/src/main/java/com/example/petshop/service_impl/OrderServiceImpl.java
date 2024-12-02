@@ -70,4 +70,14 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findOrdersByMonth(int month1, int year1) {
         return orderRepo.findByOrderMonth(month1, year1);
     }
+
+    @Override
+    public List<Object[]> findOrdersChartByDate(Date from, Date to) {
+        return orderRepo.findOrdersChartByDate(from, to);
+    }
+
+    @Override
+    public List<Object[]> getAllChart() {
+        return orderRepo.getAllChart();
+    }
 }

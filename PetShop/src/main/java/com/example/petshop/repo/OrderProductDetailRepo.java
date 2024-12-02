@@ -23,9 +23,9 @@ public interface OrderProductDetailRepo extends JpaRepository<OrderProductDetail
     @Query("SELECT o FROM OrderProductDetail o WHERE o.orderID = :orderID and o.productID = :productID")
     OrderProductDetail findByOrderIDAndProductID(Order orderID, Product productID);
 
-    @Query("SELECT o.productID.productName, SUM(o.quantity) " +
+    @Query("SELECT o.productID.id,o.productID.productName, SUM(o.quantity) ,o.productID.price " +
             "FROM OrderProductDetail o " +
             "WHERE o.orderID IN :order AND o.orderID.orderStatusID.id = 4 " +
-            "GROUP BY o.productID ")
+            "GROUP BY o.productID, o.productID.id")
     List<Object[]> findTop5Product(List<Order> order);
 }
