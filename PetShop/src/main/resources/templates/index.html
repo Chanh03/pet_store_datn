@@ -996,6 +996,18 @@
             return;
         }
 
+        // Hiển thị thông báo "Đang xử lý..."
+        Swal.fire({
+            title: 'Đang xử lý...',
+            text: 'Vui lòng chờ...',
+            icon: 'info',
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
         // Tạo dữ liệu gửi đi
         const formData = {
             name: name,
