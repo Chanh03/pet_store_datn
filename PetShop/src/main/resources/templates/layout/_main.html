@@ -168,7 +168,7 @@
         <div class="swiper-pagination color" style="position: static"></div>
     </div>
 </div>
-<!--LOAI SP DANH CHO THU CƯNG END-->
+<!--LOAI SP DANH CHO THU CUNG END-->
 <!--SP NOI BAT-->
 <div class="row my-3 g-3 d-flex align-items-center px-2 ">
     <h1 class="color fw-bold text-center">SẢN PHẨM MỚI</h1>
@@ -392,6 +392,7 @@
     </div>
 </div>
 </div>
+
 <!-- <DỊCH VỤ END> -->
 <!--DANG KY NHAN THONG TIN MOI NHAT-->
 <div class="row g-0 py-3">
@@ -408,7 +409,6 @@
                  style="object-fit: fill;">
         </div>
     </div>
-
     <div class="col-lg-6" style="background-color: #cc382e;">
         <div class="border-0 p-5">
             <form id="subscribeForm">
@@ -430,36 +430,6 @@
     </div>
 </div>
 <!--DANG KY NHAN THONG TIN MOI NHAT END-->
-<!--LOAI SP DANH CHO THU CUNG-->
-<div class="container my-5 overflow-hidden ">
-    <h1 class="color fw-bold text-center mb-4">CÁC LOẠI SẢN PHẨM DÀNH CHO THÚ CƯNG</h1>
-    <!-- Swiper -->
-    <div class="swiper-container position-relative">
-        <div class="swiper-wrapper">
-            <!--ITEMS-->
-            <div th:each="pc : ${productCategories}" class="swiper-slide">
-                <a th:href="@{/allProduct(categoryId=${pc.id}, page=0)}" class="nav-link">
-                    <div class="card card-hover border-0 d-flex justify-content-center align-items-center">
-                        <div class="overflow-hidden button-image"
-                             style="background-color: #f7f7f5; border-radius: 50%; width: 100%; height: 100%;">
-                            <img loading="lazy" th:src="@{/images/product_category/{photo}(photo=${pc.photo})}"
-                                 class="card-img-top card-image img-fluid" th:alt="${pc.photo}">
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 th:text="${pc.productCategoryName}" class="">Tên loại sản phẩm</h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <!-- Nút điều hướng -->
-        <div class="swiper-button-next color" style="position: absolute;top: 35%"></div>
-        <div class="swiper-button-prev color" style="position: absolute;top: 35%"></div>
-        <!-- Thanh phân trang -->
-        <div class="swiper-pagination color" style="position: static"></div>
-    </div>
-</div>
-<!--LOAI SP DANH CHO THU CƯNG END-->
 
 <!-- Nhân viên chăm sóc khách hàng -->
 <div class="row justify-content-center g-3 px-2 mb-3 ">

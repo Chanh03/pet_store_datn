@@ -58,7 +58,6 @@ public class PetController {
         return "layout/_allPet";
     }
 
-
     @RequestMapping("/pet/detail/{id}")
     public String petDetail(Model model, @PathVariable String id) {
         List<Pet> pet = petService.getAll();

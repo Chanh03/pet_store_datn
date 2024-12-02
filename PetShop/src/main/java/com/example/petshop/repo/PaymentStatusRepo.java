@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.example.petshop.entity.PaymentStatus;
 
 @Repository
-public interface PaymentStatusRepo extends JpaRepository<PaymentStatus, Integer> {
-
+public interface PaymentStatusRepo extends JpaRepository<PaymentStatus, Integer>{
+	 
 }

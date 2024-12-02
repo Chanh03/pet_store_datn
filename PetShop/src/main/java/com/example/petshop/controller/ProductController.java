@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ProductController {
@@ -88,31 +91,20 @@ public class ProductController {
     @RequestMapping("/product/detail/{id}")
     public String product(Model model, @PathVariable int id) {
         Product product = productService.getById(id);
-
-        if (product != null) {
-            model.addAttribute("product", product);
-            List<Product> relatedProducts = productService.getProductsByCategory(product.getProductCategoryID().getId(), id);
-            model.addAttribute("relatedProducts", relatedProducts);
-
-            List<Product> otherProducts = productService.getProductsByDifferentCategory(
-                    product.getProductCategoryID().getId(),
-                    product.getId()
-            );
-            model.addAttribute("otherProducts", otherProducts);
-
-            List<Review> reviews = reviewService.getReviewsByProductId(id);
-            model.addAttribute("reviews", reviews != null ? reviews : List.of());
-
-            List<Review> ratings = reviewService.getRatingsByProductId(id);
-            model.addAttribute("ratings", ratings != null ? ratings : List.of());
-
-            double averageRating = reviewService.getAverageRatingByProductId(id);
-            model.addAttribute("averageRating", averageRating);
-        } else {
-            model.addAttribute("errorMessage", "Sản phẩm không tồn tại");
-            return "error";
-        }
-
+        List<Product> relatedProducts = productService.getProductsByCategory(product.getProductCategoryID().getId(), id);
+        List<Product> otherProducts = productService.getProductsByDifferentCategory(
+                product.getProductCategoryID().getId(),
+                product.getId()
+        );
+        List<Review> reviews = reviewService.getReviewsByProductId(id);
+        List<Review> ratings = reviewService.getRatingsByProductId(id);
+        double averageRating = reviewService.getAverageRatingByProductId(id);
+        model.addAttribute("product", product);
+        model.addAttribute("relatedProducts", relatedProducts);
+        model.addAttribute("reviews", reviews != null ? reviews : List.of());
+        model.addAttribute("ratings", ratings != null ? ratings : List.of());
+        model.addAttribute("otherProducts", otherProducts);
+        model.addAttribute("averageRating", averageRating);
         return "layout/_productDetail";
     }
 }

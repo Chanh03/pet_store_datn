@@ -482,7 +482,9 @@
         <div class="" th:insert="~{/admin/_menu}"></div>
         <!-- MAIN CONTENT -->
         <!--SPA-->
-        <div class="container animate__animated animate__fadeIn" th:insert="${view}"></div>
+        <div class="container animate__animated animate__fadeIn" th:insert="${view}" ng-cloak>
+
+        </div>
     </div>
 </main>
 <div th:insert=" ~{/admin/_loadingSpinner}"></div>
@@ -504,9 +506,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
         integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 <!--Sử dụng TinyMCE với API Key-->
 <script src="https://cdn.tiny.cloud/1/r1izu32r7glzqkso0y7d7vxp3pbkn4hbb8l2jun5qt54b8rs/tinymce/5/tinymce.min.js"
         referrerpolicy="origin"></script>
+
 
 <script type="text/javascript">
     // Sử dụng TinyMCE với API Key
@@ -514,7 +519,6 @@
         selector: '#contentEditor',
         height: 500  <!-- Thiết lập chiều cao cho TinyMCE -->
     });
-
     // Lấy ngày giờ hiện tại
     var colors = ['#AEC6CF', '#FFB7B2', '#C3B1E1', '#FFDAC1', '#FFB6C1', '#B5EAD7', '#FFDFBA', '#FDFD96', '#B3E5FC', '#FADADD', '#FFABAB', '#FFC8A2', '#FFB4A2', '#B2EBF2', '#FFCCBC', '#FFECB3'];
     /* Bôi màu cho menu hiện tại thoôi nhìn gì?*/
@@ -566,7 +570,7 @@
         });
         $scope.getCurrentDate = function (date) {
             if (date) {
-                return $filter('date')(new Date() - 7 * 24 * 60 * 60 * 1000, 'yyyy-MM-dd');
+                return $filter('date')(new Date() - 6 * 24 * 60 * 60 * 1000, 'yyyy-MM-dd');
             }
             return $filter('date')(new Date(), 'yyyy-MM-dd');
         };
@@ -1503,70 +1507,167 @@
         $scope.getOrdersByDate = function (from, to) {
             const fromDate = $filter('date')(from, 'yyyy-MM-dd');
             const toDate = $filter('date')(to, 'yyyy-MM-dd');
-            $http.get('/api/order/filter', {params: {from: fromDate, to: toDate}})
+            $http.get('/api/order/filter/chart', {params: {from: fromDate, to: toDate}})
                 .then(function (response) {
-                    const ordersByDate = response.data;
-                    const dailyTotals = {};
-                    ordersByDate.forEach(order => {
-                        const orderDate = $filter('date')(order.orderDate, 'yyyy-MM-dd');
-                        if (!dailyTotals[orderDate]) {
-                            dailyTotals[orderDate] = 0;
-                        }
-                        dailyTotals[orderDate] += order.totalAmount;
+                    $scope.chartTotalRevenue = response.data;
+                    Highcharts.chart('revenueChart', {
+                        chart: {
+                            type: 'line'
+                        },
+                        title: {
+                            text: 'Biểu đồ doanh thu theo ngày từ ' + fromDate + ' đến ' + toDate
+                        },
+                        xAxis: {
+                            categories: $scope.chartTotalRevenue.map(item => item[0]).map(date => $filter('date')(date, 'dd/MM/yyyy'))
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Doanh thu (VNĐ)'
+                            }
+                        },
+                        series: [{
+                            name: 'Doanh thu',
+                            data: $scope.chartTotalRevenue.map(item => item[1])
+                        }]
                     });
-                    const labels = Object.keys(dailyTotals)
-                    const data = Object.values(dailyTotals);
-                    if (!$scope.orderChart) {
-                        $scope.orderChart = new Chart(document.getElementById('orderChart-Line').getContext('2d'), {
-                            type: 'bar',
-                            data: {
-                                labels: labels,
-                                datasets: [{
-                                    label: 'Tổng tiền ngày',
-                                    data: data,
-                                    backgroundColor: colors,
-                                    borderColor: colors,
-                                }]
-                            },
-                            options: {
-                                plugins: {
-                                    title: {
-                                        display: true,
-                                        text: 'Biểu đồ doanh thu theo ngày trong khoảng từ ' + fromDate + ' đến ' + toDate,
-                                        font: {
-                                            size: 20
-                                        }
-                                    },
-                                    legend: {
-                                        display: false
-                                    },
-                                    datalabels: {
-                                        display: true,
-                                        color: '#000',
-                                        font: {
-                                            weight: 'bold',
-                                            size: 14
-                                        },
-                                        anchor: 'end',
-                                        align: 'top',
-                                        formatter: function (value) {
-                                            return value.toLocaleString();
-                                        }
-                                    }
-                                }
-                            },
-                            plugins: [ChartDataLabels]
-                        });
-                    } else {
-                        $scope.orderChart.data.labels = labels;
-                        $scope.orderChart.data.datasets[0].data = data;
-                        $scope.orderChart.update();
-                    }
                 }, function (error) {
                     console.error('Lỗi khi lấy dữ liệu đơn hàng theo ngày:', error);
                 });
         };
+        $scope.getOrdersToday = function () {
+            $http.get('/api/order/filter', {params: {today: true}})
+                .then(function (response) {
+                    $scope.orderTodayData = response.data;
+                    $scope.totalOrderTodayPrice = $scope.orderTodayData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount;
+                        }, 0);
+                    $scope.totalOrderTodayPriceNoShip = $scope.orderTodayData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount - 50000;
+                        }, 0);
+                    $scope.totalOrderDaGiaoToday = $scope.orderTodayData.filter(order => order.orderStatusID.id === 4).length;
+                    $scope.totalOrderTodayDangXuLi = $scope.orderTodayData.filter(order => order.orderStatusID.id === 1).length;
+                    $scope.totalOrderTodayDangVanChuyen = $scope.orderTodayData.filter(order => order.orderStatusID.id === 3).length;
+                    $scope.totalOrderTodayDangDaGiao = $scope.orderTodayData.filter(order => order.orderStatusID.id === 4).length;
+
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng theo ngày:', error);
+                });
+        };
+        $scope.getOrdersWeek = function () {
+            $http.get('/api/order/filter', {params: {week: true}})
+                .then(function (response) {
+                    $scope.orderWeekData = response.data;
+                    $scope.totalOrderWeekPrice = $scope.orderWeekData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount;
+                        }, 0);
+                    $scope.totalOrderWeekPriceNoShip = $scope.orderWeekData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount - 50000;
+                        }, 0);
+                    $scope.totalOrderDaGiaoWeek = $scope.orderWeekData.filter(order => order.orderStatusID.id === 4).length;
+                    $scope.totalOrderWeekDangXuLi = $scope.orderWeekData.filter(order => order.orderStatusID.id === 1).length;
+                    $scope.totalOrderWeekDangVanChuyen = $scope.orderWeekData.filter(order => order.orderStatusID.id === 3).length;
+                    $scope.totalOrderWeekDangDaGiao = $scope.orderWeekData.filter(order => order.orderStatusID.id === 4).length;
+
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng 7 ngày:', error);
+                });
+        };
+        $scope.getOrdersMonth = function () {
+            $http.get('/api/order/filter', {params: {month: true}})
+                .then(function (response) {
+                    $scope.orderMonthData = response.data;
+                    $scope.totalOrderMonthPrice = $scope.orderMonthData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount;
+                        }, 0);
+                    $scope.totalOrderMonthPriceNoShip = $scope.orderMonthData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount - 50000;
+                        }, 0);
+                    $scope.totalOrderDaGiaoMonth = $scope.orderMonthData.filter(order => order.orderStatusID.id === 4).length;
+                    $scope.totalOrderMonthDangXuLi = $scope.orderMonthData.filter(order => order.orderStatusID.id === 1).length;
+                    $scope.totalOrderMonthDangVanChuyen = $scope.orderMonthData.filter(order => order.orderStatusID.id === 3).length;
+                    $scope.totalOrderMonthDangDaGiao = $scope.orderMonthData.filter(order => order.orderStatusID.id === 4).length;
+
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng theo tháng:', error);
+                });
+        };
+        $scope.getOrdersYear = function () {
+            $http.get('/api/order/filter', {params: {year: true}})
+                .then(function (response) {
+                    $scope.orderYearData = response.data;
+                    $scope.totalOrderYearPrice = $scope.orderYearData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount;
+                        }, 0);
+                    $scope.totalOrderYearPriceNoShip = $scope.orderYearData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount - 50000;
+                        }, 0);
+                    $scope.totalOrderDaGiaoYear = $scope.orderYearData.filter(order => order.orderStatusID.id === 4).length;
+                    $scope.totalOrderYearDangXuLi = $scope.orderYearData.filter(order => order.orderStatusID.id === 1).length;
+                    $scope.totalOrderYearDangVanChuyen = $scope.orderYearData.filter(order => order.orderStatusID.id === 3).length;
+                    $scope.totalOrderYearDangDaGiao = $scope.orderYearData.filter(order => order.orderStatusID.id === 4).length;
+
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng theo năm:', error);
+                });
+        };
+        $scope.getTop5ProductDay = function () {
+            $http.get(baseUrl + 'order-detail/top5-product-day')
+                .then(function (response) {
+                    $scope.top5ProductDay = response.data;
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu top 5 sản phẩm bán chạy trong ngày:', error);
+                });
+        };
+        $scope.getTop5ProductWeek = function () {
+            $http.get(baseUrl + 'order-detail/top5-product-week')
+                .then(function (response) {
+                    $scope.top5ProductWeek = response.data;
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu top 5 sản phẩm bán chạy trong tuần:', error);
+                });
+        };
+        $scope.getTop5ProductMonth = function () {
+            $http.get(baseUrl + 'order-detail/top5-product-month')
+                .then(function (response) {
+                    $scope.top5ProductMonth = response.data;
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu top 5 sản phẩm bán chạy trong tháng:', error);
+                });
+        };
+        $scope.getTop5ProductYear = function () {
+            $http.get(baseUrl + 'order-detail/top5-product-year')
+                .then(function (response) {
+                    $scope.top5ProductYear = response.data;
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu top 5 sản phẩm bán chạy trong năm:', error);
+                });
+        };
+        // RUN ORDER FILTER
         $scope.getOrdersByDate($scope.getCurrentDate(true), $scope.getCurrentDate());
+        $scope.getOrdersToday();
+        $scope.getOrdersWeek();
+        $scope.getOrdersMonth();
+        $scope.getOrdersYear();
+        $scope.getTop5ProductDay();
+        $scope.getTop5ProductWeek();
+        $scope.getTop5ProductMonth();
+        $scope.getTop5ProductYear();
         /*ORDER STATUS*/
         $scope.getOrderStatus = function () {
             $http.get(baseUrl + 'orderStatus').then(function (response) {
@@ -2079,7 +2180,6 @@
                 }
             });
         };
-
         $scope.deleteVoucher = function (voucherId) {
             Swal.fire({
                 title: 'Bạn có chắc chắn muôn xóa?',
@@ -2113,7 +2213,6 @@
         };
     });
 </script>
-
 <script>
     function sendNotification() {
         // Lấy giá trị của subject
@@ -2151,7 +2250,16 @@
             });
             return;
         }
-
+        Swal.fire({
+            title: 'Đang xử lý...',
+            text: 'Vui lòng chờ...',
+            icon: 'info',
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
         fetch('http://localhost:8080/api/subscriptions/send?subject='
             + encodeURIComponent(subject)
             + '&content='
@@ -2165,6 +2273,7 @@
                         text: 'Đã gửi Email thành công đến tất cả người đăng ký',
                         icon: 'success'
                     });
+                    Swal.close();
                 } else {
                     Swal.fire({
                         title: 'Thông Báo Lỗi',

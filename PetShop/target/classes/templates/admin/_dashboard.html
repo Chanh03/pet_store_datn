@@ -4,62 +4,444 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Document</title>
+    <style>
+    </style>
 </head>
 <body>
 <div class="mt-3">
-    <div class="row g-3">
-        <div class="col-7">
-            <div class="card shadow bg-white border-0 p-4">
-                <div>
-                    <h4 class="fw-bold text-center">Bảng thống kê số lượng sản phẩm theo loại</h4>
+    <div class="row">
+        <div class="col-12">
+            <div class="card p-3 shadow">
+                <h5>
+                    <strong>Thống kê</strong>
+                </h5>
+                <div class="row g-3">
+                    <!--NGÀY-->
+                    <div class="col-6">
+                        <div class="card shadow border-0 p-3" style="background: #1E88E5;color: #ffffff">
+                            <!-- Xanh dương -->
+                            <div class="row mb-3">
+                                <h5 class="text-center">
+                                    <strong>Hôm nay: </strong><span
+                                        ng-init="today = getCurrentDate()">{{today | date:'dd/MM/yyyy'}}</span>
+                                </h5>
+                                <h2 class="text-center">
+                        <span class="fw-bold fs-5">
+                            <i class="fas fa-money-bill-wave"></i>
+                            {{totalOrderTodayPriceNoShip | number:0}}đ + {{totalOrderDaGiaoToday * 50000 | number:0}}đ =
+                            <span class="text-decoration-underline" style="font-size: 24px;">
+                                {{totalOrderTodayPrice | number:0}}đ
+                            </span>
+                        </span>
+                                </h2>
+                            </div>
+                            <div class="row g-0 mb-3">
+                                <div class="col-3">
+                                    <div class="border-0">
+                                        <h6 class="text-center text-white">Số đơn hàng:</h6>
+                                        <h5 class="text-center text-white m-0">{{orderTodayData.length}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="border-0 ">
+                                        <h6 class="text-center text-white">Đang xử lí:</h6>
+                                        <h5 class="text-center text-white m-0">{{totalOrderTodayDangXuLi}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="border-0 ">
+                                        <h6 class="text-center text-white">Đang vận chuyển:</h6>
+                                        <h5 class="text-center text-white m-0">{{totalOrderTodayDangVanChuyen}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="border-0 ">
+                                        <h6 class="text-center text-white">Đã giao:</h6>
+                                        <h5 class="text-center text-white m-0">{{totalOrderTodayDangDaGiao}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3" ng-if="top5ProductDay.length">
+                                <div class="accordion accordion-flush" id="top5SpBanChayTrongNgay">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#top5SpBanChayTrongNgay1" aria-expanded="false"
+                                                    aria-controls="top5SpBanChayTrongNgay1">
+                                                <strong>Top sản phẩm bán chạy ngày - {{today | date:'dd/MM/yyyy'}}</strong>
+                                            </button>
+                                        </h2>
+                                        <div id="top5SpBanChayTrongNgay1" class="accordion-collapse collapse"
+                                             data-bs-parent="#top5SpBanChayTrongNgay">
+                                            <div class="accordion-body">
+                                                <div class="list-group list-group-flush">
+                                                    <div class="form-floating mb-3">
+                                                        <input type="number" ng-model="inputTop5ProductDay"
+                                                               class="form-control"
+                                                               placeholder="Nhập số lượng sản phẩm"
+                                                               ng-init="inputTop5ProductDay=5"
+                                                               min="1" id="inputTop5ProductDay">
+                                                        <label for="inputTop5ProductWeek">Nhập top số lượng sản phẩm</label>
+                                                    </div>
+                                                    <table>
+                                                        <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Tên sản phẩm</th>
+                                                            <th>Số lượng</th>
+                                                            <th>Giá</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr ng-repeat="product in top5ProductDay | orderBy:'-2' | limitTo: inputTop5ProductDay">
+                                                            <td>{{ $index + 1 }}</td>
+                                                            <td>
+                                                                <a ng-href="/product/detail/{{ product[0] }}"
+                                                                   target="_blank">
+                                                                    {{ product[1] }}
+                                                                    <i class="fas fa-external-link-alt"></i>
+                                                                </a>
+                                                            </td>
+                                                            <td>{{ product[2] }}</td> <!--SL-->
+                                                            <td>{{ product[3] | number:0 }}đ</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--TUẦN-->
+                    <div class="col-6">
+                        <div class="card shadow border-0 p-3" style="background: #388E3C;color: #ffffff">
+                            <!-- Xanh dương -->
+                            <div class="row mb-3">
+                                <h5 class="text-center">
+                                    <strong>Trong 7 ngày qua: </strong><span
+                                        ng-init="sevenDay = getCurrentDate(true)">{{sevenDay | date:'dd/MM/yyyy'}} - {{today | date:'dd/MM/yyyy'}}</span>
+                                </h5>
+                                <h2 class="text-center">
+                        <span class="fw-bold fs-5">
+                            <i class="fas fa-money-bill-wave"></i>
+                            {{totalOrderWeekPriceNoShip | number:0}}đ + {{totalOrderDaGiaoWeek * 50000 | number:0}}đ =
+                            <span class="text-decoration-underline" style="font-size: 24px;">
+                                {{totalOrderWeekPrice | number:0}}đ
+                            </span>
+                        </span>
+                                </h2>
+                            </div>
+                            <div class="row g-0 mb-3">
+                                <div class="col-3">
+                                    <div class="border-0">
+                                        <h6 class="text-center text-white">Số đơn hàng:</h6>
+                                        <h5 class="text-center text-white m-0">{{orderWeekData.length}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="border-0 ">
+                                        <h6 class="text-center text-white">Đang xử lí:</h6>
+                                        <h5 class="text-center text-white m-0">{{totalOrderWeekDangXuLi}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="border-0 ">
+                                        <h6 class="text-center text-white">Đang vận chuyển:</h6>
+                                        <h5 class="text-center text-white m-0">{{totalOrderWeekDangVanChuyen}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="border-0 ">
+                                        <h6 class="text-center text-white">Đã giao:</h6>
+                                        <h5 class="text-center text-white m-0">{{totalOrderWeekDangDaGiao}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3" ng-if="top5ProductWeek.length">
+                                <div class="accordion accordion-flush" id="top5SpBanChayTrongTuan">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#top5SpBanChayTrongTuan1" aria-expanded="false"
+                                                    aria-controls="top5SpBanChayTrongTuan1">
+                                                <strong>Top sản phẩm bán chạy tuần - {{sevenDay | date:'dd/MM/yyyy'}} -
+                                                    {{today |
+                                                    date:'dd/MM/yyyy'}}</strong>
+                                            </button>
+                                        </h2>
+                                        <div id="top5SpBanChayTrongTuan1" class="accordion-collapse collapse"
+                                             data-bs-parent="#top5SpBanChayTrongTuan">
+                                            <div class="accordion-body">
+                                                <div class="list-group list-group-flush">
+                                                    <div class="form-floating mb-3">
+                                                        <input type="number" ng-model="inputTop5ProductWeek"
+                                                               class="form-control"
+                                                               placeholder="Nhập số lượng sản phẩm"
+                                                               ng-init="inputTop5ProductWeek=5"
+                                                               min="1" id="inputTop5ProductWeek">
+                                                        <label for="inputTop5ProductWeek">Nhập top số lượng sản phẩm</label>
+                                                    </div>
+                                                    <table>
+                                                        <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Tên sản phẩm</th>
+                                                            <th>Số lượng</th>
+                                                            <th>Giá</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr ng-repeat="product in top5ProductWeek | orderBy:'-2' | limitTo: inputTop5ProductWeek">
+                                                            <td>{{ $index + 1 }}</td>
+                                                            <td>
+                                                                <a ng-href="/product/detail/{{ product[0] }}"
+                                                                   target="_blank">
+                                                                    {{ product[1] }}
+                                                                    <i class="fas fa-external-link-alt"></i>
+                                                                </a>
+                                                            </td>
+                                                            <td>{{ product[2] }}</td> <!--SL-->
+                                                            <td>{{ product[3] | number:0 }}đ</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--THÁNG-->
+                    <div class="col-6">
+                        <div class="card shadow border-0 p-3" style="background: #F57C00;color: #ffffff">
+                            <!-- Xanh dương -->
+                            <div class="row mb-3">
+                                <h5 class="text-center">
+                                    <strong>Tháng: </strong><span
+                                        ng-init="month = getCurrentDate(false, true)">{{month | date:'MM/yyyy'}}</span>
+                                </h5>
+                                <h2 class="text-center">
+                        <span class="badge fw-bold" style="font-size: 18px;">
+                            <i class="fas fa-money-bill-wave"></i>
+                            {{totalOrderMonthPriceNoShip | number:0}}đ + {{totalOrderDaGiaoMonth * 50000 | number:0}}đ =
+                            <span class="text-decoration-underline" style="font-size: 24px;">
+                                {{totalOrderMonthPrice | number:0}}đ
+                            </span>
+                        </span>
+                                </h2>
+                            </div>
+                            <div class="row g-0 mb-3">
+                                <div class="col-3">
+                                    <div class="border-0">
+                                        <h6 class="text-center text-white">Số đơn hàng:</h6>
+                                        <h5 class="text-center text-white m-0">{{orderMonthData.length}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="border-0 ">
+                                        <h6 class="text-center text-white">Đang xử lí:</h6>
+                                        <h5 class="text-center text-white m-0">{{totalOrderMonthDangXuLi}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="border-0 ">
+                                        <h6 class="text-center text-white">Đang vận chuyển:</h6>
+                                        <h5 class="text-center text-white m-0">{{totalOrderMonthDangVanChuyen}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="border-0 ">
+                                        <h6 class="text-center text-white">Đã giao:</h6>
+                                        <h5 class="text-center text-white m-0">{{totalOrderMonthDangDaGiao}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="accordion accordion-flush" id="top5SpBanChayTrongThang">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#top5SpBanChayTrongThang1" aria-expanded="false"
+                                                    aria-controls="top5SpBanChayTrongThang1">
+                                                <strong>Top sản phẩm bán chạy tháng - {{month | date:'MM/yyyy'}}</strong>
+                                            </button>
+                                        </h2>
+                                        <div id="top5SpBanChayTrongThang1" class="accordion-collapse collapse"
+                                             data-bs-parent="#top5SpBanChayTrongThang">
+                                            <div class="accordion-body">
+                                                <div class="list-group list-group-flush">
+                                                    <div class="form-floating mb-3">
+                                                        <input type="number" ng-model="inputTop5ProductMonth"
+                                                               class="form-control"
+                                                               placeholder="Nhập số lượng sản phẩm"
+                                                               ng-init="inputTop5ProductMonth=5"
+                                                               min="1" id="inputTop5ProductMonth">
+                                                        <label for="inputTop5ProductMonth">Nhập top số lượng sản
+                                                            phẩm</label>
+                                                    </div>
+                                                    <table>
+                                                        <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Tên sản phẩm</th>
+                                                            <th>Số lượng</th>
+                                                            <th>Giá</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr ng-repeat="product in top5ProductMonth | orderBy:'-2' | limitTo: inputTop5ProductMonth">
+                                                            <td>{{ $index + 1 }}</td>
+                                                            <td>
+                                                                <a ng-href="/product/detail/{{ product[0] }}"
+                                                                   target="_blank">
+                                                                    {{ product[1] }}
+                                                                    <i class="fas fa-external-link-alt"></i>
+                                                                </a>
+                                                            </td>
+                                                            <td>{{ product[2] }}</td> <!--SL-->
+                                                            <td>{{ product[3] | number:0 }}đ</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--NĂM-->
+                    <div class="col-6">
+                        <div class="card shadow border-0 p-3" style="background: #D32F2F;color: #ffffff">
+                            <!-- Xanh dương -->
+                            <div class="row mb-3">
+                                <h5 class="text-center">
+                                    <strong>Năm: </strong><span
+                                        ng-init="year = getCurrentDate(false, true)">{{year | date:'yyyy'}}</span>
+                                </h5>
+                                <h2 class="text-center">
+                        <span class="badge fw-bold" style="font-size: 18px;">
+                            <i class="fas fa-money-bill-wave"></i>
+                            {{totalOrderYearPriceNoShip | number:0}}đ + {{totalOrderDaGiaoYear * 50000 | number:0}}đ =
+                            <span class="text-decoration-underline" style="font-size: 24px;">
+                                {{totalOrderYearPrice | number:0}}đ
+                            </span>
+                        </span>
+                                </h2>
+                            </div>
+                            <div class="row g-0 mb-3">
+                                <div class="col-3">
+                                    <div class="border-0 bg-blur">
+                                        <h6 class="text-center text-white">Số đơn hàng:</h6>
+                                        <h5 class="text-center text-white m-0">{{orderYearData.length}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="border-0 bg-blur">
+                                        <h6 class="text-center text-white">Đang xử lí:</h6>
+                                        <h5 class="text-center text-white m-0">{{totalOrderYearDangXuLi}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="border-0 bg-blur">
+                                        <h6 class="text-center text-white">Đang vận chuyển:</h6>
+                                        <h5 class="text-center text-white m-0">{{totalOrderYearDangVanChuyen}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="border-0 bg-blur">
+                                        <h6 class="text-center text-white">Đã giao:</h6>
+                                        <h5 class="text-center text-white m-0">{{totalOrderYearDangDaGiao}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="accordion accordion-flush" id="top5SpBanChayTrongNam">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#top5SpBanChayTrongNam1" aria-expanded="false"
+                                                    aria-controls="top5SpBanChayTrongNam1">
+                                                <strong>Top sản phẩm bán chạy năm - {{year | date:'yyyy'}}</strong>
+                                            </button>
+                                        </h2>
+                                        <div id="top5SpBanChayTrongNam1" class="accordion-collapse collapse"
+                                             data-bs-parent="#top5SpBanChayTrongNam">
+                                            <div class="accordion-body">
+                                                <div class="list-group list-group-flush">
+                                                    <div class="form-floating mb-3">
+                                                        <input type="number" ng-model="inputTop5ProductYear"
+                                                               class="form-control"
+                                                               placeholder="Nhập số lượng sản phẩm"
+                                                               ng-init="inputTop5ProductYear=5"
+                                                               min="1" id="inputTop5ProductYear">
+                                                        <label for="inputTop5ProductYear">Nhập top số lượng sản phẩm</label>
+                                                    </div>
+                                                    <table>
+                                                        <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Tên sản phẩm</th>
+                                                            <th>Số lượng</th>
+                                                            <th>Giá</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr ng-repeat="product in top5ProductYear | orderBy:'-2' | limitTo: inputTop5ProductYear">
+                                                            <td>{{ $index + 1 }}</td>
+                                                            <td>
+                                                                <a ng-href="/product/detail/{{ product[0] }}"
+                                                                   target="_blank">
+                                                                    {{ product[1] }}
+                                                                    <i class="fas fa-external-link-alt"></i>
+                                                                </a>
+                                                            </td>
+                                                            <td>{{ product[2] }}</td> <!--SL-->
+                                                            <td>{{ product[3] | number:0 }}đ</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <canvas style="height: 400px" id="productChart-Bar"></canvas>
-                <code class="text-center">Hiện có {{productLabelsChart.length}} loại sản phẩm khác nhau với tổng số
-                    {{productData.length}}
-                    sản phẩm</code>
-            </div>
-        </div>
-        <div class="col-5">
-            <div class="card shadow bg-white border-0 p-4">
-                <div>
-                    <h4 class="fw-bold text-center">Bảng thống kê số lượng thú cưng theo loài</h4>
-                </div>
-                <canvas style="height: 400px" id="petChart-Bar"></canvas>
-                <code class="text-center">Hiện có {{labels.length}} loài thú cưng khác nhau với tổng số
-                    {{petData.length}}
-                    thú cưng</code>
             </div>
         </div>
     </div>
-    <div class="row mt-3">
+    <div class="row my-3">
         <div class="col-12">
-            <div class="card shadow bg-white border-0 p-4">
-                <div class="row">
-                    <div class="col-3">
-                        <div class="card shadow bg-white border-0 p-4">
-                            <div>
-                                <h4 class="fw-bold text-center">Lọc doanh thu theo ngày</h4>
-                            </div>
-                            <div>
-                                <label class="floating-label" for="fromDate">Ngày bắt đầu:</label>
-                                <input type="date" id="fromDate" ng-model="fromDate" class="form-control"
-                                       ng-change="getOrdersByDate(fromDate, toDate)"
-                                       ng-init="fromDate = getCurrentDate(true)" value="{{getCurrentDate(true)}}">
-                            </div>
-                            <div>
-                                <label for="toDate">Ngày kết thúc:</label>
-                                <input type="date" id="toDate" ng-model="toDate" class="form-control"
-                                       ng-change="getOrdersByDate(fromDate, toDate)"
-                                       ng-init="toDate = getCurrentDate()" value="{{getCurrentDate()}}">
-                            </div>
-                        </div>
+            <div class="card shadow border-0 p-3">
+                <h5>
+                    <strong>Doanh thu</strong>
+                </h5>
+                <div class="d-flex justify-content-between gap-3">
+                    <div class="form-floating mb-3 w-100">
+                        <input id="fromDate" type="date" ng-model="fromDate" ng-init="fromDate = getCurrentDate()"
+                               ng-change="getOrdersByDate(fromDate, toDate)" class="form-control">
+                        <label for="fromDate">Từ ngày</label>
                     </div>
-                    <div class="col-9">
-                        <div class="card shadow bg-white border-0 p-4">
-                            <canvas style="height: 400px !important;" id="orderChart-Line"></canvas>
-                        </div>
+                    <div class="form-floating mb-3 w-100">
+                        <input id="toDate" type="date" ng-model="toDate" ng-init="toDate = getCurrentDate()"
+                               ng-change="getOrdersByDate(fromDate, toDate)" class="form-control">
+                        <label for="toDate">Đến ngày</label>
                     </div>
                 </div>
+                <div id="revenueChart"></div>
             </div>
         </div>
     </div>

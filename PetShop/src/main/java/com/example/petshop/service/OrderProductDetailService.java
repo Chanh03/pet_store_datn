@@ -19,4 +19,6 @@ public interface OrderProductDetailService {
     List<OrderProductDetail> getByOrderIdAndUser(Order order, User user);
 
     OrderProductDetail findByOrderIDAndProductID(Order orderID, Product productID);
+
+    List<Object[]> getTop5Product(List<Order> order);
 }

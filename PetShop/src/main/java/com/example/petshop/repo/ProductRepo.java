@@ -12,12 +12,16 @@ import java.util.List;
 
 @Repository
 public interface ProductRepo extends JpaRepository<Product, Integer> {
-    @Query("SELECT p FROM Product p WHERE p.productName LIKE %:keyword% OR p.productDescription LIKE %:keyword%")
-    Page<Product> searchByKeyword(String keyword, Pageable pageable);
+    Page<Product> findByProductNameContainingIgnoreCase(String keyword, Pageable pageable);
 
     List<Product> findByProductCategoryID_IdAndIdNot(Integer id, int id1);
 
+    @Query("SELECT p FROM Product p ORDER BY p.createDate DESC limit 6")
+    List<Product> findAllByCreatedDateDesc();
+
     Page<Product> findByProductCategoryID_Id(Integer categoryId, Pageable pageable);
+
+    Page<Product> findByProductDescriptionAndProductCategoryID_Id(String keyword, Integer categoryId, Pageable pageable);
 
     Page<Product> findByProductCategoryID_IdAndProductNameContainingIgnoreCase(Integer categoryId, String keyword, Pageable pageable);
 
@@ -26,6 +30,8 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 
     List<Product> findByProductCategoryID(ProductCategory productCategory);
 
-    // Tìm kiếm sản phẩm theo khoảng giá
+    @Query("SELECT p FROM Product p WHERE p.productName LIKE %:keyword% OR p.productDescription LIKE %:keyword%")
+    Page<Product> searchByKeyword(String keyword, Pageable pageable);
+
     Page<Product> findByPriceBetween(Double minPrice, Double maxPrice, Pageable pageable);
 }
