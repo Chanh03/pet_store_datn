@@ -24,9 +24,9 @@ public interface ProductService {
     Page<Product> getPaginatedProduct(PageRequest of);
 
     List<Product> getProductsByCategory(Integer id, int id1);
+
     public List<Product> getProductsByDifferentCategory(int currentCategoryId, int currentProductId);
 
-    List<Product> getAllByCreatedDate();
 
     Page<Product> getProductsByCategoryId(Integer categoryId, Pageable pageable);
 

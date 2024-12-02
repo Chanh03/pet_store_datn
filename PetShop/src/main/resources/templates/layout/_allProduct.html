@@ -13,7 +13,6 @@
 
 <body style="background-color: #f8f9fa;">
 <div class="container py-5">
-
     <!-- Product Section -->
     <div class="row">
         <!-- Category Filter -->
@@ -35,8 +34,6 @@
             </div>
         </div>
         <div class="col-9">
-
-            <!-- Product List -->
             <!-- Search and Sort -->
             <div class="row mb-3">
                 <div class="col-6">
@@ -53,6 +50,7 @@
                         </button>
 
                         <!-- Nút tìm giá giảm dần -->
+                        <input type="hidden" name="search" th:value="${param.search}"/>
                         <button type="submit" name="sort" value="desc"
                                 class="btn btn-danger ms-2"
                                 style="border-radius: 5px; padding: 8px 10px; display: flex; align-items: center; justify-content: center;">
@@ -77,10 +75,9 @@
                                 style="border-radius: 5px;">Tìm kiếm
                         </button>
                     </form>
-
                 </div>
+
                 <div class="col-6">
-                    <!-- Search Form -->
                     <form th:action="@{/allProduct}" method="get" class="d-flex mb-4">
                         <input class="form-control" type="search"
                                placeholder="Tìm kiếm sản phẩm" aria-label="Search"
@@ -101,7 +98,8 @@
                 </div>
 
                 <!-- Product Card -->
-                <div th:if="${!productPage.content.isEmpty()}" th:each="product : ${productPage.content}" class="col-lg-3 col-md-4 col-sm-4 col-4">
+                <div th:if="${!productPage.content.isEmpty()}" th:each="product : ${productPage.content}"
+                     class="col-lg-3 col-md-4 col-sm-4 col-4">
                     <div class="card card-hover border-0">
                         <div class="position-relative button-image add-to-cart-container"
                              style="background-color: #f7f7f5">

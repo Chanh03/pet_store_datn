@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> searchProduct(String search, PageRequest of) {
-        return productRepo.findByProductNameContainingIgnoreCase(search, of);
+        return productRepo.searchByKeyword(search, of);
     }
 
     @Override
@@ -51,11 +51,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProductsByCategory(Integer id, int id1) {
         return productRepo.findByProductCategoryID_IdAndIdNot(id, id1);
-    }
-
-    @Override
-    public List<Product> getAllByCreatedDate() {
-        return productRepo.findAllByCreatedDateDesc();
     }
 
     @Override

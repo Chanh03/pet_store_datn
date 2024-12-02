@@ -14,12 +14,8 @@ import java.util.List;
 public interface ProductRepo extends JpaRepository<Product, Integer> {
     @Query("SELECT p FROM Product p WHERE p.productName LIKE %:keyword% OR p.productDescription LIKE %:keyword%")
     Page<Product> searchByKeyword(String keyword, Pageable pageable);
-    Page<Product> findByProductNameContainingIgnoreCase(String keyword, Pageable pageable);
 
     List<Product> findByProductCategoryID_IdAndIdNot(Integer id, int id1);
-
-    @Query("SELECT p FROM Product p ORDER BY p.createDate DESC limit 6")
-    List<Product> findAllByCreatedDateDesc();
 
     Page<Product> findByProductCategoryID_Id(Integer categoryId, Pageable pageable);
 
