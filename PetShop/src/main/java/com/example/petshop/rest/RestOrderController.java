@@ -10,8 +10,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -144,7 +146,7 @@ public class RestOrderController {
         int day1 = localDate.getDayOfMonth();
         int month1 = localDate.getMonthValue();
         int year1 = localDate.getYear();
-        LocalDate sevenDaysAgo = localDate.minusDays(7);
+        LocalDate sevenDaysAgo = localDate.minusDays(6);
         if (today) {
             return orderService.findOrdersToday(java.sql.Date.valueOf(localDate));
         }
@@ -160,9 +162,8 @@ public class RestOrderController {
         if (from == null || to == null) {
             return orderService.getAll();
         }
-
         if (from.after(to)) {
-            return orderService.findOrdersByDate(from, new Date());
+            return orderService.findOrdersByDate(to, from);
         }
         return orderService.findOrdersByDate(from, to);
     }

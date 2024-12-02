@@ -558,7 +558,7 @@
         });
         $scope.getCurrentDate = function (date) {
             if (date) {
-                return $filter('date')(new Date() - 7 * 24 * 60 * 60 * 1000, 'yyyy-MM-dd');
+                return $filter('date')(new Date() - 6 * 24 * 60 * 60 * 1000, 'yyyy-MM-dd');
             }
             return $filter('date')(new Date(), 'yyyy-MM-dd');
         };
@@ -1544,12 +1544,97 @@
                     $scope.totalOrderWeekDangDaGiao = $scope.orderWeekData.filter(order => order.orderStatusID.id === 4).length;
 
                 }, function (error) {
-                    console.error('Lỗi khi lấy dữ liệu đơn hàng theo ngày:', error);
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng 7 ngày:', error);
                 });
         };
+        $scope.getOrdersMonth = function () {
+            $http.get('/api/order/filter', {params: {month: true}})
+                .then(function (response) {
+                    $scope.orderMonthData = response.data;
+                    $scope.totalOrderMonthPrice = $scope.orderMonthData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount;
+                        }, 0);
+                    $scope.totalOrderMonthPriceNoShip = $scope.orderMonthData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount - 50000;
+                        }, 0);
+                    $scope.totalOrderDaGiaoMonth = $scope.orderMonthData.filter(order => order.orderStatusID.id === 4).length;
+                    $scope.totalOrderMonthDangXuLi = $scope.orderMonthData.filter(order => order.orderStatusID.id === 1).length;
+                    $scope.totalOrderMonthDangVanChuyen = $scope.orderMonthData.filter(order => order.orderStatusID.id === 3).length;
+                    $scope.totalOrderMonthDangDaGiao = $scope.orderMonthData.filter(order => order.orderStatusID.id === 4).length;
+
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng theo tháng:', error);
+                });
+        };
+        $scope.getOrdersYear = function () {
+            $http.get('/api/order/filter', {params: {year: true}})
+                .then(function (response) {
+                    $scope.orderYearData = response.data;
+                    $scope.totalOrderYearPrice = $scope.orderYearData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount;
+                        }, 0);
+                    $scope.totalOrderYearPriceNoShip = $scope.orderYearData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount - 50000;
+                        }, 0);
+                    $scope.totalOrderDaGiaoYear = $scope.orderYearData.filter(order => order.orderStatusID.id === 4).length;
+                    $scope.totalOrderYearDangXuLi = $scope.orderYearData.filter(order => order.orderStatusID.id === 1).length;
+                    $scope.totalOrderYearDangVanChuyen = $scope.orderYearData.filter(order => order.orderStatusID.id === 3).length;
+                    $scope.totalOrderYearDangDaGiao = $scope.orderYearData.filter(order => order.orderStatusID.id === 4).length;
+
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng theo năm:', error);
+                });
+        };
+        $scope.getTop5ProductDay = function () {
+            $http.get(baseUrl + 'order-detail/top5-product-day')
+                .then(function (response) {
+                    $scope.top5ProductDay = response.data;
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu top 5 sản phẩm bán chạy trong ngày:', error);
+                });
+        };
+        $scope.getTop5ProductWeek = function () {
+            $http.get(baseUrl + 'order-detail/top5-product-week')
+                .then(function (response) {
+                    $scope.top5ProductWeek = response.data;
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu top 5 sản phẩm bán chạy trong tuần:', error);
+                });
+        };
+        $scope.getTop5ProductMonth = function () {
+            $http.get(baseUrl + 'order-detail/top5-product-month')
+                .then(function (response) {
+                    $scope.top5ProductMonth = response.data;
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu top 5 sản phẩm bán chạy trong tháng:', error);
+                });
+        };
+        $scope.getTop5ProductYear = function () {
+            $http.get(baseUrl + 'order-detail/top5-product-year')
+                .then(function (response) {
+                    $scope.top5ProductYear = response.data;
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu top 5 sản phẩm bán chạy trong năm:', error);
+                });
+        };
+        // RUN ORDER FILTER
         $scope.getOrdersByDate($scope.getCurrentDate(true), $scope.getCurrentDate());
         $scope.getOrdersToday();
         $scope.getOrdersWeek();
+        $scope.getOrdersMonth();
+        $scope.getOrdersYear();
+        $scope.getTop5ProductDay();
+        $scope.getTop5ProductWeek();
+        $scope.getTop5ProductMonth();
+        $scope.getTop5ProductYear();
         /*ORDER STATUS*/
         $scope.getOrderStatus = function () {
             $http.get(baseUrl + 'orderStatus').then(function (response) {
