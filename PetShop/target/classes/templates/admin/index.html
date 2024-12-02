@@ -2131,7 +2131,6 @@
 
         // Lấy nội dung từ TinyMCE
         const contentEditor = tinymce.get('contentEditor');
-        // Lấy đối tượng editor
         if (!contentEditor) {
             Swal.fire({
                 title: 'Lỗi',
@@ -2142,20 +2141,21 @@
         }
 
         const content = contentEditor.getContent().trim();
-        // Lấy nội dung có định dạng HTML từ editor
 
         // Kiểm tra giá trị
         if (!subject || !content) {
             Swal.fire({
                 title: 'Thông Báo',
-                text: 'Chủ đề và nội dung không được để trống!',
+                text: 'Tiêu đề và nội dung không được để trống!',
                 icon: 'warning'
             });
             return;
         }
 
-        // Gửi dữ liệu đến server
-        fetch('http://localhost:8080/api/subscriptions/send?subject=' + encodeURIComponent(subject) + '&content=' + encodeURIComponent(content), {
+        fetch('http://localhost:8080/api/subscriptions/send?subject='
+            + encodeURIComponent(subject)
+            + '&content='
+            + encodeURIComponent(content), {
             method: 'POST'
         })
             .then(response => {
