@@ -957,4 +957,86 @@
         };
     });
 </script>
+<script>
+    function subscribe() {
+        // Lấy giá trị từ các trường input
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phoneNumber = document.getElementById('phoneNumber').value.trim();
+
+        // Kiểm tra nếu trường nào để trống
+        if (!name || !email || !phoneNumber) {
+            Swal.fire({
+                title: 'Thông Báo',
+                text: 'Tất cả các trường đều bắt buộc!',
+                icon: 'warning'
+            });
+            return;
+        }
+
+        // Validate email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            Swal.fire({
+                title: 'Thông Báo',
+                text: 'Định dạng Email không hợp lệ!',
+                icon: 'warning'
+            });
+            return;
+        }
+
+        // Validate số điện thoại
+        const phoneRegex = /^0\d{9}$/;
+        if (!phoneRegex.test(phoneNumber)) {
+            Swal.fire({
+                title: 'Thông Báo',
+                text: 'Số điện thoại phải bắt đầu bằng số 0 và có đúng 10 chữ số!',
+                icon: 'warning'
+            });
+            return;
+        }
+
+        // Tạo dữ liệu gửi đi
+        const formData = {
+            name: name,
+            email: email,
+            phoneNumber: phoneNumber
+        };
+
+        // Gửi yêu cầu đến server
+        fetch('http://localhost:8080/api/subscriptions/subscribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire({
+                        title: 'Đăng Ký Thành Công',
+                        text: 'Bạn đã đăng ký thành công!! Vui lòng kiểm tra Email',
+                        icon: 'success'
+                    }).then(() => {
+                        // Reset form sau khi thành công
+                        document.getElementById('subscribeForm').reset();
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Thông Báo Lỗi',
+                        text: 'Email đã được đăng ký!',
+                        icon: 'error'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Lỗi hệ thống',
+                    icon: 'error'
+                });
+                console.error('Error:', error);
+            });
+    }
+</script>
 </html>

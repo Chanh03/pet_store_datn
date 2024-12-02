@@ -24,30 +24,35 @@ public class PetController {
     private PetService petService;
 
     @RequestMapping("/allPet")
-    public String viewPets(Model model, @RequestParam(defaultValue = "0") int page,
-                           @RequestParam(required = false) String keyword, @RequestParam(defaultValue = "desc") String priceOrder) {
+    public String viewPaginatedPets(Model model, @RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(required = false) String keyword, @RequestParam(defaultValue = "desc") String priceOrder,
+                                    @RequestParam(required = false) Integer minPrice, @RequestParam(required = false) Integer maxPrice) {
 
-        int pageSize = 24; // Số thú cưng trên mỗi trang
+        int pageSize = 24;
         Page<Pet> petPage;
 
-        // Sắp xếp theo giá (mặc định giảm dần)
         Sort sort = Sort.by("price").descending();
         if ("asc".equalsIgnoreCase(priceOrder)) {
             sort = Sort.by("price").ascending();
         }
 
-        // Xử lý tìm kiếm
+
         if (keyword != null && !keyword.trim().isEmpty()) {
             petPage = petService.searchPets(keyword.trim(), PageRequest.of(page, pageSize, sort));
         } else {
             petPage = petService.getPaginatedPets(PageRequest.of(page, pageSize, sort));
         }
 
-        // Thêm dữ liệu vào model
+        if (minPrice != null && maxPrice != null) {
+            petPage = petService.searchPetsByPriceRange(minPrice, maxPrice, PageRequest.of(page, pageSize, sort));
+        }
         model.addAttribute("pets", petPage.getContent());
         model.addAttribute("currentPage", page);
+        model.addAttribute("petPage", petPage);
         model.addAttribute("totalPages", petPage.getTotalPages());
         model.addAttribute("keyword", keyword);
+        model.addAttribute("minPrice", minPrice);
+        model.addAttribute("maxPrice", maxPrice);
         model.addAttribute("sort", priceOrder);
 
         return "layout/_allPet";

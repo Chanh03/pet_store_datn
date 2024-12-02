@@ -35,4 +35,6 @@ public interface ProductService {
     List<Product> getAllByCreatedDateAndEnable();
 
     List<Product> getAllProductByCategoryId(ProductCategory productCategory);
+
+    Page<Product> searchProductWithPrice(String search, Double minPrice, Double maxPrice, Pageable pageable);
 }

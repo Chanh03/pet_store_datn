@@ -37,36 +37,53 @@ public class ProductController {
     private ProductCategoryService productCategoryService;
 
     @RequestMapping("/allProduct")
-    public String viewProduct(Model model, @RequestParam(defaultValue = "0") int page,
-                              @RequestParam(required = false) String search, @RequestParam(required = false) String sort,
-                              @RequestParam(required = false) Integer categoryId) {
+    public String viewProduct(Model model,
+                              @RequestParam(defaultValue = "0") int page,
+                              @RequestParam(required = false) String search,
+                              @RequestParam(required = false) String sort,
+                              @RequestParam(required = false) Integer categoryId,
+                              @RequestParam(required = false) Double minPrice,
+                              @RequestParam(required = false) Double maxPrice) {
         int pageSize = 16;
         Page<Product> productPage;
 
         // Xác định thứ tự sắp xếp
         Sort.Direction sortDirection = (sort != null && sort.equals("asc")) ? Sort.Direction.ASC : Sort.Direction.DESC;
 
-        // Xử lý kết hợp giữa tìm kiếm, danh mục, và sắp xếp
-        if (search != null && !search.isEmpty() && categoryId != null) {
+        // Xử lý logic tìm kiếm
+        if (minPrice != null && maxPrice != null) {
+            // Tìm kiếm sản phẩm theo khoảng giá
+            productPage = productService.searchProductWithPrice(sort, minPrice, maxPrice,
+                    PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
+        } else if (search != null && !search.isEmpty() && categoryId != null) {
+            // Tìm kiếm theo từ khóa và danh mục
             productPage = productService.searchProductWithCategory(search, categoryId,
                     PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
         } else if (search != null && !search.isEmpty()) {
+            // Tìm kiếm theo từ khóa
             productPage = productService.searchProduct(search,
                     PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
         } else if (categoryId != null) {
+            // Lọc theo danh mục
             productPage = productService.getProductsByCategoryId(categoryId,
                     PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
         } else {
+            // Lấy tất cả sản phẩm nếu không có điều kiện lọc
             productPage = productService
                     .getPaginatedProduct(PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
         }
 
+        // Lấy danh sách danh mục
         List<ProductCategory> categories = productCategoryService.getAll();
+
+        // Đưa dữ liệu vào model để hiển thị trên giao diện
         model.addAttribute("productPage", productPage);
         model.addAttribute("categories", categories);
         model.addAttribute("search", search);
         model.addAttribute("sort", sort);
         model.addAttribute("categoryId", categoryId);
+        model.addAttribute("minPrice", minPrice);
+        model.addAttribute("maxPrice", maxPrice);
 
         return "layout/_allProduct";
     }

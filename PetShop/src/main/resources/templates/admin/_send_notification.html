@@ -20,58 +20,23 @@
                 <span>Gửi thông báo</span>
                 <i class="fa-solid fa-bell"></i>
             </h1>
-            <div>
-                <button ng-click="slideBarAddModal()" class="insert-btn btn px-4 py-3">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>Thêm ảnh mới</span>
-                </button>
-                <button ng-click="deleteSlideBarALL()" class="btn-danger btn px-4 py-3">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>Xóa toàn bộ</span>
-                </button>
-            </div>
         </div>
         <hr>
     </div>
-    <div class="text-center mt-1 mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
-        <div class="row g-3">
-            <div ng-if="!slideBarData.length" class="text-center">
-                <h3>Không có dữ liệu</h3>
+    <div class="mt-1 mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
+        <form id="sendNotificationForm">
+            <div class="mb-3">
+                <label for="subject" class="form-label">Tiêu đề:</label>
+                <input type="text" id="subject" name="subject" class="form-control" required>
             </div>
-            <div class="col-4" ng-repeat="slide in slideBarData track by $index">
-                <div class="slide-container card shadow position-relative" style="height: 250px">
-                    <img ng-src="/images/slide/{{slide.sliderImage}}" alt="{{slide.sliderImage}}"
-                         class="slide-image w-100">
-                    <div class="slide-controls rounded-3 position-absolute top-50 start-50 translate-middle bg-white p-2 opacity-hidden hover-opacity-visible">
-                        <button ng-click="slideBarEditModal(slide)" class="btn btn-primary">
-                            <i class="fa-solid fa-edit"></i>
-                        </button>
-                        <button ng-click="deleteSlideBar(slide.id)" class="btn btn-danger">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                        <!-- Nút Xem Full Ảnh -->
-                        <button ng-click="viewFullImage(slide.sliderImage, $index)" class="btn btn-info">
-                            <i class="fa-solid fa-expand"></i> Xem Full
-                        </button>
-                    </div>
-                    <div class="slide-index shadow position-absolute bg-white px-3 py-2 rounded-start-3 fw-bold"
-                         style="bottom: 10%; right: 0; transform: translateY(50%);">
-                        <div>
-                            <span>{{$index + 1}}</span>
-                        </div>
-                    </div>
-                </div>
+
+            <div class="mb-3">
+                <label for="contentEditor">Nội dung:</label><br>
+                <textarea id="contentEditor" name="contentEditor"></textarea>
             </div>
-            <div class="col-4">
-                <button ng-click="slideBarAddModal()" style="height: 100%;width: 100%;min-height: 250px"
-                        class="card shadow  justify-content-center align-items-center hover btn btn-dark">
-                    <i class="fa-solid fa-image fs-1"></i>
-                    <div class="text-center bg-white text-dark rounded-4 px-3 py-2">
-                        <span>Thêm ảnh mới</span>
-                    </div>
-                </button>
-            </div>
-        </div>
+
+            <button type="button" onclick="sendNotification()" class="btn btn-primary">Gửi email</button>
+        </form>
     </div>
 </div>
 <div id="fullscreenOverlay" class="fullscreen-overlay" style="display: none;">

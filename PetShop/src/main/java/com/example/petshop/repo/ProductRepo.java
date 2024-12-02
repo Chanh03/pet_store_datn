@@ -29,4 +29,9 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     List<Product> findAllByAndAvailableCreatedDateDesc();
 
     List<Product> findByProductCategoryID(ProductCategory productCategory);
+
+    @Query("SELECT p FROM Product p WHERE p.productName LIKE %:keyword% OR p.productDescription LIKE %:keyword%")
+    Page<Product> searchByKeyword(String keyword, Pageable pageable);
+
+    Page<Product> findByPriceBetween(Double minPrice, Double maxPrice, Pageable pageable);
 }
