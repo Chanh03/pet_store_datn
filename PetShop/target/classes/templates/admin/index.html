@@ -1497,68 +1497,59 @@
             const toDate = $filter('date')(to, 'yyyy-MM-dd');
             $http.get('/api/order/filter', {params: {from: fromDate, to: toDate}})
                 .then(function (response) {
-                    const ordersByDate = response.data;
-                    const dailyTotals = {};
-                    ordersByDate.forEach(order => {
-                        const orderDate = $filter('date')(order.orderDate, 'yyyy-MM-dd');
-                        if (!dailyTotals[orderDate]) {
-                            dailyTotals[orderDate] = 0;
-                        }
-                        dailyTotals[orderDate] += order.totalAmount;
-                    });
-                    const labels = Object.keys(dailyTotals)
-                    const data = Object.values(dailyTotals);
-                    if (!$scope.orderChart) {
-                        $scope.orderChart = new Chart(document.getElementById('orderChart-Line').getContext('2d'), {
-                            type: 'bar',
-                            data: {
-                                labels: labels,
-                                datasets: [{
-                                    label: 'Tổng tiền ngày',
-                                    data: data,
-                                    backgroundColor: colors,
-                                    borderColor: colors,
-                                }]
-                            },
-                            options: {
-                                plugins: {
-                                    title: {
-                                        display: true,
-                                        text: 'Biểu đồ doanh thu theo ngày trong khoảng từ ' + fromDate + ' đến ' + toDate,
-                                        font: {
-                                            size: 20
-                                        }
-                                    },
-                                    legend: {
-                                        display: false
-                                    },
-                                    datalabels: {
-                                        display: true,
-                                        color: '#000',
-                                        font: {
-                                            weight: 'bold',
-                                            size: 14
-                                        },
-                                        anchor: 'end',
-                                        align: 'top',
-                                        formatter: function (value) {
-                                            return value.toLocaleString();
-                                        }
-                                    }
-                                }
-                            },
-                            plugins: [ChartDataLabels]
-                        });
-                    } else {
-                        $scope.orderChart.data.labels = labels;
-                        $scope.orderChart.data.datasets[0].data = data;
-                        $scope.orderChart.update();
-                    }
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng theo ngày:', error);
+                });
+        };
+        $scope.getOrdersToday = function () {
+            $http.get('/api/order/filter', {params: {today: true}})
+                .then(function (response) {
+                    $scope.orderTodayData = response.data;
+                    $scope.totalOrderTodayPrice = $scope.orderTodayData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount;
+                        }, 0);
+                    $scope.totalOrderTodayPriceNoShip = $scope.orderTodayData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount - 50000;
+                        }, 0);
+                    $scope.totalOrderDaGiaoToday = $scope.orderTodayData.filter(order => order.orderStatusID.id === 4).length;
+                    $scope.totalOrderTodayDangXuLi = $scope.orderTodayData.filter(order => order.orderStatusID.id === 1).length;
+                    $scope.totalOrderTodayDangVanChuyen = $scope.orderTodayData.filter(order => order.orderStatusID.id === 3).length;
+                    $scope.totalOrderTodayDangDaGiao = $scope.orderTodayData.filter(order => order.orderStatusID.id === 4).length;
+
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng theo ngày:', error);
+                });
+        };
+        $scope.getOrdersWeek = function () {
+            $http.get('/api/order/filter', {params: {week: true}})
+                .then(function (response) {
+                    $scope.orderWeekData = response.data;
+                    $scope.totalOrderWeekPrice = $scope.orderWeekData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount;
+                        }, 0);
+                    $scope.totalOrderWeekPriceNoShip = $scope.orderWeekData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount - 50000;
+                        }, 0);
+                    $scope.totalOrderDaGiaoWeek = $scope.orderWeekData.filter(order => order.orderStatusID.id === 4).length;
+                    $scope.totalOrderWeekDangXuLi = $scope.orderWeekData.filter(order => order.orderStatusID.id === 1).length;
+                    $scope.totalOrderWeekDangVanChuyen = $scope.orderWeekData.filter(order => order.orderStatusID.id === 3).length;
+                    $scope.totalOrderWeekDangDaGiao = $scope.orderWeekData.filter(order => order.orderStatusID.id === 4).length;
+
                 }, function (error) {
                     console.error('Lỗi khi lấy dữ liệu đơn hàng theo ngày:', error);
                 });
         };
         $scope.getOrdersByDate($scope.getCurrentDate(true), $scope.getCurrentDate());
+        $scope.getOrdersToday();
+        $scope.getOrdersWeek();
         /*ORDER STATUS*/
         $scope.getOrderStatus = function () {
             $http.get(baseUrl + 'orderStatus').then(function (response) {
@@ -2071,7 +2062,6 @@
                 }
             });
         };
-
         $scope.deleteVoucher = function (voucherId) {
             Swal.fire({
                 title: 'Bạn có chắc chắn muôn xóa?',

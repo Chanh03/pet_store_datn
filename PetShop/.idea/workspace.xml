@@ -9,16 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="imagecc">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/OrderRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/OrderRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestOrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_productDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_productDetail.html" afterDir="false" />
-    </list>
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="replace table dashboard/ update order" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -254,15 +245,7 @@
       <workItem from="1732849567327" duration="6233000" />
       <workItem from="1732884864475" duration="4807000" />
       <workItem from="1733044106376" duration="23000" />
-      <workItem from="1733050256260" duration="8188000" />
-    </task>
-    <task id="LOCAL-00054" summary="update index">
-      <option name="closed" value="true" />
-      <created>1731815889031</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1731815889032</updated>
+      <workItem from="1733050256260" duration="8318000" />
     </task>
     <task id="LOCAL-00055" summary="add fade-in on scroll">
       <option name="closed" value="true" />
@@ -648,7 +631,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732896061914</updated>
     </task>
-    <option name="localTasksCounter" value="103" />
+    <task id="LOCAL-00103" summary="replace table dashboard/ update order">
+      <option name="closed" value="true" />
+      <created>1733058636957</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1733058636957</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -694,7 +685,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add filter date order chart" />
     <MESSAGE value="update order chart" />
     <MESSAGE value="add slide 99%" />
     <MESSAGE value="update slide" />
@@ -719,7 +709,8 @@
     <MESSAGE value="fix search" />
     <MESSAGE value="delete img" />
     <MESSAGE value="imagecc" />
-    <option name="LAST_COMMIT_MESSAGE" value="imagecc" />
+    <MESSAGE value="replace table dashboard/ update order" />
+    <option name="LAST_COMMIT_MESSAGE" value="replace table dashboard/ update order" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
