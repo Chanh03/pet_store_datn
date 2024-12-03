@@ -1,12 +1,19 @@
 package com.example.petshop.controller;
 
+import com.example.petshop.entity.Subscription;
+import com.example.petshop.service.SubscriptionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/quan-tri-he-thong")
 public class AdminController {
+    @Autowired
+    private SubscriptionService subscriptionService;
 
     @RequestMapping()
     public String admin(Model model) {
@@ -56,6 +63,9 @@ public class AdminController {
 
     @RequestMapping("/send-notification")
     public String adminSendNotification(Model model) {
+        List<Subscription> subscriptions = subscriptionService.getAllSubscriptions();
+        model.addAttribute("subscriptions", subscriptions);
+        model.addAttribute("totalSubscriptions", subscriptions.size()); // Thêm tổng số người đăng ký
         return "admin/_send_notification";
     }
 }

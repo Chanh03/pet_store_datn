@@ -956,12 +956,63 @@
 
 <script>
     function subscribe() {
+        // Lấy giá trị từ các trường input
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phoneNumber = document.getElementById('phoneNumber').value.trim();
+
+        // Kiểm tra nếu trường nào để trống
+        if (!name || !email || !phoneNumber) {
+            Swal.fire({
+                title: 'Thông Báo',
+                text: 'Tất cả các trường đều bắt buộc!',
+                icon: 'warning'
+            });
+            return;
+        }
+
+        // Validate email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            Swal.fire({
+                title: 'Thông Báo',
+                text: 'Định dạng Email không hợp lệ!',
+                icon: 'warning'
+            });
+            return;
+        }
+
+        // Validate số điện thoại
+        const phoneRegex = /^0\d{9}$/;
+        if (!phoneRegex.test(phoneNumber)) {
+            Swal.fire({
+                title: 'Thông Báo',
+                text: 'Số điện thoại phải bắt đầu bằng số 0 và có đúng 10 chữ số!',
+                icon: 'warning'
+            });
+            return;
+        }
+
+        // Hiển thị thông báo "Đang xử lý..."
+        Swal.fire({
+            title: 'Đang xử lý...',
+            text: 'Vui lòng chờ...',
+            icon: 'info',
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        // Tạo dữ liệu gửi đi
         const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            phoneNumber: document.getElementById('phoneNumber').value,
+            name: name,
+            email: email,
+            phoneNumber: phoneNumber
         };
 
+        // Gửi yêu cầu đến server
         fetch('http://localhost:8080/api/subscriptions/subscribe', {
             method: 'POST',
             headers: {
@@ -976,6 +1027,7 @@
                         text: 'Bạn đã đăng ký thành công!! Vui lòng kiểm tra Email',
                         icon: 'success'
                     }).then(() => {
+                        // Reset form sau khi thành công
                         document.getElementById('subscribeForm').reset();
                     });
                 } else {

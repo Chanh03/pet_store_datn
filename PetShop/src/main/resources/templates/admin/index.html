@@ -1790,19 +1790,65 @@
 
 <script>
     function sendNotification() {
-        const subject = document.getElementById('subject').value;
-        const content = document.getElementById('content').value;
+        // Lấy giá trị của subject
+        const subjectElement = document.getElementById('subject');
+        if (!subjectElement) {
+            Swal.fire({
+                title: 'Lỗi',
+                text: 'Không tìm thấy phần tử tiêu đề!',
+                icon: 'error'
+            });
+            return;
+        }
 
-        fetch('http://localhost:8080/api/subscriptions/send?subject=' + encodeURIComponent(subject) + '&content=' + encodeURIComponent(content), {
+        const subject = subjectElement.value.trim();
+
+        // Lấy nội dung từ TinyMCE
+        const contentEditor = tinymce.get('contentEditor');
+        if (!contentEditor) {
+            Swal.fire({
+                title: 'Lỗi',
+                text: 'Không tìm thấy editor nội dung!',
+                icon: 'error'
+            });
+            return;
+        }
+
+        const content = contentEditor.getContent().trim();
+
+        // Kiểm tra giá trị
+        if (!subject || !content) {
+            Swal.fire({
+                title: 'Thông Báo',
+                text: 'Tiêu đề và nội dung không được để trống!',
+                icon: 'warning'
+            });
+            return;
+        }
+        Swal.fire({
+            title: 'Đang xử lý...',
+            text: 'Vui lòng chờ...',
+            icon: 'info',
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+        fetch('http://localhost:8080/api/subscriptions/send?subject='
+            + encodeURIComponent(subject)
+            + '&content='
+            + encodeURIComponent(content), {
             method: 'POST'
         })
             .then(response => {
                 if (response.ok) {
                     Swal.fire({
-                        title: 'Đăng Ký Thành Công',
-                        text: "Đã gửi Email thành công đến cho tất cả người đăng ký",
+                        title: 'Thành Công',
+                        text: 'Đã gửi Email thành công đến tất cả người đăng ký',
                         icon: 'success'
                     });
+                    Swal.close();
                 } else {
                     Swal.fire({
                         title: 'Thông Báo Lỗi',
@@ -1814,7 +1860,7 @@
             .catch(error => {
                 Swal.fire({
                     title: 'Error',
-                    text: 'Lỗi hệ thống',
+                    text: 'Lỗi hệ thống. Không thể gửi thông báo.',
                     icon: 'error'
                 });
                 console.error('Error:', error);
