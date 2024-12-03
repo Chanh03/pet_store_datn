@@ -50,27 +50,17 @@ public class ProductController {
         // Xác định thứ tự sắp xếp
         Sort.Direction sortDirection = (sort != null && sort.equals("asc")) ? Sort.Direction.ASC : Sort.Direction.DESC;
 
-        // Xử lý logic tìm kiếm
-        if (minPrice != null && maxPrice != null) {
-            // Tìm kiếm sản phẩm theo khoảng giá
-            productPage = productService.searchProductWithPrice(sort, minPrice, maxPrice,
-                    PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
-        } else if (search != null && !search.isEmpty() && categoryId != null) {
-            // Tìm kiếm theo từ khóa và danh mục
-            productPage = productService.searchProductWithCategory(search, categoryId,
-                    PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
+        // Lọc sản phẩm theo nhiều tiêu chí
+        if (search != null && !search.isEmpty() && minPrice != null && maxPrice != null) {
+            productPage = productService.searchProductByPriceAndKeyword(search, minPrice, maxPrice, PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
         } else if (search != null && !search.isEmpty()) {
-            // Tìm kiếm theo từ khóa
-            productPage = productService.searchProduct(search,
-                    PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
+            productPage = productService.searchProduct(search, PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
+        } else if (minPrice != null && maxPrice != null) {
+            productPage = productService.searchProductByPriceRange(minPrice, maxPrice, PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
         } else if (categoryId != null) {
-            // Lọc theo danh mục
-            productPage = productService.getProductsByCategoryId(categoryId,
-                    PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
+            productPage = productService.getProductsByCategoryId(categoryId, PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
         } else {
-            // Lấy tất cả sản phẩm nếu không có điều kiện lọc
-            productPage = productService
-                    .getPaginatedProduct(PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
+            productPage = productService.getPaginatedProduct(PageRequest.of(page, pageSize, Sort.by(sortDirection, "price")));
         }
 
         // Lấy danh sách danh mục

@@ -6,32 +6,32 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public interface ProductRepo extends JpaRepository<Product, Integer> {
-    Page<Product> findByProductNameContainingIgnoreCase(String keyword, Pageable pageable);
 
-    List<Product> findByProductCategoryID_IdAndIdNot(Integer id, int id1);
+     List<Product> findByProductCategoryID_IdAndIdNot(Integer id, int id1);
 
-    @Query("SELECT p FROM Product p ORDER BY p.createDate DESC limit 6")
-    List<Product> findAllByCreatedDateDesc();
+     Page<Product> findByProductCategoryID_Id(Integer categoryId, Pageable pageable);
 
-    Page<Product> findByProductCategoryID_Id(Integer categoryId, Pageable pageable);
+     @Query("SELECT p FROM Product p WHERE p.available = true ORDER BY p.createDate DESC limit 8")
+     List<Product> findAllByAndAvailableCreatedDateDesc();
 
-    Page<Product> findByProductDescriptionAndProductCategoryID_Id(String keyword, Integer categoryId, Pageable pageable);
+     List<Product> findByProductCategoryID(ProductCategory productCategory);
 
-    Page<Product> findByProductCategoryID_IdAndProductNameContainingIgnoreCase(Integer categoryId, String keyword, Pageable pageable);
+     @Query("SELECT p FROM Product p WHERE p.productName LIKE %:keyword% OR p.productDescription LIKE %:keyword%")
+     Page<Product> searchByKeyword(String keyword, Pageable pageable);
 
-    @Query("SELECT p FROM Product p WHERE p.available = true ORDER BY p.createDate DESC limit 8")
-    List<Product> findAllByAndAvailableCreatedDateDesc();
+     @Query("SELECT p FROM Product p WHERE p.price BETWEEN :minPrice AND :maxPrice")
+     Page<Product> searchByPriceRange(@Param("minPrice") Double minPrice, @Param("maxPrice") Double maxPrice, Pageable pageable);
 
-    List<Product> findByProductCategoryID(ProductCategory productCategory);
-
-    @Query("SELECT p FROM Product p WHERE p.productName LIKE %:keyword% OR p.productDescription LIKE %:keyword%")
-    Page<Product> searchByKeyword(String keyword, Pageable pageable);
-
-    Page<Product> findByPriceBetween(Double minPrice, Double maxPrice, Pageable pageable);
+     @Query("SELECT p FROM Product p WHERE (p.productName LIKE %:keyword% OR p.productDescription LIKE %:keyword%) AND p.price BETWEEN :minPrice AND :maxPrice")
+     Page<Product> searchByPriceAndKeyword(@Param("keyword") String keyword,
+                                           @Param("minPrice") Double minPrice,
+                                           @Param("maxPrice") Double maxPrice,
+                                           Pageable pageable);
 }

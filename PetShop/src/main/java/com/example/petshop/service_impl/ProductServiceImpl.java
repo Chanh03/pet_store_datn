@@ -53,19 +53,10 @@ public class ProductServiceImpl implements ProductService {
         return productRepo.findByProductCategoryID_IdAndIdNot(id, id1);
     }
 
-    @Override
-    public List<Product> getAllByCreatedDate() {
-        return productRepo.findAllByCreatedDateDesc();
-    }
 
     @Override
     public Page<Product> getProductsByCategoryId(Integer categoryId, Pageable pageable) {
         return productRepo.findByProductCategoryID_Id(categoryId, pageable);
-    }
-
-    @Override
-    public Page<Product> searchProductWithCategory(String keyword, Integer categoryId, Pageable pageable) {
-        return productRepo.findByProductCategoryID_IdAndProductNameContainingIgnoreCase(categoryId, keyword, pageable);
     }
 
     @Override
@@ -88,7 +79,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> searchProductWithPrice(String search, Double minPrice, Double maxPrice, Pageable pageable) {
-        return productRepo.findByPriceBetween(minPrice, maxPrice, pageable);
+    public Page<Product> searchProductByPriceRange(Double minPrice, Double maxPrice, Pageable pageable) {
+        return productRepo.searchByPriceRange(minPrice, maxPrice, pageable);
     }
+
+    @Override
+    public Page<Product> searchProductByPriceAndKeyword(String keyword, Double minPrice, Double maxPrice, Pageable pageable) {
+        return productRepo.searchByPriceAndKeyword(keyword, minPrice, maxPrice, pageable);
+    }
+
 }

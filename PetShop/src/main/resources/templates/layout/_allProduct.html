@@ -37,59 +37,57 @@
             <!-- Search and Sort -->
             <div class="row mb-3">
                 <div class="col-6">
-                    <!-- Sort Form -->
+                    <!-- Sort and Filter Form -->
                     <form th:action="@{/allProduct}" method="get" class="d-flex mb-3">
-                        <!-- Nút tìm giá tăng dần -->
-                        <button type="submit" name="sort" value="asc"
-                                class="btn btn-danger ms-2"
+                        <!-- Hidden Fields to Preserve Existing Parameters -->
+                        <input type="hidden" name="search" th:value="${param.search}" />
+                        <input type="hidden" name="categoryId" th:value="${param.categoryId}" />
+
+                        <!-- Sort Ascending Button -->
+                        <button type="submit" name="sort" value="asc" class="btn btn-danger ms-2"
                                 style="border-radius: 5px; padding: 8px 10px; display: flex; align-items: center; justify-content: center;">
-                            <span th:if="${sort == 'asc'}">Giá ↑</span>
-                            <!-- Mũi tên lên nếu sort = 'asc' -->
-                            <span th:if="${sort != 'asc'}">Giá ↑</span>
-                            <!-- Mũi tên lên mặc định nếu chưa chọn -->
+                            Giá ↑
                         </button>
 
-                        <!-- Nút tìm giá giảm dần -->
-                        <input type="hidden" name="search" th:value="${param.search}"/>
-                        <button type="submit" name="sort" value="desc"
-                                class="btn btn-danger ms-2"
+                        <!-- Sort Descending Button -->
+                        <button type="submit" name="sort" value="desc" class="btn btn-danger ms-2"
                                 style="border-radius: 5px; padding: 8px 10px; display: flex; align-items: center; justify-content: center;">
-                            <span th:if="${sort == 'desc'}">Giá ↓</span>
-                            <!-- Mũi tên xuống nếu sort = 'desc' -->
-                            <span th:if="${sort != 'desc'}">Giá ↓</span>
-                            <!-- Mũi tên xuống mặc định nếu chưa chọn -->
+                            Giá ↓
                         </button>
 
-                        <!-- Tìm kiếm theo giá -->
-                        <input type="number" class="form-control ms-2" name="minPrice"
-                               placeholder="Giá từ" th:value="${minPrice}" min="0"
-                               max="99999999"
-                               style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
-                        <input type="number" class="form-control ms-2" name="maxPrice"
-                               placeholder="Giá đến" th:value="${maxPrice}" min="0"
-                               max="99999999"
-                               style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
+                        <!-- Filter by Price -->
+                        <div class="ms-2" style="display: flex; align-items: center;">
+                            <label for="minPrice" style="margin-right: 5px;">Giá từ:</label>
+                            <input type="number" id="minPrice" class="form-control" name="minPrice"
+                                   placeholder="0" th:value="${minPrice}" min="0"
+                                   style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
+                        </div>
+                        <div class="ms-2" style="display: flex; align-items: center;">
+                            <label for="maxPrice" style="margin-right: 5px;">Giá đến:</label>
+                            <input type="number" id="maxPrice" class="form-control" name="maxPrice"
+                                   placeholder="99999999" th:value="${maxPrice}" min="0"
+                                   style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
+                        </div>
 
-                        <!-- Nút tìm kiếm -->
-                        <button type="submit" class="btn btn-danger ms-2"
-                                style="border-radius: 5px;">Tìm kiếm
+                        <!-- Search Button -->
+                        <button type="submit" class="btn btn-danger ms-2" style="border-radius: 5px;">
+                            Tìm kiếm
                         </button>
                     </form>
                 </div>
 
-                <div class="col-6">
-                    <form th:action="@{/allProduct}" method="get" class="d-flex mb-4">
-                        <input class="form-control" type="search"
-                               placeholder="Tìm kiếm sản phẩm" aria-label="Search"
-                               name="search" th:value="${search}"
-                               style="border: 2px solid #dc3545; border-radius: 5px; padding-left: 12px; font-size: 25px; height: 45px; width: 300px;">
-                        <button class="btn btn-danger" type="submit"
-                                style="border-radius: 5px; padding: 12px 30px; font-size: 18px; height: 45px;">
-                            Tìm
-                        </button>
-                    </form>
+                <form th:action="@{/allProduct}" method="get" class="d-flex">
+                    <!-- Giữ lại tham số tìm kiếm trước đó -->
+                    <input type="hidden" name="minPrice" th:value="${param.minPrice}" />
+                    <input type="hidden" name="maxPrice" th:value="${param.maxPrice}" />
+                    <input type="hidden" name="sort" th:value="${param.sort}" />
+                    <input type="hidden" name="categoryId" th:value="${param.categoryId}" />
 
-                </div>
+                    <!-- Tìm kiếm theo tên sản phẩm -->
+                    <input class="form-control" type="search" name="search" placeholder="Tìm kiếm sản phẩm"
+                           th:value="${param.search}" style="border-radius: 5px; border: 2px solid #dc3545;">
+                    <button class="btn btn-danger" type="submit" style="margin-left: 10px;">Tìm</button>
+                </form>
             </div>
             <div class="row">
                 <!-- Kiểm tra nếu không có sản phẩm -->
