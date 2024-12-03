@@ -43,17 +43,17 @@
         <input type="hidden" name="maxPrice" th:value="${maxPrice}">
 
         <button type="submit" name="sort" value="asc"
-                class="btn btn-danger ms-2"
+                class="btn btn-danger button-image-white ms-2"
                 style="border-radius: 5px; padding: 8px 10px; display: flex; align-items: center; justify-content: center;">
-            <span th:if="${param.sort == 'asc'}">Giá ↑</span>
-            <span th:if="${param.sort != 'asc'}">Giá ↑</span>
+            <span th:if="${param.sort == 'asc'}"> Giá <i class="fa-regular fa-circle-up"></i></span>
+            <span th:if="${param.sort != 'asc'}"> Giá <i class="fa-regular fa-circle-up"></i></span>
         </button>
 
         <button type="submit" name="sort" value="desc"
-                class="btn btn-danger ms-2"
+                class="btn btn-danger button-image-white ms-2"
                 style="border-radius: 5px; padding: 8px 10px; display: flex; align-items: center; justify-content: center;">
-            <span th:if="${param.sort == 'desc'}">Giá ↓</span>
-            <span th:if="${param.sort != 'desc'}">Giá ↓</span>
+            <span th:if="${param.sort == 'desc'}"> Giá <i class="fa-regular fa-circle-down"></i></span>
+            <span th:if="${param.sort != 'desc'}"> Giá <i class="fa-regular fa-circle-down"></i></span>
         </button>
     </form>
 
@@ -68,7 +68,7 @@
         <input type="number" class="form-control ms-2" name="maxPrice" placeholder="Giá đến"
                th:value="${maxPrice}" min="0"
                style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
-        <button type="submit" class="btn btn-danger ms-2"
+        <button type="submit" class="btn btn-danger button-image-white ms-2"
                 style="border-radius: 5px;">Tìm kiếm</button>
     </form>
 </div>
@@ -95,11 +95,11 @@
 										class="card-img-top card-image" alt="product">
 									</a>
 								</div>
-								<div class="badge position-absolute"
+								<!-- <div class="badge position-absolute"
 									style="top: 0; right: 0; z-index: 1000;">
 									<img src="/images/logo/hot-badge.png" alt="hot-badge"
 										style="width: 50px;">
-								</div>
+								</div> -->
 								<a th:attr="ng-click=${'cart.add(' + product.id + ')'}"
 									class="btn background-color button-image-white add-to-cart w-100 py-3 rounded-0 position-absolute"
 									style="bottom: 0; left: 0; z-index: 1001;">

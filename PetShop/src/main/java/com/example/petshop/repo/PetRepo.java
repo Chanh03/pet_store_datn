@@ -27,5 +27,8 @@ public interface PetRepo extends JpaRepository<Pet, String> {
                                        @Param("maxPrice") Integer maxPrice,
                                        Pageable pageable);
 
+    @Query("SELECT p FROM Pet p WHERE p.petCategoryID.id = :categoryId")
+    Page<Pet> findByPetCategory(@Param("categoryId") String categoryId, Pageable pageable);
+
 
 }

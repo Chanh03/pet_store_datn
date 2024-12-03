@@ -1,7 +1,12 @@
 package com.example.petshop.controller;
 
 import com.example.petshop.entity.Pet;
+import com.example.petshop.entity.PetCategory;
+import com.example.petshop.entity.ProductCategory;
+import com.example.petshop.service.PetCategoryService;
 import com.example.petshop.service.PetService;
+import com.example.petshop.service.ProductCategoryService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +27,8 @@ public class PetController {
 
     @Autowired
     private PetService petService;
+    @Autowired
+    private PetCategoryService productCategoryService;
 
     @RequestMapping("/allPet")
     public String viewPaginatedPets(Model model, 
@@ -29,6 +36,7 @@ public class PetController {
                                     @RequestParam(required = false) String keyword, 
                                     @RequestParam(defaultValue = "desc") String priceOrder,
                                     @RequestParam(required = false) Integer minPrice, 
+                                    @RequestParam(required = false) Integer categoryId,
                                     @RequestParam(required = false) Integer maxPrice) {
 
         int pageSize = 24;
@@ -56,6 +64,8 @@ public class PetController {
         else {
             petPage = petService.getPaginatedPets(PageRequest.of(page, pageSize, sort));
         }
+        List<PetCategory> categoriespet = productCategoryService.getAll();
+
 
         // Đưa dữ liệu vào model để hiển thị trên giao diện
         model.addAttribute("pets", petPage.getContent());

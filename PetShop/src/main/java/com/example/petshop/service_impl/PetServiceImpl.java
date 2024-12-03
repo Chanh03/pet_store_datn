@@ -70,4 +70,8 @@ public class PetServiceImpl implements PetService {
     public Page<Pet> searchPetByPriceAndKeyword(String keyword, Integer minPrice, Integer maxPrice, Pageable pageable) {
         return petRepo.searchByPriceAndKeyword(keyword, minPrice, maxPrice, pageable);
     }
+    @Override
+    public Page<Pet> findByPetCategory(String categoryId, Pageable pageable) {
+        return petRepo.findByPetCategory(categoryId, pageable);
+    }
 }
