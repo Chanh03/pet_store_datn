@@ -60,8 +60,14 @@ public class PetServiceImpl implements PetService {
     public List<Pet> getAllPetByCategoryId(PetCategory id) {
         return petRepo.findAllByPetCategoryID(id);
     }
+
     @Override
     public Page<Pet> searchPetsByPriceRange(Integer minPrice, Integer maxPrice, Pageable pageable) {
         return petRepo.findByPriceBetween(minPrice, maxPrice, pageable);
+    }
+
+    @Override
+    public Page<Pet> searchPetByPriceAndKeyword(String keyword, Integer minPrice, Integer maxPrice, Pageable pageable) {
+        return petRepo.searchByPriceAndKeyword(keyword, minPrice, maxPrice, pageable);
     }
 }

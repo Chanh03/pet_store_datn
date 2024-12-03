@@ -147,7 +147,7 @@
         <div class="swiper-wrapper">
             <!--ITEMS-->
             <div th:each="pc : ${productCategories}" class="swiper-slide">
-                <a href="/filter" class="nav-link">
+                <a th:href="@{/allProduct(categoryId=${pc.id}, page=0)}" class="nav-link">
                     <div class="card card-hover border-0 d-flex justify-content-center align-items-center">
                         <div class="overflow-hidden button-image"
                              style="background-color: #f7f7f5; border-radius: 50%; width: 100%; height: 100%;">
@@ -409,26 +409,22 @@
                  style="object-fit: fill;">
         </div>
     </div>
-
     <div class="col-lg-6" style="background-color: #cc382e;">
         <div class="border-0 p-5">
-            <form action="/subscribe" method="post">
+            <form id="subscribeForm">
                 <div class="mb-3">
-                    <label for="email" class="form-label text-white">Email</label> <input
-                        type="email" name="email" class="form-control" id="email"
-                        required>
+                    <label for="email" class="form-label text-white">Email</label>
+                    <input type="email" name="email" class="form-control" id="email" required>
                 </div>
                 <div class="mb-3">
                     <label for="name" class="form-label text-white">Họ và Tên</label>
-                    <input type="text" name="name" class="form-control" id="name"
-                           required>
+                    <input type="text" name="name" class="form-control" id="name" required>
                 </div>
                 <div class="mb-3">
-                    <label for="phoneNumber" class="form-label text-white">Số
-                        Điện Thoại</label> <input type="text" name="phoneNumber"
-                                                  class="form-control" id="phoneNumber">
+                    <label for="phoneNumber" class="form-label text-white">Số Điện Thoại</label>
+                    <input type="text" name="phoneNumber" class="form-control" id="phoneNumber">
                 </div>
-                <button type="submit" class="btn btn-danger ">Đăng ký</button>
+                <button type="button" onclick="subscribe()" class="btn btn-primary">Đăng ký</button>
             </form>
         </div>
     </div>

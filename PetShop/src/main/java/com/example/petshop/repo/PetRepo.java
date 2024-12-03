@@ -19,8 +19,13 @@ public interface PetRepo extends JpaRepository<Pet, String> {
     Page<Pet> findByPetDescriptionContainingIgnoreCase(String keyword, Pageable pageable);
 
     List<Pet> findAllByPetCategoryID(PetCategory petCategoryID);
-    Page<Pet> findByPriceBetween(Integer minPrice, Integer maxPrice, Pageable pageable);
-@Query("SELECT p FROM Pet p WHERE p.price >= :minPrice AND p.price <= :maxPrice ORDER BY p.price ASC")
 
-List<Pet> findAllByPriceRangeOrderByPriceAsc(@Param("minPrice") Double minPrice, @Param("maxPrice") Double maxPrice);
+    Page<Pet> findByPriceBetween(Integer minPrice, Integer maxPrice, Pageable pageable);
+    @Query("SELECT p FROM Pet p WHERE (p.petID LIKE %:keyword% OR p.petDescription LIKE %:keyword%) AND p.price BETWEEN :minPrice AND :maxPrice")
+    Page<Pet> searchByPriceAndKeyword(@Param("keyword") String keyword,
+                                       @Param("minPrice") Integer minPrice,
+                                       @Param("maxPrice") Integer maxPrice,
+                                       Pageable pageable);
+
+
 }

@@ -315,7 +315,6 @@
         .voucher-container:hover .voucher-control {
             opacity: 1;
         }
-
     </style>
 </head>
 
@@ -508,9 +507,17 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
+<!--Sử dụng TinyMCE với API Key-->
+<script src="https://cdn.tiny.cloud/1/r1izu32r7glzqkso0y7d7vxp3pbkn4hbb8l2jun5qt54b8rs/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
 
 
 <script type="text/javascript">
+    // Sử dụng TinyMCE với API Key
+    tinymce.init({
+        selector: '#contentEditor',
+        height: 500  <!-- Thiết lập chiều cao cho TinyMCE -->
+    });
     // Lấy ngày giờ hiện tại
     var colors = ['#AEC6CF', '#FFB7B2', '#C3B1E1', '#FFDAC1', '#FFB6C1', '#B5EAD7', '#FFDFBA', '#FDFD96', '#B3E5FC', '#FADADD', '#FFABAB', '#FFC8A2', '#FFB4A2', '#B2EBF2', '#FFCCBC', '#FFECB3'];
     /* Bôi màu cho menu hiện tại thoôi nhìn gì?*/
@@ -2204,6 +2211,85 @@
             });
         };
     });
+</script>
+<script>
+    function sendNotification() {
+        // Lấy giá trị của subject
+        const subjectElement = document.getElementById('subject');
+        if (!subjectElement) {
+            Swal.fire({
+                title: 'Lỗi',
+                text: 'Không tìm thấy phần tử tiêu đề!',
+                icon: 'error'
+            });
+            return;
+        }
+
+        const subject = subjectElement.value.trim();
+
+        // Lấy nội dung từ TinyMCE
+        const contentEditor = tinymce.get('contentEditor');
+        if (!contentEditor) {
+            Swal.fire({
+                title: 'Lỗi',
+                text: 'Không tìm thấy editor nội dung!',
+                icon: 'error'
+            });
+            return;
+        }
+
+        const content = contentEditor.getContent().trim();
+
+        // Kiểm tra giá trị
+        if (!subject || !content) {
+            Swal.fire({
+                title: 'Thông Báo',
+                text: 'Tiêu đề và nội dung không được để trống!',
+                icon: 'warning'
+            });
+            return;
+        }
+        Swal.fire({
+            title: 'Đang xử lý...',
+            text: 'Vui lòng chờ...',
+            icon: 'info',
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+        fetch('http://localhost:8080/api/subscriptions/send?subject='
+            + encodeURIComponent(subject)
+            + '&content='
+            + encodeURIComponent(content), {
+            method: 'POST'
+        })
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire({
+                        title: 'Thành Công',
+                        text: 'Đã gửi Email thành công đến tất cả người đăng ký',
+                        icon: 'success'
+                    });
+                    Swal.close();
+                } else {
+                    Swal.fire({
+                        title: 'Thông Báo Lỗi',
+                        text: 'Gửi thông báo thất bại!',
+                        icon: 'error'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Lỗi hệ thống. Không thể gửi thông báo.',
+                    icon: 'error'
+                });
+                console.error('Error:', error);
+            });
+    }
 </script>
 </body>
 </html>

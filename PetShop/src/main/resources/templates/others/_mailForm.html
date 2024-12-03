@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Định dạng cho email */
+        body {
+            font-family: "Segoe UI", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #AC1A08; /* Màu nền chính */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            color: #000000; /* Màu chữ chính */
+        }
+
+        .email-header {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .email-header img {
+            width: 120px;
+            height: auto;
+        }
+
+        .email-body {
+            text-align: center;
+            background-color: #FFBB35; /* Màu nền cho nội dung */
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .email-body h2 {
+            color: #A73E14; /* Màu cho tiêu đề */
+        }
+
+        .email-body p {
+            color: #000000; /* Màu cho các đoạn văn */
+        }
+
+        .subscription-details {
+            font-size: 18px;
+            margin: 20px 0;
+            color: #000000; /* Màu cho chi tiết đăng ký */
+        }
+
+        .email-footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #F88601; /* Màu cho footer */
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <!-- Header có logo -->
+    <div class="email-header">
+        <img src="cid:/images/logo/logo-2.png" alt="Logo">
+    </div>
+
+    <!-- Nội dung email -->
+    <div class="email-body">
+        <h2>Cảm ơn bạn đã đăng ký nhận tin!</h2>
+        <p>Chúng tôi đã nhận được thông tin đăng ký của bạn:</p>
+        <div class="subscription-details">
+            <p><strong>Tên:</strong> <span th:text="${name}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${email}"></span></p>
+            <p><strong>Số điện thoại:</strong> <span th:text="${phone_number}"></span></p>
+        </div>
+        <p>Cảm ơn bạn đã quan tâm đến cửa hàng thú cưng của chúng tôi.</p>
+        <p>Chúng tôi sẽ gửi thông tin mới nhất và các chương trình khuyến mãi đến bạn!</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="email-footer">
+        <p>Nếu bạn không đăng ký, hãy bỏ qua email này.</p>
+        <p>© 2024 Cửa hàng Thú cưng. Bảo mật tuyệt đối.</p>
+        <p>Website: ninjaspetshop.com</p>
+    </div>
+</div>
+</body>
+</html>

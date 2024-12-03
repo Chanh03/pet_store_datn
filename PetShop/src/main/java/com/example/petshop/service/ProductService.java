@@ -11,30 +11,29 @@ import java.util.List;
 
 @Service
 public interface ProductService {
-    List<Product> getAll();
+     List<Product> getAll();
 
-    Product getById(int id);
+     Product getById(int id);
 
-    Product save(Product product);
+     Product save(Product product);
 
-    void deleteById(int id);
+     void deleteById(int id);
 
-    Page<Product> searchProduct(String search, PageRequest of);
+     Page<Product> searchProduct(String search, PageRequest of);
 
-    Page<Product> getPaginatedProduct(PageRequest of);
+     Page<Product> getPaginatedProduct(PageRequest of);
 
-    List<Product> getProductsByCategory(Integer id, int id1);
-    public List<Product> getProductsByDifferentCategory(int currentCategoryId, int currentProductId);
+     List<Product> getProductsByCategory(Integer id, int id1);
 
-    List<Product> getAllByCreatedDate();
+     public List<Product> getProductsByDifferentCategory(int currentCategoryId, int currentProductId);
 
-    Page<Product> getProductsByCategoryId(Integer categoryId, Pageable pageable);
+     Page<Product> getProductsByCategoryId(Integer categoryId, Pageable pageable);
 
-    Page<Product> searchProductWithCategory(String keyword, Integer categoryId, Pageable pageable);
+     List<Product> getAllByCreatedDateAndEnable();
 
-    List<Product> getAllByCreatedDateAndEnable();
+     List<Product> getAllProductByCategoryId(ProductCategory productCategory);
 
-    List<Product> getAllProductByCategoryId(ProductCategory productCategory);
-    // Thêm phương thức tìm kiếm theo khoảng giá
-    Page<Product> searchProductWithPrice(String search, Double minPrice, Double maxPrice, Pageable pageable);
+     Page<Product> searchProductByPriceRange(Double minPrice, Double maxPrice, Pageable pageable);
+
+     Page<Product> searchProductByPriceAndKeyword(String keyword, Double minPrice, Double maxPrice, Pageable pageable);
 }
