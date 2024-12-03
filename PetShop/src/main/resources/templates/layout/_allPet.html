@@ -115,24 +115,41 @@
     </div>
 
     <!-- Phân trang -->
-    <nav class="d-flex justify-content-center mt-4">
-        <ul class="pagination">
-            <li th:classappend="${currentPage == 1} ? 'disabled'"
-                class="page-item"><a class="page-link"
-                                     th:href="@{/allPet(page=${currentPage - 1}, keyword=${keyword}, priceOrder=${sort})}">&laquo;</a>
-            </li>
-            <li th:each="i : ${#numbers.sequence(1, totalPages)}"
-                th:classappend="${i == currentPage} ? 'active'" class="page-item">
-                <a class="page-link"
-                   th:href="@{/allPet(page=${i}, keyword=${keyword}, priceOrder=${sort})}"
-                   th:text="${i}">1</a>
-            </li>
-            <li th:classappend="${currentPage == totalPages} ? 'disabled'"
-                class="page-item"><a class="page-link"
-                                     th:href="@{/allPet(page=${currentPage + 1}, keyword=${keyword}, priceOrder=${sort})}">&raquo;</a>
-            </li>
-        </ul>
-    </nav>
+    <div class="row py-3" th:if="${pets.size() > 8}">
+        <div class="col">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <!-- Trang trước -->
+                    <li class="page-item"
+                        th:classappend="${currentPage == 1} ? 'disabled' : ''">
+                        <a class="page-link text-white bg-danger"
+                           th:href="@{/allPet(page=${currentPage - 1}, keyword=${keyword}, priceOrder=${sort})}"
+                           aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    <!-- Các trang giữa -->
+                    <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                        th:classappend="${i == currentPage - 1} ? 'active' : ''"
+                        class="page-item">
+                        <a class="page-link"
+                           th:href="@{/allPet(page=${i}, keyword=${keyword}, priceOrder=${sort})}"
+                           th:text="${i + 1}"></a>
+                    </li>
+
+                    <!-- Trang sau -->
+                    <li class="page-item"
+                        th:classappend="${currentPage == totalPages} ? 'disabled' : ''">
+                        <a class="page-link text-white bg-danger"
+                           th:href="@{/allPet(page=${currentPage + 1}, keyword=${keyword}, priceOrder=${sort})}"
+                           aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- End Phân trang -->
 </div>
 
 <!-- Scripts -->

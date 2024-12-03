@@ -53,7 +53,7 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Page<Pet> searchPets(String keyword, Pageable pageable) {
-        return petRepo.findByPetDescriptionContainingIgnoreCase(keyword, pageable);
+        return petRepo.searchByKeyword(keyword, pageable);
     }
 
     @Override

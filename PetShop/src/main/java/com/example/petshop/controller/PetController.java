@@ -36,7 +36,6 @@ public class PetController {
             sort = Sort.by("price").ascending();
         }
 
-
         if (keyword != null && !keyword.trim().isEmpty()) {
             petPage = petService.searchPets(keyword.trim(), PageRequest.of(page, pageSize, sort));
         } else {
