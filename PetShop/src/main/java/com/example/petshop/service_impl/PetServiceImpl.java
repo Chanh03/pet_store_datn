@@ -13,65 +13,66 @@ import java.util.List;
 
 @Service
 public class PetServiceImpl implements PetService {
-    @Autowired
-    private PetRepo petRepo;
+	@Autowired
+	private PetRepo petRepo;
 
-    @Override
-    public List<Pet> getAll() {
-        return petRepo.findAll();
-    }
+	@Override
+	public List<Pet> getAll() {
+		return petRepo.findAll();
+	}
 
-    @Override
-    public Pet findById(String id) {
-        return petRepo.findById(id).orElse(null);
-    }
+	@Override
+	public Pet findById(String id) {
+		return petRepo.findById(id).orElse(null);
+	}
 
-    @Override
-    public void save(Pet pet) {
-        petRepo.save(pet);
-    }
+	@Override
+	public void save(Pet pet) {
+		petRepo.save(pet);
+	}
 
-    @Override
-    public void deleteById(String id) {
-        petRepo.deleteById(id);
-    }
+	@Override
+	public void deleteById(String id) {
+		petRepo.deleteById(id);
+	}
 
-    @Override
-    public boolean existsById(String id) {
-        return petRepo.existsById(id);
-    }
+	@Override
+	public boolean existsById(String id) {
+		return petRepo.existsById(id);
+	}
 
-    @Override
-    public List<Pet> getAllByCreatedDate() {
-        return petRepo.findAllByCreatedDateDesc();
-    }
+	@Override
+	public List<Pet> getAllByCreatedDate() {
+		return petRepo.findAllByCreatedDateDesc();
+	}
 
-    @Override
-    public Page<Pet> getPaginatedPets(Pageable pageable) {
-        return petRepo.findAll(pageable);
-    }
+	@Override
+	public Page<Pet> getPaginatedPets(Pageable pageable) {
+		return petRepo.findAll(pageable);
+	}
 
-    @Override
-    public Page<Pet> searchPets(String keyword, Pageable pageable) {
-        return petRepo.findByPetDescriptionContainingIgnoreCase(keyword, pageable);
-    }
+	@Override
+	public Page<Pet> searchPets(String keyword, Pageable pageable) {
+		return petRepo.searchByKeyword(keyword, pageable);
+	}
 
-    @Override
-    public List<Pet> getAllPetByCategoryId(PetCategory id) {
-        return petRepo.findAllByPetCategoryID(id);
-    }
+	@Override
+	public List<Pet> getAllPetByCategoryId(PetCategory id) {
+		return petRepo.findAllByPetCategoryID(id);
+	}
 
-    @Override
-    public Page<Pet> searchPetsByPriceRange(Integer minPrice, Integer maxPrice, Pageable pageable) {
-        return petRepo.findByPriceBetween(minPrice, maxPrice, pageable);
-    }
+	@Override
+	public Page<Pet> searchPetsByPriceRange(Integer minPrice, Integer maxPrice, Pageable pageable) {
+		return petRepo.findByPriceBetween(minPrice, maxPrice, pageable);
+	}
 
-    @Override
-    public Page<Pet> searchPetByPriceAndKeyword(String keyword, Integer minPrice, Integer maxPrice, Pageable pageable) {
-        return petRepo.searchByPriceAndKeyword(keyword, minPrice, maxPrice, pageable);
-    }
-    @Override
-    public Page<Pet> findByPetCategory(String categoryId, Pageable pageable) {
-        return petRepo.findByPetCategory(categoryId, pageable);
-    }
+	@Override
+	public Page<Pet> searchPetByPriceAndKeyword(String keyword, Integer minPrice, Integer maxPrice, Pageable pageable) {
+		return petRepo.searchByPriceAndKeyword(keyword, minPrice, maxPrice, pageable);
+	}
+
+	@Override
+	public Page<Pet> findByPetCategory(String categoryId, Pageable pageable) {
+		return petRepo.findByPetCategory(categoryId, pageable);
+	}
 }
