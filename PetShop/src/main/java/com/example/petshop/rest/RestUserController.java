@@ -358,6 +358,7 @@ public class RestUserController {
             return ResponseEntity.ok("{\"success\": false, \"message\": \"Bạn không thể đổi email khác do đăng nhập bằng bên thứ 3!\"}");
         }
         // Cập nhật thông tin
+        existingUser.setIsDelete(true);
         existingUser.setFullName(userDTO.getFullName());
         existingUser.setEmail(userDTO.getEmail());
         existingUser.setPhoneNumber(userDTO.getPhoneNumber());

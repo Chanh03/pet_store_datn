@@ -9,11 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="siêu update admin">
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/repo/OrderRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/repo/OrderRepo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/rest/RestOrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/rest/RestOrderController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/service/OrderService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/service_impl/OrderServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/service_impl/OrderServiceImpl.class" afterDir="false" />
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="siêu update index x1">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_products.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyCart.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyCart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/rest/RestUserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/rest/RestUserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_historyCart.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_historyCart.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +31,8 @@
       <list>
         <option value="Interface" />
         <option value="com.intellij.jpb.JpaEntity" />
-        <option value="HTML File" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -255,47 +258,13 @@
       <workItem from="1733044106376" duration="23000" />
       <workItem from="1733050256260" duration="8318000" />
       <workItem from="1733105775451" duration="9473000" />
-      <workItem from="1733133441253" duration="6268000" />
-    </task>
-    <task id="LOCAL-00058" summary="update order status send mail">
-      <option name="closed" value="true" />
-      <created>1731846058442</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1731846058442</updated>
-    </task>
-    <task id="LOCAL-00059" summary="update send mail order status">
-      <option name="closed" value="true" />
-      <created>1731864789161</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1731864789161</updated>
-    </task>
-    <task id="LOCAL-00060" summary="update payment status img">
-      <option name="closed" value="true" />
-      <created>1731868213711</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1731868213711</updated>
-    </task>
-    <task id="LOCAL-00061" summary="update payment status img x2">
-      <option name="closed" value="true" />
-      <created>1731869226842</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1731869226842</updated>
-    </task>
-    <task id="LOCAL-00062" summary="add order detail export excel x1">
-      <option name="closed" value="true" />
-      <created>1732026099840</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1732026099840</updated>
+      <workItem from="1733133441253" duration="6364000" />
+      <workItem from="1733146142475" duration="618000" />
+      <workItem from="1733146956670" duration="5821000" />
+      <workItem from="1733317512262" duration="4000" />
+      <workItem from="1733389864147" duration="85000" />
+      <workItem from="1733491409470" duration="3983000" />
+      <workItem from="1733543399924" duration="1348000" />
     </task>
     <task id="LOCAL-00063" summary="update admin x3">
       <option name="closed" value="true" />
@@ -649,7 +618,47 @@
       <option name="project" value="LOCAL" />
       <updated>1733139473358</updated>
     </task>
-    <option name="localTasksCounter" value="107" />
+    <task id="LOCAL-00107" summary="siêu update admin x2">
+      <option name="closed" value="true" />
+      <created>1733139761354</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1733139761354</updated>
+    </task>
+    <task id="LOCAL-00108" summary="siêu update admin x3">
+      <option name="closed" value="true" />
+      <created>1733139815616</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1733139815617</updated>
+    </task>
+    <task id="LOCAL-00109" summary="siêu update admin x4">
+      <option name="closed" value="true" />
+      <created>1733139837564</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1733139837564</updated>
+    </task>
+    <task id="LOCAL-00110" summary="siêu update admin x5">
+      <option name="closed" value="true" />
+      <created>1733148378053</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1733148378053</updated>
+    </task>
+    <task id="LOCAL-00111" summary="siêu update index x1">
+      <option name="closed" value="true" />
+      <created>1733152483000</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1733152483000</updated>
+    </task>
+    <option name="localTasksCounter" value="112" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -695,11 +704,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add send notification (1%)" />
-    <MESSAGE value="update main" />
-    <MESSAGE value="update form, add excel, pdf order" />
-    <MESSAGE value="add check phone/email user form" />
-    <MESSAGE value="add form user send mail" />
     <MESSAGE value="update crssss" />
     <MESSAGE value="update source" />
     <MESSAGE value="update pet category" />
@@ -720,7 +724,12 @@
     <MESSAGE value="update dashboard x2" />
     <MESSAGE value="update dashboard x2 cái qq gì xảy ra v" />
     <MESSAGE value="siêu update admin" />
-    <option name="LAST_COMMIT_MESSAGE" value="siêu update admin" />
+    <MESSAGE value="siêu update admin x2" />
+    <MESSAGE value="siêu update admin x3" />
+    <MESSAGE value="siêu update admin x4" />
+    <MESSAGE value="siêu update admin x5" />
+    <MESSAGE value="siêu update index x1" />
+    <option name="LAST_COMMIT_MESSAGE" value="siêu update index x1" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

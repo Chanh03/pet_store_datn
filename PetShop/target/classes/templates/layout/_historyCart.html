@@ -46,9 +46,6 @@
                     <h3 class="mb-0" th:text="${'Dia chi: ' + userHistory.userAddress}">Đơn hàng</h3>
                 </div>
             </div>
-            <ul class="list-unstyled">
-                <li><a href="#" class="text-danger text-decoration-underline">Đơn Mua</a></li>
-            </ul>
         </div>
     </aside>
     <section class="col-md-9 bg-white p-4 shadow-sm">
@@ -122,7 +119,7 @@
                                             ng-class="{
                                     'bg-info': history.orderStatusID.statusName === 'Đang xử lý',
                                     'bg-primary': history.orderStatusID.statusName === 'Đã xác nhận',
-                                    'bg-warning': history.orderStatusID.statusName === 'Đang vận chuyển',
+'bg-warning': history.orderStatusID.statusName === 'Đang vận chuyển',
                                     'bg-success': history.orderStatusID.statusName === 'Đã giao',
                                     'bg-danger': history.orderStatusID.statusName === 'Hủy đơn'
                                   }">
@@ -148,12 +145,12 @@
                                         {{ history.paymentStatusID.id == 2 ? 'Thanh toán thành công' : 'Đang chờ thanh toán' }}
                                     </span>
                                 </div>
-                                <a ng-if="history.paymentStatusID.statusPayment == 2"
+                                <a ng-if="history.paymentStatusID.id == 2"
                                    class="btn btn-danger"
                                    ng-href="/history-detail/{{history.id}}">
                                     <h5 class=" m-0 mx-1 my-2">Đánh giá sản phẩm</h5>
                                 </a>
-                                <button ng-if="history.orderStatusID.statusName === 'Đang xử lý'"
+                                <button ng-if="history.orderStatusID.statusName === 'Đang xử lý' || history.history.paymentStatusID.id == 1"
                                         class="btn btn-danger"
                                         ng-click="deleteHistory(history.id)">
                                     <h5 class=" m-0 mx-1 my-2">Hủy</h5>
@@ -208,7 +205,7 @@
                             <span ng-init="updatePaymentStatus(history)" ng-class="{
                                 'text-success btn-outline-success fw-bold': history.paymentStatusID.id == 2,
                                 'text-danger btn-outline-danger fw-bold': history.paymentStatusID.id == 1}">
-                                                                        {{ history.paymentStatusID.id == 2 ? 'Thanh toán thành công' : 'Đang chờ thanh toán' }}
+{{ history.paymentStatusID.id == 2 ? 'Thanh toán thành công' : 'Đang chờ thanh toán' }}
 
                             </span>
                                 </div>
