@@ -9,15 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="siêu update admin x1">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/logo/qr-code.png" afterDir="false" />
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update pet / product detail">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_petDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_petDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_productDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_productDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_products.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_products.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_petDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_petDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_productDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_productDetail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/config/MailerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/config/MailerService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -267,15 +261,7 @@
       <workItem from="1733317512262" duration="4000" />
       <workItem from="1733389864147" duration="85000" />
       <workItem from="1733491409470" duration="3983000" />
-      <workItem from="1733543399924" duration="3126000" />
-    </task>
-    <task id="LOCAL-00064" summary="update admin x4">
-      <option name="closed" value="true" />
-      <created>1732098358450</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1732098358450</updated>
+      <workItem from="1733543399924" duration="4945000" />
     </task>
     <task id="LOCAL-00065" summary="update index x1">
       <option name="closed" value="true" />
@@ -661,7 +647,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733544828950</updated>
     </task>
-    <option name="localTasksCounter" value="113" />
+    <task id="LOCAL-00113" summary="update pet / product detail">
+      <option name="closed" value="true" />
+      <created>1733546641813</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1733546641813</updated>
+    </task>
+    <option name="localTasksCounter" value="114" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -707,7 +701,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update source" />
     <MESSAGE value="update pet category" />
     <MESSAGE value="add img/ update detail form" />
     <MESSAGE value="add img/ update detail form x2" />
@@ -732,7 +725,8 @@
     <MESSAGE value="siêu update admin x5" />
     <MESSAGE value="siêu update index x1" />
     <MESSAGE value="siêu update admin x1" />
-    <option name="LAST_COMMIT_MESSAGE" value="siêu update admin x1" />
+    <MESSAGE value="update pet / product detail" />
+    <option name="LAST_COMMIT_MESSAGE" value="update pet / product detail" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -1,9 +1,13 @@
 package com.example.petshop.config;
 
 
+import java.util.List;
 import java.util.Properties;
-import java.util.UUID;
 
+import com.example.petshop.entity.Order;
+import com.example.petshop.entity.OrderProductDetail;
+import com.example.petshop.service.OrderProductDetailService;
+import com.example.petshop.service.OrderService;
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -12,10 +16,17 @@ import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MailerService implements IJavaMail {
+
+    @Autowired
+    private OrderProductDetailService orderProductDetailService;
+
+    @Autowired
+    private OrderService orderService;
 
     @Override
     public boolean sendEmail(String to, String subject, String messageContent, String name, String uuid) {
@@ -66,6 +77,8 @@ public class MailerService implements IJavaMail {
 
     @Override
     public void sendOrderStatusEmail(String to, String subject, String message, String name, String orderID) {
+        Order order = orderService.getById(Integer.valueOf(orderID));
+        List<OrderProductDetail> orderProductDetails = orderProductDetailService.getByOrderID(order);
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -82,29 +95,51 @@ public class MailerService implements IJavaMail {
             orderMessage.setFrom(new InternetAddress(EmailProperty.APP_EMAIL));
             orderMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             orderMessage.setSubject(subject);
-            String htmlMessage = "<html>\n" +
-                    "    <body style=\"font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;\">\n" +
-                    "        <div style=\"border:1px solid black;max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden;\">\n" +
-                    "            <div style=\"padding: 20px; background: linear-gradient(to right, #0091fe 0%, #cc0033 100%); color: #ffffff; text-align: center;\">\n" +
-                    "                <h1 style=\"margin: 0; font-size: 24px;\">Đơn hàng số #{id} đã được cập nhật</h1>\n" +
-                    "            </div>\n" +
-                    "            <div style=\"padding: 20px;\">\n" +
-                    "                <h3 style=\"color: #333333;\">Chào <strong>{name}</strong>,</h3>\n" +
-                    "                <h4 style=\"color: #333333; line-height: 1.6;\">{message}</h4>\n" +
-                    "                <h4 style=\"text-align: center;\">\n" +
-                    "                    <a href='http://localhost:8080/history-detail/{id}' style=\"display: inline-block; padding: 10px 20px; color: #ffffff; background-color: #0099ff; border-radius: 5px; text-decoration: none;\">Xem chi tiết đơn hàng</a>\n" +
-                    "                </h4>\n" +
-                    "            </div>\n" +
-                    "            <div style=\"padding: 15px; background-color: #f0f0f0; color: #999999; text-align: center; font-size: 12px;\">\n" +
-                    "                <p style=\"margin: 0;\">© 2024 Ninjas Pet. Bảo mật thông tin của bạn là ưu tiên hàng đầu của chúng tôi.</p>\n" +
-                    "            </div>\n" +
-                    "        </div>\n" +
-                    "    </body>\n" +
-                    "</html>\n";
-            htmlMessage = htmlMessage.replace("{id}", orderID);
-            htmlMessage = htmlMessage.replace("{name}", name);
-            htmlMessage = htmlMessage.replace("{message}", message);
-            orderMessage.setContent(htmlMessage, "text/html; charset=UTF-8");
+
+            // Tạo HTML cho email
+            StringBuilder htmlMessage = new StringBuilder();
+            htmlMessage.append("<html>\n")
+                    .append("    <body style=\"font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;\">\n")
+                    .append("        <div style=\"border:1px solid black;max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden;\">\n")
+                    .append("            <div style=\"padding: 20px; background: linear-gradient(to right, #0091fe 0%, #cc0033 100%); color: #ffffff; text-align: center;\">\n")
+                    .append("                <h1 style=\"margin: 0; font-size: 24px;\">Đơn hàng #{id}</h1>\n")
+                    .append("            </div>\n")
+                    .append("            <div style=\"padding: 20px;\">\n")
+                    .append("                <h3 style=\"color: #333333;\">Chào <strong>{name}</strong>,</h3>\n")
+                    .append("                <h4 style=\"color: #333333; line-height: 1.6;\">{message}</h4>\n")
+                    .append("                <table style=\"width: 100%; border-collapse: collapse; margin-top: 20px;\">\n")
+                    .append("                    <thead>\n")
+                    .append("                        <tr style=\"background-color: #f2f2f2;\">\n")
+                    .append("                            <th style=\"padding: 8px; border: 1px solid #ddd; text-align: left;\">Mặt hàng</th>\n")
+                    .append("                            <th style=\"padding: 8px; border: 1px solid #ddd; text-align: left;\">Số lượng</th>\n")
+                    .append("                            <th style=\"padding: 8px; border: 1px solid #ddd; text-align: left;\">Giá</th>\n")
+                    .append("                        </tr>\n")
+                    .append("                    </thead>\n")
+                    .append("                    <tbody>\n");
+            for (OrderProductDetail item : orderProductDetails) {
+                htmlMessage.append("                        <tr>\n")
+                        .append("                            <td style=\"padding: 8px; border: 1px solid #ddd;\">").append(item.getProductID().getProductName()).append("</td>\n")
+                        .append("                            <td style=\"padding: 8px; border: 1px solid #ddd;\">x").append(item.getQuantity()).append("</td>\n")
+                        .append("                            <td style=\"padding: 8px; border: 1px solid #ddd;\">").append(item.getPrice() * item.getQuantity()).append(" VND</td>\n")
+                        .append("                        </tr>\n");
+            }
+            htmlMessage.append("                    </tbody>\n")
+                    .append("                </table>\n");
+            htmlMessage.append("                <h3 style=\"text-align: right; padding-top: 10px; color: #333333;\">Tổng tiền: <strong>").append(order.getTotalAmount()).append(" VND (Đã bao gồm phí ship)</strong></h3>\n");
+            htmlMessage.append("                <h4 style=\"color: #333333;\">Địa chỉ giao hàng: <strong>").append(order.getShippingAddress()).append("</strong></h4>\n");
+            htmlMessage.append("                <h4 style=\"text-align: center;\">\n")
+                    .append("                    <a href='http://localhost:8080/history-detail/{id}' style=\"display: inline-block; padding: 10px 20px; color: #ffffff; background-color: #0099ff; border-radius: 5px; text-decoration: none;\">Xem chi tiết đơn hàng</a>\n")
+                    .append("                </h4>\n")
+                    .append("            </div>\n")
+                    .append("            <div style=\"padding: 15px; background-color: #f0f0f0; color: #999999; text-align: center; font-size: 12px;\">\n")
+                    .append("                <p style=\"margin: 0;\">© 2024 Ninjas Pet. Bảo mật thông tin của bạn là ưu tiên hàng đầu của chúng tôi.</p>\n")
+                    .append("            </div>\n")
+                    .append("        </div>\n")
+                    .append("    </body>\n")
+                    .append("</html>\n");
+
+            String emailHtml = htmlMessage.toString().replace("{id}", orderID).replace("{name}", name).replace("{message}", message);
+            orderMessage.setContent(emailHtml, "text/html; charset=UTF-8");
             Transport.send(orderMessage);
         } catch (MessagingException e) {
             e.printStackTrace();
