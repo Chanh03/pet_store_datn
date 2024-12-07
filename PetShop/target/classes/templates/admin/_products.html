@@ -117,12 +117,12 @@
                 <td sortable="'price'" data-title="'Giá'">{{ product.price | number : '0'}}đ</td>
                 <td sortable="'quantity'" data-title="'Số lượng'">{{ product.quantity }}
                 </td>
-                <td sortable="'available'" data-title="'Trạng thái'" class="text-center">
-                    <div ng-if="product.available" class="text-success">
+                <td sortable="'quantity'" data-title="'Trạng thái'" class="text-center">
+                    <div ng-if="product.quantity != 0" class="text-success">
                         <i class="fa-solid fa-circle"></i>
                         <span>Còn hàng</span>
                     </div>
-                    <div ng-if="!product.available" class="text-danger">
+                    <div ng-if="product.quantity == 0" class="text-danger">
                         <i class="fa-solid fa-circle"></i>
                         <span>Hết hàng</span>
                     </div>

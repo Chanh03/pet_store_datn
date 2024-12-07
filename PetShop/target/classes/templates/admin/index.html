@@ -586,7 +586,10 @@
                 // PET TABLE
                 $scope.petsTable = new NgTableParams({
                     page: 1,
-                    count: 5
+                    count: 5,
+                    sorting: {
+                        createDate: 'desc'
+                    }
                 }, {
                     counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.petData.length],
                     dataset: $scope.petData
@@ -656,9 +659,7 @@
                 available: false,
                 photo: 'pet-placeholder.png',
                 enable: true,
-                petCategoryID: {
-                    id: 1
-                }
+                petCategoryID: $scope.petCategoryData[0]
             };
             var addPetModal = new bootstrap.Modal(document.getElementById('addPetModal'), {
                 keyboard: true
@@ -676,7 +677,7 @@
                 });
             } else {
                 $http.get(baseUrl + 'pet/' + petID).then(function (response) {
-                    if (response.data) { // Kiểm tra nếu có dữ liệu trả về
+                    if (response.data) {
                         new Notify({
                             title: 'Thông báo',
                             text: 'ID pet đã tồn tại!',
@@ -688,12 +689,17 @@
                         $http.post(baseUrl + 'pet', $scope.selectedPet).then(function (response) {
                             new Notify({
                                 title: 'Thông báo',
-                                text: 'Thêm mới thành công :' + petID,
+                                text: 'Thêm mới thành công',
                                 autoclose: true,
                                 status: 'success',
                                 autotimeout: 3000
                             });
                             $scope.getPets();
+                            var modalElement = document.getElementById('addPetModal');
+                            var hide = bootstrap.Modal.getInstance(modalElement);
+                            if (hide) {
+                                hide.hide();
+                            }
                         }).catch(function (error) {
                             new Notify({
                                 title: 'Thông báo',
@@ -785,8 +791,8 @@
         $scope.getProducts = function () {
             $http.get(baseUrl + 'product').then(function (response) {
                 $scope.productData = response.data;
-                $scope.productAvailableTrueLength = $scope.productData.filter(product => product.available === true).length;
-                $scope.productAvailableFalseLength = $scope.productData.filter(product => product.available === false).length;
+                $scope.productAvailableTrueLength = $scope.productData.filter(product => product.quantity > 0).length;
+                $scope.productAvailableFalseLength = $scope.productData.filter(product => product.quantity === 0).length;
                 $scope.productTotalQuantity = $scope.productData.filter(product => product.quantity).reduce((total, product) => total + product.quantity, 0);
                 $scope.productTotalPrice = $scope.productData.filter(product => product.price).reduce((total, product) => total + product.price * product.quantity, 0);
                 // PRODUCT TABLE
@@ -861,9 +867,8 @@
                 quantity: null,
                 available: true,
                 photo: 'product-placeholder.png',
-                productCategoryID: {
-                    id: 1
-                }
+                productCategoryID:
+                    $scope.productCategoryData[0]
             };
             var show = new bootstrap.Modal(document.getElementById('modalAddProduct'), {
                 keyboard: true
@@ -874,16 +879,21 @@
             $http.post(baseUrl + 'product', $scope.selectedProduct).then(function (response) {
                 new Notify({
                     title: 'Thông báo',
-                    text: 'Thêm mới thành công :',
+                    text: 'Thêm mới thành công',
                     autoclose: true,
                     status: 'success',
                     autotimeout: 3000
                 });
                 $scope.getProducts();
+                var modalElement = document.getElementById('modalAddProduct');
+                var hide = bootstrap.Modal.getInstance(modalElement);
+                if (hide) {
+                    hide.hide();
+                }
             }).catch(function (error) {
                 new Notify({
                     title: 'Thông báo',
-                    text: 'Lỗi khi thêm mới :',
+                    text: 'Lỗi khi thêm mới',
                     autoclose: true,
                     status: 'warning',
                     autotimeout: 3000
@@ -1075,6 +1085,11 @@
                     autotimeout: 3000
                 });
                 $scope.getPetCategories();
+                var modalElement = document.getElementById('addPetCategoryModal');
+                var hide = bootstrap.Modal.getInstance(modalElement);
+                if (hide) {
+                    hide.hide();
+                }
             }).catch(function (error) {
                 new Notify({
                     title: 'Thông báo',
@@ -1220,6 +1235,11 @@
                     showConfirmButton: false
                 });
                 $scope.getProductCategories();
+                var modalElement = document.getElementById('addProductCategoryModal');
+                var hide = bootstrap.Modal.getInstance(modalElement);
+                if (hide) {
+                    hide.hide();
+                }
             }).catch(function (error) {
                 Swal.fire({
                     title: 'Lỗi!',
@@ -1965,6 +1985,11 @@
                     autotimeout: 3000
                 });
                 $scope.getSlideBar();
+                var modalElement = document.getElementById('addSlideBarModal');
+                var hide = bootstrap.Modal.getInstance(modalElement);
+                if (hide) {
+                    hide.hide();
+                }
             }).catch(function (error) {
                 new Notify({
                     title: 'Thông báo',
@@ -2135,6 +2160,11 @@
                             showConfirmButton: false
                         });
                         $scope.getVouchers();
+                        var modalElement = document.getElementById('addVoucherModal');
+                        var hide = bootstrap.Modal.getInstance(modalElement);
+                        if (hide) {
+                            hide.hide();
+                        }
                     }).catch(function (error) {
                         Swal.fire({
                             title: 'Lỗi!',
