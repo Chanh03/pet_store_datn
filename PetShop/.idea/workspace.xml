@@ -9,33 +9,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update send order status mail">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="siêu update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/PetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/PetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/PetRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/PetRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/ProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/repo/ProductRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/PetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/PetService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/PetServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/PetServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/service_impl/ProductServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_send_notification.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_send_notification.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_allPet.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_allPet.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_allProduct.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_allProduct.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyCart.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyCart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyOrderDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_historyOrderDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_payMent.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_payMent.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/config/MailerService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/config/MailerService$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/config/MailerService$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/config/MailerService$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/config/MailerService$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/config/MailerService$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/config/MailerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/config/MailerService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/rest/RestUserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/rest/RestUserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_historyCart.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_historyCart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_productDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_productDetail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/controller/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/controller/PaymentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/controller/PaymentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/controller/PetController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/controller/PetController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/controller/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/controller/ProductController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/repo/PetRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/repo/PetRepo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/repo/ProductRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/repo/ProductRepo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/service/PetService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/service/PetService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/service/ProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/service/ProductService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/service_impl/PetServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/service_impl/PetServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/service_impl/ProductServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/service_impl/ProductServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_send_notification.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_send_notification.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_allPet.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_allPet.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_allProduct.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_allProduct.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_historyOrderDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_historyOrderDetail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_payMent.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_payMent.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_productDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_productDetail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,15 +280,7 @@
       <workItem from="1733389864147" duration="85000" />
       <workItem from="1733491409470" duration="3983000" />
       <workItem from="1733543399924" duration="4968000" />
-      <workItem from="1733583772684" duration="5162000" />
-    </task>
-    <task id="LOCAL-00066" summary="update index x2 (add rating &gt;= 4 newest)">
-      <option name="closed" value="true" />
-      <created>1732103251540</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1732103251540</updated>
+      <workItem from="1733583772684" duration="5625000" />
     </task>
     <task id="LOCAL-00067" summary="update index menu search (fixed)">
       <option name="closed" value="true" />
@@ -680,7 +666,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733551091163</updated>
     </task>
-    <option name="localTasksCounter" value="115" />
+    <task id="LOCAL-00115" summary="siêu update">
+      <option name="closed" value="true" />
+      <created>1733589153416</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1733589153416</updated>
+    </task>
+    <option name="localTasksCounter" value="116" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -726,7 +720,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add img/ update detail form" />
     <MESSAGE value="add img/ update detail form x2" />
     <MESSAGE value="add img/ update detail form x3" />
     <MESSAGE value="add img/ update detail form x4" />
@@ -751,7 +744,8 @@
     <MESSAGE value="siêu update admin x1" />
     <MESSAGE value="update pet / product detail" />
     <MESSAGE value="update send order status mail" />
-    <option name="LAST_COMMIT_MESSAGE" value="update send order status mail" />
+    <MESSAGE value="siêu update" />
+    <option name="LAST_COMMIT_MESSAGE" value="siêu update" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

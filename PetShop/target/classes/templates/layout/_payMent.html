@@ -126,35 +126,34 @@
                 <div class="mb-3 text-center">
                     <h1 class="m-0 color fw-bold">THANH TOÁN</h1>
                 </div>
-                <div class="form-check mb-2">
-                    <input class="form-check-input" type="radio" name="address-option" id="existing-address"
-                           checked onclick="toggleAddressFields()">
-                    <label class="form-check-label" for="existing-address">Thông tin người dùng</label>
-                </div>
                 <div id="existing-address-fields" class="mb-4">
                     <div class="form-group">
                         <label for="fullName">Họ tên</label>
-                        <input type="text" id="fullName" class="form-control" placeholder="Họ tên"
+                        <input type="text" id="fullName" readonly class="form-control" placeholder="Họ tên"
                                th:value="${user.fullName}">
                     </div>
                     <div class="form-group">
                         <label for="phoneNumber">Số điện thoại</label>
-                        <input type="number" id="phoneNumber" class="form-control" placeholder="Số điện thoại"
+                        <input type="number" id="phoneNumber" readonly class="form-control" placeholder="Số điện thoại"
                                th:value="${user.phoneNumber}" minlength="10" maxlength="10" required>
                     </div>
                     <div class="form-group">
                         <label for="userAddress">Địa chỉ</label>
-                        <textarea type="text" id="userAddress" class="form-control" placeholder="Địa chỉ"
+                        <textarea type="text" id="userAddress" readonly class="form-control" placeholder="Địa chỉ"
                                   th:text="${user.userAddress}" th:value="${user.userAddress}">
                         </textarea>
                     </div>
+                    <code>
+                        Vui lòng thay đổi địa chỉ giao hàng trong phần thông tin cá nhân nếu cần thiết
+                    </code>
                 </div>
-                <h6>
-                    Hình thức thanh toán
-                </h6>
-                <div class="bordered px-4">
+                <div class="bordered px-4" ng-if="cart.items.length">
+                    <h6>
+                        Hình thức thanh toán
+                    </h6>
                     <div class="form-check mb-2">
-                        <input class="form-check-input" checked type="radio" name="payment" id="cod">
+                        <input class="form-check-input" onclick="toggleCOD()" checked type="radio" name="payment"
+                               id="cod">
                         <label class="form-check-label" for="cod">Tiền mặt (COD)</label>
                     </div>
                     <!--                    <div class="form-check mb-2">-->
@@ -170,21 +169,19 @@
                         <!-- Nội dung của div hiện ra khi chọn Quét mã QR -->
                         <img src="https://vnpay.vn/s1/statics.vnpay.vn/2023/9/06ncktiwd6dc1694418196384.png" alt="VNPAY"
                              style="width: 300px; height: 300px; display: block; margin: 0 auto;">
-
                         <a href="javascript:void(0)" onclick="information2()"
                            class="btn btn-primary d-flex align-items-center justify-content-center mx-auto mt-3">
                             <i class="fa fa-credit-card mr-2"></i> Thanh toán bằng ngân hàng
                         </a>
                     </div>
+                    <div class="form-check mb-2">
+                        <a class="form-check-label text-primary" href="/access-denied">Tôi đã đọc và đồng ý với điều kiện
+                            giao dịch
+                            chung
+                            của website *</a>
+                    </div>
                 </div>
-                <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="agree">
-                    <a class="form-check-label text-primary" href="/access-denied">Tôi đã đọc và đồng ý với điều kiện
-                        giao dịch
-                        chung
-                        của website *</a>
-                </div>
-                <div ng-if="cart.items.length" class="text-center">
+                <div ng-if="cart.items.length" class="text-center" id="codButton">
                     <button class="btn btn-danger background-color button-image-white text-white w-100 py-3"
                             ng-click="checkout()">Đặt hàng
                     </button>
@@ -219,12 +216,30 @@
         function toggleQRCodeDiv() {
             const qrCodeDiv = document.getElementById("qrCodeDiv");
             const bankRadio = document.getElementById("bank");
+            const codButton = document.getElementById("codButton");
 
             // Hiển thị div nếu radio được chọn, ẩn nếu bỏ chọn
             if (bankRadio.checked) {
                 qrCodeDiv.style.display = "block";
+                codButton.style.display = "none";
             } else {
                 qrCodeDiv.style.display = "none";
+                codButton.style.display = "block";
+            }
+        }
+
+        function toggleCOD() {
+            const codButton = document.getElementById("codButton");
+            const codRadio = document.getElementById("cod");
+            const qrCodeDiv = document.getElementById("qrCodeDiv");
+
+            // Hiển thị div nếu radio được chọn, ẩn nếu bỏ chọn
+            if (codRadio.checked) {
+                codButton.style.display = "block";
+                qrCodeDiv.style.display = "none";
+            } else {
+                codButton.style.display = "none";
+                qrCodeDiv.style.display = "block";
             }
         }
 

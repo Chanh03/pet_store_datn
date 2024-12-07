@@ -12,7 +12,7 @@
 <body>
 
 
-<div class="container mt-5">
+<div class="container my-5">
     <h2 class="text-center">Chi tiết đơn hàng</h2>
     <div>
         <div class="card rounded-0">
@@ -32,10 +32,19 @@
                         <img th:src="@{/images/product/{photo}(photo=${od.productID.photo})}"
                              class="img-fluid" width="100">
                     </td>
-                    <td th:text="${od.productID.productName}">name</td>
-                    <td th:text="${od.price}">{{od.price | number: '0'}}đ</td>
-                    <td th:text="${od.quantity}">{{od.quantity}}</td>
-                    <td th:text="${od.quantity * od.price}">{{od.price * od.quantity | number: '0'}}đ</td>
+                    <td>
+                        <a th:href="@{/product/detail/{id}(id=${od.productID.id})}"
+                           th:text="${od.productID.productName}">{{od.productID.productName}}</a>
+                    </td>
+                    <td>
+                        [[${#numbers.formatDecimal(od.price, 0, 'COMMA', 0, 'POINT')}]]đ
+                    </td>
+                    <td>
+                        x[[${od.quantity}]]
+                    </td>
+                    <td>
+                        [[${#numbers.formatDecimal(od.quantity * od.price, 0, 'COMMA', 0, 'POINT')}]]đ
+                    </td>
                     <td>
                         <div th:if="${od.orderID.paymentStatusID.id == 2 && od.orderID.orderStatusID.id == 4}">
                             <button th:attr="ng-click=${'review(' + od.productID.id + ', ' + od.orderID.id +')'}"
