@@ -17,122 +17,114 @@
 
 <body style="background-color: #f8f9fa;">
 <div class="container py-5">
-
-    <!-- Form tìm kiếm và sắp xếp -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <!-- Nút tìm giá tăng dần -->
-        <form action="/allPet" method="get" class="d-flex mb-3">
-            <button type="submit" name="priceOrder" value="asc"
-                    class="btn btn-danger ms-2"
-                    style="border-radius: 5px; padding: 8px 10px; display: flex; align-items: center; justify-content: center;">
-                <span th:if="${priceOrder == 'asc'}">Giá ↑</span> <span
-                    th:if="${priceOrder != 'asc'}">Giá ↑</span>
-            </button>
-
-            <!-- Nút tìm giá giảm dần -->
-            <button type="submit" name="priceOrder" value="desc"
-                    class="btn btn-danger ms-2"
-                    style="border-radius: 5px; padding: 8px 10px; display: flex; align-items: center; justify-content: center;">
-                <span th:if="${priceOrder == 'desc'}">Giá ↓</span> <span
-                    th:if="${priceOrder != 'desc'}">Giá ↓</span>
-            </button>
-
-            <!-- Tìm kiếm theo giá -->
-            <form method="get" action="/searchByPriceRange" class="d-flex">
-                <input type="number" class="form-control ms-2" name="minPrice"
-                       placeholder="Giá từ" th:value="${minPrice}" min="0"
-                       style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
-                <input type="number" class="form-control ms-2" name="maxPrice"
-                       placeholder="Giá đến" th:value="${maxPrice}" min="0"
-                       style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
-
-                <!-- Nút tìm kiếm -->
-                <button type="submit" class="btn btn-danger ms-2"
-                        style="border-radius: 5px;">Tìm kiếm</button>
-            </form>
-
-        </form>
-
-        <!-- Form tìm kiếm thú cưng -->
-        <form action="/allPet" method="get" class="d-flex col-md-4 ms-auto">
-            <input type="text" name="keyword"
-                   class="form-control form-control-lg me-2"
-                   placeholder="Tìm kiếm thú cưng..." th:value="${keyword}"
-                   style="border: 2px solid #dc3545; font-size: 16px; height: 45px; padding-left: 12px;">
-            <button type="submit"
-                    class="btn btn-danger d-flex align-items-center"
-                    style="border-radius: 5px; padding: 4px 9px; font-size: 12px;">
-                Tìm kiếm <i class="bi bi-search ms-2"></i>
-            </button>
-        </form>
-    </div>
-
-    <hr>
-    <!-- Hiển thị danh sách thú cưng -->
     <div class="row">
-        <div th:if="${#lists.isEmpty(pets)}" class="text-center py-5">
-            <h4 class="text-danger">Không có thú cưng nào!</h4>
-        </div>
-        <!-- <div th:each="pet : ${pets}" class="col-lg-3 col-md-4 col-sm-6 mb-4">
-        <div class="card h-100 shadow-sm border-0" style="transition: transform 0.3s;">
-            <a th:href="@{/pet/detail/{id}(id=${pet.petID})}">
-                <img th:src="@{/images/pet/{photo}(photo=${pet.photo})}" class="card-img-top banner-image"
-                    alt="Pet photo" style="height: 250px; object-fit: cover;">
-            </a>
-            <div class="card-body text-center">
-                <h5 class="card-title" th:text="${pet.breed}" style="color: #dc3545; font-weight: 700;"></h5>
-                <p class="card-text" style="font-size: 1.2rem;">
-                    Giá: <span th:text="${pet.price}" style="color: #28a745; font-weight: bold;"></span> VND
-                </p>
+        <!-- Filter and Search Section -->
+        <div class="col-3">
+            <div class="d-flex flex-column gap-3">
+                <!-- Sort Buttons -->
+                <form action="/allPet" method="get" class="mb-3">
+                    <input type="hidden" name="keyword" th:value="${keyword}">
+                    <input type="hidden" name="minPrice" th:value="${minPrice}">
+                    <input type="hidden" name="maxPrice" th:value="${maxPrice}">
+
+                    <button type="submit" name="priceOrder" value="asc"
+                            class="btn btn-danger button-image-white w-100 mb-2">
+                        Giá <i class="fa-regular fa-circle-up"></i>
+                    </button>
+
+                    <button type="submit" name="priceOrder" value="desc"
+                            class="btn btn-danger button-image-white w-100">
+                        Giá <i class="fa-regular fa-circle-down"></i>
+                    </button>
+                </form>
+
+                <!-- Search Form -->
+                <form method="get" action="/allPet"
+                      class="d-flex flex-column gap-2">
+                    <input type="text" name="keyword" class="form-control"
+                           placeholder="Tìm kiếm thú cưng..." th:value="${keyword}"
+                           style="border: 2px solid #dc3545; border-radius: 5px;"> <input
+                        type="number" class="form-control" name="minPrice"
+                        placeholder="Giá từ" th:value="${minPrice}" min="0"
+                        max="1000000000"
+                        style="border: 2px solid #dc3545; border-radius: 5px;"> <input
+                        type="number" class="form-control" name="maxPrice"
+                        placeholder="Giá đến" th:value="${maxPrice}" min="0"
+                        max="1000000000"
+                        style="border: 2px solid #dc3545; border-radius: 5px;">
+                    <button type="submit"
+                            class="btn btn-danger button-image-white mt-2 w-100"
+                            style="border-radius: 5px;">Tìm kiếm</button>
+                </form>
             </div>
         </div>
-    </div> -->
-        <div th:each="pet : ${pets}" class="col-lg-2 col-md-4 col-sm-4 col-4">
-            <a class="nav-link" th:href="@{/pet/detail/{id}(id=${pet.petID})}">
-                <div class="card card-hover border-0 position-relative">
-                    <div class="overflow-hidden rounded-5 button-image"
-                         style="background-color: #f7f7f5; display: flex; align-items: center; justify-content: center;">
-                        <img loading="lazy"
-                             th:src="@{/images/pet/{photo}(photo=${pet.photo})}"
-                             class="card-img-top card-image" alt="pet"
-                             style="max-width: 300px; max-height: 300px; object-fit: cover;">
-                    </div>
-                    <!-- <div class="badge bg-warning position-absolute" style="top: 0; right: 0; z-index: 1000;">
-                    <h5 class="m-0">New</h5>
-                </div> -->
-                    <div class="card-body text-center">
-                        <h5
-                                th:text="${pet.petCategoryID.petCategoryName + ' ' + pet.breed + ' ' + pet.hair}"
-                                style="font-weight: bold;">ten thu cung</h5>
-                        <h4 class="color fw-bold"
-                            th:text="${#numbers.formatDecimal(pet.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">
-                            100.000đ</h4>
-                    </div>
 
+        <!-- Pet Display Section -->
+        <div class="col-9">
+            <div class="row">
+                <div th:if="${#lists.isEmpty(pets)}" class="text-center py-5">
+                    <h4 class="text-danger">Không có thú cưng nào!</h4>
                 </div>
-            </a>
+
+                <div th:each="pet : ${pets}"
+                     class="col-lg-3 col-md-6 col-sm-6 mb-4">
+                    <a class="nav-link" th:href="@{/pet/detail/{id}(id=${pet.petID})}">
+                        <div class="card card-hover border-0 position-relative">
+                            <div class="overflow-hidden rounded-5 button-image"
+                                 style="background-color: #f7f7f5; display: flex; align-items: center; justify-content: center;">
+                                <img loading="lazy"
+                                     th:src="@{/images/pet/{photo}(photo=${pet.photo})}"
+                                     class="card-img-top card-image" alt="pet"
+                                     style="max-width: 300px; max-height: 300px; object-fit: cover;">
+                            </div>
+                            <div class="card-body text-center">
+                                <h5
+                                        th:text="${pet.petCategoryID.petCategoryName + ' ' + pet.breed + ' ' + pet.hair}"
+                                        style="font-weight: bold;">ten thu cung</h5>
+                                <h4 class="color fw-bold"
+                                    th:text="${#numbers.formatDecimal(pet.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">
+                                    100.000đ</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="row py-3" th:if="${pets.size() > 8}">
+                <div class="col">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <!-- Trang trước -->
+                            <li class="page-item"
+                                th:classappend="${currentPage == 1} ? 'disabled' : ''"><a
+                                    class="page-link text-white bg-danger"
+                                    th:href="@{/allPet(page=${currentPage - 1}, keyword=${keyword}, priceOrder=${sort})}"
+                                    aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+                            </a></li>
+
+                            <!-- Các trang giữa -->
+                            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                                th:classappend="${i == currentPage - 1} ? 'active' : ''"
+                                class="page-item"><a class="page-link"
+                                                     th:href="@{/allPet(page=${i}, keyword=${keyword}, priceOrder=${sort})}"
+                                                     th:text="${i + 1}"></a></li>
+
+                            <!-- Trang sau -->
+                            <li class="page-item"
+                                th:classappend="${currentPage == totalPages} ? 'disabled' : ''">
+                                <a class="page-link text-white bg-danger"
+                                   th:href="@{/allPet(page=${currentPage + 1}, keyword=${keyword}, priceOrder=${sort})}"
+                                   aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- End Phân trang -->
         </div>
     </div>
-
-    <!-- Phân trang -->
-    <nav class="d-flex justify-content-center mt-4">
-        <ul class="pagination">
-            <li th:classappend="${currentPage == 1} ? 'disabled'"
-                class="page-item"><a class="page-link"
-                                     th:href="@{/allPet(page=${currentPage - 1}, keyword=${keyword}, priceOrder=${sort})}">&laquo;</a>
-            </li>
-            <li th:each="i : ${#numbers.sequence(1, totalPages)}"
-                th:classappend="${i == currentPage} ? 'active'" class="page-item">
-                <a class="page-link"
-                   th:href="@{/allPet(page=${i}, keyword=${keyword}, priceOrder=${sort})}"
-                   th:text="${i}">1</a>
-            </li>
-            <li th:classappend="${currentPage == totalPages} ? 'disabled'"
-                class="page-item"><a class="page-link"
-                                     th:href="@{/allPet(page=${currentPage + 1}, keyword=${keyword}, priceOrder=${sort})}">&raquo;</a>
-            </li>
-        </ul>
-    </nav>
 </div>
 
 <!-- Scripts -->

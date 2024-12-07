@@ -29,5 +29,6 @@ public interface PetService {
     List<Pet> getAllPetByCategoryId(PetCategory id);
 
     Page<Pet> searchPetsByPriceRange(Integer minPrice, Integer maxPrice, Pageable pageable);
-
+    Page<Pet> searchPetByPriceAndKeyword(String keyword, Integer minPrice, Integer maxPrice, Pageable pageable);
+    Page<Pet> findByPetCategory(String categoryId, Pageable pageable);
 }

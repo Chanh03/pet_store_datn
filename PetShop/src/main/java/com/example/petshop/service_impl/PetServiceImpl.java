@@ -53,7 +53,7 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Page<Pet> searchPets(String keyword, Pageable pageable) {
-        return petRepo.findByPetDescriptionContainingIgnoreCase(keyword, pageable);
+        return petRepo.searchByKeyword(keyword, pageable);
     }
 
     @Override
@@ -64,5 +64,15 @@ public class PetServiceImpl implements PetService {
     @Override
     public Page<Pet> searchPetsByPriceRange(Integer minPrice, Integer maxPrice, Pageable pageable) {
         return petRepo.findByPriceBetween(minPrice, maxPrice, pageable);
+    }
+
+    @Override
+    public Page<Pet> searchPetByPriceAndKeyword(String keyword, Integer minPrice, Integer maxPrice, Pageable pageable) {
+        return petRepo.searchByPriceAndKeyword(keyword, minPrice, maxPrice, pageable);
+    }
+
+    @Override
+    public Page<Pet> findByPetCategory(String categoryId, Pageable pageable) {
+        return petRepo.findByPetCategory(categoryId, pageable);
     }
 }

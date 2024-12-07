@@ -64,11 +64,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> searchProductWithCategory(String keyword, Integer categoryId, Pageable pageable) {
-        return productRepo.findByProductCategoryID_IdAndProductNameContainingIgnoreCase(categoryId, keyword, pageable);
-    }
-
-    @Override
     public List<Product> getProductsByDifferentCategory(int currentCategoryId, int currentProductId) {
         // Lấy tất cả sản phẩm, sau đó lọc để chỉ giữ sản phẩm khác loại và không trùng ID
         return productRepo.findAll().stream()
@@ -88,7 +83,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> searchProductWithPrice(String search, Double minPrice, Double maxPrice, Pageable pageable) {
-        return productRepo.findByPriceBetween(minPrice, maxPrice, pageable);
+    public Page<Product> searchProductByPriceAndKeyword(String search, Double minPrice, Double maxPrice, PageRequest price) {
+        return productRepo.searchByPriceAndKeyword(search, minPrice, maxPrice, price);
+    }
+
+    @Override
+    public Page<Product> searchProductByPriceRange(Double minPrice, Double maxPrice, PageRequest price) {
+        return productRepo.searchByPriceRange(minPrice, maxPrice, price);
     }
 }
