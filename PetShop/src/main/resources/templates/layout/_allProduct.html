@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/index.html::home(~{::body})}">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,98 +15,92 @@
     <!-- Product Section -->
     <div class="row">
         <!-- Category Filter -->
-        <div class="col-3">
+        <div class="col-md-3">
             <div class="card mb-4" style="border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);">
                 <div class="card-body">
-                    <h6 class="category-title text-center text-danger fw-bold" style="font-size: 1.2rem;">Danh mục
-                    </h6>
+                    <h6 class="category-title text-center text-danger fw-bold" style="font-size: 1.2rem;">Danh mục</h6>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item" style="border: none;" th:each="category : ${categories}">
-                            <!-- Thêm tham số categoryId vào URL -->
                             <a th:href="@{/allProduct(categoryId=${category.id}, page=0)}"
                                class="text-decoration-none text-dark" th:text="${category.productCategoryName}"
-                               style="font-weight: 500; font-size: 1rem;">
-                            </a>
+                               style="font-weight: 500; font-size: 1rem;"></a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col-9">
+
+        <!-- Product List -->
+        <div class="col-md-9">
             <!-- Search and Sort -->
-            <div class="row mb-3">
-                <div class="col-6">
-                    <!-- Sort and Filter Form -->
-                    <form th:action="@{/allProduct}" method="get" class="d-flex mb-3">
-                        <!-- Hidden Fields to Preserve Existing Parameters -->
-                        <input type="hidden" name="search" th:value="${param.search}" />
-                        <input type="hidden" name="categoryId" th:value="${param.categoryId}" />
+            <!-- Form tìm kiếm và sắp xếp -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <!-- Nút tìm giá tăng dần và giảm dần -->
+                <form action="/allProduct" method="get" class="d-flex">
+                    <input type="hidden" name="search" th:value="${param.search}">
+                    <input type="hidden" name="categoryId" th:value="${param.categoryId}">
+                    <input type="hidden" name="minPrice" th:value="${minPrice}">
+                    <input type="hidden" name="maxPrice" th:value="${maxPrice}">
 
-                        <!-- Sort Ascending Button -->
-                        <button type="submit" name="sort" value="asc" class="btn btn-danger ms-2"
-                                style="border-radius: 5px; padding: 8px 10px; display: flex; align-items: center; justify-content: center;">
-                            Giá ↑
-                        </button>
+                    <button type="submit" name="sort" value="asc"
+                            class="btn btn-danger button-image-white ms-2"
+                            style="border-radius: 5px; padding: 8px 10px; display: flex; align-items: center; justify-content: center;">
+                        <span th:if="${param.sort == 'asc'}"> Giá <i class="fa-regular fa-circle-up"></i></span>
+                        <span th:if="${param.sort != 'asc'}"> Giá <i class="fa-regular fa-circle-up"></i></span>
+                    </button>
 
-                        <!-- Sort Descending Button -->
-                        <button type="submit" name="sort" value="desc" class="btn btn-danger ms-2"
-                                style="border-radius: 5px; padding: 8px 10px; display: flex; align-items: center; justify-content: center;">
-                            Giá ↓
-                        </button>
+                    <button type="submit" name="sort" value="desc"
+                            class="btn btn-danger button-image-white ms-2"
+                            style="border-radius: 5px; padding: 8px 10px; display: flex; align-items: center; justify-content: center;">
+                        <span th:if="${param.sort == 'desc'}"> Giá <i class="fa-regular fa-circle-down"></i></span>
+                        <span th:if="${param.sort != 'desc'}"> Giá <i class="fa-regular fa-circle-down"></i></span>
+                    </button>
+                </form>
 
-                        <!-- Filter by Price -->
-                        <div class="ms-2" style="display: flex; align-items: center;">
-                            <label for="minPrice" style="margin-right: 5px;">Giá từ:</label>
-                            <input type="number" id="minPrice" class="form-control" name="minPrice"
-                                   placeholder="0" th:value="${minPrice}" min="0"
-                                   style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
-                        </div>
-                        <div class="ms-2" style="display: flex; align-items: center;">
-                            <label for="maxPrice" style="margin-right: 5px;">Giá đến:</label>
-                            <input type="number" id="maxPrice" class="form-control" name="maxPrice"
-                                   placeholder="99999999" th:value="${maxPrice}" min="0"
-                                   style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
-                        </div>
+                <!-- Form tìm kiếm theo tên và giá -->
+                <form method="get" action="/allProduct" class="d-flex">
+                    <input type="text" name="search" class="form-control ms-2" placeholder="Tên sản phẩm"
+                           th:value="${param.search}"
+                           style="border: 2px solid #dc3545; border-radius: 5px; width: 200px;">
 
-                        <!-- Search Button -->
-                        <button type="submit" class="btn btn-danger ms-2" style="border-radius: 5px;">
-                            Tìm kiếm
-                        </button>
-                    </form>
-                </div>
-
-                <form th:action="@{/allProduct}" method="get" class="d-flex">
-                    <!-- Giữ lại tham số tìm kiếm trước đó -->
-                    <input type="hidden" name="minPrice" th:value="${param.minPrice}" />
-                    <input type="hidden" name="maxPrice" th:value="${param.maxPrice}" />
-                    <input type="hidden" name="sort" th:value="${param.sort}" />
-                    <input type="hidden" name="categoryId" th:value="${param.categoryId}" />
-
-                    <!-- Tìm kiếm theo tên sản phẩm -->
-                    <input class="form-control" type="search" name="search" placeholder="Tìm kiếm sản phẩm"
-                           th:value="${param.search}" style="border-radius: 5px; border: 2px solid #dc3545;">
-                    <button class="btn btn-danger" type="submit" style="margin-left: 10px;">Tìm</button>
+                    <input type="number" class="form-control ms-2" name="minPrice" placeholder="Giá từ"
+                           th:value="${minPrice}" min="0"
+                           style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
+                    <input type="number" class="form-control ms-2" name="maxPrice" placeholder="Giá đến"
+                           th:value="${maxPrice}" min="0"
+                           style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
+                    <button type="submit" class="btn btn-danger button-image-white ms-2"
+                            style="border-radius: 5px;">Tìm kiếm
+                    </button>
                 </form>
             </div>
+
+            <!-- End Search and Sort -->
             <div class="row">
-                <!-- Kiểm tra nếu không có sản phẩm -->
+                <!-- No Products Found -->
                 <div th:if="${productPage.content.isEmpty()}" class="col-12 text-center my-4">
                     <h4>Không có sản phẩm nào!</h4>
                 </div>
 
-                <!-- Product Card -->
-                <div th:if="${!productPage.content.isEmpty()}" th:each="product : ${productPage.content}"
-                     class="col-lg-3 col-md-4 col-sm-4 col-4">
+                <div th:each="product : ${productPage.content}"
+                     class="col-lg-3 col-md-4 col-sm-4 col-4"
+                     th:if="${!productPage.content.isEmpty()}">
                     <div class="card card-hover border-0">
                         <div class="position-relative button-image add-to-cart-container"
                              style="background-color: #f7f7f5">
                             <div class="overflow-hidden p-0 position-relative">
-                                <a class="nav-link" th:href="@{/product/detail/{id}(id=${product.id})}">
-                                    <img loading="lazy" th:src="@{/images/product/{photo}(photo=${product.photo})}"
-                                         class="card-img-top card-image" alt="product">
+                                <a class="nav-link"
+                                   th:href="@{/product/detail/{id}(id=${product.id})}"> <img
+                                        loading="lazy"
+                                        th:src="@{/images/product/{photo}(photo=${product.photo})}"
+                                        class="card-img-top card-image" alt="product">
                                 </a>
                             </div>
-
+                            <!-- <div class="badge position-absolute"
+                                style="top: 0; right: 0; z-index: 1000;">
+                                <img src="/images/logo/hot-badge.png" alt="hot-badge"
+                                    style="width: 50px;">
+                            </div> -->
                             <a th:attr="ng-click=${'cart.add(' + product.id + ')'}"
                                class="btn background-color button-image-white add-to-cart w-100 py-3 rounded-0 position-absolute"
                                style="bottom: 0; left: 0; z-index: 1001;">
@@ -118,68 +111,45 @@
                         </div>
 
                         <div class="card-body text-center">
-                            <div class="d-flex justify-content-center gap-2 my-2">
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star text-warning"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <h5 th:text="${product.productName}">Tên sản phẩm</h5>
+
+                            <h5 class="" th:text="${product.productName}">ten sp</h5>
                             <h4 class="color fw-bold"
                                 th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + 'đ'}">
-                                100.000đ
-                            </h4>
+                                100.000đ</h4>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- End Product Card -->
-
-            <!-- Pagination -->
-            <div class="row py-3"
-                 th:if="${productPage.totalElements > 16}">
-                <div class="col">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item"
-                                th:classappend="${productPage.hasPrevious() ? '' : 'disabled'}">
-                                <a class="page-link text-white bg-danger"
-                                   th:href="@{/allProduct(page=${productPage.number - 1}, search=${search}, sort=${sort}, categoryId=${categoryId})}"
-                                   aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"
-                                th:each="i : ${#numbers.sequence(0, productPage.totalPages - 1)}"
-                                th:classappend="${i == productPage.number ? 'active' : ''}">
-                                <a class="page-link"
-                                   th:href="@{/allProduct(page=${i}, search=${search}, sort=${sort}, categoryId=${categoryId})}"
-                                   th:text="${i + 1}"></a>
-                            </li>
-                            <li class="page-item"
-                                th:classappend="${productPage.hasNext() ? '' : 'disabled'}">
-                                <a class="page-link text-white bg-danger"
-                                   th:href="@{/allProduct(page=${productPage.number + 1}, search=${search}, sort=${sort}, categoryId=${categoryId})}"
-                                   aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                <div class="row py-3" th:if="${productPage.totalElements > 16}">
+                    <div class="col">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item" th:classappend="${productPage.hasPrevious() ? '' : 'disabled'}">
+                                    <a class="page-link text-white bg-danger"
+                                       th:href="@{/allProduct(page=${productPage.number - 1}, search=${search}, sort=${sort}, categoryId=${categoryId}, minPrice=${minPrice}, maxPrice=${maxPrice})}"
+                                       aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"
+                                    th:each="i : ${#numbers.sequence(0, productPage.totalPages - 1)}"
+                                    th:classappend="${i == productPage.number ? 'active' : ''}">
+                                    <a class="page-link"
+                                       th:href="@{/allProduct(page=${i}, search=${search}, sort=${sort}, categoryId=${categoryId}, minPrice=${minPrice}, maxPrice=${maxPrice})}"
+                                       th:text="${i + 1}"></a>
+                                </li>
+                                <li class="page-item" th:classappend="${productPage.hasNext() ? '' : 'disabled'}">
+                                    <a class="page-link text-white bg-danger"
+                                       th:href="@{/allProduct(page=${productPage.number + 1}, search=${search}, sort=${sort}, categoryId=${categoryId}, minPrice=${minPrice}, maxPrice=${maxPrice})}"
+                                       aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
-            <!-- End Pagination -->
         </div>
         <!-- End Product List -->
     </div>
-    <!-- End Product Section -->
 </div>
-<hr>
-<!-- JS files -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN6jIeHz"
-        crossorigin="anonymous"></script>
-<script src="service.js"></script>
 </body>
-
 </html>

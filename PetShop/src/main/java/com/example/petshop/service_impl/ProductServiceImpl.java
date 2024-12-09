@@ -53,7 +53,6 @@ public class ProductServiceImpl implements ProductService {
         return productRepo.findByProductCategoryID_IdAndIdNot(id, id1);
     }
 
-
     @Override
     public Page<Product> getProductsByCategoryId(Integer categoryId, Pageable pageable) {
         return productRepo.findByProductCategoryID_Id(categoryId, pageable);
@@ -79,13 +78,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> searchProductByPriceRange(Double minPrice, Double maxPrice, Pageable pageable) {
-        return productRepo.searchByPriceRange(minPrice, maxPrice, pageable);
+    public Page<Product> searchProductByPriceAndKeyword(String search, Double minPrice, Double maxPrice, PageRequest price) {
+        return productRepo.searchByPriceAndKeyword(search, minPrice, maxPrice, price);
     }
 
     @Override
-    public Page<Product> searchProductByPriceAndKeyword(String keyword, Double minPrice, Double maxPrice, Pageable pageable) {
-        return productRepo.searchByPriceAndKeyword(keyword, minPrice, maxPrice, pageable);
+    public Page<Product> searchProductByPriceRange(Double minPrice, Double maxPrice, PageRequest price) {
+        return productRepo.searchByPriceRange(minPrice, maxPrice, price);
     }
-
 }

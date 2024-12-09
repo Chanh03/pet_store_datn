@@ -22,12 +22,12 @@
             </h1>
         </div>
         <hr>
+        <div class="mt-1 mb-3 rounded-3 overflow-hidden shadow p-4 bg-white">
+            <h2>Tổng số người đăng ký</h2>
+            <p th:text="'Số lượng người đăng ký: ' + ${totalSubscriptions}"></p>
+        </div>
     </div>
 
-    <div class="mt-1 mb-3 rounded-3 overflow-hidden shadow p-4 bg-white">
-        <h2>Tổng số người đăng ký</h2>
-        <p th:text="'Số lượng người đăng ký: ' + ${totalSubscriptions}"></p>
-    </div>
 
     <div class="mt-1 mb-5 rounded-3 overflow-hidden shadow p-4 bg-white position-relative">
         <form id="sendNotificationForm">

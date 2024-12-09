@@ -37,11 +37,6 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public boolean existsById(String id) {
-        return petRepo.existsById(id);
-    }
-
-    @Override
     public List<Pet> getAllByCreatedDate() {
         return petRepo.findAllByCreatedDateDesc();
     }
@@ -64,5 +59,10 @@ public class PetServiceImpl implements PetService {
     @Override
     public Page<Pet> searchPetsByPriceRange(Integer minPrice, Integer maxPrice, Pageable pageable) {
         return petRepo.findByPriceBetween(minPrice, maxPrice, pageable);
+    }
+
+    @Override
+    public Page<Pet> searchPetByPriceAndKeyword(String keyword, Integer minPrice, Integer maxPrice, Pageable pageable) {
+        return petRepo.searchByPriceAndKeyword(keyword, minPrice, maxPrice, pageable);
     }
 }

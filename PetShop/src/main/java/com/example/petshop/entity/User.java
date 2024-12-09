@@ -77,10 +77,6 @@ public class User implements UserDetails {
 
     @JsonIgnore
     @OneToMany(mappedBy = "userName")
-    private Set<BookingService> bookingServices = new LinkedHashSet<>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "userName")
     private Set<Order> orders = new LinkedHashSet<>();
 
     @JsonIgnore

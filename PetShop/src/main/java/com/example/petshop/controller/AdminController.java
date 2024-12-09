@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/quan-tri-he-thong")
 public class AdminController {
     @Autowired
-    private SubscriptionService subscriptionService;
+    SubscriptionService subscriptionService;
 
     @RequestMapping()
     public String admin(Model model) {
@@ -68,7 +68,6 @@ public class AdminController {
         model.addAttribute("totalSubscriptions", subscriptions.size()); // Thêm tổng số người đăng ký
         return "admin/_send_notification";
     }
-
 
     @RequestMapping("/voucher")
     public String adminVoucher(Model model) {

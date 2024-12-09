@@ -13,7 +13,6 @@ import java.util.List;
 
 @Repository
 public interface PetRepo extends JpaRepository<Pet, String> {
-    // Tìm kiếm linh hoạt với keyword
     @Query("SELECT p FROM Pet p WHERE p.breed LIKE %:keyword% OR p.famous LIKE %:keyword% OR p.hair LIKE %:keyword% OR p.petID LIKE %:keyword% OR p.petDescription LIKE %:keyword%")
     Page<Pet> searchByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
@@ -25,8 +24,6 @@ public interface PetRepo extends JpaRepository<Pet, String> {
     Page<Pet> findByPriceBetween(Integer minPrice, Integer maxPrice, Pageable pageable);
 
     @Query("SELECT p FROM Pet p WHERE (p.petID LIKE %:keyword% OR p.petDescription LIKE %:keyword%) AND p.price BETWEEN :minPrice AND :maxPrice")
-    Page<Pet> searchByPriceAndKeyword(@Param("keyword") String keyword,
-                                      @Param("minPrice") Integer minPrice,
-                                      @Param("maxPrice") Integer maxPrice,
-                                      Pageable pageable);
+    Page<Pet> searchByPriceAndKeyword(@Param("keyword") String keyword, @Param("minPrice") Integer minPrice,
+                                      @Param("maxPrice") Integer maxPrice, Pageable pageable);
 }

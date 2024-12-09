@@ -1,6 +1,8 @@
 package com.example.petshop.controller;
 
 import com.example.petshop.entity.Pet;
+import com.example.petshop.entity.PetCategory;
+import com.example.petshop.service.PetCategoryService;
 import com.example.petshop.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,28 +25,47 @@ public class PetController {
     @Autowired
     private PetService petService;
 
+    @Autowired
+    private PetCategoryService productCategoryService;
+
     @RequestMapping("/allPet")
-    public String viewPaginatedPets(Model model, @RequestParam(defaultValue = "0") int page,
-                                    @RequestParam(required = false) String keyword, @RequestParam(defaultValue = "desc") String priceOrder,
-                                    @RequestParam(required = false) Integer minPrice, @RequestParam(required = false) Integer maxPrice) {
+    public String viewPaginatedPets(Model model,
+                                    @RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(required = false) String keyword,
+                                    @RequestParam(defaultValue = "desc") String priceOrder,
+                                    @RequestParam(required = false) Integer minPrice,
+                                    @RequestParam(required = false) Integer categoryId,
+                                    @RequestParam(required = false) Integer maxPrice) {
 
         int pageSize = 24;
         Page<Pet> petPage;
 
+        // Xác định thứ tự sắp xếp
         Sort sort = Sort.by("price").descending();
         if ("asc".equalsIgnoreCase(priceOrder)) {
             sort = Sort.by("price").ascending();
         }
 
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            petPage = petService.searchPets(keyword.trim(), PageRequest.of(page, pageSize, sort));
-        } else {
-            petPage = petService.getPaginatedPets(PageRequest.of(page, pageSize, sort));
+        // Trường hợp tìm kiếm theo từ khóa và khoảng giá
+        if (keyword != null && !keyword.trim().isEmpty() && minPrice != null && maxPrice != null) {
+            petPage = petService.searchPetByPriceAndKeyword(keyword.trim(), minPrice, maxPrice, PageRequest.of(page, pageSize, sort));
         }
-
-        if (minPrice != null && maxPrice != null) {
+        // Trường hợp chỉ tìm kiếm theo từ khóa
+        else if (keyword != null && !keyword.trim().isEmpty()) {
+            petPage = petService.searchPets(keyword.trim(), PageRequest.of(page, pageSize, sort));
+        }
+        // Trường hợp chỉ lọc theo khoảng giá
+        else if (minPrice != null && maxPrice != null) {
             petPage = petService.searchPetsByPriceRange(minPrice, maxPrice, PageRequest.of(page, pageSize, sort));
         }
+        // Trường hợp không có bộ lọc
+        else {
+            petPage = petService.getPaginatedPets(PageRequest.of(page, pageSize, sort));
+        }
+        List<PetCategory> categoriespet = productCategoryService.getAll();
+
+
+        // Đưa dữ liệu vào model để hiển thị trên giao diện
         model.addAttribute("pets", petPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("petPage", petPage);

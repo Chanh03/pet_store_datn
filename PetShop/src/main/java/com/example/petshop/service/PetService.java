@@ -18,8 +18,6 @@ public interface PetService {
 
     void deleteById(String id);
 
-    boolean existsById(String id);
-
     List<Pet> getAllByCreatedDate();
 
     Page<Pet> getPaginatedPets(Pageable pageable);
@@ -29,5 +27,7 @@ public interface PetService {
     List<Pet> getAllPetByCategoryId(PetCategory id);
 
     Page<Pet> searchPetsByPriceRange(Integer minPrice, Integer maxPrice, Pageable pageable);
+
+    Page<Pet> searchPetByPriceAndKeyword(String keyword, Integer minPrice, Integer maxPrice, Pageable pageable);
 
 }
