@@ -9,9 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="siêu update">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="add service">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_service.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_payMent.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_payMent.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/controller/HomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/controller/HomeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_main.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -269,14 +273,7 @@
       <workItem from="1733686828182" duration="79000" />
       <workItem from="1733754172864" duration="62000" />
       <workItem from="1733833593711" duration="877000" />
-    </task>
-    <task id="LOCAL-00068" summary="update index x3">
-      <option name="closed" value="true" />
-      <created>1732116265019</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1732116265019</updated>
+      <workItem from="1733839772004" duration="923000" />
     </task>
     <task id="LOCAL-00069" summary="méo chạy đc nhưng vẫn up :v">
       <option name="closed" value="true" />
@@ -662,7 +659,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733589530300</updated>
     </task>
-    <option name="localTasksCounter" value="117" />
+    <task id="LOCAL-00117" summary="fixed vnpay button">
+      <option name="closed" value="true" />
+      <created>1733839887983</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1733839887984</updated>
+    </task>
+    <option name="localTasksCounter" value="118" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -708,8 +713,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add img/ update detail form x2" />
-    <MESSAGE value="add img/ update detail form x3" />
     <MESSAGE value="add img/ update detail form x4" />
     <MESSAGE value="update admin add voucher" />
     <MESSAGE value="update admin add count voucher" />
@@ -733,7 +736,9 @@
     <MESSAGE value="update pet / product detail" />
     <MESSAGE value="update send order status mail" />
     <MESSAGE value="siêu update" />
-    <option name="LAST_COMMIT_MESSAGE" value="siêu update" />
+    <MESSAGE value="fixed vnpay button" />
+    <MESSAGE value="add service" />
+    <option name="LAST_COMMIT_MESSAGE" value="add service" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
