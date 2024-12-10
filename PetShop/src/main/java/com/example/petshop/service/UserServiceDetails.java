@@ -62,18 +62,6 @@ public class UserServiceDetails implements UserDetailsService {
             return true;
         }
 
-        if (userService.existedByUsername(id)) {
-            User user = userService.findByUsername(id);
-            if (user == null) {
-                // Nếu người dùng không tồn tại, trả về false
-                return false;
-            }
-
-            if (!user.getEnable()) {
-                // Nếu tài khoản người dùng không kích hoạt, trả về false
-                return false;
-            }
-        }
         if (!userService.existedByUsername(id)) {
 
             User user = new User();

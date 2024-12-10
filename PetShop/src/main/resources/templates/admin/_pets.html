@@ -123,11 +123,11 @@
                     <span ng-if="!pet.gender" class="badge bg-warning">Cái</span>
                 </td>
                 <td sortable="'available'" data-title="'Trạng thái'" class="text-center">
-                    <div ng-if="pet.available" class="text-success">
+                    <div ng-if="!pet.available" class="text-success">
                         <i class="fa-solid fa-circle"></i>
                         <span>Đã bán</span>
                     </div>
-                    <div ng-if="!pet.available" class="text-warning">
+                    <div ng-if="pet.available" class="text-warning">
                         <i class="fa-solid fa-circle"></i>
                         <span>Chưa bán</span>
                     </div>

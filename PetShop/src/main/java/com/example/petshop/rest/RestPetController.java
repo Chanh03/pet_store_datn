@@ -33,6 +33,8 @@ public class RestPetController {
     @PostMapping
     public void save(@RequestBody Pet pet) {
         pet.setCreateDate(LocalDateTime.now());
+        pet.setAvailable(true);
+        pet.setEnable(true);
         petService.save(pet);
     }
 

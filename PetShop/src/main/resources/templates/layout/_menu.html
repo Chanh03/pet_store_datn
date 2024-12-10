@@ -206,7 +206,7 @@
                     <li sec:authorize="isAuthenticated()" class="nav-item text-center user-button">
                         <a class="nav-link menu-item" href="/information">
                             <i class="fa-solid fa-user-large"></i>
-                            <span sec:authentication="principal.fullName"></span>
+                            <span th:text="${user.fullName}">Người dùng</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </a>
                         <div class="mini-user-box p-4 rounded-3 shadow">
