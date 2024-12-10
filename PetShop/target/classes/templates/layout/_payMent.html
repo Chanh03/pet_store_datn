@@ -261,22 +261,10 @@
             const username = document.getElementById("username").value;
 
             let addressData = [];
-            const existingAddressOption = document.getElementById("existing-address").checked;
-            if (existingAddressOption) {
                 // Nếu là địa chỉ cũ
                 addressData = [
                     document.getElementById("userAddress").value,
                 ];
-            } else {
-                // Nếu là địa chỉ mới
-                addressData = [
-                    document.querySelector("input[placeholder='Địa chỉ']").value,
-                    document.querySelector("select[placeholder='Tỉnh/thành phố']").value,
-                    document.querySelector("select[placeholder='Quận/huyện']").value,
-                    document.querySelector("select[placeholder='Phường/xã']").value,
-                    document.querySelector("textarea[placeholder='Yêu cầu khác (không bắt buộc)']").value,
-                ];
-            }
 
             // Chuyển addressData thành chuỗi
             const addressString = encodeURIComponent(addressData.join(", "));
