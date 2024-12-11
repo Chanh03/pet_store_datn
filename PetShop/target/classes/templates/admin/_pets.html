@@ -106,30 +106,52 @@
                     data-title="'Pet Id'">
                     <a href="/pet/detail/{{ pet.petID }}">{{ pet.petID }}</a>
                 </td>
-                <td sortable="'breed'" class="text-start" filter="{ 'breed': 'text' }" data-title="'Giống'">{{ pet.breed
-                    }}
-                </td>
+                <!--                <td sortable="'breed'" class="text-start" filter="{ 'breed': 'text' }" data-title="'Giống'">{{ pet.breed-->
+                <!--                    }}-->
+                <!--                </td>-->
                 <td sortable="'petCategoryID.petCategoryName'" filter="{ 'petCategoryID.petCategoryName': 'text' }"
                     data-title="'Loài'" class="text-start text-wrap">{{ pet.petCategoryID.petCategoryName }}
                 </td>
-                <td sortable="'price'" filter="{ 'price': 'number' }" data-title="'Giá'">{{ pet.price | number :
-                    '0'}}đ
+                <td sortable="'price'" filter="{ 'price': 'number' }" data-title="'Giá'">
+                    <form name="petForm" novalidate>
+                        <div class="input-group">
+                            <input type="number" class="form-control text-start" placeholder="Giá"
+                                   aria-label="petPrice" aria-describedby="petPrice" ng-model="pet.price"
+                                   ng-keypress="checkEnterPetPrice($event, pet.petID, pet.price)"
+                                   min="10000" max="99999999"
+                                   name="petPrice" required ng-disabled="pet.available">
+                            <span class="input-group-text" id="petPrice">đ</span>
+                        </div>
+                        <div ng-messages="petForm.petPrice.$error" role="alert" class="text-danger">
+                            <div ng-message="required">Giá không được để trống.</div>
+                            <div ng-message="min">Giá không được nhỏ hơn 10.000.</div>
+                            <div ng-message="max">Giá không được lớn hơn 99.999.999.</div>
+                        </div>
+                    </form>
                 </td>
-                <td sortable="'createDate'" data-title="'Ngày thêm'">{{ pet.createDate |
-                    date: 'dd/MM/yyyy'}}
-                </td>
+                <!--                <td sortable="'createDate'" data-title="'Ngày thêm'">{{ pet.createDate |-->
+                <!--                    date: 'dd/MM/yyyy'}}-->
+                <!--                </td>-->
                 <td sortable="'gender'" data-title="'Giới tính'" class="text-center">
                     <span ng-if="pet.gender" class="badge bg-primary">Đực</span>
-                    <span ng-if="!pet.gender" class="badge bg-warning">Cái</span>
+                    <span ng-if="!pet.gender" class="badge" style="background: deeppink">Cái</span>
                 </td>
-                <td sortable="'available'" data-title="'Trạng thái'" class="text-center">
-                    <div ng-if="pet.available" class="text-success">
-                        <i class="fa-solid fa-circle"></i>
-                        <span>Đã bán</span>
-                    </div>
-                    <div ng-if="!pet.available" class="text-warning">
-                        <i class="fa-solid fa-circle"></i>
-                        <span>Chưa bán</span>
+                <td sortable="'available'" data-title="'Trạng thái'" class="text-start">
+                    <button ng-if="pet.available" class="btn btn-success w-100"
+                            ng-click="updatePetAvailable(pet.petID, !pet.available)">
+                        Đã bán <i class="fa-solid fa-check"></i>
+                    </button>
+                    <button ng-if="!pet.available" class="btn btn-danger w-100 fw-bold"
+                            ng-click="updatePetAvailable(pet.petID, !pet.available)">
+                        Chưa bán <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </td>
+                <td sortable="'enable'" data-title="'Ẩn/Hiện'" class="text-center">
+                    <div class="form-check form-switch p-0" ng-click="updatePetEnable(pet.petID, !pet.enable)"
+                         style="min-height: 2.5rem;">
+                        <input class="form-check-input ms-auto" type="checkbox" role="switch"
+                               id="flexSwitchCheckDefault" style="height: 2rem;width: calc(3rem + 0.75rem);"
+                               ng-model="pet.enable">
                     </div>
                 </td>
                 <td data-title="'Tool'" class="text-center">

@@ -181,7 +181,7 @@
                         <a class="nav-link menu-item" href="/allPet">Thú cưng</a>
                     </li>
                     <li class="nav-item text-center">
-                        <a class="nav-link menu-item" href="#">Dịch vụ</a>
+                        <a class="nav-link menu-item" href="/service">Dịch vụ</a>
                     </li>
                     <li class="nav-item text-center search-button">
                         <div class="bg-white rounded-3 shadow border border-2 border-dark p-1" style="width: 400px;">
@@ -206,7 +206,7 @@
                     <li sec:authorize="isAuthenticated()" class="nav-item text-center user-button">
                         <a class="nav-link menu-item" href="/information">
                             <i class="fa-solid fa-user-large"></i>
-                            <span sec:authentication="principal.fullName"></span>
+                            <span th:text="${user.fullName}">Người dùng</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </a>
                         <div class="mini-user-box p-4 rounded-3 shadow">

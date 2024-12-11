@@ -75,4 +75,18 @@ public class RestProductController {
     public void deleteProduct(@PathVariable int id) {
         productService.deleteById(id);
     }
+
+    @PutMapping("/{id}/price/{price}")
+    public Product updateProductPrice(@PathVariable int id, @PathVariable int price) {
+        Product product = productService.getById(id);
+        product.setPrice(price);
+        return productService.save(product);
+    }
+
+    @PutMapping("/{id}/quantity/{quantity}")
+    public Product updateProductQuantity(@PathVariable int id, @PathVariable int quantity) {
+        Product product = productService.getById(id);
+        product.setQuantity(quantity);
+        return productService.save(product);
+    }
 }

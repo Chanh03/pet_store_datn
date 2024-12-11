@@ -114,8 +114,39 @@
                     data-title="'Loại'" class="text-start text-truncate">{{
                     product.productCategoryID.productCategoryName }}
                 </td>
-                <td sortable="'price'" data-title="'Giá'">{{ product.price | number : '0'}}đ</td>
-                <td sortable="'quantity'" data-title="'Số lượng'">{{ product.quantity }}
+                <td sortable="'price'" data-title="'Giá'">
+                    <form name="productForm" novalidate>
+                        <div class="input-group">
+                            <input type="number" class="form-control" placeholder="Giá"
+                                   aria-label="Giá" aria-describedby="Giá" ng-model="product.price"
+                                   ng-keypress="checkEnterProductPrice($event, product.id, product.price)"
+                                   min="10000" max="3000000"
+                                   name="productPrice" required>
+                            <span class="input-group-text" id="Giá">đ</span>
+                        </div>
+                        <div ng-messages="productForm.productPrice.$error" role="alert" class="text-danger">
+                            <div ng-message="min">Giá không được nhỏ hơn 10,000.</div>
+                            <div ng-message="max">Giá không được lớn hơn 3,000,000.</div>
+                            <div ng-message="required">Giá là bắt buộc.</div>
+                        </div>
+                    </form>
+                </td>
+                <td sortable="'quantity'" data-title="'Số lượng'">
+                    <form name="productForm" novalidate>
+                        <div class="input-group">
+                            <input type="number" class="form-control text-center" placeholder="Số lượng"
+                                   aria-label="Số lượng" aria-describedby="Số lượng" ng-model="product.quantity"
+                                   ng-keypress="checkEnterProductQuantity($event, product.id, product.quantity)"
+                                   min="0" max="1000"
+                                   name="productQuantity" required>
+                            <span class="input-group-text" id="Số lượng">cái</span>
+                        </div>
+                        <div ng-messages="productForm.productQuantity.$error" role="alert" class="text-danger">
+                            <div ng-message="min">Số lượng không được nhỏ hơn 0.</div>
+                            <div ng-message="max">Số lượng không được lớn hơn 1,000.</div>
+                            <div ng-message="required">Số lượng là bắt buộc.</div>
+                        </div>
+                    </form>
                 </td>
                 <td sortable="'quantity'" data-title="'Trạng thái'" class="text-center">
                     <div ng-if="product.quantity != 0" class="text-success">
