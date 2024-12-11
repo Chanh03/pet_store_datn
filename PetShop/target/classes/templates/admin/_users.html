@@ -65,7 +65,7 @@
         </div>
         <table ng-table="usersTable" class="table text-truncate table-responsive rounded-3 table-hover table-sm  p-5"
                show-filter="true">
-            <tr ng-repeat="user in $data" class="align-middle">
+            <tr ng-repeat="user in $data" ng-if="user.username !== 'admin'" class="align-middle">
                 <!-- STT tính toán dựa trên trang hiện tại -->
                 <td data-title="'#'" class="p-2 px-3 text-center">
                     <b>{{ (usersTable.page() - 1) * usersTable.count() + $index + 1 }}</b>

@@ -9,25 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="fix mấy cái gì đó lạ vl :v">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestPetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestPetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/rest/RestProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_authority.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_authority.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_pets.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_pets.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_products.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_products.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_userModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_userModal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_users.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_users.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_menu.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/config/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/rest/RestPetController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/rest/RestPetController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/rest/RestProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/rest/RestProductController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/petshop/service/UserServiceDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/petshop/service/UserServiceDetails.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_petAddModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_petAddModal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_petModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_petModal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_pets.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_pets.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_menu.html" afterDir="false" />
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="siêu update admin x5">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/PetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/PetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/petshop/controller/ProductController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,15 +270,7 @@
       <workItem from="1733754172864" duration="62000" />
       <workItem from="1733833593711" duration="877000" />
       <workItem from="1733839772004" duration="4193000" />
-      <workItem from="1733890466130" duration="4715000" />
-    </task>
-    <task id="LOCAL-00071" summary="fix fix fix payment status">
-      <option name="closed" value="true" />
-      <created>1732272426383</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1732272426383</updated>
+      <workItem from="1733890466130" duration="4831000" />
     </task>
     <task id="LOCAL-00072" summary="bug add quantity">
       <option name="closed" value="true" />
@@ -680,7 +656,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733846644520</updated>
     </task>
-    <option name="localTasksCounter" value="120" />
+    <task id="LOCAL-00120" summary="siêu update admin x5">
+      <option name="closed" value="true" />
+      <created>1733895255733</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1733895255734</updated>
+    </task>
+    <option name="localTasksCounter" value="121" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -741,7 +725,6 @@
     <MESSAGE value="siêu update admin x2" />
     <MESSAGE value="siêu update admin x3" />
     <MESSAGE value="siêu update admin x4" />
-    <MESSAGE value="siêu update admin x5" />
     <MESSAGE value="siêu update index x1" />
     <MESSAGE value="siêu update admin x1" />
     <MESSAGE value="update pet / product detail" />
@@ -751,7 +734,8 @@
     <MESSAGE value="add service" />
     <MESSAGE value="add img service" />
     <MESSAGE value="fix mấy cái gì đó lạ vl :v" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix mấy cái gì đó lạ vl :v" />
+    <MESSAGE value="siêu update admin x5" />
+    <option name="LAST_COMMIT_MESSAGE" value="siêu update admin x5" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

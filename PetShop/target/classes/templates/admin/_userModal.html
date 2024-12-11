@@ -75,15 +75,19 @@
                             <div class="form-check form-check-inline">
                                 <input ng-checked="selectedUser.enable == true"
                                        ng-model="selectedUser.enable" class="form-check-input"
-                                       type="radio" id="hoatDong" value="true">
+                                       type="radio" id="hoatDong" value="true" name="enable" required>
                                 <label class="form-check-label" for="hoatDong">Đang hoạt động</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input ng-checked="selectedUser.enable == false"
                                        ng-model="selectedUser.enable" class="form-check-input"
-                                       type="radio" id="khongHoatDong" value="false">
+                                       type="radio" id="khongHoatDong" value="false" name="enable" required>
                                 <label class="form-check-label" for="khongHoatDong">Khóa tài khoản</label>
                             </div>
+                            <span ng-show="editUserForm.enable.$touched && editUserForm.enable.$invalid"
+                                  class="text-danger fst-italic">
+                                    Vui lòng chọn trạng thái.
+                                </span>
                         </div>
                     </div>
                 </form>

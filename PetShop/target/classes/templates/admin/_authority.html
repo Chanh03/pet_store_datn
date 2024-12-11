@@ -89,7 +89,7 @@
         <table ng-table="authorityTables"
                class="table text-truncate table-responsive rounded-3 table-hover table-sm  p-5"
                show-filter="true">
-            <tr ng-repeat="userAuthor in $data" class="align-middle">
+            <tr ng-repeat="userAuthor in $data" ng-if="userAuthor.userName.username !== 'admin'" class="align-middle">
                 <!-- STT tính toán dựa trên trang hiện tại -->
                 <td data-title="'#'" class="p-2 px-3 text-center">
                     <b>{{ (authorityTables.page() - 1) * authorityTables.count() + $index + 1 }}</b>

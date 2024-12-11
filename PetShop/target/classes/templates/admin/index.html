@@ -491,6 +491,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-messages.min.js"></script>
 <script src="https://unpkg.com/ng-table@4.0.0/bundles/ng-table.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
@@ -533,7 +534,7 @@
         });
     });
     /* Đây mới là phần chính của AngularJS nè =))*/
-    var app = angular.module('myApp', ['ngRoute', 'ngTable']);
+    var app = angular.module('myApp', ['ngRoute', 'ngTable', 'ngMessages']);
     app.controller('myCtrl', function ($scope, $http, NgTableParams, $filter, $timeout) {
         $(document).ready(function () {
             $scope.date = new Date().toLocaleString();
@@ -787,6 +788,75 @@
             $scope.petsTable.filter({});
             $scope.petsTable.sorting({});
         };
+        $scope.updatePetEnable = function (petId, enable) {
+            $http.put(baseUrl + 'pet/' + petId + '/enable/' + enable).then(function (response) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Đã cập nhật trạng thái :' + petId,
+                    autoclose: true,
+                    status: 'success',
+                    autotimeout: 3000
+                });
+                $scope.getPets();
+            }).catch(function (error) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Lỗi khi cập nhật :' + petId,
+                    autoclose: true,
+                    status: 'warning',
+                    autotimeout: 3000
+                });
+            });
+            console.log(petId + '/' + enable);
+        };
+        $scope.updatePetAvailable = function (petId, available) {
+            $http.put(baseUrl + 'pet/' + petId + '/available/' + available).then(function (response) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Đã cập nhật trạng thái :' + petId,
+                    autoclose: true,
+                    status: 'success',
+                    autotimeout: 3000
+                });
+                Swal.close();
+                $scope.getPets();
+            }).catch(function (error) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Lỗi khi cập nhật :' + petId,
+                    autoclose: true,
+                    status: 'warning',
+                    autotimeout: 3000
+                });
+                Swal.close();
+            });
+        };
+        $scope.checkEnterPetPrice = function (event, petId, petPrice) {
+            if (event.keyCode === 13) { // 13 là mã của phím Enter
+                $scope.updatePetPrice(petId, petPrice);
+                event.preventDefault(); // Ngăn chặn sự kiện mặc định của phím Enter
+            }
+        };
+        $scope.updatePetPrice = function (petId, petPrice) {
+            $http.put(baseUrl + 'pet/' + petId + '/price/' + petPrice).then(function (response) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Đã cập nhật giá :' + petId,
+                    autoclose: true,
+                    status: 'success',
+                    autotimeout: 3000
+                });
+                $scope.getPets();
+            }).catch(function (error) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Lỗi khi cập nhật :' + petId,
+                    autoclose: true,
+                    status: 'warning',
+                    autotimeout: 3000
+                });
+            });
+        };
         /*PRODUCT*/
         $scope.getProducts = function () {
             $http.get(baseUrl + 'product').then(function (response) {
@@ -929,6 +999,57 @@
                     });
                 });
             }
+        };
+        $scope.checkEnterProductPrice = function (event, productId, productPrice) {
+            if (event.keyCode === 13) { // 13 là mã của phím Enter
+                $scope.updateProductPrice(productId, productPrice);
+                event.preventDefault(); // Ngăn việc submit form mặc định (nếu có)
+            }
+        };
+        $scope.updateProductPrice = function (productId, price) {
+            $http.put(baseUrl + 'product/' + productId + '/price/' + price).then(function (response) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Đã cập nhật giá :' + productId,
+                    autoclose: true,
+                    status: 'success',
+                    autotimeout: 3000
+                });
+                $scope.getProducts();
+            }).catch(function (error) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Lỗi khi cập nhật :' + productId,
+                    autoclose: true,
+                    status: 'warning',
+                    autotimeout: 3000
+                });
+            });
+        };
+        $scope.checkEnterProductQuantity = function (event, productId, productQuantity) {
+            if (event.keyCode === 13)
+                $scope.updateProductQuantity(productId, productQuantity);
+            event.preventDefault();
+        };
+        $scope.updateProductQuantity = function (productId, quantity) {
+            $http.put(baseUrl + 'product/' + productId + '/quantity/' + quantity).then(function (response) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Đã cập nhật số lượng :' + productId,
+                    autoclose: true,
+                    status: 'success',
+                    autotimeout: 3000
+                });
+                $scope.getProducts();
+            }).catch(function (error) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Lỗi khi cập nhật :' + productId,
+                    autoclose: true,
+                    status: 'warning',
+                    autotimeout: 3000
+                });
+            });
         };
         $scope.deleteProduct = function (productId) {
             Swal.fire({
