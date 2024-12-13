@@ -9,11 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update admin">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update admin (style)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_pet_category_details_modal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_pet_category_details_modal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_pets.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_pets.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -273,15 +272,11 @@
       <workItem from="1733833593711" duration="877000" />
       <workItem from="1733839772004" duration="4193000" />
       <workItem from="1733890466130" duration="5563000" />
-      <workItem from="1733915471609" duration="1200000" />
-    </task>
-    <task id="LOCAL-00074" summary="update history cart, review">
-      <option name="closed" value="true" />
-      <created>1732364941537</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1732364941537</updated>
+      <workItem from="1733915471609" duration="1779000" />
+      <workItem from="1733945706335" duration="96000" />
+      <workItem from="1733990504075" duration="3000" />
+      <workItem from="1733990827278" duration="7000" />
+      <workItem from="1734067523348" duration="972000" />
     </task>
     <task id="LOCAL-00075" summary="update main">
       <option name="closed" value="true" />
@@ -667,7 +662,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733916027022</updated>
     </task>
-    <option name="localTasksCounter" value="123" />
+    <task id="LOCAL-00123" summary="update admin (style)">
+      <option name="closed" value="true" />
+      <created>1733916712619</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1733916712619</updated>
+    </task>
+    <option name="localTasksCounter" value="124" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -713,7 +716,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add check hsd" />
     <MESSAGE value="backup" />
     <MESSAGE value="update mission" />
     <MESSAGE value="fix search" />
@@ -738,7 +740,8 @@
     <MESSAGE value="siêu update admin x5" />
     <MESSAGE value="fixed user fullName" />
     <MESSAGE value="update admin" />
-    <option name="LAST_COMMIT_MESSAGE" value="update admin" />
+    <MESSAGE value="update admin (style)" />
+    <option name="LAST_COMMIT_MESSAGE" value="update admin (style)" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

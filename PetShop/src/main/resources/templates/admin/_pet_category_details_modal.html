@@ -8,7 +8,7 @@
 <!-- Modal -->
 <div class="modal fade" id="petCategoryDetailModal" tabindex="-1" aria-labelledby="petCategoryDetailModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl" style="width: 100% !important;">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-color">
                 <h5 class="modal-title" id="petCategoryDetailModalLabel">Các thú cưng cùng loại:</h5>
@@ -34,10 +34,10 @@
                             pet.breed
                             }}
                         </td>
-                        <td sortable="'petCategoryID.petCategoryName'"
-                            filter="{ 'petCategoryID.petCategoryName': 'text' }"
-                            data-title="'Loài'" class="text-start text-wrap">{{ pet.petCategoryID.petCategoryName }}
-                        </td>
+<!--                        <td sortable="'petCategoryID.petCategoryName'"-->
+<!--                            filter="{ 'petCategoryID.petCategoryName': 'text' }"-->
+<!--                            data-title="'Loài'" class="text-start text-wrap">{{ pet.petCategoryID.petCategoryName }}-->
+<!--                        </td>-->
                         <td sortable="'price'" filter="{ 'price': 'number' }" data-title="'Giá'">{{ pet.price | number :
                             '0'}}đ
                         </td>
