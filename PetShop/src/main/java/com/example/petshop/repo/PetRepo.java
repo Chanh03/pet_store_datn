@@ -26,4 +26,8 @@ public interface PetRepo extends JpaRepository<Pet, String> {
     @Query("SELECT p FROM Pet p WHERE (p.petID LIKE %:keyword% OR p.petDescription LIKE %:keyword%) AND p.price BETWEEN :minPrice AND :maxPrice")
     Page<Pet> searchByPriceAndKeyword(@Param("keyword") String keyword, @Param("minPrice") Integer minPrice,
                                       @Param("maxPrice") Integer maxPrice, Pageable pageable);
+
+    @Query("SELECT p FROM Pet p WHERE p.petCategoryID.id = :categoryId")
+    Page<Pet> findByPetCategory(@Param("categoryId") String categoryId, Pageable pageable);
+
 }

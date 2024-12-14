@@ -60,8 +60,7 @@
                 <!-- Form tìm kiếm theo tên và giá -->
                 <form method="get" action="/allProduct" class="d-flex">
                     <input type="text" name="search" class="form-control ms-2" placeholder="Tên sản phẩm"
-                           th:value="${param.search}"
-                           style="border: 2px solid #dc3545; border-radius: 5px; width: 200px;">
+                           th:value="${param.search}" style="border: 2px solid #dc3545; border-radius: 5px; width: 200px;">
 
                     <input type="number" class="form-control ms-2" name="minPrice" placeholder="Giá từ"
                            th:value="${minPrice}" min="0"
@@ -70,12 +69,12 @@
                            th:value="${maxPrice}" min="0"
                            style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
                     <button type="submit" class="btn btn-danger button-image-white ms-2"
-                            style="border-radius: 5px;">Tìm kiếm
-                    </button>
+                            style="border-radius: 5px;">Tìm kiếm</button>
                 </form>
             </div>
 
             <!-- End Search and Sort -->
+
             <div class="row">
                 <!-- No Products Found -->
                 <div th:if="${productPage.content.isEmpty()}" class="col-12 text-center my-4">
@@ -119,13 +118,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="row py-3" th:if="${productPage.totalElements > 16}">
+                <div class="row py-3" th:if="${productPage.totalElements > 8}">
                     <div class="col">
                         <nav aria-label="Page navigation">
                             <ul class="pagination justify-content-center">
-                                <li class="page-item" th:classappend="${productPage.hasPrevious() ? '' : 'disabled'}">
+                                <li class="page-item"
+                                    th:classappend="${productPage.hasPrevious() ? '' : 'disabled'}">
                                     <a class="page-link text-white bg-danger"
-                                       th:href="@{/allProduct(page=${productPage.number - 1}, search=${search}, sort=${sort}, categoryId=${categoryId}, minPrice=${minPrice}, maxPrice=${maxPrice})}"
+                                       th:href="@{/allProduct(page=${productPage.number - 1}, search=${search}, sort=${sort}, categoryId=${categoryId})}"
                                        aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
@@ -133,12 +133,13 @@
                                     th:each="i : ${#numbers.sequence(0, productPage.totalPages - 1)}"
                                     th:classappend="${i == productPage.number ? 'active' : ''}">
                                     <a class="page-link"
-                                       th:href="@{/allProduct(page=${i}, search=${search}, sort=${sort}, categoryId=${categoryId}, minPrice=${minPrice}, maxPrice=${maxPrice})}"
+                                       th:href="@{/allProduct(page=${i}, search=${search}, sort=${sort}, categoryId=${categoryId})}"
                                        th:text="${i + 1}"></a>
                                 </li>
-                                <li class="page-item" th:classappend="${productPage.hasNext() ? '' : 'disabled'}">
+                                <li class="page-item"
+                                    th:classappend="${productPage.hasNext() ? '' : 'disabled'}">
                                     <a class="page-link text-white bg-danger"
-                                       th:href="@{/allProduct(page=${productPage.number + 1}, search=${search}, sort=${sort}, categoryId=${categoryId}, minPrice=${minPrice}, maxPrice=${maxPrice})}"
+                                       th:href="@{/allProduct(page=${productPage.number + 1}, search=${search}, sort=${sort}, categoryId=${categoryId})}"
                                        aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>

@@ -21,6 +21,7 @@ public class PaymentStatusServiceImpl implements PaymentStatusService {
     @Override
     public void update(PaymentStatus paymentStatus) {
         paymentStatusRepo.save(paymentStatus);
+
     }
 
     @Override

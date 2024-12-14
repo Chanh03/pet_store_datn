@@ -192,4 +192,9 @@ public class HomeController {
         model.addAttribute("orderDetailHistory", orderDetailHistory);
         return "/layout/_historyOrderDetail";
     }
+
+    @RequestMapping("/service")
+    public String service() {
+        return "layout/_service";
+    }
 }

@@ -113,26 +113,26 @@
                             <div class="mb-3">
                                 <label>Trạng thái</label>
                                 <div class="form-check form-check-inline">
-                                    <input ng-checked="selectedPet.available == true" ng-model="selectedPet.available"
-                                           class="form-check-input" type="radio" id="daban" value="true">
+                                    <input ng-checked="selectedPet.available == false" ng-model="selectedPet.available"
+                                           class="form-check-input" type="radio" id="daban" value="false">
                                     <label class="form-check-label" for="daban">Đã bán</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input ng-checked="selectedPet.available == false" ng-model="selectedPet.available"
-                                           class="form-check-input" type="radio" id="chban" value="false">
+                                    <input ng-checked="selectedPet.available == true" ng-model="selectedPet.available"
+                                           class="form-check-input" type="radio" id="chban" value="true">
                                     <label class="form-check-label" for="chban">Chưa bán</label>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label>Ẩn/Hiện</label>
                                 <div class="form-check form-check-inline">
-                                    <input ng-checked="selectedPet.enable == true" ng-model="selectedPet.enable"
-                                           class="form-check-input" type="radio" id="an" value="true">
+                                    <input ng-checked="selectedPet.enable == false" ng-model="selectedPet.enable"
+                                           class="form-check-input" type="radio" id="an" value="false">
                                     <label class="form-check-label" for="an">Ẩn</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input ng-checked="selectedPet.enable == false" ng-model="selectedPet.enable"
-                                           class="form-check-input" type="radio" id="hien" value="false">
+                                    <input ng-checked="selectedPet.enable == true" ng-model="selectedPet.enable"
+                                           class="form-check-input" type="radio" id="hien" value="true">
                                     <label class="form-check-label" for="hien">Hiện</label>
                                 </div>
                             </div>

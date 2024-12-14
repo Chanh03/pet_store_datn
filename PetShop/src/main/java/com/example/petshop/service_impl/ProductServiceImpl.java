@@ -54,6 +54,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getAllByCreatedDate() {
+        return productRepo.findAllByCreatedDateDesc();
+    }
+
+    @Override
     public Page<Product> getProductsByCategoryId(Integer categoryId, Pageable pageable) {
         return productRepo.findByProductCategoryID_Id(categoryId, pageable);
     }

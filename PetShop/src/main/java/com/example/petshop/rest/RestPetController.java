@@ -33,6 +33,8 @@ public class RestPetController {
     @PostMapping
     public void save(@RequestBody Pet pet) {
         pet.setCreateDate(LocalDateTime.now());
+        pet.setAvailable(true);
+        pet.setEnable(true);
         petService.save(pet);
     }
 
@@ -46,4 +48,24 @@ public class RestPetController {
         petService.deleteById(id);
     }
 
+    @PutMapping("/{id}/enable/{enable}")
+    public void enablePet(@PathVariable("id") String id, @PathVariable("enable") boolean enable) {
+        Pet pet = petService.findById(id);
+        pet.setEnable(enable);
+        petService.save(pet);
+    }
+
+    @PutMapping("/{id}/available/{available}")
+    public void availablePet(@PathVariable("id") String id, @PathVariable("available") boolean available) {
+        Pet pet = petService.findById(id);
+        pet.setAvailable(available);
+        petService.save(pet);
+    }
+
+    @PutMapping("/{id}/price/{price}")
+    public void updatePrice(@PathVariable("id") String id, @PathVariable("price") int price) {
+        Pet pet = petService.findById(id);
+        pet.setPrice(price);
+        petService.save(pet);
+    }
 }

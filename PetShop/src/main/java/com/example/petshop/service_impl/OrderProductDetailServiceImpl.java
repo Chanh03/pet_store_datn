@@ -33,7 +33,7 @@ public class OrderProductDetailServiceImpl implements OrderProductDetailService 
 
     @Override
     public List<OrderProductDetail> getByOrderIdAndUser(Order order, User user) {
-        return orderProductDetailRepo.findByOrderIDAndUser(order, user);
+        return orderProductDetailRepo.findByOrderIDAndUser(order , user);
     }
 
     @Override

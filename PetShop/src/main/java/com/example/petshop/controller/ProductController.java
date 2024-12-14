@@ -3,16 +3,16 @@ package com.example.petshop.controller;
 import com.example.petshop.entity.Product;
 import com.example.petshop.entity.ProductCategory;
 import com.example.petshop.entity.Review;
-import com.example.petshop.service.OrderProductDetailService;
-import com.example.petshop.service.ProductCategoryService;
-import com.example.petshop.service.ProductService;
-import com.example.petshop.service.ReviewService;
+import com.example.petshop.entity.User;
+import com.example.petshop.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +35,17 @@ public class ProductController {
 
     @Autowired
     private ProductCategoryService productCategoryService;
+    @Autowired
+    private UserService userService;
+
+    @ModelAttribute("user")
+    public User user(Authentication authentication, Principal principal) {
+        if (principal == null) {
+            return null;
+        } else {
+            return userService.findByUsername(principal.getName());
+        }
+    }
 
     @RequestMapping("/allProduct")
     public String viewProduct(Model model,

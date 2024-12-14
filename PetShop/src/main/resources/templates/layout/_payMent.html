@@ -175,8 +175,7 @@
                         </a>
                     </div>
                     <div class="form-check mb-2">
-                        <a class="form-check-label text-primary" href="/access-denied">Tôi đã đọc và đồng ý với điều
-                            kiện
+                        <a class="form-check-label text-primary" href="/access-denied">Tôi đã đọc và đồng ý với điều kiện
                             giao dịch
                             chung
                             của website *</a>
@@ -262,10 +261,10 @@
             const username = document.getElementById("username").value;
 
             let addressData = [];
-            // Nếu là địa chỉ cũ
-            addressData = [
-                document.getElementById("userAddress").value,
-            ];
+                // Nếu là địa chỉ cũ
+                addressData = [
+                    document.getElementById("userAddress").value,
+                ];
 
             // Chuyển addressData thành chuỗi
             const addressString = encodeURIComponent(addressData.join(", "));

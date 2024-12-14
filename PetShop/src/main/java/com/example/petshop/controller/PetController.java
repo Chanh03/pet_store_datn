@@ -2,11 +2,15 @@ package com.example.petshop.controller;
 
 import com.example.petshop.entity.Pet;
 import com.example.petshop.entity.PetCategory;
+import com.example.petshop.entity.User;
 import com.example.petshop.service.PetCategoryService;
 import com.example.petshop.service.PetService;
+import com.example.petshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,6 +32,18 @@ public class PetController {
 
     @Autowired
     private PetCategoryService productCategoryService;
+
+    @Autowired
+    private UserService userService;
+
+    @ModelAttribute("user")
+    public User user(Authentication authentication, Principal principal) {
+        if (principal == null) {
+            return null;
+        } else {
+            return userService.findByUsername(principal.getName());
+        }
+    }
 
     @RequestMapping("/allPet")
     public String viewPaginatedPets(Model model,

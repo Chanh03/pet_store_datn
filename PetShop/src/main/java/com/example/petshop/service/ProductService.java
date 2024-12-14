@@ -27,6 +27,8 @@ public interface ProductService {
 
     List<Product> getProductsByDifferentCategory(int currentCategoryId, int currentProductId);
 
+    List<Product> getAllByCreatedDate();
+
     Page<Product> getProductsByCategoryId(Integer categoryId, Pageable pageable);
 
     List<Product> getAllByCreatedDateAndEnable();
