@@ -79,11 +79,13 @@
                         <span>Sửa</span>
                     </button>
                     <button ng-click="openPetCategoryDetailModal(pc.id)" class="btn btn-success"
-                            ng-init="petCount = findPetLengthByCategoryId(pc.id)" ng-if="petCount > 0" style="width: 80px">
+                            ng-init="petCount = findPetLengthByCategoryId(pc.id)" ng-if="petCount > 0"
+                            style="width: 80px">
                         <i class="fa-solid fa-eye"></i>
                         <span>Xem</span>
                     </button>
-                    <button ng-click="deletePetCategory(pc.id)" class="btn btn-outline-danger" ng-if="petCount == 0" style="width: 80px">
+                    <button ng-click="deletePetCategory(pc.id)" class="btn btn-outline-danger" ng-if="petCount == 0"
+                            style="width: 80px">
                         <i class="fa-solid fa-xmark"></i>
                         <span>Xóa</span>
                     </button>

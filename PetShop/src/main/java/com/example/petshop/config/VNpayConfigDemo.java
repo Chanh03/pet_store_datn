@@ -15,12 +15,14 @@ import java.util.*;
 @Configuration
 public class VNpayConfigDemo {
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+
     public static String vnp_Returnurl = "/vnpay-payment";
+
     public static String vnp_TmnCode = "FUFQ5H41";
+
     public static String vnp_HashSecret = "UVJOQCU3ZTK0ZT8EGZFEQ42SAT1ZNFP8";
+
     public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
-
-
 
     public static String md5(String message) {
         String digest = null;

@@ -60,7 +60,8 @@
                 <!-- Form tìm kiếm theo tên và giá -->
                 <form method="get" action="/allProduct" class="d-flex">
                     <input type="text" name="search" class="form-control ms-2" placeholder="Tên sản phẩm"
-                           th:value="${param.search}" style="border: 2px solid #dc3545; border-radius: 5px; width: 200px;">
+                           th:value="${param.search}"
+                           style="border: 2px solid #dc3545; border-radius: 5px; width: 200px;">
 
                     <input type="number" class="form-control ms-2" name="minPrice" placeholder="Giá từ"
                            th:value="${minPrice}" min="0"
@@ -69,7 +70,8 @@
                            th:value="${maxPrice}" min="0"
                            style="border: 2px solid #dc3545; border-radius: 5px; width: 120px;">
                     <button type="submit" class="btn btn-danger button-image-white ms-2"
-                            style="border-radius: 5px;">Tìm kiếm</button>
+                            style="border-radius: 5px;">Tìm kiếm
+                    </button>
                 </form>
             </div>
 

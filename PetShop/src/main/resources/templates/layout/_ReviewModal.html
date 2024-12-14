@@ -3,7 +3,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="reviewLabel">Đánh giá sản phẩm</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ng-click="closeReview()"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        ng-click="closeReview()"></button>
             </div>
             <div class="modal-body">
                 <form ng-submit="submitReview()">
@@ -19,7 +20,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="comment" class="form-label">Nhận xét:</label>
-                        <textarea id="comment" minlength="6" class="form-control" rows="3" ng-model="reviewData.comment" required></textarea>
+                        <textarea id="comment" minlength="6" class="form-control" rows="3" ng-model="reviewData.comment"
+                                  required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Gửi đánh giá</button>
                 </form>

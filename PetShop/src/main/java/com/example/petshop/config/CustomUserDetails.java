@@ -40,7 +40,6 @@ public class CustomUserDetails implements UserDetails {
         return user.getAuthorities().toString();
     }
 
-
     @Override
     public boolean isAccountNonExpired() {
         return true;
