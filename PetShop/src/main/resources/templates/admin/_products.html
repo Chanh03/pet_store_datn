@@ -134,16 +134,16 @@
                 <td sortable="'quantity'" data-title="'Số lượng'">
                     <form name="productQuantityForm" novalidate>
                         <div class="input-group">
-                            <input type="number" class="form-control text-center" placeholder="Số lượng"
+                            <input type="number" class="form-control " placeholder="Số lượng"
                                    aria-label="Số lượng" aria-describedby="Số lượng" ng-model="product.quantity"
-                                   ng-keypress="checkEnterProductQuantity($event, product.id, product.quantity)"
-                                   min="0" max="1000"
+                                   ng-keypress="($event.keyCode === 13) && checkEnterProductQuantity($event, product.id, product.quantity)"
+                                   min="0" max="99999"
                                    name="productQuantity" required>
                             <span class="input-group-text" id="Số lượng">cái</span>
                         </div>
                         <div ng-messages="productQuantityForm.productQuantity.$error" role="alert" class="text-danger">
                             <div ng-message="min">Số lượng không được nhỏ hơn 0.</div>
-                            <div ng-message="max">Số lượng không được lớn hơn 1,000.</div>
+                            <div ng-message="max">Số lượng không được lớn hơn 99.999.</div>
                             <div ng-message="required">Số lượng là bắt buộc.</div>
                         </div>
                     </form>

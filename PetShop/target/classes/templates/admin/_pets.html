@@ -119,7 +119,7 @@
                                    aria-label="petPrice" aria-describedby="petPrice" ng-model="pet.price"
                                    ng-keypress="checkEnterPetPrice($event, pet.petID, pet.price)"
                                    min="10000" max="99999999"
-                                   name="petPrice" required ng-disabled="pet.available">
+                                   name="petPrice" required ng-disabled="!pet.available">
                             <span class="input-group-text" id="petPrice">đ</span>
                         </div>
                         <div ng-messages="petForm.petPrice.$error" role="alert" class="text-danger">
@@ -137,19 +137,19 @@
                     <span ng-if="!pet.gender" class="badge" style="background: deeppink">Cái</span>
                 </td>
                 <td sortable="'available'" data-title="'Trạng thái'" class="text-start">
-                    <button ng-if="pet.available" class="btn btn-success w-100"
+                    <button ng-if="!pet.available" class="btn btn-success w-100"
                             ng-click="updatePetAvailable(pet.petID, !pet.available)">
                         Đã bán <i class="fa-solid fa-check"></i>
                     </button>
-                    <button ng-if="!pet.available" class="btn btn-danger w-100 fw-bold"
+                    <button ng-if="pet.available" class="btn btn-danger w-100 fw-bold"
                             ng-click="updatePetAvailable(pet.petID, !pet.available)">
                         Chưa bán <i class="fa-solid fa-xmark"></i>
                     </button>
                 </td>
                 <td sortable="'enable'" data-title="'Ẩn/Hiện'" class="text-center">
-                    <div class="form-check form-switch p-0" ng-click="updatePetEnable(pet.petID, !pet.enable)"
+                    <div class="form-check form-switch p-0 " ng-click="updatePetEnable(pet.petID, !pet.enable)"
                          style="min-height: 2.5rem;">
-                        <input class="form-check-input ms-auto" type="checkbox" role="switch"
+                        <input class="form-check-input ms-4" type="checkbox" role="switch"
                                id="flexSwitchCheckDefault" style="height: 2rem;width: calc(3rem + 0.75rem);"
                                ng-model="pet.enable">
                     </div>

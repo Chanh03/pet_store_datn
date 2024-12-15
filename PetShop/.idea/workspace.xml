@@ -9,10 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update admin (style)">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update admin (style) x2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_pet_category_details_modal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_pet_category_details_modal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_pets.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_pets.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_products.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_cartDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_cartDetail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_pet_category_details_modal.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_pet_category_details_modal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_pets.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_pets.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -276,15 +279,11 @@
       <workItem from="1733945706335" duration="96000" />
       <workItem from="1733990504075" duration="3000" />
       <workItem from="1733990827278" duration="7000" />
-      <workItem from="1734067523348" duration="972000" />
-    </task>
-    <task id="LOCAL-00075" summary="update main">
-      <option name="closed" value="true" />
-      <created>1732533770508</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1732533770508</updated>
+      <workItem from="1734067523348" duration="1055000" />
+      <workItem from="1734161652002" duration="1190000" />
+      <workItem from="1734182358975" duration="1456000" />
+      <workItem from="1734237210202" duration="101000" />
+      <workItem from="1734270522781" duration="1706000" />
     </task>
     <task id="LOCAL-00076" summary="update main">
       <option name="closed" value="true" />
@@ -670,7 +669,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733916712619</updated>
     </task>
-    <option name="localTasksCounter" value="124" />
+    <task id="LOCAL-00124" summary="update admin (style) x2">
+      <option name="closed" value="true" />
+      <created>1734068567510</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1734068567510</updated>
+    </task>
+    <option name="localTasksCounter" value="125" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -716,7 +723,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="backup" />
     <MESSAGE value="update mission" />
     <MESSAGE value="fix search" />
     <MESSAGE value="delete img" />
@@ -741,7 +747,8 @@
     <MESSAGE value="fixed user fullName" />
     <MESSAGE value="update admin" />
     <MESSAGE value="update admin (style)" />
-    <option name="LAST_COMMIT_MESSAGE" value="update admin (style)" />
+    <MESSAGE value="update admin (style) x2" />
+    <option name="LAST_COMMIT_MESSAGE" value="update admin (style) x2" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

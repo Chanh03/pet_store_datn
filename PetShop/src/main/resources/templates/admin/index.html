@@ -846,24 +846,34 @@
             }
         };
         $scope.updatePetPrice = function (petId, petPrice) {
-            $http.put(baseUrl + 'pet/' + petId + '/price/' + petPrice).then(function (response) {
+            if (petPrice >= 10000 && petPrice <= 99999999) {
+                $http.put(baseUrl + 'pet/' + petId + '/price/' + petPrice).then(function (response) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Đã cập nhật giá :' + petId,
+                        autoclose: true,
+                        status: 'success',
+                        autotimeout: 3000
+                    });
+                    $scope.getPets();
+                }).catch(function (error) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Lỗi khi cập nhật :' + petId,
+                        autoclose: true,
+                        status: 'warning',
+                        autotimeout: 3000
+                    });
+                });
+            } else {
                 new Notify({
                     title: 'Thông báo',
-                    text: 'Đã cập nhật giá :' + petId,
+                    text: 'Giá phải lớn hơn 10.000 và nhỏ hơn 99.999.999',
                     autoclose: true,
-                    status: 'success',
+                    status: 'error',
                     autotimeout: 3000
                 });
-                $scope.getPets();
-            }).catch(function (error) {
-                new Notify({
-                    title: 'Thông báo',
-                    text: 'Lỗi khi cập nhật :' + petId,
-                    autoclose: true,
-                    status: 'warning',
-                    autotimeout: 3000
-                });
-            });
+            }
         };
         /*PRODUCT*/
         $scope.getProducts = function () {
@@ -1015,24 +1025,34 @@
             }
         };
         $scope.updateProductPrice = function (productId, price) {
-            $http.put(baseUrl + 'product/' + productId + '/price/' + price).then(function (response) {
+            if (price <= 99999999 && price >= 10000) {
+                $http.put(baseUrl + 'product/' + productId + '/price/' + price).then(function (response) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Đã cập nhật giá :' + productId,
+                        autoclose: true,
+                        status: 'success',
+                        autotimeout: 3000
+                    });
+                    $scope.getProducts();
+                }).catch(function (error) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Lỗi khi cập nhật :' + productId,
+                        autoclose: true,
+                        status: 'warning',
+                        autotimeout: 3000
+                    });
+                });
+            } else {
                 new Notify({
                     title: 'Thông báo',
-                    text: 'Đã cập nhật giá :' + productId,
+                    text: 'Giá phải lớn hơn 10.000 và nhỏ hơn 99.999.999',
                     autoclose: true,
-                    status: 'success',
+                    status: 'error',
                     autotimeout: 3000
                 });
-                $scope.getProducts();
-            }).catch(function (error) {
-                new Notify({
-                    title: 'Thông báo',
-                    text: 'Lỗi khi cập nhật :' + productId,
-                    autoclose: true,
-                    status: 'warning',
-                    autotimeout: 3000
-                });
-            });
+            }
         };
         $scope.checkEnterProductQuantity = function (event, productId, productQuantity) {
             if (event.keyCode === 13)
@@ -1040,24 +1060,34 @@
             event.preventDefault();
         };
         $scope.updateProductQuantity = function (productId, quantity) {
-            $http.put(baseUrl + 'product/' + productId + '/quantity/' + quantity).then(function (response) {
+            if (quantity <= 99999 && quantity >= 0) {
+                $http.put(baseUrl + 'product/' + productId + '/quantity/' + quantity).then(function (response) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Đã cập nhật số lượng :' + productId,
+                        autoclose: true,
+                        status: 'success',
+                        autotimeout: 3000
+                    });
+                    $scope.getProducts();
+                }).catch(function (error) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Lỗi khi cập nhật :' + productId,
+                        autoclose: true,
+                        status: 'warning',
+                        autotimeout: 3000
+                    });
+                });
+            } else {
                 new Notify({
                     title: 'Thông báo',
-                    text: 'Đã cập nhật số lượng :' + productId,
+                    text: 'Số lượng phải lớn hơn 0 và nhỏ hơn 9999',
                     autoclose: true,
-                    status: 'success',
+                    status: 'error',
                     autotimeout: 3000
                 });
-                $scope.getProducts();
-            }).catch(function (error) {
-                new Notify({
-                    title: 'Thông báo',
-                    text: 'Lỗi khi cập nhật :' + productId,
-                    autoclose: true,
-                    status: 'warning',
-                    autotimeout: 3000
-                });
-            });
+            }
         };
         $scope.deleteProduct = function (productId) {
             Swal.fire({
