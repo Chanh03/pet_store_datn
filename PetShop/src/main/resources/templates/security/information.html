@@ -311,6 +311,8 @@
                                     text: 'Cập nhật thông tin thành công',
                                     icon: 'success',
                                     confirmButtonText: 'OK'
+                                }).then(() => {
+                                    window.location.reload();
                                 });
                             } else {
                                 Swal.fire({

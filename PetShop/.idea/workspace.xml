@@ -9,13 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update admin (style) x2">
+    <list default="true" id="1e7acb0d-2094-4d14-acbd-e81f16071b3d" name="Changes" comment="update admin x4">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/_products.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/_products.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/_cartDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/_cartDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_pet_category_details_modal.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_pet_category_details_modal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_pets.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_pets.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/module/_loadingSpinner.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/module/_loadingSpinner.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/security/information.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/security/information.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/_products.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/_products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/_cartDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/_cartDetail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/module/_loadingSpinner.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/module/_loadingSpinner.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,15 +284,8 @@
       <workItem from="1734161652002" duration="1190000" />
       <workItem from="1734182358975" duration="1456000" />
       <workItem from="1734237210202" duration="101000" />
-      <workItem from="1734270522781" duration="1706000" />
-    </task>
-    <task id="LOCAL-00076" summary="update main">
-      <option name="closed" value="true" />
-      <created>1732556208018</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1732556208019</updated>
+      <workItem from="1734270522781" duration="3923000" />
+      <workItem from="1734330012641" duration="2116000" />
     </task>
     <task id="LOCAL-00077" summary="add filter date order chart">
       <option name="closed" value="true" />
@@ -677,7 +671,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734068567510</updated>
     </task>
-    <option name="localTasksCounter" value="125" />
+    <task id="LOCAL-00125" summary="update admin x4">
+      <option name="closed" value="true" />
+      <created>1734272271388</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1734272271388</updated>
+    </task>
+    <option name="localTasksCounter" value="126" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -723,7 +725,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update mission" />
     <MESSAGE value="fix search" />
     <MESSAGE value="delete img" />
     <MESSAGE value="imagecc" />
@@ -748,7 +749,8 @@
     <MESSAGE value="update admin" />
     <MESSAGE value="update admin (style)" />
     <MESSAGE value="update admin (style) x2" />
-    <option name="LAST_COMMIT_MESSAGE" value="update admin (style) x2" />
+    <MESSAGE value="update admin x4" />
+    <option name="LAST_COMMIT_MESSAGE" value="update admin x4" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
