@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/index.html::home(~{::body})}">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Bootstrap CSS v5.3.2 -->
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          crossorigin="anonymous" />
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+
+
+<body>
+<div class="container p-5 d-flex align-items-start">
+  <ul
+          class="nav nav-pills flex-column nav-pills border-end border-3 me-3 align-items-start"
+          id="pills-tab" role="tablist"
+          style="padding: 0; display: flex; flex-direction: column; width: 200px;">
+    <li class="nav-item" role="presentation"
+        style="flex: 1; margin-bottom: 10px;">
+      <button class="nav-link fw-semibold active position-relative"
+              id="pills-home-tab" data-bs-toggle="pill"
+              data-bs-target="#pills-home" type="button" role="tab"
+              aria-controls="pills-home" aria-selected="true"
+              style="justify-content: flex-start; border-radius: 0; height: 50px;">
+        <i class="fas fa-spa"></i> Spa - Grooming
+      </button>
+    </li>
+    <li class="nav-item" role="presentation"
+        style="flex: 1; margin-bottom: 10px;">
+      <button class="nav-link fw-semibold position-relative"
+              id="pills-profile-tab" data-bs-toggle="pill"
+              data-bs-target="#pills-profile" type="button" role="tab"
+              aria-controls="pills-profile" aria-selected="false"
+              style="justify-content: flex-start; border-radius: 0; height: 50px;">
+        <i class="fas fa-hotel"></i> Khách sạn thú cưng
+      </button>
+    </li>
+    <li class="nav-item" role="presentation"
+        style="flex: 1; margin-bottom: 10px;">
+      <button class="nav-link fw-semibold position-relative"
+              id="pills-cut-tab" data-bs-toggle="pill"
+              data-bs-target="#pills-cut" type="button" role="tab"
+              aria-controls="pills-cut" aria-selected="false"
+              style="justify-content: flex-start; border-radius: 0; height: 50px;">
+        <i class="fas fa-scissors"></i> Cắt tỉa lông thú cưng
+      </button>
+    </li>
+    <li class="nav-item" role="presentation" style="flex: 1;">
+      <button class="nav-link fw-semibold position-relative"
+              id="pills-training-tab" data-bs-toggle="pill"
+              data-bs-target="#pills-training" type="button" role="tab"
+              aria-controls="pills-training" aria-selected="false"
+              style="justify-content: flex-start; border-radius: 0; height: 50px;">
+        <i class="fas fa-chalkboard-teacher"></i> Huấn luyện thú cưng
+      </button>
+    </li>
+  </ul>
+
+
+
+
+  <div
+          class="tab-content border rounded-3 border-primary p-3 text-danger w-100"
+          id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-home"
+         role="tabpanel" aria-labelledby="pills-home-tab">
+      <!-- SPA Section -->
+
+      <h2 class="text-danger"
+          style="font-weight: bold; color: #ff6b6b; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); transition: color 0.3s; cursor: pointer;">
+        Spa - Grooming</h2>
+      <br>
+      <p class="text-secondary fs-5"
+         style="color: #4a4a4a; line-height: 1.6; transition: color 0.3s; cursor: pointer;">
+        <strong>Thú cưng của bạn xứng đáng nhận được sự quan tâm,
+          chăm sóc và thư giãn tốt nhất, giống như bất kỳ thành viên nào
+          trong gia đình.</strong> Tại spa của chúng tôi, mỗi thú cưng sẽ được tận
+        hưởng các dịch vụ chuyên nghiệp, từ tắm rửa, cắt tỉa cho đến chăm
+        sóc sức khỏe tổng quát. Chúng tôi sử dụng những sản phẩm tự nhiên
+        và an toàn, đảm bảo rằng tất cả các dịch vụ đều không gây hại cho
+        sức khỏe của thú cưng, đồng thời mang lại trải nghiệm dễ chịu nhất.
+      </p>
+      <div class="ratio ratio-16x9 mb-4">
+        <iframe class="embed-responsive-item"
+                src="https://www.youtube.com/embed/iZQEZzkltZY?si=6LB6Qq34uZokUEMA"
+                allowfullscreen></iframe>
+      </div>
+
+      <p class="text-secondary fs-5"
+         style="color: #4a4a4a; line-height: 1.6; transition: color 0.3s; cursor: pointer;">
+        Chúng tôi hiểu rằng mỗi thú cưng đều có những nhu cầu riêng biệt và
+        tính cách khác nhau. Vì vậy, quy trình chăm sóc tại spa được cá
+        nhân hóa nhằm phù hợp với từng con vật. Từ việc lựa chọn loại dầu
+        gội và dưỡng chất đặc biệt, đến cách tiếp cận nhẹ nhàng trong từng
+        bước chăm sóc, chúng tôi cam kết mang đến sự thoải mái tối đa cho
+        thú cưng của bạn.</p>
+      <p class="text-secondary fs-5"
+         style="color: #4a4a4a; line-height: 1.6; transition: color 0.3s; cursor: pointer;">
+        Không chỉ dừng lại ở việc chăm sóc về mặt thẩm mỹ, spa của chúng
+        tôi còn chú trọng đến sức khỏe tổng thể của thú cưng. Các chuyên
+        viên giàu kinh nghiệm sẽ kiểm tra kỹ lưỡng để phát hiện sớm các vấn
+        đề về da, móng hoặc lông và sẽ thông báo cho bạn nếu có dấu hiệu
+        bất thường. Điều này giúp bảo vệ sức khỏe lâu dài cho thú cưng của
+        bạn, tránh các bệnh lý không mong muốn.</p>
+      <p class="text-secondary fs-5"
+         style="color: #4a4a4a; line-height: 1.6; transition: color 0.3s; cursor: pointer;">
+        Đặc biệt, không gian spa được thiết kế hiện đại với mùi hương dễ
+        chịu và âm nhạc thư giãn, giúp thú cưng cảm thấy thoải mái và an
+        yên. Chúng tôi luôn dành thời gian để làm quen với thú cưng của bạn
+        trước khi bắt đầu quá trình chăm sóc, từ đó tạo sự tin tưởng và gắn
+        kết.</p>
+      <p class="text-secondary fs-5"
+         style="color: #4a4a4a; line-height: 1.6; transition: color 0.3s; cursor: pointer;">
+        Đến với spa của chúng tôi, bạn không chỉ mang lại vẻ ngoài tươi
+        tắn, sạch sẽ cho thú cưng mà còn tạo cơ hội để chúng tận hưởng sự
+        chăm sóc trọn vẹn cả về thể chất và tinh thần. Đây là trải nghiệm
+        giúp thú cưng thêm khỏe mạnh, hạnh phúc, và bạn cũng yên tâm hơn
+        khi biết rằng thú cưng của mình đang được yêu thương và chăm sóc
+        tận tình.</p>
+
+      <div class="ratio ratio-16x9 mb-4">
+        <img
+                src="https://i.pinimg.com/564x/7e/40/3f/7e403fede39d5db2ee1cba5e28246c0f.jpg"
+                alt="Hình ảnh thú cưng"
+                style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <p class="text-secondary fs-5"
+         style="color: #4a4a4a; line-height: 1.6; transition: color 0.3s; cursor: pointer;">
+        Các chuyên viên của chúng tôi, những người có kinh nghiệm và yêu
+        thích động vật, sẽ chăm sóc từng chi tiết nhỏ nhất. Chúng tôi hiểu
+        rằng mỗi thú cưng có cá tính và nhu cầu riêng, vì vậy chúng tôi
+        luôn sẵn sàng lắng nghe và tư vấn để mang đến dịch vụ phù hợp nhất.
+      </p>
+      <p class="text-secondary fs-5"
+         style="color: #4a4a4a; line-height: 1.6; transition: color 0.3s; cursor: pointer;">
+        Sau mỗi lần chăm sóc, thú cưng của bạn không chỉ được làm sạch và
+        đẹp hơn mà còn cảm thấy thư giãn, thoải mái như vừa trải qua một kỳ
+        nghỉ dưỡng. Hãy để chúng tôi chăm sóc thú cưng của bạn bằng tình
+        yêu thương và sự tận tâm, biến mỗi lần đến spa thành một trải
+        nghiệm đáng nhớ và vui vẻ cho cả bạn và thú cưng của mình.</p>
+      <div class="row justify-content-center">
+        <div class="col-md-3 text-center mb-4">
+          <img
+                  src="https://i.pinimg.com/1200x/62/1d/49/621d49999703ae70e74d88b5d53f2d44.jpg"
+                  class="rounded-circle" alt="Dịch vụ cắt tỉa lông"
+                  style="width: 150px; height: 150px; object-fit: cover; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+          <p class="fw-bold" style="color: #333;">Dịch vụ cắt tỉa lông</p>
+          <p class="text-success fs-4 fw-bold">140.000 - 240.000 đ</p>
+        </div>
+        <div class="col-md-3 text-center mb-4">
+          <img
+                  src="https://i.pinimg.com/1200x/0c/1b/7d/0c1b7d4a6f10369366e71eadfea37d2e.jpg"
+                  class="rounded-circle" alt="Dịch vụ tắm Spa"
+                  style="width: 150px; height: 150px; object-fit: cover; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+          <p class="fw-bold" style="color: #333;">Dịch vụ tắm Spa</p>
+          <p class="text-success fs-4 fw-bold">120.000 - 290.000 đ</p>
+        </div>
+        <div class="col-md-3 text-center mb-4">
+          <img
+                  src="https://i.pinimg.com/1200x/83/4d/54/834d54aa3d0847a748cf9f306a0df139.jpg"
+                  class="rounded-circle" alt="Dịch vụ massage"
+                  style="width: 150px; height: 150px; object-fit: cover; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+          <p class="fw-bold" style="color: #333;">Dịch vụ massage</p>
+          <p class="text-success fs-4 fw-bold">160.000 - 330.000 đ</p>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button class="btn mt-4"
+                style="background-color: #ff6b6b; color: white; font-size: 18px; padding: 10px 30px; border-radius: 5px; transition: 0.3s;"
+                onmouseover="this.style.backgroundColor='#ff4c4c'"
+                onmouseout="this.style.backgroundColor='#ff6b6b'"
+                onclick="window.open('https://zalo.me/0357286196', '_blank')">
+          Liên hệ: 079-8742-803</button>
+      </div>
+
+    </div>
+    <!-- Hotel Section -->
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+         aria-labelledby="pills-profile-tab">
+
+      <h2 class="text-danger"
+          style="font-weight: bold; color: #ff6b6b; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); transition: color 0.3s; cursor: pointer;">
+        Khách sạn thú cưng</h2>
+      <br>
+      <p class="text-secondary fs-5"
+         style="color: #4a4a4a; line-height: 1.6; transition: color 0.3s; cursor: pointer;">
+        Chúng tôi đảm bảo rằng thú cưng của bạn sẽ được chăm sóc tốt nhất
+        với chế độ ăn uống hợp lý và lịch trình vui chơi đầy đủ. Các bữa ăn
+        được chuẩn bị theo nhu cầu riêng của từng thú cưng, đảm bảo dinh
+        dưỡng phù hợp và hương vị thơm ngon mà chúng yêu thích. <br> <br>
+        Không chỉ dừng lại ở việc chăm sóc cơ bản, khách sạn còn cung cấp
+        các hoạt động vui chơi và giao lưu giúp thú cưng vận động và phát
+        triển kỹ năng xã hội. Chúng tôi tổ chức các buổi chơi ngoài trời,
+        luyện tập nhẹ nhàng và cả các buổi thư giãn với massage đặc biệt.
+        Đội ngũ nhân viên giàu kinh nghiệm sẽ luôn ở bên để giám sát và tạo
+        điều kiện cho thú cưng của bạn được thoải mái nhất.
+      </p>
+      <div class="ratio ratio-16x9 mb-4">
+        <iframe
+                src="https://www.youtube.com/embed/AuPHPiQqgc8?si=eDin8GZW-1oecjWk"
+                allowfullscreen></iframe>
+      </div>
+      <p class="text-secondary fs-5"
+         style="color: #4a4a4a; line-height: 1.6; transition: color 0.3s; cursor: pointer;">
+        <strong>Khi bạn đi xa, hãy để chúng tôi chăm sóc thú cưng
+          của bạn tại khách sạn thú cưng chuyên nghiệp của chúng tôi.</strong> Chúng
+        tôi hiểu rằng thú cưng là thành viên quan trọng trong gia đình bạn,
+        và vì vậy, chúng tôi cam kết cung cấp một môi trường an toàn, thoải
+        mái, và đầy yêu thương. <br> <br> Đội ngũ nhân viên tận
+        tâm và yêu thương động vật của chúng tôi luôn sẵn sàng chăm sóc cho
+        thú cưng của bạn. Mỗi phòng nghỉ được thiết kế để tạo cảm giác như
+        ở nhà cho thú cưng, với không gian rộng rãi, sạch sẽ và đầy đủ tiện
+        nghi. Không gian nghỉ ngơi được trang bị đồ chơi và gối êm ái giúp
+        thú cưng của bạn cảm thấy thư giãn và vui vẻ trong suốt thời gian ở
+        đây.
+      </p>
+      <div class="ratio ratio-16x9 mb-4">
+        <img
+                src="https://i.pinimg.com/enabled_lo_mid/736x/76/e0/d5/76e0d51b8dc6c477cf821ebdc1dac9e2.jpg"
+                alt="Hình ảnh thú cưng"
+                style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <p class="text-secondary fs-4"
+         style="color: #4a4a4a; line-height: 1.6; transition: color 0.3s; cursor: pointer;">
+        Hãy để chúng tôi giúp bạn yên tâm khi bạn không thể ở bên cạnh thú
+        cưng của mình. Thú cưng của bạn sẽ không chỉ được chăm sóc mà còn
+        được tận hưởng những giây phút vui vẻ và thú vị tại khách sạn của
+        chúng tôi. Với sự tận tâm và yêu thương, chúng tôi cam kết rằng
+        thời gian thú cưng lưu trú tại đây sẽ trở thành một trải nghiệm
+        đáng nhớ, giúp chúng cảm thấy được yêu thương và quý trọng.</p>
+
+
+
+      <div class="row justify-content-center">
+        <div class="col-md-3 text-center mb-4">
+          <img
+                  src="https://i.pinimg.com/564x/27/77/02/2777022aa7bc9758cba0d2f7f2bdc849.jpg"
+                  class="rounded-circle" alt="1 tuần"
+                  style="width: 150px; height: 150px; object-fit: cover; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+          <p class="fw-bold" style="color: #333;">1 Ngày</p>
+          <p class="text-primary fs-4 fw-bold">200.000đ</p>
+        </div>
+        <div class="col-md-3 text-center mb-4">
+          <img
+                  src="https://i.pinimg.com/564x/27/77/02/2777022aa7bc9758cba0d2f7f2bdc849.jpg"
+                  class="rounded-circle" alt="1 tuần"
+                  style="width: 150px; height: 150px; object-fit: cover; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+          <p class="fw-bold" style="color: #333;">1 tuần</p>
+          <p class="text-primary fs-4 fw-bold">1.200.000đ</p>
+        </div>
+        <div class="col-md-3 text-center mb-4">
+          <img
+                  src="https://i.pinimg.com/564x/27/77/02/2777022aa7bc9758cba0d2f7f2bdc849.jpg"
+                  class="rounded-circle" alt="1 tuần"
+                  style="width: 150px; height: 150px; object-fit: cover; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+          <p class="fw-bold" style="color: #333;">1 Tháng</p>
+          <p class="text-primary fs-4 fw-bold">20.000.000đ</p>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button class="btn mt-4"
+                style="background-color: #ff6b6b; color: white; font-size: 18px; padding: 10px 30px; border-radius: 5px; transition: 0.3s;"
+                onmouseover="this.style.backgroundColor='#ff4c4c'"
+                onmouseout="this.style.backgroundColor='#ff6b6b'"
+                onclick="window.open('https://zalo.me/0357286196', '_blank')">
+          Liên hệ: 079-8742-803</button>
+      </div>
+    </div>
+
+    <!-- Cutting Section -->
+    <div class="tab-pane fade" id="pills-cut" role="tabpanel"
+         aria-labelledby="pills-cut-tab">
+      <h2 class="text-danger"
+          style="font-weight: bold; color: #ff6b6b; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); transition: color 0.3s; cursor: pointer;">
+        Cắt tỉa lông</h2>
+      <br>
+      <p class="text-secondary fs-5"
+         style="color: #4a4a4a; line-height: 1.6; transition: color 0.3s; cursor: pointer;">
+        Chúng tôi cung cấp dịch vụ cắt tỉa lông chuyên nghiệp cho thú cưng
+        với đầy đủ các bước chăm sóc từ tắm, sấy khô, chải lông cho đến vệ
+        sinh tai và móng. Hãy để thú cưng của bạn trở nên sạch sẽ, đáng yêu
+        và phong cách hơn bao giờ hết!<br>
+        <br> Đội ngũ chuyên nghiệp và yêu động vật của chúng tôi sẽ
+        giúp thú cưng của bạn có những trải nghiệm thoải mái nhất.
+      </p>
+      <div class="ratio ratio-16x9 mb-4">
+        <iframe
+                src="https://www.youtube.com/embed/m7-J0vZOS6U?si=F4rPx3ONgvKH0eAW"
+                allowfullscreen></iframe>
+      </div>
+      <p class="text-secondary fs-5"
+         style="color: #4a4a4a; line-height: 1.6; transition: color 0.3s; cursor: pointer;">
+        <strong>Quy trình cắt tỉa lông:</strong> Chúng tôi luôn đặt sự
+        thoải mái và sức khỏe của thú cưng lên hàng đầu trong mọi giai đoạn
+        chăm sóc. Quy trình bắt đầu với việc <strong>tắm rửa kỹ
+        lưỡng</strong>, sử dụng các sản phẩm chăm sóc chuyên dụng, giúp loại bỏ bụi
+        bẩn, mùi hôi và bảo vệ làn da nhạy cảm của thú cưng. Sau đó, chúng
+        tôi <strong>sấy khô nhẹ nhàng</strong>, đảm bảo lông và da không bị
+        hư tổn, đồng thời giữ cho thú cưng cảm thấy dễ chịu. Tiếp theo là
+        bước <strong>chải lông</strong>, nhằm loại bỏ lông rụng, ngăn ngừa
+        rối và giữ cho bộ lông luôn bóng mượt, giúp thú cưng cảm nhận sự
+        thư giãn tối đa. Giai đoạn <strong>cắt tỉa tạo kiểu</strong> được
+        thực hiện cẩn thận bởi đội ngũ nhân viên giàu kinh nghiệm, tạo ra
+        các kiểu dáng vừa thời trang vừa phù hợp với đặc điểm của từng
+        giống loài. Chúng tôi lắng nghe yêu cầu của bạn để mang lại diện
+        mạo hoàn hảo nhất cho thú cưng. Cuối cùng, dịch vụ <strong>vệ
+        sinh tai và móng</strong> được thực hiện để đảm bảo vệ sinh cá nhân, ngăn
+        ngừa các vấn đề về sức khỏe và tạo cảm giác thoải mái tối đa cho
+        thú cưng của bạn. Mỗi bước trong quy trình đều được thực hiện với
+        sự chăm sóc tận tình và chuyên nghiệp, giúp thú cưng không chỉ trở
+        nên xinh đẹp, gọn gàng mà còn khỏe mạnh, vui vẻ và cảm nhận được sự
+        yêu thương mà bạn dành cho chúng.
+      </p>
+
+      <div class="ratio ratio-16x9 mb-4">
+        <img
+                src="https://i.pinimg.com/564x/05/77/62/05776206c0cc9e9c9a9f3fa0b40fcf5c.jpg"
+                alt="Dịch vụ cắt tỉa lông thú cưng"
+                style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <p class="text-secondary fs-4"
+         style="color: #4a4a4a; line-height: 1.6; transition: color 0.3s; cursor: pointer;">
+        Hãy để thú cưng của bạn trở nên thật xinh đẹp, khỏe mạnh và nổi bật
+        với dịch vụ cắt tỉa lông chuyên nghiệp của chúng tôi. Với đội ngũ
+        nhân viên tận tâm, yêu thương động vật và giàu kinh nghiệm, chúng
+        tôi cam kết mang đến cho thú cưng của bạn một diện mạo mới mẻ và
+        thoải mái nhất. Mỗi bước trong quy trình chăm sóc đều được thực
+        hiện tỉ mỉ, đảm bảo không chỉ đáp ứng về mặt thẩm mỹ mà còn hỗ trợ
+        cải thiện sức khỏe và vệ sinh cho thú cưng của bạn. Điều đặc biệt,
+        chúng tôi luôn minh bạch về giá cả và cam kết không phát sinh thêm
+        bất kỳ chi phí nào ngoài dịch vụ đã thỏa thuận. Dịch vụ không chỉ
+        là sự lựa chọn về vẻ ngoài mà còn là một cách để bạn thể hiện tình
+        yêu và sự quan tâm sâu sắc dành cho thú cưng của mình. Hãy để chúng
+        tôi giúp bạn mang đến sự hài lòng tuyệt đối, đồng thời biến mỗi lần
+        chăm sóc thú cưng thành một trải nghiệm đáng nhớ và vui vẻ cho cả
+        bạn và bé yêu!</p>
+
+      <div class="row justify-content-center">
+        <div class="col-md-3 text-center mb-4">
+          <img
+                  src="https://i.pinimg.com/1200x/ae/d8/29/aed829835b73e932ea5021bcd1b4a218.jpg"
+                  class="rounded-circle" alt="Pet under 2kg"
+                  style="width: 150px; height: 150px; object-fit: cover; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+          <p class="fw-bold" style="color: #333;">Thú cưng dưới 2kg</p>
+          <p class="text-primary fs-4 fw-bold">250.000đ</p>
+        </div>
+        <div class="col-md-3 text-center mb-4">
+          <img
+                  src="https://i.pinimg.com/564x/1c/3f/70/1c3f70fff8f07e8ea4289ae0a0c721e0.jpg"
+                  class="rounded-circle" alt="Pet under 5kg"
+                  style="width: 150px; height: 150px; object-fit: cover; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+          <p class="fw-bold" style="color: #333;">Thú cưng dưới 5kg</p>
+          <p class="text-primary fs-4 fw-bold">350.000đ</p>
+        </div>
+        <div class="col-md-3 text-center mb-4">
+          <img
+                  src="https://i.pinimg.com/564x/52/ab/e6/52abe66235baaccef06a35c3cbb0255a.jpg"
+                  class="rounded-circle" alt="Pet under 10kg"
+                  style="width: 150px; height: 150px; object-fit: cover; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+          <p class="fw-bold" style="color: #333;">Thú cưng dưới 10kg</p>
+          <p class="text-primary fs-4 fw-bold">450.000đ</p>
+        </div>
+      </div>
+      <div class="text-center">
+        <button class="btn mt-4"
+                style="background-color: #ff6b6b; color: white; font-size: 18px; padding: 10px 30px; border-radius: 5px; transition: 0.3s;"
+                onmouseover="this.style.backgroundColor='#ff4c4c'"
+                onmouseout="this.style.backgroundColor='#ff6b6b'"
+                onclick="window.open('https://zalo.me/0357286196', '_blank')">
+          Liên hệ: 079-8742-803</button>
+      </div>
+    </div>
+
+
+    <!-- Training Section -->
+    <div class="tab-pane fade" id="pills-training" role="tabpanel"
+         aria-labelledby="pills-training-tab">
+
+      <h2 class="text-danger" style="font-weight: bold; color: #ff6b6b;">DỊCH
+        VỤ HUẤN LUYỆN THÚ CƯNG</h2>
+      <p class="text-secondary fs-5"
+         style="color: #4a4a4a; line-height: 1.6; transition: color 0.3s; cursor: pointer;">
+        Chúng tôi cung cấp dịch vụ huấn luyện thú cưng với các bài tập
+        chuyên nghiệp, giúp cải thiện hành vi và phát triển kỹ năng xã hội.
+        Đội ngũ huấn luyện viên tận tâm luôn theo sát và đảm bảo thú cưng
+        của bạn học tập trong môi trường an toàn, vui vẻ và thoải mái.</p>
+
+      <div class="ratio ratio-16x9 mb-4">
+        <iframe width="560" height="315"
+                src="https://www.youtube.com/embed/5_CMr7mgSGg?si=Y7TK7_gYoX0YK7HG"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <p class="text-secondary fs-5" style="color: #4a4a4a;">
+        <strong>Bảng giá dịch vụ huấn luyện thú cưng của chúng tôi
+          được thiết kế để cung cấp những khóa huấn luyện đặc biệt,</strong> nhằm
+        giúp thú cưng của bạn phát triển toàn diện và trở thành người bạn
+        đồng hành lý tưởng. <br> <br> Tại cửa hàng của chúng tôi,
+        chúng tôi cung cấp nhiều khóa học huấn luyện phù hợp với từng loại
+        thú cưng, từ chó con đến chó trưởng thành và cả mèo. Các khóa học
+        bao gồm:<br> <strong>Khóa huấn luyện cơ bản:</strong> Giúp thú
+        cưng học các lệnh cơ bản như ngồi, nằm, đến đây và nhiều hơn nữa,
+        tạo nền tảng vững chắc cho sự phát triển trong tương lai.<br>
+        <strong>Khóa huấn luyện nâng cao:</strong> Đối với những thú cưng
+        đã có kiến thức cơ bản, khóa học này tập trung vào các kỹ năng phức
+        tạp hơn và các trò chơi tương tác.<br> <img
+              src="https://i.pinimg.com/564x/98/c2/36/98c2364d1723d66172d8bcf768934c44.jpg"
+              alt="Dịch vụ cắt tỉa lông thú cưng"
+              style="width: 100%; height: auto; object-fit: cover; filter: brightness(1.1); display: block; margin: 0 auto; border-radius: 8px;">
+        <strong>Huấn luyện hành vi:</strong> Giải quyết các vấn đề hành vi
+        thường gặp như cắn, sủa, hay chạy trốn, đảm bảo thú cưng của bạn cư
+        xử đúng mực trong mọi tình huống.<br> <strong>Huấn
+        luyện theo nhu cầu riêng:</strong> Nếu bạn có yêu cầu cụ thể nào đó cho thú
+        cưng của mình, chúng tôi sẽ tùy chỉnh chương trình huấn luyện phù
+        hợp nhất với nhu cầu của bạn. <br> <br> <strong>Chúng
+        tôi cam kết mang đến môi trường huấn luyện tích cực và thân thiện,</strong>
+        giúp thú cưng của bạn cảm thấy thoải mái và vui vẻ khi học hỏi. Đội
+        ngũ huấn luyện viên của chúng tôi là những chuyên gia dày dạn kinh
+        nghiệm, sẵn sàng hỗ trợ và tạo động lực cho thú cưng của bạn phát
+        triển khả năng tốt nhất. <br> <br> Hãy để chúng tôi giúp
+        bạn và thú cưng xây dựng một mối quan hệ gắn bó hơn qua việc huấn
+        luyện hiệu quả và vui vẻ. Đăng ký ngay hôm nay để bắt đầu hành
+        trình huấn luyện thú vị này!
+      </p>
+
+      <div class="row justify-content-center">
+        <div class="col-md-3 text-center mb-4">
+          <img
+                  src="https://i.pinimg.com/564x/08/94/f9/0894f906a8df1f09a6b718eb7e6bfc8d.jpg"
+                  class="rounded-circle" alt="Basic Training"
+                  style="width: 150px; height: 150px; object-fit: cover; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+          <p class="fw-bold">Khoá huấn luyện cơ bản</p>
+          <p class="text-primary fs-4 fw-bold">700.000đ</p>
+        </div>
+        <div class="col-md-3 text-center mb-4">
+          <img
+                  src="https://i.pinimg.com/736x/bc/d5/2a/bcd52a7d31966642f8bc101716bde096.jpg"
+                  class="rounded-circle" alt="Command Training"
+                  style="width: 150px; height: 150px; object-fit: cover; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+          <p class="fw-bold">Khoá huấn luyện nghe lệnh</p>
+          <p class="text-primary fs-4 fw-bold">1.500.000đ</p>
+        </div>
+        <div class="col-md-3 text-center mb-4">
+          <img
+                  src="https://i.pinimg.com/564x/e8/ca/d7/e8cad763f010ab75d099fb27ae2d4360.jpg"
+                  class="rounded-circle" alt="Advanced Training"
+                  style="width: 150px; height: 150px; object-fit: cover; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+          <p class="fw-bold">Huấn luyện nâng cao</p>
+          <p class="text-primary fs-4 fw-bold">2.500.000đ</p>
+        </div>
+      </div>
+      <div class="text-center">
+        <button class="btn mt-4"
+                style="background-color: #ff6b6b; color: white; font-size: 18px; padding: 10px 30px; border-radius: 5px; transition: 0.3s;"
+                onmouseover="this.style.backgroundColor='#ff4c4c'"
+                onmouseout="this.style.backgroundColor='#ff6b6b'"
+                onclick="window.open('https://zalo.me/0357286196', '_blank')">
+          Liên hệ: 079-8742-803</button>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+</div>
+</div>
+
+<!-- Bootstrap JavaScript Libraries -->
+<script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz4fnFO9gybBogGzOg6vU5DzATxz7P1J4yj7UYOom61B2oXvJ6zNANr9OB"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+<script src="service.js"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-qQ2IYWjqI5J5UCPVjzjgpGLJbdhz21+piCz7u9Gq7QnxLr+v9CRd6FGlGMI5d86n"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

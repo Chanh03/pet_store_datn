@@ -115,22 +115,14 @@ public class SecurityConfig {
     public AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler() {
         return (request, response, authentication) -> {
             OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-
             // Gọi hàm saveUser, nếu trả về false thì ngắt quá trình đăng nhập
             if (!userServiceDetails.saveUser(oAuth2User)) {
-                // Xóa session hiện tại
-                request.getSession().invalidate();
-
-                // Xóa cookie JSESSIONID (nếu có)
-                deleteCookie(request, response, "JSESSIONID");
-
-                // Chuyển hướng về trang login với thông báo lỗi
-                response.sendRedirect("/login?error=true");
+                request.getSession().invalidate(); // Xóa session
+                response.sendRedirect("/login?error=true"); // Chuyển hướng sang trang lỗi
                 return;
             }
-
-            // Nếu saveUser trả về true, tiếp tục chuyển hướng thành công
             response.sendRedirect("/login?success=true");
+
         };
     }
 

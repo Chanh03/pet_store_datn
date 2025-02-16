@@ -1,0 +1,54 @@
+<style>
+    input[type="file"] {
+        width: 85px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+</style>
+<!-- Modal -->
+<div class="modal fade" id="addSlideBarModal" tabindex="-1" aria-labelledby="editPetModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-color">
+                <h5 class="modal-title" id="editPetModalLabel">Thêm ảnh mới</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form name="editSlideBarModal">
+                    <div class="row">
+                        <!-- Cột 1 -->
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="photo" class="me-2">Chọn ảnh :</label>
+                                <div class=" d-flex align-items-center">
+                                    <input ng-model="selectedSlideBar.sliderImage" type="text" class="form-control me-2"
+                                           id="photo"
+                                           placeholder="Hình ảnh" name="photo" required>
+                                    <input type="file" id="fileInput" accept="image/*"
+                                           onchange="angular.element(this).scope().updatePhotoSlideName(this)">
+                                </div>
+                                <span ng-show="editSlideBarModal.photo.$touched && editSlideBarModal.photo.$invalid"
+                                      class="text-danger fst-italic">
+                                    Vui lòng chọn ảnh.
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12" ng-if="selectedSlideBar.sliderImage">
+                            <img ng-src="/images/slide/{{selectedSlideBar.sliderImage}}"
+                                 alt="{{selectedSlideBar.sliderImage}}"
+                                 class="w-100">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button ng-disabled="addSlideBarModal.$invalid" type="button"
+                        class="btn btn-primary"
+                        ng-click="addSlideBar(selectedSlideBar)">
+                    <span>Lưu</span> <i class="fa-solid fa-plus"></i>
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

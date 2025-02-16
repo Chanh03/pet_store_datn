@@ -1,0 +1,66 @@
+<!-- Modal -->
+<div class="modal fade" id="editVoucherModal" tabindex="-1" aria-labelledby="editPetModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-color">
+                <h5 class="modal-title" id="editPetModalLabel">Chỉnh sửa voucher</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form name="editVoucherModal">
+                    <div class="row">
+                        <!-- Cột 1 -->
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="voucherID" class="form-label required">Mã voucher</label>
+                                <input disabled type="text" class="form-control" id="voucherID"
+                                       ng-model="selectedVoucher.voucherID"
+                                       required name="voucherID" ng-minlength="10" ng-maxlength="25" maxlength="25">
+                                <span class="text-danger"
+                                      ng-show="editVoucherModal.voucherID.$invalid && editVoucherModal.voucherID.$touched">Mã voucher không được để trống và phải dài ít nhất 10 kí tự</span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="discount" class="form-label required">Giảm giá</label>
+                                <input type="number" class="form-control" id="discount"
+                                       ng-model="selectedVoucher.discount"
+                                       required name="discount" min="10000" max="1000000">
+                                <span class="text-danger"
+                                      ng-show="editVoucherModal.discount.$invalid && editVoucherModal.discount.$touched">Giảm giá không được để trống và phải từ 10.000đ đến 1.000.000đ</span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label required">Hạn sử dụng</label>
+                                <input type="date" class="form-control" id="expiryDate"
+                                       ng-model="selectedVoucher.expiryDate"
+                                       ng-value="selectedVoucher.expiryDate | date:'yyyy-MM-dd'" name="expiryDate">
+                                <span class="text-danger"
+                                      ng-show="editVoucherModal.expiryDate.$invalid">Hạn sử dụng không được để trống</span>
+                            </div>
+                            <div class="mb-3">
+                                <label>Trạng thái</label>
+                                <div class="form-check form-check-inline">
+                                    <input ng-checked="selectedVoucher.enable == true" ng-model="selectedVoucher.enable"
+                                           class="form-check-input" type="radio" id="enable" value="true">
+                                    <label class="form-check-label" for="enable">Công khai</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input ng-checked="selectedVoucher.enable == false"
+                                           ng-model="selectedVoucher.enable"
+                                           class="form-check-input" type="radio" id="disable" value="false">
+                                    <label class="form-check-label" for="disable">Ẩn danh</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button ng-disabled="editVoucherModal.$invalid || editVoucherModal.$pristine" type="button"
+                        class="btn btn-primary"
+                        ng-click="updateVoucher(selectedVoucher.voucherID)">
+                    <span>Lưu thay đổi</span> <i class="fa-solid fa-plus"></i>
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

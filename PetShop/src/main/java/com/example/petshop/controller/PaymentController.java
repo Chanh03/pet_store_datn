@@ -191,6 +191,7 @@ public class PaymentController {
                     }
                     if (productDetail.getProductID() != null && productDetail.getPrice() != null && productDetail.getQuantity() != null) {
                         dto.getProductDetails().add(productDetail);
+                        orDetail.setReviewStatus(false);
                         orderProductDetailService.save(orDetail);
                     }
                 }

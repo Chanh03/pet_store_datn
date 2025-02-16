@@ -93,8 +93,7 @@
 
         /*NG TABLE*/
         .ng-table th.sortable.sort-desc, .ng-table th.sortable.sort-asc {
-            background: #c1d3ff;
-            border-radius: 10px;
+            background: #a2bcff;
             color: white;
         }
 
@@ -129,14 +128,23 @@
             padding: 0;
         }
 
+        /*.ng-table-header {*/
+        /*    color: #414450;*/
+        /*    font-weight: bold;*/
+        /*    background-color: #f1f6fc;*/
+        /*    border: 1px solid #6057cd;*/
+        /*    border-radius: 10px;*/
+        /*    padding: 10px;*/
+        /*    margin: 0;*/
+        /*}*/
         .ng-table-header {
             color: #414450;
             font-weight: bold;
             background-color: #f1f6fc;
-            border: 1px solid #6057cd;
-            border-radius: 10px;
-            padding: 10px;
+            border-bottom: 5px solid #6057cd;
+            padding: 10px 20px;
             margin: 0;
+            text-transform: uppercase;
         }
 
         /*HIỂN THỊ SỐ LƯỢNG PET*/
@@ -482,13 +490,16 @@
         <div class="" th:insert="~{/admin/_menu}"></div>
         <!-- MAIN CONTENT -->
         <!--SPA-->
-        <div class="container animate__animated animate__fadeIn" th:insert="${view}"></div>
+        <div class="container animate__animated animate__fadeIn" th:insert="${view}" ng-cloak>
+
+        </div>
     </div>
 </main>
 <div th:insert=" ~{/admin/_loadingSpinner}"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-messages.min.js"></script>
 <script src="https://unpkg.com/ng-table@4.0.0/bundles/ng-table.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
@@ -504,9 +515,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
         integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 <!--Sử dụng TinyMCE với API Key-->
 <script src="https://cdn.tiny.cloud/1/r1izu32r7glzqkso0y7d7vxp3pbkn4hbb8l2jun5qt54b8rs/tinymce/5/tinymce.min.js"
         referrerpolicy="origin"></script>
+
 
 <script type="text/javascript">
     // Sử dụng TinyMCE với API Key
@@ -514,7 +528,6 @@
         selector: '#contentEditor',
         height: 500  <!-- Thiết lập chiều cao cho TinyMCE -->
     });
-
     // Lấy ngày giờ hiện tại
     var colors = ['#AEC6CF', '#FFB7B2', '#C3B1E1', '#FFDAC1', '#FFB6C1', '#B5EAD7', '#FFDFBA', '#FDFD96', '#B3E5FC', '#FADADD', '#FFABAB', '#FFC8A2', '#FFB4A2', '#B2EBF2', '#FFCCBC', '#FFECB3'];
     /* Bôi màu cho menu hiện tại thoôi nhìn gì?*/
@@ -529,7 +542,7 @@
         });
     });
     /* Đây mới là phần chính của AngularJS nè =))*/
-    var app = angular.module('myApp', ['ngRoute', 'ngTable']);
+    var app = angular.module('myApp', ['ngRoute', 'ngTable', 'ngMessages']);
     app.controller('myCtrl', function ($scope, $http, NgTableParams, $filter, $timeout) {
         $(document).ready(function () {
             $scope.date = new Date().toLocaleString();
@@ -566,7 +579,7 @@
         });
         $scope.getCurrentDate = function (date) {
             if (date) {
-                return $filter('date')(new Date() - 7 * 24 * 60 * 60 * 1000, 'yyyy-MM-dd');
+                return $filter('date')(new Date() - 6 * 24 * 60 * 60 * 1000, 'yyyy-MM-dd');
             }
             return $filter('date')(new Date(), 'yyyy-MM-dd');
         };
@@ -582,7 +595,10 @@
                 // PET TABLE
                 $scope.petsTable = new NgTableParams({
                     page: 1,
-                    count: 5
+                    count: 5,
+                    sorting: {
+                        createDate: 'desc'
+                    }
                 }, {
                     counts: ['Hiển thị', '5', '10', '20', '30', '50', $scope.petData.length],
                     dataset: $scope.petData
@@ -652,9 +668,7 @@
                 available: false,
                 photo: 'pet-placeholder.png',
                 enable: true,
-                petCategoryID: {
-                    id: 1
-                }
+                petCategoryID: $scope.petCategoryData[0]
             };
             var addPetModal = new bootstrap.Modal(document.getElementById('addPetModal'), {
                 keyboard: true
@@ -672,7 +686,7 @@
                 });
             } else {
                 $http.get(baseUrl + 'pet/' + petID).then(function (response) {
-                    if (response.data) { // Kiểm tra nếu có dữ liệu trả về
+                    if (response.data) {
                         new Notify({
                             title: 'Thông báo',
                             text: 'ID pet đã tồn tại!',
@@ -684,12 +698,17 @@
                         $http.post(baseUrl + 'pet', $scope.selectedPet).then(function (response) {
                             new Notify({
                                 title: 'Thông báo',
-                                text: 'Thêm mới thành công :' + petID,
+                                text: 'Thêm mới thành công',
                                 autoclose: true,
                                 status: 'success',
                                 autotimeout: 3000
                             });
                             $scope.getPets();
+                            var modalElement = document.getElementById('addPetModal');
+                            var hide = bootstrap.Modal.getInstance(modalElement);
+                            if (hide) {
+                                hide.hide();
+                            }
                         }).catch(function (error) {
                             new Notify({
                                 title: 'Thông báo',
@@ -777,12 +796,91 @@
             $scope.petsTable.filter({});
             $scope.petsTable.sorting({});
         };
+        $scope.updatePetEnable = function (petId, enable) {
+            $http.put(baseUrl + 'pet/' + petId + '/enable/' + enable).then(function (response) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Đã cập nhật trạng thái :' + petId,
+                    autoclose: true,
+                    status: 'success',
+                    autotimeout: 3000
+                });
+                $scope.getPets();
+            }).catch(function (error) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Lỗi khi cập nhật :' + petId,
+                    autoclose: true,
+                    status: 'warning',
+                    autotimeout: 3000
+                });
+            });
+            console.log(petId + '/' + enable);
+        };
+        $scope.updatePetAvailable = function (petId, available) {
+            $http.put(baseUrl + 'pet/' + petId + '/available/' + available).then(function (response) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Đã cập nhật trạng thái :' + petId,
+                    autoclose: true,
+                    status: 'success',
+                    autotimeout: 3000
+                });
+                Swal.close();
+                $scope.getPets();
+            }).catch(function (error) {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Lỗi khi cập nhật :' + petId,
+                    autoclose: true,
+                    status: 'warning',
+                    autotimeout: 3000
+                });
+                Swal.close();
+            });
+        };
+        $scope.checkEnterPetPrice = function (event, petId, petPrice) {
+            if (event.keyCode === 13) { // 13 là mã của phím Enter
+                $scope.updatePetPrice(petId, petPrice);
+                event.preventDefault(); // Ngăn chặn sự kiện mặc định của phím Enter
+            }
+        };
+        $scope.updatePetPrice = function (petId, petPrice) {
+            if (petPrice >= 10000 && petPrice <= 99999999) {
+                $http.put(baseUrl + 'pet/' + petId + '/price/' + petPrice).then(function (response) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Đã cập nhật giá :' + petId,
+                        autoclose: true,
+                        status: 'success',
+                        autotimeout: 3000
+                    });
+                    $scope.getPets();
+                }).catch(function (error) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Lỗi khi cập nhật :' + petId,
+                        autoclose: true,
+                        status: 'warning',
+                        autotimeout: 3000
+                    });
+                });
+            } else {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Giá phải lớn hơn 10.000 và nhỏ hơn 99.999.999',
+                    autoclose: true,
+                    status: 'error',
+                    autotimeout: 3000
+                });
+            }
+        };
         /*PRODUCT*/
         $scope.getProducts = function () {
             $http.get(baseUrl + 'product').then(function (response) {
                 $scope.productData = response.data;
-                $scope.productAvailableTrueLength = $scope.productData.filter(product => product.available === true).length;
-                $scope.productAvailableFalseLength = $scope.productData.filter(product => product.available === false).length;
+                $scope.productAvailableTrueLength = $scope.productData.filter(product => product.quantity > 0).length;
+                $scope.productAvailableFalseLength = $scope.productData.filter(product => product.quantity === 0).length;
                 $scope.productTotalQuantity = $scope.productData.filter(product => product.quantity).reduce((total, product) => total + product.quantity, 0);
                 $scope.productTotalPrice = $scope.productData.filter(product => product.price).reduce((total, product) => total + product.price * product.quantity, 0);
                 // PRODUCT TABLE
@@ -857,9 +955,8 @@
                 quantity: null,
                 available: true,
                 photo: 'product-placeholder.png',
-                productCategoryID: {
-                    id: 1
-                }
+                productCategoryID:
+                    $scope.productCategoryData[0]
             };
             var show = new bootstrap.Modal(document.getElementById('modalAddProduct'), {
                 keyboard: true
@@ -870,16 +967,21 @@
             $http.post(baseUrl + 'product', $scope.selectedProduct).then(function (response) {
                 new Notify({
                     title: 'Thông báo',
-                    text: 'Thêm mới thành công :',
+                    text: 'Thêm mới thành công',
                     autoclose: true,
                     status: 'success',
                     autotimeout: 3000
                 });
                 $scope.getProducts();
+                var modalElement = document.getElementById('modalAddProduct');
+                var hide = bootstrap.Modal.getInstance(modalElement);
+                if (hide) {
+                    hide.hide();
+                }
             }).catch(function (error) {
                 new Notify({
                     title: 'Thông báo',
-                    text: 'Lỗi khi thêm mới :',
+                    text: 'Lỗi khi thêm mới',
                     autoclose: true,
                     status: 'warning',
                     autotimeout: 3000
@@ -913,6 +1015,77 @@
                         status: 'warning',
                         autotimeout: 3000
                     });
+                });
+            }
+        };
+        $scope.checkEnterProductPrice = function (event, productId, productPrice) {
+            if (event.keyCode === 13) { // 13 là mã của phím Enter
+                $scope.updateProductPrice(productId, productPrice);
+                event.preventDefault(); // Ngăn việc submit form mặc định (nếu có)
+            }
+        };
+        $scope.updateProductPrice = function (productId, price) {
+            if (price <= 99999999 && price >= 10000) {
+                $http.put(baseUrl + 'product/' + productId + '/price/' + price).then(function (response) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Đã cập nhật giá :' + productId,
+                        autoclose: true,
+                        status: 'success',
+                        autotimeout: 3000
+                    });
+                    $scope.getProducts();
+                }).catch(function (error) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Lỗi khi cập nhật :' + productId,
+                        autoclose: true,
+                        status: 'warning',
+                        autotimeout: 3000
+                    });
+                });
+            } else {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Giá phải lớn hơn 10.000 và nhỏ hơn 99.999.999',
+                    autoclose: true,
+                    status: 'error',
+                    autotimeout: 3000
+                });
+            }
+        };
+        $scope.checkEnterProductQuantity = function (event, productId, productQuantity) {
+            if (event.keyCode === 13)
+                $scope.updateProductQuantity(productId, productQuantity);
+            event.preventDefault();
+        };
+        $scope.updateProductQuantity = function (productId, quantity) {
+            if (quantity <= 99999 && quantity >= 0) {
+                $http.put(baseUrl + 'product/' + productId + '/quantity/' + quantity).then(function (response) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Đã cập nhật số lượng :' + productId,
+                        autoclose: true,
+                        status: 'success',
+                        autotimeout: 3000
+                    });
+                    $scope.getProducts();
+                }).catch(function (error) {
+                    new Notify({
+                        title: 'Thông báo',
+                        text: 'Lỗi khi cập nhật :' + productId,
+                        autoclose: true,
+                        status: 'warning',
+                        autotimeout: 3000
+                    });
+                });
+            } else {
+                new Notify({
+                    title: 'Thông báo',
+                    text: 'Số lượng phải lớn hơn 0 và nhỏ hơn 9999',
+                    autoclose: true,
+                    status: 'error',
+                    autotimeout: 3000
                 });
             }
         };
@@ -1071,6 +1244,11 @@
                     autotimeout: 3000
                 });
                 $scope.getPetCategories();
+                var modalElement = document.getElementById('addPetCategoryModal');
+                var hide = bootstrap.Modal.getInstance(modalElement);
+                if (hide) {
+                    hide.hide();
+                }
             }).catch(function (error) {
                 new Notify({
                     title: 'Thông báo',
@@ -1216,6 +1394,11 @@
                     showConfirmButton: false
                 });
                 $scope.getProductCategories();
+                var modalElement = document.getElementById('addProductCategoryModal');
+                var hide = bootstrap.Modal.getInstance(modalElement);
+                if (hide) {
+                    hide.hide();
+                }
             }).catch(function (error) {
                 Swal.fire({
                     title: 'Lỗi!',
@@ -1503,70 +1686,167 @@
         $scope.getOrdersByDate = function (from, to) {
             const fromDate = $filter('date')(from, 'yyyy-MM-dd');
             const toDate = $filter('date')(to, 'yyyy-MM-dd');
-            $http.get('/api/order/filter', {params: {from: fromDate, to: toDate}})
+            $http.get('/api/order/filter/chart', {params: {from: fromDate, to: toDate}})
                 .then(function (response) {
-                    const ordersByDate = response.data;
-                    const dailyTotals = {};
-                    ordersByDate.forEach(order => {
-                        const orderDate = $filter('date')(order.orderDate, 'yyyy-MM-dd');
-                        if (!dailyTotals[orderDate]) {
-                            dailyTotals[orderDate] = 0;
-                        }
-                        dailyTotals[orderDate] += order.totalAmount;
+                    $scope.chartTotalRevenue = response.data;
+                    Highcharts.chart('revenueChart', {
+                        chart: {
+                            type: 'line'
+                        },
+                        title: {
+                            text: 'Biểu đồ thống kê doanh số từ ngày' + fromDate + ' đến ' + toDate
+                        },
+                        xAxis: {
+                            categories: $scope.chartTotalRevenue.map(item => item[0]).map(date => $filter('date')(date, 'dd/MM/yyyy'))
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Doanh thu (VNĐ)'
+                            }
+                        },
+                        series: [{
+                            name: 'Doanh thu',
+                            data: $scope.chartTotalRevenue.map(item => item[1])
+                        }]
                     });
-                    const labels = Object.keys(dailyTotals)
-                    const data = Object.values(dailyTotals);
-                    if (!$scope.orderChart) {
-                        $scope.orderChart = new Chart(document.getElementById('orderChart-Line').getContext('2d'), {
-                            type: 'bar',
-                            data: {
-                                labels: labels,
-                                datasets: [{
-                                    label: 'Tổng tiền ngày',
-                                    data: data,
-                                    backgroundColor: colors,
-                                    borderColor: colors,
-                                }]
-                            },
-                            options: {
-                                plugins: {
-                                    title: {
-                                        display: true,
-                                        text: 'Biểu đồ doanh thu theo ngày trong khoảng từ ' + fromDate + ' đến ' + toDate,
-                                        font: {
-                                            size: 20
-                                        }
-                                    },
-                                    legend: {
-                                        display: false
-                                    },
-                                    datalabels: {
-                                        display: true,
-                                        color: '#000',
-                                        font: {
-                                            weight: 'bold',
-                                            size: 14
-                                        },
-                                        anchor: 'end',
-                                        align: 'top',
-                                        formatter: function (value) {
-                                            return value.toLocaleString();
-                                        }
-                                    }
-                                }
-                            },
-                            plugins: [ChartDataLabels]
-                        });
-                    } else {
-                        $scope.orderChart.data.labels = labels;
-                        $scope.orderChart.data.datasets[0].data = data;
-                        $scope.orderChart.update();
-                    }
                 }, function (error) {
                     console.error('Lỗi khi lấy dữ liệu đơn hàng theo ngày:', error);
                 });
         };
+        $scope.getOrdersToday = function () {
+            $http.get('/api/order/filter', {params: {today: true}})
+                .then(function (response) {
+                    $scope.orderTodayData = response.data;
+                    $scope.totalOrderTodayPrice = $scope.orderTodayData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount;
+                        }, 0);
+                    $scope.totalOrderTodayPriceNoShip = $scope.orderTodayData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount - 50000;
+                        }, 0);
+                    $scope.totalOrderDaGiaoToday = $scope.orderTodayData.filter(order => order.orderStatusID.id === 4).length;
+                    $scope.totalOrderTodayDangXuLi = $scope.orderTodayData.filter(order => order.orderStatusID.id === 1).length;
+                    $scope.totalOrderTodayDangVanChuyen = $scope.orderTodayData.filter(order => order.orderStatusID.id === 3).length;
+                    $scope.totalOrderTodayDangDaGiao = $scope.orderTodayData.filter(order => order.orderStatusID.id === 4).length;
+
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng theo ngày:', error);
+                });
+        };
+        $scope.getOrdersWeek = function () {
+            $http.get('/api/order/filter', {params: {week: true}})
+                .then(function (response) {
+                    $scope.orderWeekData = response.data;
+                    $scope.totalOrderWeekPrice = $scope.orderWeekData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount;
+                        }, 0);
+                    $scope.totalOrderWeekPriceNoShip = $scope.orderWeekData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount - 50000;
+                        }, 0);
+                    $scope.totalOrderDaGiaoWeek = $scope.orderWeekData.filter(order => order.orderStatusID.id === 4).length;
+                    $scope.totalOrderWeekDangXuLi = $scope.orderWeekData.filter(order => order.orderStatusID.id === 1).length;
+                    $scope.totalOrderWeekDangVanChuyen = $scope.orderWeekData.filter(order => order.orderStatusID.id === 3).length;
+                    $scope.totalOrderWeekDangDaGiao = $scope.orderWeekData.filter(order => order.orderStatusID.id === 4).length;
+
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng 7 ngày:', error);
+                });
+        };
+        $scope.getOrdersMonth = function () {
+            $http.get('/api/order/filter', {params: {month: true}})
+                .then(function (response) {
+                    $scope.orderMonthData = response.data;
+                    $scope.totalOrderMonthPrice = $scope.orderMonthData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount;
+                        }, 0);
+                    $scope.totalOrderMonthPriceNoShip = $scope.orderMonthData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount - 50000;
+                        }, 0);
+                    $scope.totalOrderDaGiaoMonth = $scope.orderMonthData.filter(order => order.orderStatusID.id === 4).length;
+                    $scope.totalOrderMonthDangXuLi = $scope.orderMonthData.filter(order => order.orderStatusID.id === 1).length;
+                    $scope.totalOrderMonthDangVanChuyen = $scope.orderMonthData.filter(order => order.orderStatusID.id === 3).length;
+                    $scope.totalOrderMonthDangDaGiao = $scope.orderMonthData.filter(order => order.orderStatusID.id === 4).length;
+
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng theo tháng:', error);
+                });
+        };
+        $scope.getOrdersYear = function () {
+            $http.get('/api/order/filter', {params: {year: true}})
+                .then(function (response) {
+                    $scope.orderYearData = response.data;
+                    $scope.totalOrderYearPrice = $scope.orderYearData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount;
+                        }, 0);
+                    $scope.totalOrderYearPriceNoShip = $scope.orderYearData
+                        .filter(order => order.orderStatusID.id === 4)
+                        .reduce((total, order) => {
+                            return total + order.totalAmount - 50000;
+                        }, 0);
+                    $scope.totalOrderDaGiaoYear = $scope.orderYearData.filter(order => order.orderStatusID.id === 4).length;
+                    $scope.totalOrderYearDangXuLi = $scope.orderYearData.filter(order => order.orderStatusID.id === 1).length;
+                    $scope.totalOrderYearDangVanChuyen = $scope.orderYearData.filter(order => order.orderStatusID.id === 3).length;
+                    $scope.totalOrderYearDangDaGiao = $scope.orderYearData.filter(order => order.orderStatusID.id === 4).length;
+
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng theo năm:', error);
+                });
+        };
+        $scope.getTop5ProductDay = function () {
+            $http.get(baseUrl + 'order-detail/top5-product-day')
+                .then(function (response) {
+                    $scope.top5ProductDay = response.data;
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu top 5 sản phẩm bán chạy trong ngày:', error);
+                });
+        };
+        $scope.getTop5ProductWeek = function () {
+            $http.get(baseUrl + 'order-detail/top5-product-week')
+                .then(function (response) {
+                    $scope.top5ProductWeek = response.data;
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu top 5 sản phẩm bán chạy trong tuần:', error);
+                });
+        };
+        $scope.getTop5ProductMonth = function () {
+            $http.get(baseUrl + 'order-detail/top5-product-month')
+                .then(function (response) {
+                    $scope.top5ProductMonth = response.data;
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu top 5 sản phẩm bán chạy trong tháng:', error);
+                });
+        };
+        $scope.getTop5ProductYear = function () {
+            $http.get(baseUrl + 'order-detail/top5-product-year')
+                .then(function (response) {
+                    $scope.top5ProductYear = response.data;
+                }, function (error) {
+                    console.error('Lỗi khi lấy dữ liệu top 5 sản phẩm bán chạy trong năm:', error);
+                });
+        };
+        // RUN ORDER FILTER
         $scope.getOrdersByDate($scope.getCurrentDate(true), $scope.getCurrentDate());
+        $scope.getOrdersToday();
+        $scope.getOrdersWeek();
+        $scope.getOrdersMonth();
+        $scope.getOrdersYear();
+        $scope.getTop5ProductDay();
+        $scope.getTop5ProductWeek();
+        $scope.getTop5ProductMonth();
+        $scope.getTop5ProductYear();
         /*ORDER STATUS*/
         $scope.getOrderStatus = function () {
             $http.get(baseUrl + 'orderStatus').then(function (response) {
@@ -1864,6 +2144,11 @@
                     autotimeout: 3000
                 });
                 $scope.getSlideBar();
+                var modalElement = document.getElementById('addSlideBarModal');
+                var hide = bootstrap.Modal.getInstance(modalElement);
+                if (hide) {
+                    hide.hide();
+                }
             }).catch(function (error) {
                 new Notify({
                     title: 'Thông báo',
@@ -2034,6 +2319,11 @@
                             showConfirmButton: false
                         });
                         $scope.getVouchers();
+                        var modalElement = document.getElementById('addVoucherModal');
+                        var hide = bootstrap.Modal.getInstance(modalElement);
+                        if (hide) {
+                            hide.hide();
+                        }
                     }).catch(function (error) {
                         Swal.fire({
                             title: 'Lỗi!',
@@ -2079,7 +2369,6 @@
                 }
             });
         };
-
         $scope.deleteVoucher = function (voucherId) {
             Swal.fire({
                 title: 'Bạn có chắc chắn muôn xóa?',
@@ -2113,7 +2402,6 @@
         };
     });
 </script>
-
 <script>
     function sendNotification() {
         // Lấy giá trị của subject
@@ -2151,7 +2439,16 @@
             });
             return;
         }
-
+        Swal.fire({
+            title: 'Đang xử lý...',
+            text: 'Vui lòng chờ...',
+            icon: 'info',
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
         fetch('http://localhost:8080/api/subscriptions/send?subject='
             + encodeURIComponent(subject)
             + '&content='
@@ -2165,6 +2462,7 @@
                         text: 'Đã gửi Email thành công đến tất cả người đăng ký',
                         icon: 'success'
                     });
+                    Swal.close();
                 } else {
                     Swal.fire({
                         title: 'Thông Báo Lỗi',
