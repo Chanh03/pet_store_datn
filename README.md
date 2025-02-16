@@ -1,55 +1,61 @@
-<h1>Ninja Pet Shop</h1>
+# 🐾 Ninja Pet - Cửa hàng thú cưng
 
-<h2 id="colab">🤝 Thành viên</h2>
+![Ninja Pet](https://cdn.jsdelivr.net/gh/Chanh03/pet_store_datn@main/PetShop/src/main/resources/static/images/logo/logo-2.png
+)
+**Nền tảng mua bán các sản phẩm dành cho thú cưng**
 
-<p>Trân trọng cảm ơn những người đã tham gia dự án tốt nghiệp. Hy vọng các bạn gặt hái được nhiều thành công trên con đường đã chọn</p>
-<table>
-<tr>
+## 🚀 Giới thiệu
+Ninja Pet là một nền tảng trực tuyến giúp người dùng dễ dàng mua bán các sản phẩm dành cho thú cưng. Dự án này được phát triển như một phần của đồ án tốt nghiệp chuyên ngành Phát Triển Phần Mềm.
 
-<td align="center">
-<a href="https://github.com/PhamNhatHoang">
-<img src="https://thanhcongfarm.com/wp-content/uploads/2022/05/anh-cho-hai-20.jpg" width="100px;" alt="Phạm Nhật Hoàng Profile Picture"/><br>
-<sub>
-<b>Phạm Nhật Hoàng</b>
-</sub>
-</a>
-</td>
+## 🛠 Công nghệ sử dụng
+### 🔹 CSDL
+- SQL Server
 
-<td align="center">
-<a href="https://github.com/ShaanCoding">
-<img src="https://thanhcongfarm.com/wp-content/uploads/2022/05/anh-cho-hai-20.jpg" width="100px;" alt="Đỗ Minh Tâm Profile Picture"/><br>
-<sub>
-<b>Đỗ Minh Tâm</b>
-</sub>
-</a>
-</td>
+### 🔹 Backend
+- Java
+- Spring Boot
+- Spring JPA, Hibernate
+- Spring Security 6
+- OAuth2
 
-<td align="center">
-<a href="https://github.com/tamXinchao">
-<img src="https://thanhcongfarm.com/wp-content/uploads/2022/05/anh-cho-hai-20.jpg" width="100px;" alt="Lê Hoàng Hiền Profile Picture"/><br>
-<sub>
-<b>Lê Hoàng Hiền</b>
-</sub>
-</a>
-</td>
+### 🔹 Frontend
+- AngularJS
+- HTML, CSS, JavaScript, jQuery, Bootstrap 5
 
-<td align="center">
-<a href="https://github.com/Chanh03">
-<img src="https://thanhcongfarm.com/wp-content/uploads/2022/05/anh-cho-hai-20.jpg" width="100px;" alt="Ngô Việt Anh Profile Picture"/><br>
-<sub>
-<b>Ngô Việt Anh</b>
-</sub>
-</a>
-</td>
+## 📌 Tính năng chính
+✅ Quản lý sản phẩm & thú cưng  
+✅ Quản lý người dùng, phân quyền  
+✅ Đăng nhập, đăng ký (Username & Password hoặc Google, Facebook)  
+✅ Gửi email xác nhận tài khoản, đơn hàng & các sự kiện quan trọng  
+✅ Trang admin đầy đủ chức năng
 
-<td align="center">
-<a href="https://github.com/PhamNhatHoang">
-<img src="https://thanhcongfarm.com/wp-content/uploads/2022/05/anh-cho-hai-20.jpg" width="100px;" alt="Nguyễn Trọng Phúc Profile Picture"/><br>
-<sub>
-<b>Nguyễn Trọng Phúc</b>
-</sub>
-</a>
-</td>
+## 👨‍💻 Thành viên dự án
+- 🏆 **Quản lý & Hỗ trợ:** *[Chemyth]* - Thiết kế CSDL, viết base code, giao diện, hỗ trợ team
+- 👨‍💻 **Nhóm phát triển:** 5 thành viên
 
-</tr>
-</table>
+## 📂 Cấu trúc thư mục
+```bash
+NinjaPet/
+├── backend/   # Code backend với Spring Boot
+├── frontend/  # Code frontend với AngularJS
+├── docs/      # Tài liệu dự án
+└── README.md  # Tài liệu mô tả dự án
+```
+
+## ⚡ Cài đặt & chạy dự án
+### 🔹 Backend
+```bash
+cd backend
+mvn spring-boot:run
+```
+
+## 🔒 Bảo mật
+- Sử dụng **Spring Security 6** để quản lý xác thực & phân quyền.
+- Dữ liệu người dùng được mã hóa để bảo vệ thông tin cá nhân.
+- Hệ thống gửi email xác nhận cho các giao dịch quan trọng.
+
+## 📬 Liên hệ
+📧 Email: [Liên hệ](ngovietanh121@example.com).
+🌐 Website: [Loading 99%](/).
+
+📌 **Hãy tham gia cùng chúng tôi để tạo ra một cộng đồng yêu thú cưng tuyệt vời!** 🐶🐱
