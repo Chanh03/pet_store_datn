@@ -1,169 +1,62 @@
-<h1 align="center" style="font-weight: bold;">JavaNinjas💻</h1>
+# 🐾 Ninja Pet - Cửa hàng thú cưng
 
-<p align="center">
-<a href="#tech">Technologies</a>
-<a href="#started">Getting Started</a>
-<a href="#routes">API Endpoints</a>
-<a href="#colab">Hợp tác</a>
-<a href="#contribute">Hỗ trợ</a> 
-</p>
+![Ninja Pet](https://cdn.jsdelivr.net/gh/Chanh03/pet_store_datn@main/PetShop/src/main/resources/static/images/logo/logo-2.png
+)
+**Nền tảng mua bán các sản phẩm dành cho thú cưng**
 
+## 🚀 Giới thiệu
+Ninja Pet là một nền tảng trực tuyến giúp người dùng dễ dàng mua bán các sản phẩm dành cho thú cưng. Dự án này được phát triển như một phần của đồ án tốt nghiệp chuyên ngành Phát Triển Phần Mềm.
 
-<p align="center">Dự án JavaNinJas làm về đề tài trang bán đồ cho Làng Lá</p>
+## 🛠 Công nghệ sử dụng
+### 🔹 CSDL
+- SQL Server
 
+### 🔹 Backend
+- Java
+- Spring Boot
+- Spring JPA, Hibernate
+- Spring Security 6
+- OAuth2
 
-<p align="center">
-<a href="https://github.com/PhamNhatHoang/DATN_Fpoly">📱 Tham khảo trang</a>
-</p>
+### 🔹 Frontend
+- AngularJS
+- HTML, CSS, JavaScript, jQuery, Bootstrap 5
 
-<h2 id="technologies">💻 Công nghệ sử dụng</h2>
+## 📌 Tính năng chính
+✅ Quản lý sản phẩm & thú cưng  
+✅ Quản lý người dùng, phân quyền  
+✅ Đăng nhập, đăng ký (Username & Password hoặc Google, Facebook)  
+✅ Gửi email xác nhận tài khoản, đơn hàng & các sự kiện quan trọng  
+✅ Trang admin đầy đủ chức năng
 
-AngularJS, Thymeleaf, Spring Boot, API Payment
+## 👨‍💻 Thành viên dự án
+- 🏆 **Quản lý & Hỗ trợ:** *[Chemyth]* - Thiết kế CSDL, viết base code, giao diện, hỗ trợ team
+- 👨‍💻 **Nhóm phát triển:** 5 thành viên
 
-<h2 id="started">🚀 Bắt đầu!</h2>
-
-Để chạy được dự án này bạn cần làm các bước sau
-
-<h3>Prerequisites</h3>
-
-Here you list all prerequisites necessary for running your project. For example:
-
-- [NodeJS](https://github.com/)
-- [Git 2](https://github.com)
-
-<h3>Cloning</h3>
-
-Cách để clone dự án về máy:
-
+## 📂 Cấu trúc thư mục
 ```bash
-git clone https://github.com/PhamNhatHoang/DATN_Fpoly.git
+NinjaPet/
+├── backend/   # Code backend với Spring Boot
+├── frontend/  # Code frontend với AngularJS
+├── docs/      # Tài liệu dự án
+└── README.md  # Tài liệu mô tả dự án
 ```
 
-<h3>Config .env variables</h2>
-
-Use the `.env.example` as reference to create your configuration file `.env` with your AWS Credentials
-
-```yaml
-NODE_AWS_REGION=us-east-1
-NODE_AWS_KEY_ID={YOUR_AWS_KEY_ID}
-NODE_AWS_SECRET={YOUR_AWS_SECRET}
-```
-
-<h3>Bắt đầu</h3>
-
-How to start your project
-
+## ⚡ Cài đặt & chạy dự án
+### 🔹 Backend
 ```bash
-cd project-name
-npm some-command-to-run
+cd backend
+mvn spring-boot:run
 ```
 
-<h2 id="routes">📍 API Endpoints</h2>
+## 🔒 Bảo mật
+- Sử dụng **Spring Security 6** để quản lý xác thực & phân quyền.
+- Dữ liệu người dùng được mã hóa để bảo vệ thông tin cá nhân.
+- Hệ thống gửi email xác nhận cho các giao dịch quan trọng.
 
-Here you can list the main routes of your API, and what are their expected request bodies.
-​
-| route | description                                          
-|----------------------|-----------------------------------------------------
-| <kbd>GET /authenticate</kbd>     | retrieves user info see [response details](#get-auth-detail)
-| <kbd>POST /authenticate</kbd>     | authenticate user into the api see [request details](#post-auth-detail)
+## 📬 Liên hệ
+📧 Email: [Liên hệ](ngovietanh121@example.com).
+🌐 Website: [Loading 99%](/).
 
-<h3 id="get-auth-detail">GET /authenticate</h3>
+📌 **Hãy tham gia cùng chúng tôi để tạo ra một cộng đồng yêu thú cưng tuyệt vời!** 🐶🐱
 
-**RESPONSE**
-
-```json
-{
-  "name": "Fernanda Kipper",
-  "age": 20,
-  "email": "her-email@gmail.com"
-}
-```
-
-<h3 id="post-auth-detail">POST /authenticate</h3>
-
-**REQUEST**
-
-```json
-{
-  "username": "fernandakipper",
-  "password": "4444444"
-}
-```
-
-**RESPONSE**
-
-```json
-{
-  "token": "OwoMRHsaQwyAgVoc3OXmL1JhMVUYXGGBbCTK0GBgiYitwQwjf0gVoBmkbuyy0pSi"
-}
-```
-
-<h2 id="colab">🤝 Thành viên</h2>
-
-<p>Trân trọng cảm ơn những người đã tham gia dự án tốt nghiệp. Hy vọng các bạn gặt hái được nhiều thành công trên con đường đã chọn</p>
-<table>
-<tr>
-
-<td align="center">
-<a href="https://github.com/PhamNhatHoang">
-<img src="https://thanhcongfarm.com/wp-content/uploads/2022/05/anh-cho-hai-20.jpg" width="100px;" alt="Phạm Nhật Hoàng Profile Picture"/><br>
-<sub>
-<b>Phạm Nhật Hoàng</b>
-</sub>
-</a>
-</td>
-
-<td align="center">
-<a href="https://github.com/ShaanCoding">
-<img src="https://thanhcongfarm.com/wp-content/uploads/2022/05/anh-cho-hai-20.jpg" width="100px;" alt="Đỗ Minh Tâm Profile Picture"/><br>
-<sub>
-<b>Đỗ Minh Tâm</b>
-</sub>
-</a>
-</td>
-
-<td align="center">
-<a href="https://github.com/tamXinchao">
-<img src="https://thanhcongfarm.com/wp-content/uploads/2022/05/anh-cho-hai-20.jpg" width="100px;" alt="Lê Hoàng Hiền Profile Picture"/><br>
-<sub>
-<b>Lê Hoàng Hiền</b>
-</sub>
-</a>
-</td>
-
-<td align="center">
-<a href="https://github.com/Chanh03">
-<img src="https://thanhcongfarm.com/wp-content/uploads/2022/05/anh-cho-hai-20.jpg" width="100px;" alt="Ngô Việt Anh Profile Picture"/><br>
-<sub>
-<b>Ngô Việt Anh</b>
-</sub>
-</a>
-</td>
-
-<td align="center">
-<a href="https://github.com/PhamNhatHoang">
-<img src="https://thanhcongfarm.com/wp-content/uploads/2022/05/anh-cho-hai-20.jpg" width="100px;" alt="Nguyễn Trọng Phúc Profile Picture"/><br>
-<sub>
-<b>Nguyễn Trọng Phúc</b>
-</sub>
-</a>
-</td>
-
-</tr>
-</table>
-
-<h2 id="contribute">📫 Đóng góp</h2>
-
-Here you will explain how other developers can contribute to your project. For example, explaining how can create their
-branches, which patterns to follow and how to open an pull request
-
-1. `git clone https://github.com/PhamNhatHoang/DATN_Fpoly.git`
-2. `git checkout -b feature/YOUR_BRANCH`
-3. Thực hiện theo các cam kết
-4. Mở Pull Request và chờ
-
-<h3>Thông tin có thể hữu ích</h3>
-
-[📝 How to create a Pull Request](https://www.atlassian.com/br/git/tutorials/making-a-pull-request)
-
-[💾 Commit pattern](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)
